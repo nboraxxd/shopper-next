@@ -1,5 +1,9 @@
 import type { Metadata } from 'next'
 import { Montserrat as FontSans } from 'next/font/google'
+
+import { cn } from '@/utils'
+
+import { ThemeProvider } from '@/components/provider'
 import './globals.css'
 
 const fontSans = FontSans({
@@ -20,7 +24,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${fontSans.className} ${fontSans.variable} antialiased`}>{children}</body>
+      <body className={cn('antialiased', fontSans.className, fontSans.variable)}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }

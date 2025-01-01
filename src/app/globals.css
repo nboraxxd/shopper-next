@@ -4,14 +4,15 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --background: 0 0% 96.5%; /* #f6f6f6 - light-2 */
+    --foreground: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card: 0 0% 100%; /* #fff - light-1 */
+    --card-foreground: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%; /* #fff - light-1 */
+    --popover-foreground: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
+    --popover-shadow: 0px 40px 90px 20px rgb(200 200 200 / 0.4);
 
     --primary: 240 5.9% 10%;
     --primary-foreground: 0 0% 98%;
@@ -28,6 +29,8 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
+    --frame: 0 0% 100%; /* #fff - light-1 */
+
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
 
@@ -38,16 +41,20 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+
+    --section-shadow: 0px 20px 60px 10px rgb(237 237 246 / 0.2);
   }
+
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
+    --foreground: 0 0% 100%; /* #fff - light-1 */
 
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+    --card-foreground: 0 0% 100%; /* #fff - light-1 */
 
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
+    --popover-foreground: 228 3.7% 73.5%; /* #b9babe - dark-3 */
+    --popover-shadow: 0px 40px 90px 20px rgb(0 0 0 / 0.4);
 
     --primary: 0 0% 98%;
     --primary-foreground: 240 5.9% 10%;
@@ -64,6 +71,8 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
+    --frame: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
 
@@ -73,10 +82,32 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+
+    --section-shadow: 0px 20px 60px 10px rgb(23 28 40 / 0.2);
+  }
+
+  @screen md {
+    :root {
+      --frame: 0 0% 93.3%; /* #eee - light-3 */
+    }
+
+    .dark {
+      --frame: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+    }
   }
 }
 
 @layer base {
+  :root {
+    --header-height: 5.125rem; /* 82px */
+  }
+
+  @screen lg {
+    :root {
+      --header-height: 5.625rem; /* 90px */
+    }
+  }
+
   * {
     @apply border-border;
   }

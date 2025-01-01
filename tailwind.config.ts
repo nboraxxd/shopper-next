@@ -10,6 +10,13 @@ export default {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: '1rem',
+      screens: {
+        '2xl': '1400px',
+      },
+    },
     extend: {
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans],
@@ -45,6 +52,7 @@ export default {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
         },
+        frame: 'hsl(var(--frame))',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -60,6 +68,25 @@ export default {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      boxShadow: {
+        section: 'var(--section-shadow)',
+        popover: 'var(--popover-shadow)',
+      },
+      spacing: {
+        'header-height': 'var(--header-height)',
+      },
+      fontSize: {
+        /** 15px size / 146.667% height / regular */
+        'regular-15': ['0.9375rem', { lineHeight: '146.667%', fontWeight: '400' }],
+        /** 15px size / 146.667% height / medium */
+        'medium-15': ['0.9375rem', { lineHeight: '146.667%', fontWeight: '500' }],
+        /** 16px size / 150% height / regular */
+        'regular-16': ['1rem', { lineHeight: '150%', fontWeight: '400' }],
+        /** 16px size / 150% height / medium */
+        'medium-16': ['1rem', { lineHeight: '150%', fontWeight: '500' }],
+        /** 22px size / 145.455% height / bold */
+        'bold-22': ['1.375rem', { lineHeight: '145.455%', fontWeight: '700' }],
       },
     },
   },
