@@ -20,9 +20,9 @@ export default function ModeToggle() {
           key={value}
           value={value}
           aria-label={`Toggle ${value}`}
-          className="size-7 min-w-7 rounded-full"
+          className="group size-7 min-w-7 rounded-full"
         >
-          <Icon className="size-4" />
+          <Icon className="size-4 transition-transform group-hover:scale-110" />
         </ToggleGroupItem>
       ))}
     </ToggleGroup>

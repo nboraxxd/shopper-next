@@ -14,11 +14,11 @@
     --popover-foreground: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
     --popover-shadow: 0px 40px 90px 20px rgb(200 200 200 / 0.4);
 
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 43.1 100% 50%; /* #ffb700 - primary-yellow */
+    --primary-foreground: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --secondary: 0 0% 100%; /* #fff - light-1 */
+    --secondary-foreground: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
 
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
@@ -29,7 +29,8 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --frame: 0 0% 100%; /* #fff - light-1 */
+    --header: 0 0% 100%; /* #fff - light-1 */
+    --footer: 0 0% 100%; /* #fff - light-1 */
 
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
@@ -40,7 +41,11 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+
+    --radius: 0.5rem; /* 8px */
+    --container-gutter: 1.875rem; /* 30px */
+    --header-height: 5.125rem; /* 82px */
+    --sheet-header-height: 4.5rem; /* 72px */
 
     --section-shadow: 0px 20px 60px 10px rgb(237 237 246 / 0.2);
   }
@@ -56,11 +61,11 @@
     --popover-foreground: 228 3.7% 73.5%; /* #b9babe - dark-3 */
     --popover-shadow: 0px 40px 90px 20px rgb(0 0 0 / 0.4);
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
+    --primary: 43.1 100% 50%; /* #ffb700 - primary-yellow */
+    --primary-foreground: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
 
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
+    --secondary-foreground: 0 0% 100%; /* #fff - light-1 */
 
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
@@ -71,7 +76,8 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
-    --frame: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+    --header: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+    --footer: 222.4 27% 12.4%; /* #171c28 - dark-1 */
 
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
@@ -88,18 +94,14 @@
 
   @screen md {
     :root {
-      --frame: 0 0% 93.3%; /* #eee - light-3 */
+      --header: 0 0% 93.3%; /* #eee - light-3 */
+      --footer: 0 0% 93.3%; /* #eee - light-3 */
     }
 
     .dark {
-      --frame: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+      --header: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+      --footer: 222.4 27% 12.4%; /* #171c28 - dark-1 */
     }
-  }
-}
-
-@layer base {
-  :root {
-    --header-height: 5.125rem; /* 82px */
   }
 
   @screen lg {
@@ -107,7 +109,9 @@
       --header-height: 5.625rem; /* 90px */
     }
   }
+}
 
+@layer base {
   * {
     @apply border-border;
   }
