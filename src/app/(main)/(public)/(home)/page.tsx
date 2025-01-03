@@ -1,10 +1,14 @@
-import { HeroSection } from './_components'
+import { BestSellerSection, CategoriesSection, HeroSection, PromotionSection } from './_components'
 
 export default function Homepage() {
   return (
     <div>
       <HeroSection />
-      <main></main>
+      <main className="container">
+        <CategoriesSection />
+        <BestSellerSection />
+      </main>
+      <PromotionSection />
     </div>
   )
 }
