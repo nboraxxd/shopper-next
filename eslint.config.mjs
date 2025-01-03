@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url'
 import tseslint from 'typescript-eslint'
 import { FlatCompat } from '@eslint/eslintrc'
 import tailwind from 'eslint-plugin-tailwindcss'
+import pluginQuery from '@tanstack/eslint-plugin-query'
 import eslintPluginPrettier from 'eslint-plugin-prettier'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -18,6 +19,7 @@ const eslintConfig = [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   ...tailwind.configs['flat/recommended'],
+  ...pluginQuery.configs['flat/recommended'],
   {
     plugins: {
       prettier: eslintPluginPrettier,

@@ -1,3 +1,10 @@
+import { HeroSection } from './_components'
+
 export default function Homepage() {
-  return <main className="grow">Hello, world!</main>
+  return (
+    <div>
+      <HeroSection />
+      <main></main>
+    </div>
+  )
 }
