@@ -2,6 +2,8 @@ import type { Config } from 'tailwindcss'
 import tailwindcssAnimate from 'tailwindcss-animate'
 import { fontFamily } from 'tailwindcss/defaultTheme'
 
+import customPlugin from './tailwind-plugin'
+
 export default {
   darkMode: ['class'],
   content: [
@@ -102,29 +104,34 @@ export default {
         'sheet-header-height': 'var(--sheet-header-height)',
       },
       fontSize: {
+        /** 12px size / 1rem height */
+        xs: ['0.75rem', { lineHeight: '1rem' }],
+        /** 14px size / 142.857% height */
+        sm: ['0.875rem', { lineHeight: '142.857%' }],
         /** 16px size / 150% height */
-        base: ['1rem', '150%'],
-        /** 14px size / 142.857% height / medium */
-        'medium-14': ['0.875rem', { lineHeight: '142.857%', fontWeight: '500' }],
-        /** 14px size / 142.857% height / bold */
-        'bold-14': ['0.875rem', { lineHeight: '142.857%', fontWeight: '700' }],
-        /** 15px size / 146.667% height / medium */
-        'medium-15': ['0.9375rem', { lineHeight: '146.667%', fontWeight: '500' }],
-        /** 15px size / 146.667% height / bold */
-        'bold-15': ['0.9375rem', { lineHeight: '146.667%', fontWeight: '700' }],
-        /** 16px size / 150% height / regular */
-        'regular-16': ['1rem', { lineHeight: '150%', fontWeight: '400' }],
-        /** 16px size / 150% height / medium */
-        'medium-16': ['1rem', { lineHeight: '150%', fontWeight: '500' }],
-        /** 18px size / 144.444% height / medium */
-        'medium-18': ['1.125rem', { lineHeight: '144.444%', fontWeight: '500' }],
-        /** 18px size / 144.444% height / bold */
-        'bold-18': ['1.125rem', { lineHeight: '144.444%', fontWeight: '700' }],
-        /** 22px size / 145.455% height / bold */
-        'bold-22': ['1.375rem', { lineHeight: '145.455%', fontWeight: '700' }],
+        base: ['1rem', { lineHeight: '150%' }],
+        /** 18px size / 144.444% height */
+        lg: ['1.125rem', { lineHeight: '144.444%' }],
+        /** 22px size / 145.455% height */
+        xl: ['1.375rem', { lineHeight: '145.455%' }],
+        /** 24px size / 141.667% height */
+        '2xl': ['1.5rem', { lineHeight: '141.667%' }],
+        /** 26px size / 138.462% height */
+        '3xl': ['1.625rem', { lineHeight: '138.462%' }],
+        /** 30px size / 146.667% height */
+        '4xl': ['1.875rem', { lineHeight: '146.667%' }],
+        /** 36px size / 138.889% height */
+        '5xl': ['2.25rem', { lineHeight: '138.889%' }],
+        /** 42px size / 142.857% height */
+        '6xl': ['2.625rem', { lineHeight: '142.857%' }],
+        /** 48px size / 1 height */
+        '7xl': ['3rem', { lineHeight: '1' }],
+        /** 60px size / 1 height */
+        '8xl': ['3.75rem', { lineHeight: '1' }],
+        /** 72px size / 1 height */
+        '9xl': ['4.5rem', { lineHeight: '1' }],
       },
     },
   },
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  plugins: [tailwindcssAnimate, require('./tailwind-plugin.cts')],
+  plugins: [tailwindcssAnimate, customPlugin],
 } satisfies Config

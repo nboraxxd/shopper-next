@@ -46,7 +46,7 @@ export default function Header() {
               <nav className="grid gap-6 text-lg font-medium">
                 <Link href="/" className="mx-auto flex items-center gap-2 p-1.5 md:mx-0 lg:gap-3.5 lg:p-2">
                   <ShopperIcon className="size-6 lg:size-8" />
-                  <span className="text-bold-18 lg:text-bold-22">Shopper</span>
+                  <span className="text-lg font-bold lg:text-xl">Shopper</span>
                 </Link>
               </nav>
             </SheetContent>
@@ -55,14 +55,14 @@ export default function Header() {
 
         <Link href="/" className="mx-auto flex items-center gap-2 p-1.5 md:mx-0 lg:gap-3.5 lg:p-2">
           <ShopperIcon className="size-6 lg:size-8" />
-          <span className="text-bold-18 lg:text-bold-22">Shopper</span>
+          <span className="text-lg font-bold lg:text-xl">Shopper</span>
         </Link>
 
         <nav className="max-lg:hidden lg:ml-10 xl:ml-32">
           <ul className="flex items-center">
             {NAVBAR.map(({ href, label }) => (
               <li key={href}>
-                <Link href={href} className="flex items-center px-4 py-2 text-medium-15">
+                <Link href={href} className="flex items-center px-4 py-2 font-medium">
                   {label}
                 </Link>
               </li>

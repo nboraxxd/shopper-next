@@ -47,7 +47,7 @@ export default function ProductCard({ product, category, className }: Props) {
 
       <CardContent className="flex grow flex-col gap-3 p-3 md:gap-4 md:p-4">
         {/* Name */}
-        <CardTitle className="text-medium-14 md:text-medium-16">
+        <CardTitle className="text-sm font-medium md:text-base">
           <Link href={`/${product.slug}`} className="line-clamp-2">
             {product.name}
           </Link>

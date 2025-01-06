@@ -1,6 +1,6 @@
 import plugin from 'tailwindcss/plugin'
 
-module.exports = plugin(function ({ addComponents }) {
+const customPlugin = plugin(function ({ addComponents }) {
   addComponents({
     '.container': {
       maxWidth: '100%',
@@ -26,3 +26,5 @@ module.exports = plugin(function ({ addComponents }) {
     },
   })
 })
+
+export default customPlugin
