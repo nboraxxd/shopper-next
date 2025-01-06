@@ -85,7 +85,6 @@ function Category({ href, title, image }: { href: Url; title: string; image: str
           width={96}
           height={96}
           className="size-16 object-contain md:size-20 xl:size-24"
-          unoptimized
         />
       </div>
       <h3 className="text-balance text-center text-xs font-medium capitalize xl:text-sm">{title}</h3>

@@ -3,7 +3,7 @@
 import { useTheme } from 'next-themes'
 
 import { useIsClient } from '@/hooks'
-import { THEMES } from '@/app/(main)/constants'
+import { THEMES } from '@/app/(main)/_constants'
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'

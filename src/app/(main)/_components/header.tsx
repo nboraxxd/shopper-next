@@ -1,10 +1,24 @@
 import Link from 'next/link'
 import * as SheetPrimitive from '@radix-ui/react-dialog'
 
-import { NAVBAR } from '@/app/(main)/constants'
 import { Button } from '@/components/ui/button'
 import { ArrowLeftIcon, HamburgerIcon, SearchIcon, ShopperIcon } from '@/assets/icons'
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+
+export const NAVBAR = [
+  {
+    href: '/san-pham',
+    label: 'Sản phẩm',
+  },
+  {
+    href: '/laptop-thiet-bi-it/1846',
+    label: 'Laptop',
+  },
+  {
+    href: '/dien-thoai-may-tinh-bang/1789',
+    label: 'Điện thoại',
+  },
+] as const
 
 export default function Header() {
   return (

@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export default function PromotionSection() {
   return (
-    <section className="pb-16 lg:pb-24">
+    <section>
       <div className="overflow-hidden pt-32 sm:pt-14">
         <div className="bg-gray-800">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

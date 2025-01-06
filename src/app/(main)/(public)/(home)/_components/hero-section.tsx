@@ -19,7 +19,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-dark-1 opacity-60" />
       <div className="flex">
         <div className="relative mx-auto flex max-w-3xl flex-col items-center px-6 py-32 text-center sm:py-64 lg:px-0">
-          <h1 className="text-4xl font-bold tracking-tight text-light-2 lg:text-6xl">Xu hướng mới</h1>
+          <h2 className="text-4xl font-bold tracking-tight text-light-2 lg:text-6xl">Xu hướng mới</h2>
           <p className="mt-4 text-balance text-xl text-light-2">
             Cập nhật xu hướng mới nhất từ các nhà thiết kế hàng đầu thế giới.
           </p>

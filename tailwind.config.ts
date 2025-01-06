@@ -104,10 +104,14 @@ export default {
       fontSize: {
         /** 16px size / 150% height */
         base: ['1rem', '150%'],
-        /** 15px size / 146.667% height / regular */
-        'regular-15': ['0.9375rem', { lineHeight: '146.667%', fontWeight: '400' }],
+        /** 14px size / 142.857% height / medium */
+        'medium-14': ['0.875rem', { lineHeight: '142.857%', fontWeight: '500' }],
+        /** 14px size / 142.857% height / bold */
+        'bold-14': ['0.875rem', { lineHeight: '142.857%', fontWeight: '700' }],
         /** 15px size / 146.667% height / medium */
         'medium-15': ['0.9375rem', { lineHeight: '146.667%', fontWeight: '500' }],
+        /** 15px size / 146.667% height / bold */
+        'bold-15': ['0.9375rem', { lineHeight: '146.667%', fontWeight: '700' }],
         /** 16px size / 150% height / regular */
         'regular-16': ['1rem', { lineHeight: '150%', fontWeight: '400' }],
         /** 16px size / 150% height / medium */

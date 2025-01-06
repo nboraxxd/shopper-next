@@ -1,14 +1,15 @@
 import Link from 'next/link'
 
 import productApi from '@/api-requests/product.api'
+import { PRODUCT_LIST_QUERY_FIELDS } from '@/constants'
 import { ProductListFieldType, ProductType } from '@/types/product.type'
-import { productListQueryFields } from '@/constants'
-import { ProductCard } from '@/components/shared'
+
+import { ProductCard } from '@/app/(main)/_components'
 
 export default async function BestSellerSection() {
   const productsResponse = await productApi.getProductsFromServerToBackend<Pick<ProductType, ProductListFieldType>>({
-    fields: productListQueryFields,
-    limit: '6',
+    fields: PRODUCT_LIST_QUERY_FIELDS,
+    limit: '12',
     sort: 'top_sell',
   })
 
@@ -22,11 +23,19 @@ export default async function BestSellerSection() {
         </Link>
       </div>
 
-      <div className="mt-5 flex w-full gap-2 overflow-x-auto pb-3 md:gap-4">
-        {productsResponse.payload.data.map((product) => {
-          product.rating_average = 0
-          return <ProductCard key={product.id} product={product} className="w-28 shrink-0 grow md:w-36" />
-        })}
+      <div className="mt-5 overflow-x-auto">
+        <div className="flex gap-2 pb-3 md:gap-4">
+          {productsResponse.payload.data.slice(0, 6).map((product) => {
+            product.rating_average = 0
+            return <ProductCard key={product.id} product={product} className="w-28 shrink-0 grow md:w-36" />
+          })}
+        </div>
+        <div className="flex gap-2 pb-3 md:gap-4">
+          {productsResponse.payload.data.slice(6).map((product) => {
+            product.rating_average = 0
+            return <ProductCard key={product.id} product={product} className="w-28 shrink-0 grow md:w-36" />
+          })}
+        </div>
       </div>
 
       <div className="mt-6 px-4 sm:hidden">

@@ -15,8 +15,8 @@ const fontSans = FontSans({
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Smaller',
-    default: 'Smaller - Mua sắm trực tuyến dễ dàng hơn',
+    template: '%s | Shopper',
+    default: 'Shopper - Mua sắm trực tuyến dễ dàng hơn',
   },
   description:
     'Tiện lợi mua sắm hàng triệu mặt hàng, dịch vụ. Vô vàn ưu đãi freeship, mã giảm giá. Hoàn tiền 111% nếu giả. Đổi trả miễn phí trong 30 ngày. Đặt mua ngay!',
