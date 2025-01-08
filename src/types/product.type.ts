@@ -1,11 +1,11 @@
 import { FieldUnion, Paginate } from '@/types'
-import { productListQueryFields, productSortOptions } from '@/constants'
+import { PRODUCT_LIST_QUERY_FIELDS, PRODUCT_SORT_OPTIONS } from '@/constants'
 
-export type ProductSortOptionsKey = keyof typeof productSortOptions
+export type ProductSortOptionsKey = keyof typeof PRODUCT_SORT_OPTIONS
 
-export type ProductSortOptionsValue = (typeof productSortOptions)[ProductSortOptionsKey]
+export type ProductSortOptionsValue = (typeof PRODUCT_SORT_OPTIONS)[ProductSortOptionsKey]
 
-export type ProductListFieldType = FieldUnion<typeof productListQueryFields>
+export type ProductListFieldType = FieldUnion<typeof PRODUCT_LIST_QUERY_FIELDS>
 
 type Badge =
   | {

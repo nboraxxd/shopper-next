@@ -5,7 +5,11 @@ const PRODUCT_PREFIX = '/product'
 
 const productApi = {
   // API OF BACKEND SERVER
-  getCategoriesFromServerToBackend: () => http.get<CategoriesResponse>(`${PRODUCT_PREFIX}/categories`),
+  getCategoriesFromServerToBackend: () =>
+    http.get<CategoriesResponse>(`${PRODUCT_PREFIX}/categories`, {
+      cache: 'force-cache',
+      next: { tags: ['categories'] },
+    }),
 
   getProductsFromServerToBackend: <T>(params?: ProductParameters) =>
     http.get<ProductsResponse<T>>(`${PRODUCT_PREFIX}`, { params }),

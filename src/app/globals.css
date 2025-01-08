@@ -31,6 +31,7 @@
 
     --header: 0 0% 100%; /* #fff - light-1 */
     --footer: 0 0% 100%; /* #fff - light-1 */
+    --products-sidebar: 0 0% 93.3%; /* #eee - light-3 */
 
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
@@ -48,6 +49,8 @@
     --sheet-header-height: 4.5rem; /* 72px */
 
     --section-shadow: 0px 20px 60px 10px rgb(237 237 246 / 0.2);
+
+    --heading-3: 209.2 100% 43.1%; /* #0071dc - primary-blue */
   }
 
   .dark {
@@ -78,6 +81,7 @@
 
     --header: 222.4 27% 12.4%; /* #171c28 - dark-1 */
     --footer: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+    --products-sidebar: 222.4 27% 12.4%; /* #171c28 - dark-1 */
 
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
@@ -90,6 +94,8 @@
     --chart-5: 340 75% 55%;
 
     --section-shadow: 0px 20px 60px 10px rgb(23 28 40 / 0.2);
+
+    --heading-3: 43.1 100% 50%; /* #ffb700 - primary-yellow */
   }
 
   @screen md {
@@ -117,5 +123,17 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }

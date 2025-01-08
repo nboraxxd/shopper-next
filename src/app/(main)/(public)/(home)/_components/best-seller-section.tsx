@@ -17,7 +17,7 @@ export default async function BestSellerSection() {
     <section className="pt-16 lg:pt-24">
       <div className="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
         <h2 className="text-2xl font-bold tracking-tight text-foreground">Sản phẩm bán chạy</h2>
-        <Link href="/products" className="hidden text-sm font-semibold text-primary hover:text-primary/90 sm:block">
+        <Link href="/san-pham" className="hidden text-sm font-semibold text-heading-3 hover:text-heading-3/90 sm:block">
           Xem tất cả
           <span> &rarr;</span>
         </Link>
@@ -39,7 +39,7 @@ export default async function BestSellerSection() {
       </div>
 
       <div className="mt-6 px-4 sm:hidden">
-        <Link href="/products" className="block text-sm font-semibold text-primary hover:text-primary/90">
+        <Link href="/san-pham" className="block text-sm font-semibold text-primary hover:text-primary/90">
           Xem tất cả
           <span aria-hidden="true"> &rarr;</span>
         </Link>

@@ -1,6 +1,14 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/i,
+      use: ['@svgr/webpack'],
+    })
+
+    return config
+  },
   experimental: {
     turbo: {
       rules: {
@@ -18,16 +26,18 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '4000',
-        pathname: '/static/**',
-      },
       { protocol: 'https', hostname: 'tailwindui.com', pathname: '/plus/img/**' },
       { protocol: 'https', hostname: 'salt.tikicdn.com' },
       { protocol: 'https', hostname: 'firebasestorage.googleapis.com', pathname: '/v0/b/**' },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/san-pham',
+        destination: '/products',
+      },
+    ]
   },
 }
 

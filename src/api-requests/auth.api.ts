@@ -1,7 +1,8 @@
 import http from '@/utils/http'
-import envConfig from '@/constants/config'
+
 import { MessageResponse } from '@/types'
 import { AuthResponse, LoginReqBody } from '@/types/auth.type'
+import envVariables from '@/schemas/env-variables.schema'
 
 type RefreshTokenResponse = {
   data: Pick<AuthResponse['data'], 'accessToken'>
@@ -20,9 +21,10 @@ const authApi = {
 
   // API OF NEXT.JS SERVER
   loginFromBrowserToServer: (body: LoginReqBody) =>
-    http.post<AuthResponse>(`/api/auth/login`, body, { baseUrl: envConfig.NEXT_URL }),
+    http.post<AuthResponse>(`/api/auth/login`, body, { baseUrl: envVariables.NEXT_PUBLIC_URL }),
 
-  logoutFromBrowserToServer: () => http.post<MessageResponse>(`/api/auth/logout`, {}, { baseUrl: envConfig.NEXT_URL }),
+  logoutFromBrowserToServer: () =>
+    http.post<MessageResponse>(`/api/auth/logout`, {}, { baseUrl: envVariables.NEXT_PUBLIC_URL }),
 
   async refreshTokenFromBrowserToServer() {
     if (this.refreshTokenFromBrowserToServerRequest) {
@@ -32,7 +34,7 @@ const authApi = {
     this.refreshTokenFromBrowserToServerRequest = http.post<RefreshTokenResponse>(
       `/api/auth/refresh-token`,
       {},
-      { baseUrl: envConfig.NEXT_URL }
+      { baseUrl: envVariables.NEXT_PUBLIC_URL }
     )
 
     const response = await this.refreshTokenFromBrowserToServerRequest

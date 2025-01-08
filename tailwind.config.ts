@@ -66,6 +66,7 @@ export default {
         },
         header: 'hsl(var(--header))',
         footer: 'hsl(var(--footer))',
+        'products-sidebar': 'hsl(var(--products-sidebar))',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -86,6 +87,9 @@ export default {
           1: '#171C28',
           2: '#292E39',
           3: '#B9BABE',
+        },
+        heading: {
+          3: 'hsl(var(--heading-3))',
         },
       },
       borderRadius: {
