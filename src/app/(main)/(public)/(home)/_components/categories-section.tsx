@@ -4,7 +4,7 @@ import keyBy from 'lodash/keyBy'
 import { Url } from 'next/dist/shared/lib/router/router'
 
 import { extractCategorySlug } from '@/utils'
-import { CATEGORIES_IMAGE } from '@/constants/list'
+import { CATEGORIES_IMAGE } from '@main/_constants'
 import productApi from '@/api-requests/product.api'
 
 export default async function CategoriesSection() {
@@ -23,13 +23,13 @@ export default async function CategoriesSection() {
       </div>
 
       <div className="mt-5 grid grid-flow-col grid-rows-2 gap-5 overflow-x-auto pb-3 xl:mt-10 xl:gap-10">
-        <Category href="/san-pham" title="Tất cả sản phẩm" image="/images/categories/all.png" />
+        <CategoryItem href="/san-pham" title="Tất cả sản phẩm" image="/images/categories/all.png" />
         {categoriesResponse.payload.data.map((category) => {
           const categoryImage = categoriesImage[category.id].image
           const categorySlug = extractCategorySlug(category.slug)
 
           return (
-            <Category
+            <CategoryItem
               key={category.id}
               href={`/${categorySlug}/${category.id}`}
               title={category.title}
@@ -49,7 +49,7 @@ export default async function CategoriesSection() {
   )
 }
 
-function Category({ href, title, image }: { href: Url; title: string; image: string }) {
+function CategoryItem({ href, title, image }: { href: Url; title: string; image: string }) {
   return (
     <Link
       href={href}

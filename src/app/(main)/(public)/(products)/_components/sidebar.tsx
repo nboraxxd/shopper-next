@@ -2,9 +2,9 @@ import keyBy from 'lodash/keyBy'
 
 import { extractCategorySlug } from '@/utils'
 import { Category } from '@/types/product.type'
-import { CATEGORIES_IMAGE } from '@/constants/list'
+import { CATEGORIES_IMAGE } from '@main/_constants'
 
-import { CategoryItem } from '@/app/(main)/(public)/(products)/_components'
+import { CategoryItem } from '@products/_components'
 
 interface Props {
   categories: Category[]

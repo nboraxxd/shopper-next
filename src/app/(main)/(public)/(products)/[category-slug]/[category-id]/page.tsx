@@ -6,12 +6,18 @@ import { sanitizeProductsSearchParams } from '@products/_utils/server'
 
 import { ProductList, Sidebar } from '@products/_components'
 
-export default async function ProductPage(props: { searchParams: SearchParams }) {
+interface Props {
+  params: Promise<{ 'category-slug': string; 'category-id': string }>
+  searchParams: SearchParams
+}
+
+export default async function CategoryPage(props: Props) {
+  const params = await props.params
   const searchParams = await props.searchParams
 
   const categoriesResponse = await productServerApi.getCategoriesFromServerToBackend()
 
-  const productsSearchParams = sanitizeProductsSearchParams(searchParams)
+  const productsSearchParams = sanitizeProductsSearchParams({ ...searchParams, categoryId: params['category-id'] })
 
   return (
     <>
