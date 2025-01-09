@@ -1,4 +1,4 @@
-import { BestSellerSection, CategoriesSection, HeroSection, PromotionSection } from './_components'
+import { BestSellerSection, CategoriesSection, HeroSection, PromotionSection } from '@/features/home/components'
 
 export default function Homepage() {
   return (

@@ -1,21 +1,21 @@
 import { Suspense } from 'react'
 
-import { SearchParams } from '@/types'
-import { productServerApi } from '@products/_api/server'
-import { sanitizeProductsSearchParams } from '@products/_utils/server'
+import type { SearchParams } from '@/shared/types'
+import { categoryServerApi } from '@/features/category/api/server'
+import { sanitizeProductsSearchParams } from '@/features/product/utils/server'
 
-import { ProductList, Sidebar } from '@products/_components'
+import { ProductList, ProductSidebar } from '@/features/product/components'
 
 export default async function ProductPage(props: { searchParams: SearchParams }) {
   const searchParams = await props.searchParams
 
-  const categoriesResponse = await productServerApi.getCategoriesFromServerToBackend()
+  const categoriesResponse = await categoryServerApi.getCategoriesFromServerToBackend()
 
   const productsSearchParams = sanitizeProductsSearchParams(searchParams)
 
   return (
     <>
-      <Sidebar categories={categoriesResponse.payload.data} />
+      <ProductSidebar categories={categoriesResponse.payload.data} />
       <main className="mt-5 grid grid-cols-2 gap-3 pb-14 md:grid-cols-3 md:gap-4 lg:mt-0 xl:grid-cols-4 2xl:grid-cols-5">
         <Suspense fallback={<div className="text-8xl">Loading...</div>}>
           <ProductList productsSearchParams={productsSearchParams} categories={categoriesResponse.payload.data} />

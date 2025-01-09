@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import { Montserrat as FontSans } from 'next/font/google'
 
-import { cn } from '@/utils'
+import { cn } from '@/shared/utils'
 
-import { Toaster } from '@/components/ui/sonner'
-import { ThemeProvider, TanstackQueryProvider } from '@/components/provider'
+import { Toaster } from '@/shared/components/ui/sonner'
+import { ThemeProvider, TanstackQueryProvider } from '@/shared/components/provider'
 import './globals.css'
 
 const fontSans = FontSans({
