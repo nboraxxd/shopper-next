@@ -3,12 +3,12 @@ import Image from 'next/image'
 import keyBy from 'lodash/keyBy'
 import { Url } from 'next/dist/shared/lib/router/router'
 
-import { CATEGORIES_IMAGE } from '@/features/category/constants'
+import { CATEGORY_IMAGES } from '@/features/category/constants'
 import { categoryServerApi } from '@/features/category/api/server'
 import { extractCategorySlug } from '@/features/category/utils'
 
 export default async function CategoriesSection() {
-  const categoriesImage = keyBy(CATEGORIES_IMAGE, 'id')
+  const categoriesImage = keyBy(CATEGORY_IMAGES, 'id')
 
   const categoriesResponse = await categoryServerApi.getCategoriesFromServerToBackend()
 

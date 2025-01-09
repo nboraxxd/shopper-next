@@ -1,4 +1,4 @@
-export const CATEGORIES_IMAGE = [
+export const CATEGORY_IMAGES = [
   {
     id: 1789,
     image: '/images/categories/1789.png',

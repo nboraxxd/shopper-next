@@ -5,7 +5,7 @@ import type { ComponentProps } from 'react'
 
 import { cn } from '@/shared/utils'
 import { Category } from '@/features/category/types'
-import { CATEGORIES_IMAGE } from '@/features/category/constants'
+import { CATEGORY_IMAGES } from '@/features/category/constants'
 import { extractCategorySlug } from '@/features/category/utils'
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default async function ProductSidebar({ categories, categoryId }: Props) {
-  const categoriesImage = keyBy(CATEGORIES_IMAGE, 'id')
+  const categoriesImage = keyBy(CATEGORY_IMAGES, 'id')
 
   return (
     <aside className="scrollbar-hide mt-8 lg:sticky lg:top-[calc(var(--header-height)+2rem)] lg:mt-0 lg:h-[calc(100vh-var(--header-height)-2rem)] lg:overflow-y-auto lg:pb-14">

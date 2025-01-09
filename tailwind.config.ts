@@ -12,6 +12,9 @@ export default {
     './src/features/**/*.{js,ts,jsx,tsx,mdx}',
     './src/shared/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  corePlugins: {
+    container: false,
+  },
   theme: {
     extend: {
       screens: {
