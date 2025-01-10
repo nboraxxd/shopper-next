@@ -12,7 +12,6 @@
 
     --popover: 0 0% 100%; /* #fff - light-1 */
     --popover-foreground: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
-    --popover-shadow: 0px 40px 90px 20px rgb(200 200 200 / 0.4);
 
     --primary: 43.1 100% 50%; /* #ffb700 - primary-yellow */
     --primary-foreground: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
@@ -29,10 +28,6 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --header: 0 0% 100%; /* #fff - light-1 */
-    --footer: 0 0% 100%; /* #fff - light-1 */
-    --products-sidebar: 0 0% 93.3%; /* #eee - light-3 */
-
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
 
@@ -48,9 +43,23 @@
     --header-height: 5.125rem; /* 82px */
     --sheet-header-height: 4.5rem; /* 72px */
 
+    --popover-shadow: 0px 40px 90px 20px rgb(200 200 200 / 0.4);
     --section-shadow: 0px 20px 60px 10px rgb(237 237 246 / 0.2);
+    --focus-within-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05), 0 0 1px 2px rgb(119, 218, 230);
 
-    --heading-3: 209.2 100% 43.1%; /* #0071dc - primary-blue */
+    --header: 0 0% 100%; /* #fff - light-1 */
+    --footer: 0 0% 100%; /* #fff - light-1 */
+    --products-sidebar: 0 0% 93.3%; /* #eee - light-3 */
+
+    --auth-intro: 240 42.9% 98.6%; /* #fafafd - secondary-6 */
+    --auth-intro-foreground: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
+
+    --auth-content: 0 0% 100%; /* #fff - light-1 */
+    --auth-content-foreground: 245.5 5.9% 63.7%; /* #9e9da8 - secondary-2 */
+    --auth-content-heading: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
+    --auth-content-placeholder: 252 5.7% 82.9%; /* #d2d1d6 - secondary-3 */
+
+    --link: 209.2 100% 43.1%; /* #0071dc - primary-blue */
   }
 
   .dark {
@@ -62,7 +71,6 @@
 
     --popover: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
     --popover-foreground: 228 3.7% 73.5%; /* #b9babe - dark-3 */
-    --popover-shadow: 0px 40px 90px 20px rgb(0 0 0 / 0.4);
 
     --primary: 43.1 100% 50%; /* #ffb700 - primary-yellow */
     --primary-foreground: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
@@ -76,12 +84,8 @@
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-
-    --header: 222.4 27% 12.4%; /* #171c28 - dark-1 */
-    --footer: 222.4 27% 12.4%; /* #171c28 - dark-1 */
-    --products-sidebar: 222.4 27% 12.4%; /* #171c28 - dark-1 */
 
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
@@ -93,9 +97,23 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
 
+    --popover-shadow: 0px 40px 90px 20px rgb(0 0 0 / 0.4);
     --section-shadow: 0px 20px 60px 10px rgb(23 28 40 / 0.2);
+    --focus-within-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05), 0 0 1px 2px rgb(119, 218, 230);
 
-    --heading-3: 43.1 100% 50%; /* #ffb700 - primary-yellow */
+    --header: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+    --footer: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+    --products-sidebar: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+
+    --auth-intro: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+    --auth-intro-foreground: 228 3.7% 73.5%; /* #b9babe - dark-3 */
+
+    --auth-content: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
+    --auth-content-foreground: 245.5 5.9% 63.7%; /* #9e9da8 - secondary-2 */
+    --auth-content-heading: 228 3.7% 73.5%; /* #b9babe - dark-3 */
+    --auth-content-placeholder: 228 3.7% 73.5%; /* #b9babe - dark-3 */
+
+    --link: 43.1 100% 50%; /* #ffb700 - primary-yellow */
   }
 
   @screen md {
@@ -135,5 +153,8 @@
   .scrollbar-hide {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+  }
+  svg {
+    @apply shrink-0;
   }
 }

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import keyBy from 'lodash/keyBy'
 import { Url } from 'next/dist/shared/lib/router/router'
 
+import PATH from '@/shared/constants/path'
 import { CATEGORY_IMAGES } from '@/features/category/constants'
 import { categoryServerApi } from '@/features/category/api/server'
 import { extractCategorySlug } from '@/features/category/utils'
@@ -16,14 +17,14 @@ export default async function CategoriesSection() {
     <section className="pt-16 lg:pt-24">
       <div className="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
         <h2 className="text-2xl font-bold tracking-tight text-foreground">Danh mục sản phẩm</h2>
-        <Link href="/san-pham" className="hidden text-sm font-semibold text-heading-3 hover:text-heading-3/90 sm:block">
+        <Link href={PATH.PRODUCTS} className="hidden text-sm font-semibold text-link hover:text-link/90 sm:block">
           Xem tất cả
           <span> &rarr;</span>
         </Link>
       </div>
 
       <div className="mt-5 grid grid-flow-col grid-rows-2 gap-5 overflow-x-auto pb-3 xl:mt-10 xl:gap-10">
-        <CategoryItem href="/san-pham" title="Tất cả sản phẩm" image="/images/categories/all.png" />
+        <CategoryItem href={PATH.PRODUCTS} title="Tất cả sản phẩm" image="/images/categories/all.png" />
         {categoriesResponse.payload.data.map((category) => {
           const categoryImage = categoriesImage[category.id].image
           const categorySlug = extractCategorySlug(category.slug)
@@ -40,7 +41,7 @@ export default async function CategoriesSection() {
       </div>
 
       <div className="mt-6 px-4 sm:hidden">
-        <Link href="/san-pham" className="block text-sm font-semibold text-primary hover:text-primary/90">
+        <Link href={PATH.PRODUCTS} className="block text-sm font-semibold text-primary hover:text-primary/90">
           Xem tất cả
           <span aria-hidden="true"> &rarr;</span>
         </Link>

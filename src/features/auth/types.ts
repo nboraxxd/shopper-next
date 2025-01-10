@@ -8,11 +8,6 @@ export type RegisterReqBody = {
 
 export type RegisterResponse = MessageResponse & { success: boolean }
 
-export type LoginReqBody = {
-  username: string
-  password: string
-}
-
 export type AuthResponse = {
   data: {
     accessToken: string

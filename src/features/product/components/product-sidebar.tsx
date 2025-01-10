@@ -4,7 +4,8 @@ import keyBy from 'lodash/keyBy'
 import type { ComponentProps } from 'react'
 
 import { cn } from '@/shared/utils'
-import { Category } from '@/features/category/types'
+import PATH from '@/shared/constants/path'
+import type { Category } from '@/features/category/types'
 import { CATEGORY_IMAGES } from '@/features/category/constants'
 import { extractCategorySlug } from '@/features/category/utils'
 
@@ -22,7 +23,7 @@ export default async function ProductSidebar({ categories, categoryId }: Props) 
         <p className="text-lg font-medium md:text-2xl md:font-bold">Danh mục</p>
         <div className="mt-3 grid grid-flow-col grid-rows-2 gap-2.5 overflow-x-auto lg:block lg:overflow-x-visible">
           <CategoryItem
-            href="/san-pham"
+            href={PATH.PRODUCTS}
             imageSrc="/images/categories/all.png"
             title="Tất cả sản phẩm"
             isActive={categoryId === undefined}

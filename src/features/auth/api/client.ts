@@ -1,14 +1,9 @@
 import http from '@/shared/utils/http'
 
 import type { MessageResponse } from '@/shared/types'
+import { LoginReqBody } from '@/features/auth/schemas'
 import envVariables from '@/shared/schemas/env-variables.schema'
-import type {
-  AuthResponse,
-  LoginReqBody,
-  RefreshTokenResponse,
-  RegisterReqBody,
-  RegisterResponse,
-} from '@/features/auth/types'
+import type { AuthResponse, RefreshTokenResponse, RegisterReqBody, RegisterResponse } from '@/features/auth/types'
 
 const AUTH_PREFIX = '/api/auth'
 const USER_PREFIX = '/users'

@@ -1,7 +1,13 @@
+import React from 'react'
+import Link from 'next/link'
 import keyBy from 'lodash/keyBy'
+import { LucideProps, StoreIcon } from 'lucide-react'
 import { CameraIcon, EarthIcon, LaptopIcon } from 'lucide-react'
 
-import { Button } from '@/shared/components/ui/button'
+import PATH from '@/shared/constants/path'
+import { extractCategorySlug } from '@/features/category/utils'
+import { categoryServerApi } from '@/features/category/api/server'
+
 import {
   BookIcon,
   CarIcon,
@@ -17,10 +23,8 @@ import {
   TechGadgetIcon,
   VoucherIcon,
 } from '@/shared/components/icons'
+import { Button } from '@/shared/components/ui/button'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/shared/components/ui/hover-card'
-import { categoryServerApi } from '@/features/category/api/server'
-import { extractCategorySlug } from '@/features/category/utils'
-import Link from 'next/link'
 
 export const CATEGORY_IMAGES = [
   {
@@ -109,25 +113,45 @@ export default async function CategoriesDropdown() {
       >
         <nav>
           <ul className="grid lg:grid-cols-2 lg:gap-x-3.5">
+            <CategoryItem href={PATH.PRODUCTS} icon={StoreIcon} title="Tất cả sản phẩm" />
             {categoriesResponse.payload.data.map((category) => {
               const CategoryIcon = categoriesImage[category.id].icon
               const categorySlug = extractCategorySlug(category.slug)
 
               return (
-                <li key={category._id}>
-                  <Link
-                    href={`/${categorySlug}/${category.id}`}
-                    className="flex items-center gap-2 py-2 text-base transition-colors hover:text-heading-3"
-                  >
-                    <CategoryIcon className="size-6" />
-                    <h3>{category.title}</h3>
-                  </Link>
-                </li>
+                <CategoryItem
+                  key={category.id}
+                  href={`/${categorySlug}/${category.id}`}
+                  icon={CategoryIcon}
+                  title={category.title}
+                />
               )
             })}
           </ul>
         </nav>
       </HoverCardContent>
     </HoverCard>
+  )
+}
+
+interface Props {
+  href: string
+  icon:
+    | React.FC<React.SVGProps<SVGElement>>
+    | React.ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & React.RefAttributes<SVGSVGElement>>
+  title: string
+}
+
+function CategoryItem({ href, icon: Icon, title }: Props) {
+  return (
+    <li>
+      <Link
+        href={href}
+        className="flex items-center gap-2 py-2 text-base font-medium transition-colors hover:text-link"
+      >
+        <Icon className="size-6" />
+        <h3>{title}</h3>
+      </Link>
+    </li>
   )
 }

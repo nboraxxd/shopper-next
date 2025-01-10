@@ -54,7 +54,7 @@ export default {
           3: '#D2D1D6',
           4: '#EDEDF6',
           5: '#F8F8FB',
-          6: '#FAFAFD ',
+          6: '#FAFAFD',
         },
         muted: {
           DEFAULT: 'hsl(var(--muted))',
@@ -68,9 +68,6 @@ export default {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
         },
-        header: 'hsl(var(--header))',
-        footer: 'hsl(var(--footer))',
-        'products-sidebar': 'hsl(var(--products-sidebar))',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -92,9 +89,24 @@ export default {
           2: '#292E39',
           3: '#B9BABE',
         },
-        heading: {
-          3: 'hsl(var(--heading-3))',
+
+        header: 'hsl(var(--header))',
+        footer: 'hsl(var(--footer))',
+        'products-sidebar': 'hsl(var(--products-sidebar))',
+
+        'auth-intro': {
+          DEFAULT: 'hsl(var(--auth-intro))',
+          foreground: 'hsl(var(--auth-intro-foreground))',
         },
+
+        'auth-content': {
+          DEFAULT: 'hsl(var(--auth-content))',
+          foreground: 'hsl(var(--auth-content-foreground))',
+          heading: 'hsl(var(--auth-content-heading))',
+          placeholder: 'hsl(var(--auth-content-placeholder))',
+        },
+
+        link: 'hsl(var(--link))',
       },
       borderRadius: {
         lg: 'var(--radius)' /* 8px */,
@@ -106,6 +118,7 @@ export default {
       boxShadow: {
         section: 'var(--section-shadow)',
         popover: 'var(--popover-shadow)',
+        'focus-within': 'var(--focus-within-shadow)',
       },
       spacing: {
         'header-height': 'var(--header-height)',

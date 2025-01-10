@@ -13,8 +13,8 @@ import {
 } from '@/shared/components/ui/sheet'
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
-import { ArrowLeftIcon, AlignLeftIcon, SearchIcon, ShopperIcon, CartIcon, ProfileIcon } from '@/shared/components/icons'
 import { CategoriesDropdown } from '@/shared/components/header'
+import { ArrowLeftIcon, AlignLeftIcon, SearchIcon, ShopperIcon, CartIcon, ProfileIcon } from '@/shared/components/icons'
 
 export default function Header() {
   return (
@@ -40,7 +40,7 @@ export default function Header() {
                 </SheetDescription>
               </SheetHeader>
               <nav className="grid gap-6 text-lg font-medium">
-                <Link href="/" className="mx-auto flex items-center gap-2 p-1.5 md:mx-0 lg:gap-3.5 lg:p-2">
+                <Link href={PATH.HOME} className="mx-auto flex items-center gap-2 p-1.5 md:mx-0 lg:gap-3.5 lg:p-2">
                   <ShopperIcon className="size-6 lg:size-8" />
                   <span className="text-lg font-bold lg:text-xl">Shopper</span>
                 </Link>
@@ -53,16 +53,16 @@ export default function Header() {
           <SearchIcon className="transition-transform group-hover:scale-110" />
         </Button>
 
-        <Link href="/" className="mx-auto flex items-center gap-2 p-1.5 md:mx-0 lg:gap-3.5 lg:p-2">
+        <Link href={PATH.HOME} className="mx-auto flex items-center gap-2 p-1.5 md:mx-0 lg:gap-3.5 lg:p-2">
           <ShopperIcon className="size-6 lg:size-8" />
           <span className="sr-only text-lg font-bold xs:not-sr-only lg:text-xl">Shopper</span>
         </Link>
 
         <CategoriesDropdown />
 
-        <div className="mx-auto hidden max-w-[840px] flex-1 items-center rounded-lg border border-input bg-light-1 p-[3px] shadow-sm focus-within:ring-1 focus-within:ring-ring md:flex lg:p-[5px]">
-          <Input className="h-7 border-none py-0 text-secondary-1 shadow-none focus-visible:ring-0 lg:h-9" />
-          <Button size="icon" className="h-7 w-11 shrink-0 lg:h-9 lg:w-14 [&_svg]:size-4 lg:[&_svg]:size-5">
+        <div className="mx-auto hidden h-9 max-w-[840px] flex-1 items-center rounded-lg border border-input bg-light-1 p-1 shadow-sm focus-within:shadow-focus-within md:flex lg:h-12">
+          <Input className="h-full border-none py-0 text-secondary-1 shadow-none focus-visible:ring-0" />
+          <Button size="icon" className="h-full w-11 shrink-0 lg:w-14 [&_svg]:size-4 lg:[&_svg]:size-5">
             <SearchIcon />
           </Button>
         </div>

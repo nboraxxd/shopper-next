@@ -1,5 +1,6 @@
+import { z } from 'zod'
 import { toast } from 'sonner'
-import { UseFormSetError } from 'react-hook-form'
+import { FieldValues, Path, UseFormSetError } from 'react-hook-form'
 
 import { HTTP_STATUS_CODE } from '@/shared/constants/http-status-code'
 import { BadRequestErrorPayload, ForbiddenErrorPayload } from '@/shared/types/error.type'
@@ -38,14 +39,20 @@ export class ForbiddenError extends HttpError {
   }
 }
 
-export const handleClientErrorApi = ({ error, setError }: { error: any; setError?: UseFormSetError<any> }) => {
+export const handleClientErrorApi = <T extends FieldValues>({
+  error,
+  setError,
+}: {
+  error: any
+  setError?: UseFormSetError<T>
+}) => {
   if (error instanceof BadRequestError) {
     const formErrors = error.payload.detail
     if (formErrors) {
       const keys = Object.keys(formErrors)
       if (setError) {
         Object.entries(formErrors).forEach(([key, value]) => {
-          setError(key, { type: 'server', message: value })
+          setError(key as Path<T>, { type: z.ZodIssueCode.custom, message: value })
         })
       } else if (keys.length === 1) {
         toast.error(`${keys[0]} - ${formErrors[keys[0]]}`)

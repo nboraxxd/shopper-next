@@ -1,5 +1,6 @@
 import http from '@/shared/utils/http'
-import type { AuthResponse, LoginReqBody } from '@/features/auth/types'
+import { LoginReqBody } from '@/features/auth/schemas'
+import type { AuthResponse } from '@/features/auth/types'
 
 const PREFIX = '/authentication/v2'
 

@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
+import PATH from '@/shared/constants/path'
+
 import { Button } from '@/shared/components/ui/button'
 
 export default function HeroSection() {
@@ -24,7 +26,7 @@ export default function HeroSection() {
             Cập nhật xu hướng mới nhất từ các nhà thiết kế hàng đầu thế giới.
           </p>
           <Button asChild size="lg" className="mt-8 bg-light-2 px-8 hover:bg-light-1">
-            <Link href="/san-pham">Xem sản phẩm mới</Link>
+            <Link href={PATH.PRODUCTS}>Xem sản phẩm mới</Link>
           </Button>
         </div>
       </div>

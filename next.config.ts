@@ -1,5 +1,7 @@
 import type { NextConfig } from 'next'
 
+import PATH from '@/shared/constants/path'
+
 const nextConfig: NextConfig = {
   webpack(config) {
     config.module.rules.push({
@@ -31,11 +33,20 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'firebasestorage.googleapis.com', pathname: '/v0/b/**' },
     ],
   },
+  transpilePackages: ['lucide-react'],
   async rewrites() {
     return [
       {
-        source: '/san-pham',
+        source: PATH.PRODUCTS,
         destination: '/products',
+      },
+      {
+        source: PATH.LOGIN,
+        destination: '/login',
+      },
+      {
+        source: PATH.CART,
+        destination: '/cart',
       },
     ]
   },
