@@ -5,10 +5,9 @@ import type { AuthResponse } from '@/features/auth/types'
 const PREFIX = '/authentication/v2'
 
 const authServerApi = {
-  loginFromServerToBackend: (body: LoginReqBody) => http.post<AuthResponse>(`${PREFIX}/login`, body),
+  loginToBackend: (body: LoginReqBody) => http.post<AuthResponse>(`${PREFIX}/login`, body),
 
-  refreshTokenFromServerToBackend: (refreshToken: string) =>
-    http.post<AuthResponse>(`${PREFIX}/refresh-token`, { refreshToken }),
+  refreshTokenToBackend: (refreshToken: string) => http.post<AuthResponse>(`${PREFIX}/refresh-token`, { refreshToken }),
 }
 
 export default authServerApi

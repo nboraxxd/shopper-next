@@ -10,13 +10,13 @@ import type {
 const USER_PREFIX = '/users'
 
 const userClientApi = {
-  // getUserFromClientToBackend sẽ được gọi từ client compoent
+  // getUserFromBackend sẽ được gọi từ client compoent
   // nên accessToken đã tự động được thêm vào headers.Authorization
-  getUserFromClientToBackend: () => http.get<UserResponse>(USER_PREFIX),
+  getUserFromBackend: () => http.get<UserResponse>(USER_PREFIX),
 
-  updateUserFromClientToBackend: (body: UpdateMeReqBody) => http.patch<UserResponse>(USER_PREFIX, body),
+  updateUserToBackend: (body: UpdateMeReqBody) => http.patch<UserResponse>(USER_PREFIX, body),
 
-  changePasswordFromClientToBackend: (body: ChangePasswordReqBody) =>
+  changePasswordToBackend: (body: ChangePasswordReqBody) =>
     http.post<ChangePasswordResponse>(`${USER_PREFIX}/change-password`, body),
 }
 

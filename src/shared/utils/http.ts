@@ -78,10 +78,15 @@ const request = async <T>(
         throw new ForbiddenError(data.payload as ForbiddenErrorPayload)
       }
 
+      // clientLogoutRequest dùng để tránh việc gửi nhiều request logout cùng một lúc
       if (isClient && !clientLogoutRequest) {
+        // phải thực hiện thủ công gọi đến route handler logout bằng fetch
+        // đây là file cơ sở, không nên dùng các method trong api-requests
+        // vì các method trong api-requests dùng file cơ sở này
+        // gọi qua, gọi lại vậy sẽ gây ra chồng chéo import
         clientLogoutRequest = fetch('/api/auth/logout', {
           method: 'POST',
-          body: null, // Logout sẽ luôn thành công
+          body: null,
           headers: { ...baseHeaders },
         })
 
@@ -93,11 +98,8 @@ const request = async <T>(
           removeTokensFromLocalStorage(true)
           clientLogoutRequest = null
         }
-      }
-
-      if (!isClient) {
-        const accessToken = options?.headers?.Authorization?.split('Bearer ')[1]
-
+      } else if (!isClient) {
+        const accessToken = options?.headers?.Authorization?.split('Bearer ')[1] || ''
         redirect(`/logout?accessToken=${accessToken}`)
       }
       throw new HttpError(data)
@@ -106,16 +108,13 @@ const request = async <T>(
     }
   }
 
-  // Client gọi đến route handle, từ đó route handle sẽ gọi đến backend để login
+  // Interceptors response
   if (isClient && addFirstSlashToUrl(url) === '/api/auth/login') {
     const { accessToken, refreshToken } = (payload as AuthResponse).data
 
     setAccessTokenToLocalStorage(accessToken)
     setRefreshTokenToLocalStorage(refreshToken)
-  }
-
-  // Client gọi đến route handle, từ đó route handle sẽ gọi đến backend để logout
-  if (isClient && addFirstSlashToUrl(url) === '/api/auth/logout') {
+  } else if (isClient && addFirstSlashToUrl(url) === '/api/auth/logout') {
     removeTokensFromLocalStorage()
   }
 

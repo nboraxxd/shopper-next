@@ -32,7 +32,7 @@ export default function PasswordInput({ field }: { field: ControllerRenderProps<
         className="size-auto"
         onClick={() => setIsShowPassword((prev) => !prev)}
       >
-        {isShowPassword ? <EyeOffIcon className="text-secondary-3" /> : <EyeIcon className="text-secondary-3" />}
+        {isShowPassword ? <EyeIcon className="text-secondary-3" /> : <EyeOffIcon className="text-secondary-3" />}
       </Button>
     </>
   )

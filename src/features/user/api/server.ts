@@ -7,10 +7,10 @@ import { ACCESS_TOKEN } from '@/features/auth/constants'
 const USER_PREFIX = '/users'
 
 const userServerApi = {
-  // getUserFromServerToBackend sẽ được gọi từ Next.js server nên cần tự thêm accessToken vào headers.Authorization
-  // EXPERIMENT: Nếu cookies() làm các page gọi các API khác `getUserFromServerToBackend` bị chuyển thành Dynamic rendering
+  // `getUserFromBackend` sẽ được gọi từ Next.js server nên cần tự thêm accessToken vào headers.Authorization
+  // EXPERIMENT: Nếu cookies() làm các page gọi các API khác `getUserFromBackend` bị chuyển thành Dynamic rendering
   // thì phải tự truyền accessToken vào method này
-  getUserFromServerToBackend: async () => {
+  getUserFromBackend: async () => {
     const cookieStore = await cookies()
     const accessToken = cookieStore.get(ACCESS_TOKEN)
 

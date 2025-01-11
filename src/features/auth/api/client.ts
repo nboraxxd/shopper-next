@@ -5,37 +5,38 @@ import { LoginReqBody } from '@/features/auth/schemas'
 import envVariables from '@/shared/schemas/env-variables.schema'
 import type { AuthResponse, RefreshTokenResponse, RegisterReqBody, RegisterResponse } from '@/features/auth/types'
 
-const AUTH_PREFIX = '/api/auth'
-const USER_PREFIX = '/users'
+const AUTH_SERVER_PREFIX = '/api/auth'
+const USER_BACKEND_PREFIX = '/users'
 
 const authClientApi = {
-  refreshTokenFromClientToServerRequest: null as Promise<{ status: number; payload: RefreshTokenResponse }> | null,
+  refreshTokenToServerRequest: null as Promise<{ status: number; payload: RefreshTokenResponse }> | null,
 
-  registerFromClientToBackend: (body: RegisterReqBody) => http.post<RegisterResponse>(`${USER_PREFIX}/register`, body),
+  registerUserToBackend: (body: RegisterReqBody) =>
+    http.post<RegisterResponse>(`${USER_BACKEND_PREFIX}/register`, body),
 
-  resendEmailFromClientToBackend: (username: string) =>
-    http.post<MessageResponse>(`${USER_PREFIX}/resend-email`, { username }),
+  resendEmailToBackend: (username: string) =>
+    http.post<MessageResponse>(`${USER_BACKEND_PREFIX}/resend-email`, { username }),
 
-  loginFromClientToServer: (body: LoginReqBody) =>
-    http.post<AuthResponse>(`${AUTH_PREFIX}/login`, body, { baseUrl: envVariables.NEXT_PUBLIC_URL }),
+  loginToServer: (body: LoginReqBody) =>
+    http.post<AuthResponse>(`${AUTH_SERVER_PREFIX}/login`, body, { baseUrl: envVariables.NEXT_PUBLIC_URL }),
 
-  logoutFromClientToServer: () =>
-    http.post<MessageResponse>(`${AUTH_PREFIX}/logout`, {}, { baseUrl: envVariables.NEXT_PUBLIC_URL }),
+  logoutToServer: () =>
+    http.post<MessageResponse>(`${AUTH_SERVER_PREFIX}/logout`, {}, { baseUrl: envVariables.NEXT_PUBLIC_URL }),
 
-  async refreshTokenFromClientToServer() {
-    if (this.refreshTokenFromClientToServerRequest) {
-      return this.refreshTokenFromClientToServerRequest
+  async refreshTokenToServer() {
+    if (this.refreshTokenToServerRequest) {
+      return this.refreshTokenToServerRequest
     }
 
-    this.refreshTokenFromClientToServerRequest = http.post<RefreshTokenResponse>(
-      `${AUTH_PREFIX}/refresh-token`,
+    this.refreshTokenToServerRequest = http.post<RefreshTokenResponse>(
+      `${AUTH_SERVER_PREFIX}/refresh-token`,
       {},
       { baseUrl: envVariables.NEXT_PUBLIC_URL }
     )
 
-    const response = await this.refreshTokenFromClientToServerRequest
+    const response = await this.refreshTokenToServerRequest
 
-    this.refreshTokenFromClientToServerRequest = null
+    this.refreshTokenToServerRequest = null
     return response
   },
 }

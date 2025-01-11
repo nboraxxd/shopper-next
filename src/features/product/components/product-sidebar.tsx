@@ -63,7 +63,6 @@ function CategoryItem(props: CategoryProps) {
       className={cn(
         'flex shrink-0 items-center gap-2 transition-opacity hover:opacity-80 max-lg:w-[6.5rem] max-lg:flex-col lg:h-14'
       )}
-      title={title}
       {...rest}
     >
       <div className="overflow-hidden rounded-[35%] border border-secondary-3/30 lg:overflow-visible lg:rounded-none lg:border-none">

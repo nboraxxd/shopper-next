@@ -1,12 +1,13 @@
-import authServerApi from '@/features/auth/api/server'
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/features/auth/constants'
-import { LoginReqBody, loginReqBodySchema } from '@/features/auth/schemas'
-import { HTTP_STATUS_CODE } from '@/shared/constants/http-status-code'
-import { TokenPayload } from '@/shared/types'
-import { HttpError } from '@/shared/utils/error'
+import { z } from 'zod'
 import jwt from 'jsonwebtoken'
 import { cookies } from 'next/headers'
-import { z } from 'zod'
+
+import { TokenPayload } from '@/shared/types'
+import { HttpError } from '@/shared/utils/error'
+import authServerApi from '@/features/auth/api/server'
+import { HTTP_STATUS_CODE } from '@/shared/constants/http-status-code'
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/features/auth/constants'
+import { LoginReqBody, loginReqBodySchema } from '@/features/auth/schemas'
 
 export async function POST(req: Request) {
   const body: LoginReqBody = await req.json()
@@ -16,7 +17,7 @@ export async function POST(req: Request) {
   try {
     const { password, username } = await loginReqBodySchema.parseAsync(body)
 
-    const { payload } = await authServerApi.loginFromServerToBackend({ password, username })
+    const { payload } = await authServerApi.loginToBackend({ password, username })
 
     const { accessToken, refreshToken } = payload.data
 

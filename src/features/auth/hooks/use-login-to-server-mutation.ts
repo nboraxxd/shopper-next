@@ -7,7 +7,7 @@ export default function useLoginToServerMutation() {
   const setIsAuth = useAuthStore((state) => state.setIsAuth)
 
   return useMutation({
-    mutationFn: authClientApi.loginFromClientToServer,
+    mutationFn: authClientApi.loginToServer,
     onSuccess: () => setIsAuth(true),
   })
 }

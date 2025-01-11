@@ -113,7 +113,8 @@ export default {
         md: 'calc(var(--radius) - 2px)' /* 6px */,
         sm: 'calc(var(--radius) - 4px)' /* 4px */,
         xl: 'calc(var(--radius) + 2px)' /* 10px */,
-        '3xl': '1.25rem' /* 20px */,
+        '2xl': 'calc(var(--radius) + 4px)' /* 12px */,
+        '3xl': 'calc(var(--radius) + 6px)' /* 14px */,
       },
       boxShadow: {
         section: 'var(--section-shadow)',

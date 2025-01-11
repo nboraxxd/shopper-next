@@ -4,7 +4,7 @@ export default function AuthInputWrapper({ children, className }: { children: Re
   return (
     <div
       className={cn(
-        'flex h-12 items-center gap-3 rounded-xl border border-secondary-3 px-3 shadow-sm focus-within:border-secondary-3/0 focus-within:shadow-focus-within',
+        'flex h-12 items-center gap-3 rounded-xl border border-secondary-3 pr-3 shadow-sm focus-within:border-secondary-3/0 focus-within:shadow-focus-within',
         className
       )}
     >

@@ -8,9 +8,5 @@ export const AUTH_MESSAGES = {
   PASSWORD_NOT_MATCH: 'Mật khẩu không khớp',
 } as const
 
-export const AUTH_KEY = {
-  USER: 'user',
-}
-
 export const AUTH_INPUT_CLASSNAME =
-  'h-full border-none p-0 text-base font-medium shadow-none placeholder:text-auth-content-placeholder focus-visible:ring-0 sm:text-lg'
+  'h-full border-none rounded-none rounded-l-xl px-3 pr-0 text-base font-medium shadow-none placeholder:text-auth-content-placeholder focus-visible:ring-0 sm:text-lg'
