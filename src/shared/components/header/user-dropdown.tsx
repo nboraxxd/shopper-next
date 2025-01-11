@@ -5,9 +5,10 @@ import { toast } from 'sonner'
 import { useTheme } from 'next-themes'
 import { LogOutIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import PATH from '@/shared/constants/path'
+import { useMediaQuery } from '@/shared/hooks'
 import { handleClientErrorApi } from '@/shared/utils/error'
 import { useQueryUserFromBackend } from '@/features/user/hooks'
 import { useLogoutToServerMutation } from '@/features/auth/hooks'
@@ -18,21 +19,13 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown-menu'
 import { UserAvatar } from '@/shared/components'
 import { Button } from '@/shared/components/ui/button'
-import { AuthButtonSkeleton } from '@/shared/components/header'
-import { ArrowLeftIcon, ArrowRightIcon } from '@/shared/components/icons'
-
-const THEMES = [
-  { value: 'system', label: 'Dùng giao diện của thiết bị' },
-  { value: 'dark', label: 'Giao diện tối' },
-  { value: 'light', label: 'Giao diện sáng' },
-] as const
+import { ArrowRightIcon } from '@/shared/components/icons'
+import { AuthButtonSkeleton, ThemeDropdown } from '@/shared/components/header'
 
 const USER_LINKS = [
   { label: 'Thông tin tài khoản', href: PATH.PROFILE },
@@ -46,9 +39,16 @@ export default function UserDropdown() {
 
   const router = useRouter()
   const { resolvedTheme } = useTheme()
+  const is768AndUp = useMediaQuery({ minWidth: 768 })
 
   const queryUserFromBackend = useQueryUserFromBackend()
   const logoutToServerMutation = useLogoutToServerMutation()
+
+  useEffect(() => {
+    if (!is768AndUp) {
+      setIsOpen(false)
+    }
+  }, [is768AndUp])
 
   async function handleLogout() {
     if (logoutToServerMutation.isPending) return
@@ -163,39 +163,4 @@ export default function UserDropdown() {
       </DropdownMenu>
     </>
   ) : null
-}
-
-function ThemeDropdown({ setShowThemeDropdown }: { setShowThemeDropdown: Dispatch<SetStateAction<boolean>> }) {
-  const { setTheme, theme } = useTheme()
-
-  return (
-    <>
-      <DropdownMenuLabel className="flex h-12 items-center p-0">
-        <DropdownMenuItem
-          className="mx-1 size-10 justify-center rounded-full hover:bg-accent [&>svg]:size-6"
-          asChild
-          onClick={(ev) => {
-            ev.preventDefault()
-            setShowThemeDropdown(false)
-          }}
-        >
-          <button>
-            <ArrowLeftIcon className="size-8" />
-          </button>
-        </DropdownMenuItem>
-        <span className="font-medium">Giao diện</span>
-      </DropdownMenuLabel>
-      <DropdownMenuSeparator className="m-0" />
-      <DropdownMenuRadioGroup className="py-2 font-medium" value={theme} onValueChange={setTheme}>
-        <p className="flex min-h-10 items-center pl-4 pr-9 text-xs font-normal text-foreground/50">
-          Tùy chọn cài đặt chỉ áp dụng cho trình duyệt này
-        </p>
-        {THEMES.map(({ label, value }) => (
-          <DropdownMenuRadioItem key={value} className="min-h-10 rounded-none" value={value}>
-            {label}
-          </DropdownMenuRadioItem>
-        ))}
-      </DropdownMenuRadioGroup>
-    </>
-  )
 }
