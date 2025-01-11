@@ -1,5 +1,5 @@
 import { isClient } from '@/shared/utils'
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/features/auth/constants'
+import { ACCESS_TOKEN, REFRESH_TOKEN, REMOVE_TOKENS_EVENT } from '@/features/auth/constants'
 
 export const localStorageEventTarget = new EventTarget()
 
@@ -15,5 +15,5 @@ export const removeTokensFromLocalStorage = (isForce: boolean = false) => {
   localStorage.removeItem(ACCESS_TOKEN)
   localStorage.removeItem(REFRESH_TOKEN)
 
-  if (isForce) localStorageEventTarget.dispatchEvent(new Event('removeLocalStorage'))
+  if (isForce) localStorageEventTarget.dispatchEvent(new Event(REMOVE_TOKENS_EVENT))
 }

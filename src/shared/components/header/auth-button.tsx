@@ -14,11 +14,11 @@ import { UserDropdown } from '@/shared/components/header'
 function AuthButton() {
   const isClient = useIsClient()
 
-  const isAuth = useAuthStore((state) => state.isAuth)
+  const authState = useAuthStore((state) => state.authState)
 
-  if (!isClient) return <AuthButtonSkeleton />
+  if (!isClient || authState === 'loading') return <AuthButtonSkeleton />
 
-  return isAuth ? (
+  return authState === 'authenticated' ? (
     <UserDropdown />
   ) : (
     // Ở đây dùng paddingX thay vì dùng width

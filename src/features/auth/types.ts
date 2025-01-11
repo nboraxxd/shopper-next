@@ -1,5 +1,7 @@
 import { MessageResponse } from '@/shared/types'
 
+export type AuthState = 'loading' | 'authenticated' | 'unauthenticated'
+
 export type RegisterReqBody = {
   name: string
   username: string

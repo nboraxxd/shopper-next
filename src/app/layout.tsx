@@ -4,6 +4,7 @@ import { Montserrat as FontSans } from 'next/font/google'
 import { cn } from '@/shared/utils'
 
 import { Toaster } from '@/shared/components/ui/sonner'
+import { AuthCleanup, RefreshToken } from '@/shared/components'
 import { ThemeProvider, TanstackQueryProvider } from '@/shared/components/provider'
 import './globals.css'
 
@@ -33,6 +34,8 @@ export default function RootLayout({
         <TanstackQueryProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
+            <RefreshToken />
+            <AuthCleanup />
             <Toaster />
           </ThemeProvider>
         </TanstackQueryProvider>
