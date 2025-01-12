@@ -5,12 +5,18 @@ import { useEffect } from 'react'
 
 import { useAuthStore } from '@/features/auth/auth-store'
 import checkAndRefreshToken from '@/shared/utils/check-and-refresh-token'
+import { usePathname } from 'next/navigation'
+import PATH from '@/shared/constants/path'
+
+// không check refresh token cho các path này
+const UNAUTHENTICATED_PATHS = [PATH.LOGIN, PATH.REGISTER, '/logout', '/refresh-token']
 
 export default function RefreshToken() {
+  const pathname = usePathname()
   const setAuthState = useAuthStore((state) => state.setAuthState)
 
   useEffect(() => {
-    console.log('🛹🛹🛹 RefreshToken')
+    if (UNAUTHENTICATED_PATHS.includes(pathname)) return
 
     let interval: NodeJS.Timeout | null = null
 
@@ -48,7 +54,7 @@ export default function RefreshToken() {
     return () => {
       if (interval) clearInterval(interval)
     }
-  }, [setAuthState])
+  }, [pathname, setAuthState])
 
   return null
 }

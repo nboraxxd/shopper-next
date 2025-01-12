@@ -3,7 +3,7 @@ import PATH from '@/shared/constants/path'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-const protectedPaths = [PATH.CART, '/checkout', '/user', '/logout', '/refresh-token']
+const protectedPaths = [PATH.CART, '/checkout', '/user', '/logout']
 const unauthenticatedPaths = [PATH.LOGIN, PATH.REGISTER, '/resend-email', PATH.FORGOT_PASSWORD]
 
 // This function can be marked `async` if using `await` inside
@@ -45,14 +45,5 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: [
-    '/dang-nhap',
-    '/dang-ky',
-    '/quen-mat-khau',
-    '/gio-hang',
-    '/resend-email',
-    '/user/:path*',
-    '/logout',
-    '/refresh-token',
-  ],
+  matcher: ['/dang-nhap', '/dang-ky', '/quen-mat-khau', '/gio-hang', '/resend-email', '/user/:path*', '/logout'],
 }
