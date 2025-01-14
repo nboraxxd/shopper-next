@@ -1,4 +1,7 @@
+'use client'
+
 import Image from 'next/image'
+import { createContext, use } from 'react'
 
 import { cn, formatCurrency } from '@/shared/utils'
 import { PRODUCT_ERROR_IMAGES } from '@/features/product/constants'
@@ -10,10 +13,38 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/sha
 
 interface ProductCardProps {
   children: React.ReactNode
+  slug: string
+  name: string
+  realPrice: number
+  discountRate: number
+  reviewCount: number
+  ratingAverage: number
+  images: ProductImagedata[]
+  configurableProducts?: ConfigurableProduct[]
+  category?: string
   className?: string
   asChild?: boolean
 }
 
+type ProductCardData = Omit<
+  ProductCardProps,
+  'children' | 'asChild' | 'className' | 'images' | 'configurableProducts'
+> & { primaryImage: string; secondaryImage: string }
+
+// Step 1. Create a context
+const ProductCardContext = createContext<ProductCardData>({
+  discountRate: 0,
+  name: '',
+  ratingAverage: 0,
+  realPrice: 0,
+  reviewCount: 0,
+  slug: '',
+  category: '',
+  primaryImage: '',
+  secondaryImage: '',
+})
+
+// Step 2. Create parent component
 /**
  * Anatomy of ProductCard
  * ```
@@ -31,25 +62,7 @@ interface ProductCardProps {
  * ```
  */
 export default function ProductCard(props: ProductCardProps) {
-  const { children, className, asChild = false } = props
-
-  return (
-    <Card asChild={asChild} className={cn('flex flex-col border-0', className)}>
-      {children}
-    </Card>
-  )
-}
-
-interface ProductImageProps extends Pick<React.ComponentProps<typeof Image>, 'width' | 'height'> {
-  name: string
-  discountRate: number
-  images: ProductImagedata[]
-  configurableProducts: ConfigurableProduct[] | null
-  imageClassName?: string
-}
-
-function ProductImages(props: ProductImageProps) {
-  const { configurableProducts, discountRate, images, name, height, imageClassName, width } = props
+  const { children, className, asChild = false, images, configurableProducts, ...rest } = props
 
   let primaryImage = images[0].medium_url
 
@@ -69,6 +82,21 @@ function ProductImages(props: ProductImageProps) {
     // Dùng images[1]?. vì có thể array images có thể không có phần tử thứ 2
     secondaryImage = images[1]?.medium_url || primaryImage
   }
+
+  return (
+    <ProductCardContext.Provider value={{ ...rest, primaryImage, secondaryImage }}>
+      <Card asChild={asChild} className={cn('flex flex-col border-none shadow-section', className)}>
+        {children}
+      </Card>
+    </ProductCardContext.Provider>
+  )
+}
+
+// Step 3. Create child component to help implementing the common tasks
+function Images(props: Pick<React.ComponentProps<typeof Image>, 'width' | 'height'> & { imageClassName?: string }) {
+  const { imageClassName, width, height } = props
+
+  const { primaryImage, secondaryImage, name, discountRate } = use(ProductCardContext)
 
   return (
     <CardHeader className="p-0">
@@ -103,25 +131,31 @@ function ProductImages(props: ProductImageProps) {
   )
 }
 
-function ProductContent({ children }: { children: React.ReactNode }) {
+function Content({ children }: { children: React.ReactNode }) {
   return <CardContent className="flex grow flex-col gap-2 p-3 md:gap-2.5 md:p-4">{children}</CardContent>
 }
 
-function ProductTitle({ name, className }: { name: string; className?: string }) {
+function Title({ className }: { className?: string }) {
+  const { name } = use(ProductCardContext)
+
   return <CardTitle className={cn('line-clamp-2 text-sm font-medium', className)}>{name}</CardTitle>
 }
 
-function ProductCategory({ category, className }: { category?: string; className?: string }) {
+function Category({ className }: { className?: string }) {
+  const { category } = use(ProductCardContext)
+
   return category ? (
     <CardDescription className={cn('line-clamp-1 text-xs', className)}>{category}</CardDescription>
   ) : null
 }
 
-function ProductInfo({ children }: { children: React.ReactNode }) {
+function Info({ children }: { children: React.ReactNode }) {
   return <div className="mt-auto flex items-center justify-between gap-1">{children}</div>
 }
 
-function ProductPrice({ realPrice, className }: { realPrice: number; className?: string }) {
+function Price({ className }: { className?: string }) {
+  const { realPrice } = use(ProductCardContext)
+
   return (
     <div className={cn('text-sm font-medium md:text-base', className)}>
       <span>{formatCurrency(realPrice)}</span>
@@ -130,8 +164,8 @@ function ProductPrice({ realPrice, className }: { realPrice: number; className?:
   )
 }
 
-function ProductRating(props: { ratingAverage: number; reviewCount: number; className?: string }) {
-  const { ratingAverage, reviewCount, className } = props
+function Rating({ className }: { className?: string }) {
+  const { ratingAverage, reviewCount } = use(ProductCardContext)
 
   return ratingAverage > 0 && reviewCount > 0 ? (
     <div className={cn('hidden items-center gap-0.5 xs:flex', className)}>
@@ -141,11 +175,11 @@ function ProductRating(props: { ratingAverage: number; reviewCount: number; clas
   ) : null
 }
 
-// Add child components as properties to parent component
-ProductCard.Images = ProductImages
-ProductCard.Content = ProductContent
-ProductCard.Title = ProductTitle
-ProductCard.Category = ProductCategory
-ProductCard.Info = ProductInfo
-ProductCard.Price = ProductPrice
-ProductCard.Rating = ProductRating
+// Step 4. Add child components as properties to parent component
+ProductCard.Images = Images
+ProductCard.Content = Content
+ProductCard.Title = Title
+ProductCard.Category = Category
+ProductCard.Info = Info
+ProductCard.Price = Price
+ProductCard.Rating = Rating

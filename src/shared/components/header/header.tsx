@@ -13,8 +13,9 @@ import {
 } from '@/shared/components/ui/sheet'
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
-import { AuthButton, CategoriesDropdown } from '@/shared/components/header'
+import { AuthButton } from '@/shared/components/header'
 import { ArrowLeftIcon, AlignLeftIcon, SearchIcon, ShopperIcon, CartIcon } from '@/shared/components/icons'
+import { CategoriesHover, CategoryList } from '@/shared/components/header/header-category'
 
 export default function Header() {
   return (
@@ -41,7 +42,7 @@ export default function Header() {
               </SheetHeader>
               <nav className="grid gap-6 text-lg font-medium">
                 <Link href={PATH.HOME} className="mx-auto flex items-center gap-2 p-1.5 md:mx-0 lg:gap-3.5 lg:p-2">
-                  <ShopperIcon className="size-6 lg:size-8" />
+                  <ShopperIcon className="size-6 text-secondary-blue lg:size-8" />
                   <span className="text-lg font-bold lg:text-xl">Shopper</span>
                 </Link>
               </nav>
@@ -57,11 +58,13 @@ export default function Header() {
           href={PATH.HOME}
           className="mx-auto flex h-10 items-center gap-2 px-1.5 md:mx-0 lg:h-12 lg:gap-3.5 lg:px-2"
         >
-          <ShopperIcon className="size-6 lg:size-8" />
+          <ShopperIcon className="size-6 text-secondary-blue lg:size-8" />
           <span className="sr-only text-lg font-bold xs:not-sr-only lg:text-xl">Shopper</span>
         </Link>
 
-        <CategoriesDropdown />
+        <CategoriesHover>
+          <CategoryList />
+        </CategoriesHover>
 
         <div className="mx-auto hidden h-10 max-w-[840px] flex-1 items-center rounded-lg border border-input bg-light-1 p-1 shadow-sm focus-within:shadow-focus-within md:flex lg:h-12">
           <Input className="h-full border-none py-0 text-secondary-1 shadow-none focus-visible:ring-0" />

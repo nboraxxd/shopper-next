@@ -1,10 +1,12 @@
 'use client'
 
 import { z } from 'zod'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'nextjs-toploader/app'
+import { useSearchParams } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { EyeIcon, LoaderCircleIcon } from 'lucide-react'
-import { useRouter, useSearchParams } from 'next/navigation'
 
 import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
@@ -13,15 +15,16 @@ import { AUTH_INPUT_CLASSNAME } from '@/features/auth/constants'
 import { LoginReqBody, loginReqBodySchema } from '@/features/auth/schemas'
 import { ForbiddenError, handleClientErrorApi } from '@/shared/utils/error'
 
+import { TextLink } from '@/shared/components'
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
 import { MessageIcon } from '@/shared/components/icons'
 import { AuthInputWrapper, PasswordInput } from '@/features/auth/components'
 import { Form, FormField, FormItem, FormMessage } from '@/shared/components/ui/form'
-import { TextLink } from '@/shared/components'
 
 export function LoginForm() {
   const router = useRouter()
+  const [isDisabled, setIsDisabled] = useState(false)
 
   const searchParams = useSearchParams()
   const next = searchParams.get('next')
@@ -37,13 +40,16 @@ export function LoginForm() {
   const loginToServerMutation = useLoginToServerMutation()
 
   async function onValid(values: LoginReqBody) {
-    if (loginToServerMutation.isPending) return
+    if (loginToServerMutation.isPending || isDisabled) return
 
     try {
+      setIsDisabled(true)
+
       await loginToServerMutation.mutateAsync(values)
 
       router.push(next || PATH.HOME)
     } catch (error: any) {
+      setIsDisabled(false)
       if (error instanceof ForbiddenError) {
         form.setError('password', { type: z.ZodIssueCode.custom, message: error.payload.message })
       } else {
@@ -92,8 +98,12 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="mt-7 h-12 w-full gap-1.5" disabled={loginToServerMutation.isPending}>
-          {loginToServerMutation.isPending ? <LoaderCircleIcon className="size-4 animate-spin" /> : null}
+        <Button
+          type="submit"
+          className="mt-7 h-12 w-full gap-1.5"
+          disabled={loginToServerMutation.isPending || isDisabled}
+        >
+          {loginToServerMutation.isPending || isDisabled ? <LoaderCircleIcon className="size-4 animate-spin" /> : null}
           Đăng nhập
         </Button>
         <LoginHelpLinks />

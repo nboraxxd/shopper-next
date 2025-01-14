@@ -1,4 +1,12 @@
-import { BestSellerSection, CategoriesSection, HeroSection, PromotionSection } from '@/features/home/components'
+import { Suspense } from 'react'
+
+import {
+  BestSellerSection,
+  BestSellerSectionSkeleton,
+  CategoriesSection,
+  HeroSection,
+  PromotionSection,
+} from '@/features/home/components'
 
 export default function Homepage() {
   return (
@@ -10,7 +18,9 @@ export default function Homepage() {
       <HeroSection />
       <main className="container pb-16 lg:pb-24">
         <CategoriesSection />
-        <BestSellerSection />
+        <Suspense fallback={<BestSellerSectionSkeleton />}>
+          <BestSellerSection />
+        </Suspense>
       </main>
       <PromotionSection />
     </div>

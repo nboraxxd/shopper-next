@@ -7,6 +7,7 @@ export { default as CategoriesIcon } from './categories.svg'
 export { default as CartIcon } from './cart.svg'
 export { default as ProfileIcon } from './profile.svg'
 export { default as MessageIcon } from './message.svg'
+export { default as StarIcon } from './star.svg'
 
 export { default as ElectronicIcon } from './electronic.svg'
 export { default as PhoneIcon } from './phone.svg'

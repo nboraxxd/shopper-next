@@ -38,7 +38,7 @@ function RefreshTokenView() {
     <div className="relative h-screen">
       <div className="absolute inset-0 flex items-center justify-center shadow-section">
         <div className="flex items-center gap-2 lg:gap-3.5">
-          <ShopperIcon className="size-8 lg:size-12" />
+          <ShopperIcon className="size-8 text-secondary-blue lg:size-12" />
           <span className="text-xl font-bold lg:text-3xl">Shopper</span>
         </div>
       </div>

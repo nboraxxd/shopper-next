@@ -18,7 +18,7 @@ export default async function ProductSidebar({ categories, categoryId }: Props) 
   const categoriesImage = keyBy(CATEGORY_IMAGES, 'id')
 
   return (
-    <aside className="mt-8 lg:mt-0">
+    <aside>
       <div className="scrollbar-hide lg:sticky lg:top-[calc(var(--header-height)+2rem)] lg:h-[calc(100vh-var(--header-height)-2rem)] lg:overflow-y-auto lg:pb-14">
         <div className="p-3 lg:rounded-xl lg:bg-products-sidebar lg:py-5">
           <p className="text-lg font-medium md:text-2xl md:font-bold">Danh mục</p>

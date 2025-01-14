@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss'
 import tailwindcssAnimate from 'tailwindcss-animate'
+import containerQueries from '@tailwindcss/container-queries'
 import { fontFamily } from 'tailwindcss/defaultTheme'
 
 import customPlugin from './tailwind-plugin'
@@ -109,9 +110,10 @@ export default {
         link: 'hsl(var(--link))',
       },
       borderRadius: {
-        lg: 'var(--radius)' /* 8px */,
+        sm: 'calc(var(--radius) - 6px)' /* 2px */,
+        DEFAULT: 'calc(var(--radius) - 4px)' /* 4px */,
         md: 'calc(var(--radius) - 2px)' /* 6px */,
-        sm: 'calc(var(--radius) - 4px)' /* 4px */,
+        lg: 'var(--radius)' /* 8px */,
         xl: 'calc(var(--radius) + 2px)' /* 10px */,
         '2xl': 'calc(var(--radius) + 4px)' /* 12px */,
         '3xl': 'calc(var(--radius) + 6px)' /* 14px */,
@@ -155,5 +157,5 @@ export default {
       },
     },
   },
-  plugins: [tailwindcssAnimate, customPlugin],
+  plugins: [tailwindcssAnimate, containerQueries, customPlugin],
 } satisfies Config

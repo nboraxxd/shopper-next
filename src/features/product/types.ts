@@ -33,21 +33,21 @@ type ConfigurableOption = {
   }[]
 }
 
-export type ImageUrl = {
+export type ProductImageSizes = {
   large_url: string
   medium_url: string
   small_url: string
 }
 
-type ConfigurableProduct = {
-  images: ImageUrl[]
+export type ConfigurableProduct = {
+  images: ProductImageSizes[]
 }
 
-type Image = {
+export type ProductImagedata = {
   base_url: string
   thumbnail_url: string
   is_gallery: boolean
-} & ImageUrl
+} & ProductImageSizes
 
 type Specification = {
   name: string
@@ -87,7 +87,7 @@ export type Product = {
   description: string
   discount: number
   discount_rate: number
-  images: Image[]
+  images: ProductImagedata[]
   inventory_status: 'discontinued' | 'pre_order' | 'available'
   name: string
   price: number

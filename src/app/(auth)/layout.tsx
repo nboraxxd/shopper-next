@@ -29,7 +29,7 @@ export default function AuthLayout({
       <div className="bg-auth-content px-5 sm:px-7">
         <div className="mx-auto flex w-[min(460px,100%)] flex-col items-center justify-center py-14 lg:pt-20">
           <Link href={PATH.HOME} className="flex items-center gap-3.5 p-2">
-            <ShopperIcon className="size-8" />
+            <ShopperIcon className="size-8 text-secondary-blue" />
             <span className="text-xl font-bold">Shopper</span>
           </Link>
           {children}

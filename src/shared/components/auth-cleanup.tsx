@@ -2,7 +2,7 @@
 
 import { toast } from 'sonner'
 import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'nextjs-toploader/app'
 
 import { useAuthStore } from '@/features/auth/auth-store'
 import { useUserStore } from '@/features/user/user-store'
