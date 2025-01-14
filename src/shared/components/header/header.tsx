@@ -13,9 +13,8 @@ import {
 } from '@/shared/components/ui/sheet'
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
-import { AuthButton } from '@/shared/components/header'
+import { AuthButton, CategoryHover } from '@/shared/components/header'
 import { ArrowLeftIcon, AlignLeftIcon, SearchIcon, ShopperIcon, CartIcon } from '@/shared/components/icons'
-import { CategoriesHover, CategoryList } from '@/shared/components/header/header-category'
 
 export default function Header() {
   return (
@@ -62,9 +61,7 @@ export default function Header() {
           <span className="sr-only text-lg font-bold xs:not-sr-only lg:text-xl">Shopper</span>
         </Link>
 
-        <CategoriesHover>
-          <CategoryList />
-        </CategoriesHover>
+        <CategoryHover />
 
         <div className="mx-auto hidden h-10 max-w-[840px] flex-1 items-center rounded-lg border border-input bg-light-1 p-1 shadow-sm focus-within:shadow-focus-within md:flex lg:h-12">
           <Input className="h-full border-none py-0 text-secondary-1 shadow-none focus-visible:ring-0" />

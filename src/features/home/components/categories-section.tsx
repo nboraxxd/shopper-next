@@ -11,7 +11,7 @@ import { extractCategorySlug } from '@/features/category/utils'
 export default async function CategoriesSection() {
   const categoriesImage = keyBy(CATEGORY_IMAGES, 'id')
 
-  const categoriesResponse = await categoryServerApi.getCategoriesFromServerToBackend()
+  const categoriesResponse = await categoryServerApi.getCategoriesFromBackend()
 
   return (
     <section className="pt-16 lg:pt-24">

@@ -72,7 +72,7 @@ function CategoryItem(props: CategoryProps) {
       </div>
       <h3
         className={cn('text-balance text-center text-xs font-medium capitalize lg:text-wrap lg:text-left lg:text-sm', {
-          'text-active-category': isActive,
+          'text-link': isActive,
         })}
       >
         {title}

@@ -60,3 +60,7 @@ export const CATEGORY_IMAGES = [
     image: '/images/categories/11312.png',
   },
 ] as const
+
+export const CATEGORY_KEY = {
+  CATEGORIES: 'categories',
+} as const
