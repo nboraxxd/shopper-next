@@ -3,8 +3,8 @@ import keyBy from 'lodash/keyBy'
 
 import type { Category } from '@/features/category/types'
 import { productServerApi } from '@/features/product/api/server'
-import { PRODUCTS_DATA_FIELDS } from '@/features/product/constants'
-import type { Product, ProductsDataField, ProductsSearchParams } from '@/features/product/types'
+import { PRODUCTS_FIELDS } from '@/features/product/constants'
+import type { Product, ProductsField, ProductsSearchParams } from '@/features/product/types'
 
 import { ShopperIcon } from '@/shared/components/icons'
 import { Skeleton } from '@/shared/components/ui/skeleton'
@@ -18,8 +18,8 @@ interface Props {
 export async function ProductList({ productsSearchParams, categories }: Props) {
   const categoryById = keyBy(categories, 'id')
 
-  const productsResponse = await productServerApi.getProductsFromServerToBackend<Pick<Product, ProductsDataField>>({
-    fields: PRODUCTS_DATA_FIELDS,
+  const productsResponse = await productServerApi.getProductsFromBackend<Pick<Product, ProductsField>>({
+    fields: PRODUCTS_FIELDS,
     limit: '30',
     ...productsSearchParams,
   })

@@ -39,7 +39,7 @@ export default function RefreshToken() {
 
     // `refreshTokenCheckInterval` phải nhỏ hơn 1/3 thời gian hết hạn của access token
     // Ví dụ access token hết hạn sau 30s thì ít nhất 10s chúng ta sẽ check refresh token 1 lần
-    const refreshTokenCheckInterval = ms('3s')
+    const refreshTokenCheckInterval = ms('3s') // 1/5 of access token expiration time
     interval = setInterval(
       () =>
         checkAndRefreshToken({

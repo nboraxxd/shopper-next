@@ -2,8 +2,8 @@ import Link from 'next/link'
 
 import PATH from '@/shared/constants/path'
 import { productServerApi } from '@/features/product/api/server'
-import { PRODUCTS_DATA_FIELDS } from '@/features/product/constants'
-import type { ProductsDataField, Product } from '@/features/product/types'
+import { PRODUCTS_FIELDS } from '@/features/product/constants'
+import type { ProductsField, Product } from '@/features/product/types'
 
 import { ProductCard } from '@/features/product/components'
 import { Skeleton } from '@/shared/components/ui/skeleton'
@@ -14,7 +14,10 @@ function BestSellerWapper({ children }: { children: React.ReactNode }) {
     <section className="pt-16 lg:pt-24">
       <div className="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
         <h2 className="text-2xl font-bold tracking-tight text-foreground">Sản phẩm bán chạy</h2>
-        <Link href={PATH.PRODUCTS} className="hidden text-sm font-semibold text-link hover:text-link/90 sm:block">
+        <Link
+          href={PATH.PRODUCTS}
+          className="hidden text-sm font-semibold text-highlight hover:text-highlight/90 sm:block"
+        >
           Xem tất cả
           <span> &rarr;</span>
         </Link>
@@ -31,8 +34,8 @@ function BestSellerWapper({ children }: { children: React.ReactNode }) {
 }
 
 export async function BestSellerSection() {
-  const productsResponse = await productServerApi.getProductsFromServerToBackend<Pick<Product, ProductsDataField>>({
-    fields: PRODUCTS_DATA_FIELDS,
+  const productsResponse = await productServerApi.getProductsFromBackend<Pick<Product, ProductsField>>({
+    fields: PRODUCTS_FIELDS,
     limit: '12',
     sort: 'top_sell',
   })

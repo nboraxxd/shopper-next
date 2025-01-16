@@ -17,7 +17,10 @@ export default async function CategoriesSection() {
     <section className="pt-16 lg:pt-24">
       <div className="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
         <h2 className="text-2xl font-bold tracking-tight text-foreground">Danh mục sản phẩm</h2>
-        <Link href={PATH.PRODUCTS} className="hidden text-sm font-semibold text-link hover:text-link/90 sm:block">
+        <Link
+          href={PATH.PRODUCTS}
+          className="hidden text-sm font-semibold text-highlight hover:text-highlight/90 sm:block"
+        >
           Xem tất cả
           <span> &rarr;</span>
         </Link>

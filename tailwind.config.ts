@@ -107,7 +107,18 @@ export default {
           placeholder: 'hsl(var(--auth-content-placeholder))',
         },
 
-        link: 'hsl(var(--link))',
+        product: {
+          DEFAULT: 'hsl(var(--product))',
+          info: 'hsl(var(--product-info))',
+        },
+
+        breadcrumb: {
+          DEFAULT: 'hsl(var(--breadcrumb))',
+          foreground: 'hsl(var(--breadcrumb-foreground))',
+          last: 'hsl(var(--breadcrumb-last))',
+        },
+
+        highlight: 'hsl(var(--highlight))',
       },
       borderRadius: {
         sm: 'calc(var(--radius) - 6px)' /* 2px */,
@@ -117,6 +128,7 @@ export default {
         xl: 'calc(var(--radius) + 2px)' /* 10px */,
         '2xl': 'calc(var(--radius) + 4px)' /* 12px */,
         '3xl': 'calc(var(--radius) + 6px)' /* 14px */,
+        '4xl': '1.25rem' /* 20px */,
       },
       boxShadow: {
         section: 'var(--section-shadow)',

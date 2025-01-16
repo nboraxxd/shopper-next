@@ -179,8 +179,9 @@ function CategoryItem({ icon: Icon, href, title, setIsOpen, id }: Props) {
     <li>
       <Link
         href={href}
-        className={cn('flex items-center gap-2 py-2 text-base font-medium transition-colors hover:text-link', {
-          'text-link': (currentCategoryId && +currentCategoryId === id) || (pathname === PATH.PRODUCTS && id === 'all'),
+        className={cn('flex items-center gap-2 py-2 text-base font-medium transition-colors hover:text-highlight', {
+          'text-highlight':
+            (currentCategoryId && +currentCategoryId === id) || (pathname === PATH.PRODUCTS && id === 'all'),
         })}
         onClick={() => setIsOpen(false)}
       >

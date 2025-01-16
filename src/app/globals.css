@@ -59,7 +59,14 @@
     --auth-content-heading: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
     --auth-content-placeholder: 252 5.7% 82.9%; /* #d2d1d6 - secondary-3 */
 
-    --link: 209.2 100% 43.1%; /* #0071dc - primary-blue */
+    --product: 240 42.9% 98.6%; /* #fafafd - secondary-6 */
+    --product-info: 0 0% 100%; /* #fff - light-1 */
+
+    --breadcrumb: 0 0% 100%; /* #fff - light-1 */
+    --breadcrumb-foreground: 245.5 5.9% 63.7%; /* #9e9da8 - secondary-2 */
+    --breadcrumb-last: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
+
+    --highlight: 209.2 100% 43.1%; /* #0071dc - primary-blue */
   }
 
   .dark {
@@ -113,18 +120,35 @@
     --auth-content-heading: 228 3.7% 73.5%; /* #b9babe - dark-3 */
     --auth-content-placeholder: 228 3.7% 73.5%; /* #b9babe - dark-3 */
 
-    --link: 43.1 100% 50%; /* #ffb700 - primary-yellow */
+    --product: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
+    --product-info: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+
+    --breadcrumb: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+    --breadcrumb-foreground: 245.5 5.9% 63.7%; /* #9e9da8 - secondary-2 */
+    --breadcrumb-last: 0 0% 100%; /* #fff - light-1 */
+
+    --highlight: 43.1 100% 50%; /* #ffb700 - primary-yellow */
   }
 
   @screen md {
     :root {
       --header: 0 0% 93.3%; /* #eee - light-3 */
       --footer: 0 0% 93.3%; /* #eee - light-3 */
+
+      --product: 0 0% 100%; /* #fff - light-1 */
+      --product-info: 0 0% 96.5%; /* #f6f6f6 - light-2 */
+
+      --breadcrumb: 0 0% 96.5%; /* #f6f6f6 - light-2 */
     }
 
     .dark {
       --header: 222.4 27% 12.4%; /* #171c28 - dark-1 */
       --footer: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+
+      --product: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
+      --product-info: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+
+      --breadcrumb: 222.4 27% 12.4%; /* #171c28 - dark-1 */
     }
   }
 

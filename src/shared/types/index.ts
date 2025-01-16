@@ -16,5 +16,6 @@ export type Paginate = {
   totalPage: number
   count: number
   perPage: number
-  nextPage: number | null
+  previousPage?: number
+  nextPage?: number
 }

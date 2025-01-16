@@ -23,3 +23,7 @@ export function formatSecondsToMMSS(seconds: number): string {
 export const formatCurrency = (number: number) => {
   return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(number).replace('₫', '').trim()
 }
+
+export function formatNumberToSocialStyle(value: number) {
+  return new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(value).toLowerCase()
+}

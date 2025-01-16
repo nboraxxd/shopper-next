@@ -11,7 +11,7 @@ interface Props extends ComponentProps<typeof Link> {
 
 export default function TextLink({ children, className, ...rest }: Props) {
   return (
-    <Button asChild variant="link" className={cn('h-auto p-0 text-link', className)}>
+    <Button asChild variant="link" className={cn('h-auto p-0 text-highlight', className)}>
       <Link {...rest}>{children}</Link>
     </Button>
   )

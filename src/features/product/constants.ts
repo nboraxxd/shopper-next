@@ -16,8 +16,11 @@ export const PRODUCTS_SORT = [
   { name: 'Giá tăng dần', value: PRODUCT_SORT_OPTIONS.PRICE_ASC },
 ] as const
 
-export const PRODUCTS_DATA_FIELDS =
-  'name,real_price,categories,slug,id,images,rating_average,review_count,discount_rate,configurable_products'
+export const PRODUCTS_FIELDS =
+  '_id,categories,configurable_products,discount_rate,id,images,name,rating_average,real_price,review_count,slug'
+
+export const PRODUCT_DETAIL_FIELDS =
+  '_id,configurable_products,description,discount,discount_rate,id,images,name,price,real_price,rating_average,review_count,short_description,stock_item,slug'
 
 export const PRODUCT_ERROR_IMAGES = [
   'https://salt.tikicdn.com/assets/img/image.svg',

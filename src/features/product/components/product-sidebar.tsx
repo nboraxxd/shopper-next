@@ -63,7 +63,7 @@ function CategoryItem(props: CategoryProps) {
   return (
     <Link
       className={cn(
-        'flex shrink-0 items-center gap-2 transition-opacity hover:opacity-80 max-lg:w-[6.5rem] max-lg:flex-col lg:h-14'
+        'flex w-[6.5rem] shrink-0 flex-col items-center gap-2 transition-opacity hover:opacity-80 lg:h-14 lg:w-auto lg:flex-row'
       )}
       {...rest}
     >
@@ -72,7 +72,7 @@ function CategoryItem(props: CategoryProps) {
       </div>
       <h3
         className={cn('text-balance text-center text-xs font-medium capitalize lg:text-wrap lg:text-left lg:text-sm', {
-          'text-link': isActive,
+          'text-highlight': isActive,
         })}
       >
         {title}

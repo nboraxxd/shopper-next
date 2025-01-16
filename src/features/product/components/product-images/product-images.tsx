@@ -1,0 +1,53 @@
+'use client'
+
+import { useState } from 'react'
+import flatten from 'lodash/flatten'
+
+import { ConfigurableProduct, Product, ProductImagedata } from '@/features/product/types'
+import { ProductPreview, ProductThumb } from '@/features/product/components/product-images'
+import { PRODUCT_ERROR_IMAGES } from '@/features/product/constants'
+import { useIsClient } from '@/shared/hooks'
+
+interface Props {
+  name: Product['name']
+  images: ProductImagedata[]
+  configurableProducts?: ConfigurableProduct[]
+}
+
+export default function ProductImages({ name, images, configurableProducts }: Props) {
+  const isClient = useIsClient()
+
+  const mergedImages = configurableProducts
+    ? [...images, ...flatten(configurableProducts.map((product) => product.images))]
+    : images
+
+  const uniqueLargeUrls = new Set()
+
+  const uniqueImages = mergedImages.filter((item) => {
+    if (uniqueLargeUrls.has(item.large_url)) {
+      return false
+    }
+    uniqueLargeUrls.add(item.large_url)
+    return true
+  })
+
+  const validProductImages = uniqueImages.filter((item) => PRODUCT_ERROR_IMAGES.indexOf(item.large_url) === -1)
+
+  const [activeImage, setActiveImage] = useState(validProductImages[0].large_url)
+
+  return (
+    <>
+      <ProductPreview image={activeImage || images[0].large_url} images={validProductImages} name={name} />
+      <div className="group/swiper relative mr-8 hidden shrink-0 py-8 md:flex lg:mr-0 lg:p-4">
+        {isClient ? (
+          <ProductThumb
+            name={name}
+            images={validProductImages}
+            activeImage={activeImage}
+            setActiveImage={setActiveImage}
+          />
+        ) : null}
+      </div>
+    </>
+  )
+}

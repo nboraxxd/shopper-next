@@ -11,7 +11,7 @@ import { EyeIcon, LoaderCircleIcon } from 'lucide-react'
 import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
 import { useLoginToServerMutation } from '@/features/auth/hooks'
-import { AUTH_INPUT_CLASSNAME } from '@/features/auth/constants'
+import { CUSTOM_INPUT_CLASSNAME } from '@/shared/constants/class-name'
 import { LoginReqBody, loginReqBodySchema } from '@/features/auth/schemas'
 import { ForbiddenError, handleClientErrorApi } from '@/shared/utils/error'
 
@@ -73,7 +73,7 @@ export function LoginForm() {
                     type="email"
                     autoComplete="email"
                     placeholder="Email"
-                    className={cn(AUTH_INPUT_CLASSNAME)}
+                    className={cn(CUSTOM_INPUT_CLASSNAME)}
                     required
                     {...field}
                   />
@@ -116,11 +116,11 @@ export function LoginFormFallback() {
   return (
     <div className="mt-8 flex w-full shrink-0 flex-col">
       <AuthInputWrapper>
-        <Input readOnly placeholder="Email" className={cn(AUTH_INPUT_CLASSNAME)} />
+        <Input readOnly placeholder="Email" className={cn(CUSTOM_INPUT_CLASSNAME)} />
         <MessageIcon className="size-6 text-secondary-3" />
       </AuthInputWrapper>
       <AuthInputWrapper className="mt-7">
-        <Input readOnly placeholder="Mật khẩu" className={cn(AUTH_INPUT_CLASSNAME)} />
+        <Input readOnly placeholder="Mật khẩu" className={cn(CUSTOM_INPUT_CLASSNAME)} />
         <EyeIcon className="size-6 text-secondary-3" />
       </AuthInputWrapper>
       <Button className="mt-7 h-12 w-full gap-1.5" disabled>
@@ -135,7 +135,7 @@ function LoginHelpLinks() {
   return (
     <div className="mt-5 flex items-center gap-1 place-self-end text-sm xs:gap-1.5 xs:text-base">
       <TextLink href={PATH.FORGOT_PASSWORD}>Quên mật khẩu</TextLink>
-      <span className="text-link">•</span>
+      <span className="text-highlight">•</span>
       <TextLink href={PATH.RESEND_VERIFY_EMAIL}>Gửi lại email xác thực</TextLink>
     </div>
   )

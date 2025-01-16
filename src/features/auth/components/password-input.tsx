@@ -6,7 +6,7 @@ import { ControllerRenderProps } from 'react-hook-form'
 
 import { cn } from '@/shared/utils'
 import { LoginReqBody } from '@/features/auth/schemas'
-import { AUTH_INPUT_CLASSNAME } from '@/features/auth/constants'
+import { CUSTOM_INPUT_CLASSNAME } from '@/shared/constants/class-name'
 
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
@@ -21,7 +21,7 @@ export default function PasswordInput({ field }: { field: ControllerRenderProps<
         type={isShowPassword ? 'text' : 'password'}
         autoComplete="new-password"
         placeholder="Mật khẩu"
-        className={cn(AUTH_INPUT_CLASSNAME)}
+        className={cn(CUSTOM_INPUT_CLASSNAME)}
         required
         {...field}
       />
