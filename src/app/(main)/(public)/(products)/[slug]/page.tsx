@@ -46,7 +46,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
 
         {/* Product Detail */}
         <section className="items-start gap-4 rounded-xl bg-card p-4 md:mt-8 md:gap-8 md:rounded-none md:bg-transparent md:p-0 lg:flex">
-          <div className="md:flex md:flex-row-reverse md:px-7 lg:w-1/2 lg:flex-col xl:w-5/12">
+          <div className="rounded-md dark:border-transparent md:flex md:flex-row-reverse md:border md:px-7 lg:w-1/2 lg:flex-col lg:border-none xl:w-5/12">
             <ProductImages
               name={product.name}
               images={product.images}

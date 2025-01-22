@@ -21,109 +21,137 @@ interface Props {
 
 const SLIDES_PER_VIEW = 5
 
-export default function ProductThumb({ name, images, activeImage, setActiveImage }: Props) {
+export function HorizontalProductThumb({ name, images, activeImage, setActiveImage }: Props) {
   const swiperRef = useRef<SwiperRef | null>(null)
+
   const [isBeginning, setIsBeginning] = useState(true)
+  const [isEnd, setIsEnd] = useState(false)
 
   return (
-    <>
-      <div className="group/swiper relative hidden select-none p-4 lg:block">
-        <Swiper
-          className="mySwiper"
-          autoHeight={true}
-          direction="horizontal"
-          spaceBetween={12}
-          slidesPerView={SLIDES_PER_VIEW}
-          slidesPerGroup={SLIDES_PER_VIEW}
-          onSlideChange={(swiper) => {
-            console.log(swiper)
-            if (swiper.isBeginning) {
-              setIsBeginning(true)
-            } else {
-              setIsBeginning(false)
-            }
-          }}
-          modules={[Navigation]}
-          ref={swiperRef}
-        >
-          {images.map((image, index) => (
-            <SwiperSlide
-              key={index}
+    <div className="group/swiper relative hidden select-none p-4 lg:block">
+      <Swiper
+        className="mySwiper"
+        direction="horizontal"
+        spaceBetween={12}
+        slidesPerView={SLIDES_PER_VIEW}
+        slidesPerGroup={SLIDES_PER_VIEW}
+        onSlideChange={(swiper) => {
+          if (swiper.isBeginning) {
+            setIsBeginning(true)
+          } else {
+            setIsBeginning(false)
+          }
+
+          if (swiper.isEnd) {
+            setIsEnd(true)
+          } else {
+            setIsEnd(false)
+          }
+        }}
+        modules={[Navigation]}
+        ref={swiperRef}
+      >
+        {images.map((image, index) => (
+          <SwiperSlide
+            key={index}
+            className={cn(
+              '!mr-3 !w-[4.0875rem] cursor-pointer rounded-md border-2 border-light-2 bg-light-1 2xl:!w-[84.4px]',
+              {
+                '!border-highlight': image.large_url === activeImage,
+              }
+            )}
+          >
+            <div className="group/slide relative pt-[100%]">
+              <Image
+                width={100}
+                height={100}
+                src={image.medium_url}
+                alt={name}
+                className={cn(
+                  'absolute left-0 top-0 size-full rounded-md object-contain opacity-90 transition-opacity',
+                  image.large_url === activeImage ? 'opacity-100' : 'group-hover/slide:opacity-100'
+                )}
+                onClick={() => setActiveImage(image.large_url)}
+              />
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      {images.length > SLIDES_PER_VIEW ? (
+        <>
+          {!isBeginning ? (
+            <ThumbnailControlButton className="left-0" onClick={() => swiperRef.current?.swiper?.slidePrev()}>
+              <ChevronLeftIcon />
+            </ThumbnailControlButton>
+          ) : null}
+          {!isEnd ? (
+            <ThumbnailControlButton className="right-0" onClick={() => swiperRef.current?.swiper?.slideNext()}>
+              <ChevronRightIcon />
+            </ThumbnailControlButton>
+          ) : null}
+        </>
+      ) : null}
+    </div>
+  )
+}
+
+function ThumbnailControlButton({
+  children,
+  onClick,
+  className,
+}: {
+  children: React.ReactNode
+  onClick?: () => void
+  className?: string
+}) {
+  return (
+    <Button
+      size="icon"
+      variant="ghost"
+      className={cn(
+        'absolute top-1/2 z-10 size-8 -translate-y-1/2 rounded-full bg-secondary-2/95 text-light-1 opacity-0 transition-opacity duration-300 hover:bg-secondary-2 group-hover/swiper:opacity-100',
+        className
+      )}
+      onClick={onClick}
+    >
+      {children}
+    </Button>
+  )
+}
+
+export function VerticalProductThumb({ name, images, activeImage, setActiveImage }: Props) {
+  return (
+    <div className="mr-8 hidden select-none py-8 md:flex lg:hidden">
+      <Swiper
+        className="mySwiper !w-[5.625rem] [&_.swiper-wrapper]:h-[5.625rem] [&_.swiper-wrapper]:flex-col"
+        direction="vertical"
+        autoHeight
+        slidesPerView="auto"
+        spaceBetween={12}
+        slidesPerGroup={SLIDES_PER_VIEW}
+        modules={[Navigation]}
+      >
+        {images.map((image, index) => (
+          <SwiperSlide
+            key={index}
+            className={cn('group/slide !mb-3 cursor-pointer rounded-md border-2 border-light-2 bg-light-1', {
+              '!border-highlight': image.large_url === activeImage,
+            })}
+          >
+            <Image
+              width={250}
+              height={250}
+              src={image.medium_url}
+              alt={name}
               className={cn(
-                '!mr-3 !w-[4.0875rem] overflow-hidden rounded-md border border-secondary-4 !bg-light-1 p-1 transition-colors 2xl:!w-[84.4px]',
-                image.large_url === activeImage ? 'border-primary-yellow' : 'hover:border-secondary-2'
+                'size-full rounded-md object-contain opacity-90 transition-opacity',
+                image.large_url === activeImage ? 'opacity-100' : 'group-hover/slide:opacity-100'
               )}
-            >
-              <div className="group/slide cursor-pointer transition-colors lg:relative lg:pt-[100%]">
-                <Image
-                  width={100}
-                  height={100}
-                  src={image.medium_url}
-                  alt={name}
-                  className={cn(
-                    'size-full object-contain opacity-90 transition-opacity lg:absolute lg:left-0 lg:top-0',
-                    image.large_url === activeImage ? 'opacity-100' : 'group-hover/slide:opacity-100'
-                  )}
-                  onClick={() => setActiveImage(image.large_url)}
-                />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        {images.length > SLIDES_PER_VIEW ? (
-          <>
-            {!isBeginning ? (
-              <Button
-                onClick={() => swiperRef.current?.swiper?.slidePrev()}
-                className="absolute left-0 top-1/2 z-10 hidden -translate-y-1/2 rounded-full bg-secondary-2 p-0.5 opacity-0 transition-opacity duration-300 group-hover/swiper:opacity-100 lg:inline-flex"
-              >
-                <ChevronLeftIcon className="size-5 text-light-1" />
-              </Button>
-            ) : null}
-            <Button
-              onClick={() => swiperRef.current?.swiper?.slideNext()}
-              className="absolute right-0 top-1/2 z-10 hidden -translate-y-1/2 rounded-full bg-secondary-2 p-0.5 opacity-0 transition-opacity duration-300 group-hover/swiper:opacity-100 lg:inline-flex"
-            >
-              <ChevronRightIcon className="size-5 text-light-1" />
-            </Button>
-          </>
-        ) : null}
-      </div>
-      <div className="hidden select-none md:mr-8 md:flex md:py-8 lg:hidden">
-        <Swiper
-          className="mySwiper !w-[5.625rem] [&_.swiper-wrapper]:h-[5.625rem] [&_.swiper-wrapper]:flex-col"
-          direction="vertical"
-          autoHeight
-          slidesPerView="auto"
-          spaceBetween={12}
-          slidesPerGroup={SLIDES_PER_VIEW}
-          modules={[Navigation]}
-        >
-          {images.map((image, index) => (
-            <SwiperSlide
-              key={index}
-              className={cn(
-                '!mb-3 rounded-md border border-secondary-4 bg-light-1 p-1 transition-colors max-lg:flex max-lg:items-center',
-                image.large_url === activeImage ? 'border-primary-yellow' : 'hover:border-secondary-2'
-              )}
-            >
-              <div className="group/slide cursor-pointer transition-colors lg:relative lg:pt-[100%]">
-                <Image
-                  width={250}
-                  height={250}
-                  src={image.medium_url}
-                  alt={name}
-                  className={cn(
-                    'size-full object-contain opacity-90 transition-opacity lg:absolute lg:left-0 lg:top-0',
-                    image.large_url === activeImage ? 'opacity-100' : 'group-hover/slide:opacity-100'
-                  )}
-                  onClick={() => setActiveImage(image.large_url)}
-                />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-    </>
+              onClick={() => setActiveImage(image.large_url)}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   )
 }

@@ -1,3 +1,3 @@
 export { default as ProductImages } from './product-images'
-export { default as ProductPreview } from './product-preview'
-export { default as ProductThumb } from './product-thumb'
+export { ProductPreview, ProductPreviewSlider } from './product-preview'
+export { HorizontalProductThumb, VerticalProductThumb } from './product-thumb'

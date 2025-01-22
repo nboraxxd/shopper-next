@@ -6,7 +6,12 @@ import flatten from 'lodash/flatten'
 import { PRODUCT_ERROR_IMAGES } from '@/features/product/constants'
 import { ConfigurableProduct, Product, ProductImagedata } from '@/features/product/types'
 
-import { ProductPreview, ProductThumb } from '@/features/product/components/product-images'
+import {
+  ProductPreview,
+  ProductPreviewSlider,
+  HorizontalProductThumb,
+  VerticalProductThumb,
+} from '@/features/product/components/product-images'
 
 interface Props {
   name: Product['name']
@@ -35,8 +40,27 @@ export default function ProductImages({ name, images, configurableProducts }: Pr
 
   return (
     <>
-      <ProductPreview image={activeImage || images[0].large_url} images={validProductImages} name={name} />
-      <ProductThumb name={name} images={validProductImages} activeImage={activeImage} setActiveImage={setActiveImage} />
+      {/* ProductPreview for mobile */}
+      <ProductPreviewSlider images={validProductImages} name={name} />
+
+      {/* ProductThumb for tablet and desktop */}
+      <ProductPreview image={activeImage || images[0].large_url} name={name} />
+
+      {/* ProductThumb for tablet */}
+      <VerticalProductThumb
+        name={name}
+        images={validProductImages}
+        activeImage={activeImage}
+        setActiveImage={setActiveImage}
+      />
+
+      {/* ProductThumb for desktop */}
+      <HorizontalProductThumb
+        name={name}
+        images={validProductImages}
+        activeImage={activeImage}
+        setActiveImage={setActiveImage}
+      />
     </>
   )
 }
