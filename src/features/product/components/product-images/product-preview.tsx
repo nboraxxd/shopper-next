@@ -3,7 +3,6 @@
 import { Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-import { useMediaQuery } from '@/shared/hooks'
 import { ProductImageSizes } from '@/features/product/types'
 
 import 'swiper/css'
@@ -17,11 +16,9 @@ interface Props {
 }
 
 export default function ProductPreview({ image, images, name }: Props) {
-  // const is768AndUp = useMediaQuery({ minWidth: 768 })
-
   return (
     <>
-      <div className="relative hidden grow bg-light-1 pt-[92%] md:block">
+      <div className="relative hidden bg-light-1 pt-[92%] md:block md:grow lg:grow-0">
         <Image
           width={500}
           height={500}

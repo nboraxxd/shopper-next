@@ -3,10 +3,10 @@
 import { useState } from 'react'
 import flatten from 'lodash/flatten'
 
-import { ConfigurableProduct, Product, ProductImagedata } from '@/features/product/types'
-import { ProductPreview, ProductThumb } from '@/features/product/components/product-images'
 import { PRODUCT_ERROR_IMAGES } from '@/features/product/constants'
-import { useIsClient } from '@/shared/hooks'
+import { ConfigurableProduct, Product, ProductImagedata } from '@/features/product/types'
+
+import { ProductPreview, ProductThumb } from '@/features/product/components/product-images'
 
 interface Props {
   name: Product['name']
@@ -15,8 +15,6 @@ interface Props {
 }
 
 export default function ProductImages({ name, images, configurableProducts }: Props) {
-  const isClient = useIsClient()
-
   const mergedImages = configurableProducts
     ? [...images, ...flatten(configurableProducts.map((product) => product.images))]
     : images
@@ -38,16 +36,7 @@ export default function ProductImages({ name, images, configurableProducts }: Pr
   return (
     <>
       <ProductPreview image={activeImage || images[0].large_url} images={validProductImages} name={name} />
-      <div className="group/swiper relative mr-8 hidden shrink-0 py-8 md:flex lg:mr-0 lg:p-4">
-        {isClient ? (
-          <ProductThumb
-            name={name}
-            images={validProductImages}
-            activeImage={activeImage}
-            setActiveImage={setActiveImage}
-          />
-        ) : null}
-      </div>
+      <ProductThumb name={name} images={validProductImages} activeImage={activeImage} setActiveImage={setActiveImage} />
     </>
   )
 }

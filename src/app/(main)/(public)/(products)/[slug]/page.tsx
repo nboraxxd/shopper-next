@@ -3,6 +3,8 @@ import { ProductAction } from '@/features/product/components/product-action'
 import { ProductImages } from '@/features/product/components/product-images'
 import { ProductResponse } from '@/features/product/types'
 import { extractProductId } from '@/features/product/utils'
+import { reviewServerApi } from '@/features/review/api/server'
+import { ReviewsResponse } from '@/features/review/types'
 import { ShieldIcon, StarIcon } from '@/shared/components/icons'
 import { Separator } from '@/shared/components/ui/separator'
 import { formatCurrency, formatNumberToSocialStyle } from '@/shared/utils'
@@ -17,18 +19,24 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
   if (!productId) return notFound()
 
   let product: ProductResponse['data'][0] | null = null
+  let reviews: ReviewsResponse | null = null
 
   try {
-    const productResponse = await productServerApi.getProductDetailFromBackend(productId)
+    const [productResponse, reviewsResponse] = await Promise.all([
+      productServerApi.getProductDetailFromBackend(productId),
+      reviewServerApi.getReviewsByProductIdFromBackend(productId),
+    ])
 
     product = productResponse.payload.data[0]
+    reviews = reviewsResponse.payload
   } catch (error: any) {
     if (error.digest?.includes('NEXT_REDIRECT')) {
       throw error
     }
   }
 
-  if (!product) notFound()
+  if (!product || !reviews) notFound()
+  console.log('🔥 ~ ProductDetail ~ reviews:', reviews)
 
   return (
     <main className="min-h-[calc(100vh-var(--header-height))] bg-product pt-5">
@@ -37,8 +45,8 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
         <section></section>
 
         {/* Product Detail */}
-        <section className="gap-4 rounded-xl bg-card p-4 md:mt-8 md:gap-8 md:rounded-none md:bg-transparent md:p-0 lg:flex">
-          <div className="shrink-0 md:flex md:flex-row-reverse md:px-7 lg:block lg:w-1/2 xl:w-5/12">
+        <section className="items-start gap-4 rounded-xl bg-card p-4 md:mt-8 md:gap-8 md:rounded-none md:bg-transparent md:p-0 lg:flex">
+          <div className="md:flex md:flex-row-reverse md:px-7 lg:w-1/2 lg:flex-col xl:w-5/12">
             <ProductImages
               name={product.name}
               images={product.images}
@@ -46,7 +54,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
             />
           </div>
           <div className="mt-5 md:mt-8 md:rounded-xl md:bg-product-info md:p-10 lg:mt-0 lg:w-1/2 xl:w-7/12">
-            <h1 className="line-clamp-2 text-lg font-bold md:text-3xl md:font-medium">{product.name}</h1>
+            <h1 className="line-clamp-2 text-lg font-bold md:text-2xl md:font-medium">{product.name}</h1>
             <div className="mt-5 flex flex-col gap-5 md:mt-7 md:flex-row md:gap-7 lg:flex-col xl:flex-row">
               <div className="grow space-y-7 xl:w-1/2">
                 {product.rating_average > 0 ? (
@@ -91,7 +99,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                 </h4>
                 <h4 className="flex flex-1 items-center gap-1 text-sm font-medium">
                   <ShieldIcon className="inline-block size-6" />
-                  <span className="p-1">Bảo hành theo chính sách từ Nhà bán hàng</span>
+                  <span className="p-1">Bảo hành theo chính sách từ nhà bán</span>
                 </h4>
               </div>
             </div>
@@ -109,7 +117,14 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
         </section>
 
         {/* Product Review */}
-        <section className="mt-8"></section>
+        <section className="mt-8">
+          {reviews.data.map((review) => (
+            <div key={review._id} className="mt-5">
+              <h3 className="font-medium">{review.user.name}</h3>
+              <p className="mt-2">{review.content}</p>
+            </div>
+          ))}
+        </section>
       </div>
     </main>
   )
