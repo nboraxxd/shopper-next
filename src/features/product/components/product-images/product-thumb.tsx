@@ -1,16 +1,16 @@
 'use client'
 
+import Image from 'next/image'
 import { useRef, useState } from 'react'
-import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react'
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 
 import { cn } from '@/shared/utils'
 import { ProductImageSizes } from '@/features/product/types'
+import { ThumbControlButton } from '@/features/product/components/product-images'
 
 import 'swiper/css'
-import { Button } from '@/shared/components/ui/button'
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
-import Image from 'next/image'
 
 interface Props {
   name: string
@@ -55,7 +55,7 @@ export function HorizontalProductThumb({ name, images, activeImage, setActiveIma
           <SwiperSlide
             key={index}
             className={cn(
-              '!mr-3 !w-[4.0875rem] cursor-pointer rounded-md border-2 border-light-2 bg-light-1 2xl:!w-[84.4px]',
+              '!mr-3 !w-[4.0875rem] cursor-pointer overflow-hidden rounded-md border-2 border-light-2 bg-light-1 2xl:!w-[84.4px]',
               {
                 '!border-highlight': image.large_url === activeImage,
               }
@@ -68,7 +68,7 @@ export function HorizontalProductThumb({ name, images, activeImage, setActiveIma
                 src={image.medium_url}
                 alt={name}
                 className={cn(
-                  'absolute left-0 top-0 size-full rounded-md object-contain opacity-90 transition-opacity',
+                  'absolute left-0 top-0 size-full object-contain opacity-90 transition-opacity',
                   image.large_url === activeImage ? 'opacity-100' : 'group-hover/slide:opacity-100'
                 )}
                 onClick={() => setActiveImage(image.large_url)}
@@ -80,42 +80,18 @@ export function HorizontalProductThumb({ name, images, activeImage, setActiveIma
       {images.length > SLIDES_PER_VIEW ? (
         <>
           {!isBeginning ? (
-            <ThumbnailControlButton className="left-0" onClick={() => swiperRef.current?.swiper?.slidePrev()}>
+            <ThumbControlButton className="left-0" onClick={() => swiperRef.current?.swiper?.slidePrev()}>
               <ChevronLeftIcon />
-            </ThumbnailControlButton>
+            </ThumbControlButton>
           ) : null}
           {!isEnd ? (
-            <ThumbnailControlButton className="right-0" onClick={() => swiperRef.current?.swiper?.slideNext()}>
+            <ThumbControlButton className="right-0" onClick={() => swiperRef.current?.swiper?.slideNext()}>
               <ChevronRightIcon />
-            </ThumbnailControlButton>
+            </ThumbControlButton>
           ) : null}
         </>
       ) : null}
     </div>
-  )
-}
-
-function ThumbnailControlButton({
-  children,
-  onClick,
-  className,
-}: {
-  children: React.ReactNode
-  onClick?: () => void
-  className?: string
-}) {
-  return (
-    <Button
-      size="icon"
-      variant="ghost"
-      className={cn(
-        'absolute top-1/2 z-10 size-8 -translate-y-1/2 rounded-full bg-secondary-2/95 text-light-1 opacity-0 transition-opacity duration-300 hover:bg-secondary-2 group-hover/swiper:opacity-100',
-        className
-      )}
-      onClick={onClick}
-    >
-      {children}
-    </Button>
   )
 }
 
@@ -134,17 +110,20 @@ export function VerticalProductThumb({ name, images, activeImage, setActiveImage
         {images.map((image, index) => (
           <SwiperSlide
             key={index}
-            className={cn('group/slide !mb-3 cursor-pointer rounded-md border-2 border-light-2 bg-light-1', {
-              '!border-highlight': image.large_url === activeImage,
-            })}
+            className={cn(
+              'group/slide !mb-3 cursor-pointer overflow-hidden rounded-md border-2 border-light-2 bg-light-1',
+              {
+                '!border-highlight': image.large_url === activeImage,
+              }
+            )}
           >
             <Image
-              width={250}
-              height={250}
+              width={100}
+              height={100}
               src={image.medium_url}
               alt={name}
               className={cn(
-                'size-full rounded-md object-contain opacity-90 transition-opacity',
+                'size-full object-contain opacity-90 transition-opacity',
                 image.large_url === activeImage ? 'opacity-100' : 'group-hover/slide:opacity-100'
               )}
               onClick={() => setActiveImage(image.large_url)}

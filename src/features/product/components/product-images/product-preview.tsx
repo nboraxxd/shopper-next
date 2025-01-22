@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -7,7 +8,6 @@ import { ProductImageSizes } from '@/features/product/types'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
-import Image from 'next/image'
 
 interface ProductPreviewProps {
   image: string

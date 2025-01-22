@@ -1,15 +1,14 @@
-import { productServerApi } from '@/features/product/api/server'
-import { ProductAction } from '@/features/product/components/product-action'
-import { ProductImages } from '@/features/product/components/product-images'
+import { notFound } from 'next/navigation'
+
 import { ProductResponse } from '@/features/product/types'
 import { extractProductId } from '@/features/product/utils'
-import { reviewServerApi } from '@/features/review/api/server'
-import { ReviewsResponse } from '@/features/review/types'
-import { ShieldIcon, StarIcon } from '@/shared/components/icons'
-import { Separator } from '@/shared/components/ui/separator'
+import { productServerApi } from '@/features/product/api/server'
 import { formatCurrency, formatNumberToSocialStyle } from '@/shared/utils'
 
-import { notFound } from 'next/navigation'
+import { Separator } from '@/shared/components/ui/separator'
+import { ShieldIcon, StarIcon } from '@/shared/components/icons'
+import { ProductImages } from '@/features/product/components/product-images'
+import { ProductAction } from '@/features/product/components/product-action'
 
 export default async function ProductDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
@@ -19,24 +18,18 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
   if (!productId) return notFound()
 
   let product: ProductResponse['data'][0] | null = null
-  let reviews: ReviewsResponse | null = null
 
   try {
-    const [productResponse, reviewsResponse] = await Promise.all([
-      productServerApi.getProductDetailFromBackend(productId),
-      reviewServerApi.getReviewsByProductIdFromBackend(productId),
-    ])
+    const productResponse = await productServerApi.getProductDetailFromBackend(productId)
 
     product = productResponse.payload.data[0]
-    reviews = reviewsResponse.payload
   } catch (error: any) {
     if (error.digest?.includes('NEXT_REDIRECT')) {
       throw error
     }
   }
 
-  if (!product || !reviews) notFound()
-  console.log('🔥 ~ ProductDetail ~ reviews:', reviews)
+  if (!product) notFound()
 
   return (
     <main className="min-h-[calc(100vh-var(--header-height))] bg-product pt-5">
@@ -117,14 +110,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
         </section>
 
         {/* Product Review */}
-        <section className="mt-8">
-          {reviews.data.map((review) => (
-            <div key={review._id} className="mt-5">
-              <h3 className="font-medium">{review.user.name}</h3>
-              <p className="mt-2">{review.content}</p>
-            </div>
-          ))}
-        </section>
+        <section className="mt-8"></section>
       </div>
     </main>
   )
