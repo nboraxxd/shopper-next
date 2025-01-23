@@ -99,7 +99,7 @@ function OldProductCard(props: Props) {
             {/* Rating */}
             {ratingAverage > 0 && reviewCount > 0 ? (
               <div className="hidden items-center gap-0.5 xs:flex">
-                <StarIcon className="size-4 fill-primary-yellow text-primary-yellow" />
+                <StarIcon className="size-4 text-primary-yellow" />
                 <span className="mt-0.5 text-sm">{ratingAverage.toFixed(1)}</span>
               </div>
             ) : null}

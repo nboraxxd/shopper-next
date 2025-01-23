@@ -30,7 +30,7 @@ export default function UserAvatar({ name, avatarUrl, className, variant, height
   return avatarUrl ? (
     <Avatar className={cn(className, variantOptions({ variant }))}>
       <AvatarImage asChild src={avatarUrl}>
-        <Image width={width} height={height} className="size-full" src={avatarUrl} alt={name} />
+        <Image width={width} height={height} className="size-full object-cover" src={avatarUrl} alt={name} />
       </AvatarImage>
       <AvatarFallback>{name.substring(0, 2).toLocaleUpperCase()}</AvatarFallback>
     </Avatar>

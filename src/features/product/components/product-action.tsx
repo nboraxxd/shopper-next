@@ -19,7 +19,6 @@ export default function ProductAction({ stock }: { stock: number }) {
       <div className="flex items-center gap-3 xl:flex-col xl:items-start">
         <span className="text-lg font-medium">Số lượng:</span>
         <QuantityInput
-          // className="mt-2"
           max={stock}
           onDecrease={handleChangeQuantity}
           onIncrease={handleChangeQuantity}

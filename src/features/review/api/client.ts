@@ -4,6 +4,6 @@ import { ReviewsResponse } from '@/features/review/types'
 
 const PREFIX = '/review'
 
-export const reviewServerApi = {
+export const reviewClientApi = {
   getReviewsByProductIdFromBackend: (productId: string) => http.get<ReviewsResponse>(`${PREFIX}/${productId}`),
 }

@@ -26,3 +26,7 @@ export const PRODUCT_ERROR_IMAGES = [
   'https://salt.tikicdn.com/assets/img/image.svg',
   'https://salt.tikicdn.com/cache/w300/media/catalog/producthttp://img11.joybuy.com/N0/s900x900_g10/M00/00/09/rBEQWFD-WsUIAAAAAADys29bRvUAAADlQC4eC8AAPLL793.jpg',
 ]
+
+export const PRODUCT_KEY = {
+  PRODUCT: 'product',
+}

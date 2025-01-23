@@ -6,9 +6,9 @@ import { productServerApi } from '@/features/product/api/server'
 import { formatCurrency, formatNumberToSocialStyle } from '@/shared/utils'
 
 import { Separator } from '@/shared/components/ui/separator'
+import { ProductReviews } from '@/features/review/components'
 import { ShieldIcon, StarIcon } from '@/shared/components/icons'
-import { ProductImages } from '@/features/product/components/product-images'
-import { ProductAction } from '@/features/product/components/product-action'
+import { ProductAction, ProductImages } from '@/features/product/components'
 
 export default async function ProductDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
@@ -101,7 +101,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
 
         {/* Product Description */}
         <section className="mt-8">
-          <h3 className="mx-auto mt-5 w-full text-lg font-medium lg:w-10/12 xl:w-8/12">Mô tả sản phẩm</h3>
+          <h2 className="mx-auto mt-5 w-full text-lg font-medium lg:w-10/12 xl:w-8/12">Mô tả sản phẩm</h2>
 
           <div
             className="mx-auto mt-5 w-full lg:w-10/12 xl:w-8/12"
@@ -110,7 +110,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
         </section>
 
         {/* Product Review */}
-        <section className="mt-8"></section>
+        <ProductReviews productId={productId} />
       </div>
     </main>
   )

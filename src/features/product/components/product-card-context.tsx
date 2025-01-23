@@ -169,7 +169,7 @@ function Rating({ className }: { className?: string }) {
 
   return ratingAverage > 0 && reviewCount > 0 ? (
     <div className={cn('hidden items-center gap-0.5 xs:flex', className)}>
-      <StarIcon className="size-4 fill-primary-yellow text-primary-yellow" />
+      <StarIcon className="size-4 text-primary-yellow" />
       <span className="mt-0.5 text-sm">{ratingAverage.toFixed(1)}</span>
     </div>
   ) : null
