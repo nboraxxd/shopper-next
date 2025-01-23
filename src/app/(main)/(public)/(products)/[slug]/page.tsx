@@ -8,7 +8,7 @@ import { formatCurrency, formatNumberToSocialStyle } from '@/shared/utils'
 import { Separator } from '@/shared/components/ui/separator'
 import { ProductReviews } from '@/features/review/components'
 import { ShieldIcon, StarIcon } from '@/shared/components/icons'
-import { ProductAction, ProductImages } from '@/features/product/components'
+import { ProductAction, ProductImages, RelatedProducts } from '@/features/product/components'
 
 export default async function ProductDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
@@ -100,17 +100,18 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
         </section>
 
         {/* Product Description */}
-        <section className="mt-8">
-          <h2 className="mx-auto mt-5 w-full text-lg font-medium lg:w-10/12 xl:w-8/12">Mô tả sản phẩm</h2>
-
-          <div
-            className="mx-auto mt-5 w-full lg:w-10/12 xl:w-8/12"
-            dangerouslySetInnerHTML={{ __html: product.description }}
-          />
+        <section className="mt-8 rounded-xl bg-product-info">
+          <div className="mx-auto w-full p-4 md:p-10 lg:w-10/12 xl:w-8/12">
+            <h2 className="text-lg font-bold uppercase">Mô tả sản phẩm</h2>
+            <div className="mt-5 overflow-hidden" dangerouslySetInnerHTML={{ __html: product.description }} />
+          </div>
         </section>
 
         {/* Product Review */}
-        <ProductReviews productId={productId} />
+        <ProductReviews productId={product.id} />
+
+        {/* Related Products */}
+        <RelatedProducts productId={product.id} categoryId={product.categories} />
       </div>
     </main>
   )

@@ -4,9 +4,10 @@ import { cn, formatCurrency } from '@/shared/utils'
 import { PRODUCT_ERROR_IMAGES } from '@/features/product/constants'
 import { ConfigurableProduct, ProductImagedata } from '@/features/product/types'
 
-import { StarIcon } from '@/shared/components/icons'
+import { ShopperIcon, StarIcon } from '@/shared/components/icons'
 import { AspectRatio } from '@/shared/components/ui/aspect-ratio'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card'
+import { Skeleton } from '@/shared/components/ui/skeleton'
 
 interface ProductCardProps {
   children: React.ReactNode
@@ -103,8 +104,34 @@ function ProductImages(props: ProductImageProps) {
   )
 }
 
+function ProductImageSkeleton({ className }: { className?: string }) {
+  return (
+    <div className={cn('relative p-0 pt-[100%] [&_svg]:size-14 md:[&_svg]:size-20', className)}>
+      <div className="absolute left-0 top-0 size-full">
+        <Skeleton className="size-full rounded-none rounded-t-xl" />
+        <ShopperIcon className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-foreground/15 " />
+      </div>
+    </div>
+  )
+}
+
 function ProductContent({ children }: { children: React.ReactNode }) {
   return <CardContent className="flex grow flex-col gap-2 p-3 md:gap-2.5 md:p-4">{children}</CardContent>
+}
+
+function ProductContentSkeleton({ children, className }: { children: React.ReactNode; className?: string }) {
+  return <CardContent className={cn('flex flex-col gap-2 p-3 md:gap-2.5 md:p-4', className)}>{children}</CardContent>
+}
+
+{
+  /* <div className="flex flex-col gap-2 p-3 md:gap-2.5 md:p-4">
+        <div>
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="mt-2 h-4" />
+        </div>
+        <Skeleton className="h-4 w-5/6" />
+        <Skeleton className="h-6 w-1/2" />
+      </div> */
 }
 
 function ProductTitle({ name, className }: { name: string; className?: string }) {
@@ -149,3 +176,6 @@ ProductCard.Category = ProductCategory
 ProductCard.Info = ProductInfo
 ProductCard.Price = ProductPrice
 ProductCard.Rating = ProductRating
+
+ProductCard.ImageSkeleton = ProductImageSkeleton
+ProductCard.ContentSkeleton = ProductContentSkeleton

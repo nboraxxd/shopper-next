@@ -2,8 +2,8 @@ import Link from 'next/link'
 
 import PATH from '@/shared/constants/path'
 import { productServerApi } from '@/features/product/api/server'
-import { PRODUCTS_FIELDS } from '@/features/product/constants'
-import type { ProductsField, Product } from '@/features/product/types'
+import { BEST_SELLER_PRODUCTS_FIELDS } from '@/features/product/constants'
+import type { Product, BestSellerProductsField } from '@/features/product/types'
 
 import { ProductCard } from '@/features/product/components'
 import { Skeleton } from '@/shared/components/ui/skeleton'
@@ -34,8 +34,8 @@ function BestSellerWapper({ children }: { children: React.ReactNode }) {
 }
 
 export async function BestSellerSection() {
-  const productsResponse = await productServerApi.getProductsFromBackend<Pick<Product, ProductsField>>({
-    fields: PRODUCTS_FIELDS,
+  const productsResponse = await productServerApi.getProductsFromBackend<Pick<Product, BestSellerProductsField>>({
+    fields: BEST_SELLER_PRODUCTS_FIELDS,
     limit: '12',
     sort: 'top_sell',
   })

@@ -4,7 +4,7 @@ import { sanitizeProductsSearchParams } from '@/features/product/utils/server'
 
 import { ProductList, ProductSidebar } from '@/features/product/components'
 
-export default async function ProductPage(props: { searchParams: SearchParams }) {
+export default async function ProductsPage(props: { searchParams: SearchParams }) {
   const searchParams = await props.searchParams
 
   const categoriesResponse = await categoryServerApi.getCategoriesFromBackend()

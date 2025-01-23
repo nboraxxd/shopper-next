@@ -10,26 +10,35 @@ import { Fragment, useEffect, useRef } from 'react'
 import { useInView } from 'framer-motion'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 
-export default function ProductReviews({ productId }: { productId: string }) {
+const REVIEW_SKELETONS = 10
+
+export default function ProductReviews({ productId }: { productId: number }) {
   const ref = useRef<HTMLDivElement | null>(null)
+  const queryReviewsRef = useRef<unknown>(null)
 
   const isInView = useInView(ref, { margin: '100px' })
 
   const queryReviewsFromBackend = useQueryReviewsFromBackend(productId, false)
 
   useEffect(() => {
-    if (isInView) {
-      queryReviewsFromBackend.refetch()
-    }
+    if (!isInView || queryReviewsRef.current) return
+
+    queryReviewsRef.current = queryReviewsFromBackend.refetch
+    queryReviewsFromBackend.refetch()
+
+    const timeout = setTimeout(() => {
+      queryReviewsRef.current = null
+    }, 0)
+
+    return () => clearTimeout(timeout)
   }, [isInView, queryReviewsFromBackend])
 
   return (
-    <section className="mx-auto mt-5 w-full lg:w-10/12 xl:w-8/12">
+    <section className="mt-8 rounded-xl bg-product-info" ref={ref}>
       {queryReviewsFromBackend.isLoading ? (
-        <div>
-          <h2 className="text-lg font-bold">Đánh giá sản phẩm</h2>
-
-          {Array.from({ length: 5 }).map((_, index) => (
+        <div className="mx-auto w-full p-4 md:p-10 lg:w-10/12 xl:w-8/12">
+          <h2 className="text-lg font-bold uppercase">Đánh giá sản phẩm</h2>
+          {Array.from({ length: REVIEW_SKELETONS }).map((_, index) => (
             <Fragment key={index}>
               <div className="flex items-start gap-3 py-5">
                 <Skeleton className="size-16 rounded-full" />
@@ -45,56 +54,55 @@ export default function ProductReviews({ productId }: { productId: string }) {
                   <Skeleton className="mt-1 h-4 w-1/2" />
                 </div>
               </div>
-              <Separator />
+              {index !== REVIEW_SKELETONS - 1 ? <Separator /> : null}
             </Fragment>
           ))}
         </div>
       ) : null}
-      <div ref={ref}>
-        {queryReviewsFromBackend.isSuccess ? (
-          <>
-            <h2 className="text-lg font-bold">Đánh giá sản phẩm</h2>
-            {queryReviewsFromBackend.data.payload.data.length > 0 ? (
-              queryReviewsFromBackend.data.payload.data.map((review) => (
-                <Fragment key={review._id}>
-                  <div className="flex items-start gap-3 py-5">
-                    <UserAvatar
-                      avatarUrl={review.user.avatar}
-                      height={72}
-                      width={72}
-                      name={review.user.name}
-                      className="size-16 text-lg font-medium"
-                    />
-                    <div className="grow">
-                      <div className="flex flex-col items-start justify-between gap-1 md:flex-row">
-                        <div>
-                          <h3 className="font-medium">{review.user.name}</h3>
-                          <div className="flex">
-                            {Array.from({ length: review.star }).map((_, index) => (
-                              <StarIcon key={index} className="size-4 text-primary-yellow" />
-                            ))}
-                            {Array.from({ length: 5 - review.star }).map((_, index) => (
-                              <StarIcon key={index} className="size-4 fill-none text-primary-yellow" />
-                            ))}
-                          </div>
+      {queryReviewsFromBackend.isSuccess ? (
+        <div className="mx-auto w-full p-4 md:p-10 lg:w-10/12 xl:w-8/12">
+          <h2 className="text-lg font-bold uppercase">Đánh giá sản phẩm</h2>
+          {queryReviewsFromBackend.data.payload.data.length > 0 ? (
+            queryReviewsFromBackend.data.payload.data.map((review, index) => (
+              <Fragment key={review._id}>
+                <div className="flex items-start gap-3 py-5 last:pb-0">
+                  <UserAvatar
+                    avatarUrl={review.user.avatar}
+                    height={72}
+                    width={72}
+                    name={review.user.name}
+                    className="size-16 text-lg font-medium"
+                  />
+                  <div className="grow">
+                    <div className="flex flex-col items-start justify-between gap-1 md:flex-row">
+                      <div>
+                        <h3 className="font-medium">{review.user.name}</h3>
+                        <div className="flex">
+                          {Array.from({ length: review.star }).map((_, index) => (
+                            <StarIcon key={index} className="size-4 text-primary-yellow" />
+                          ))}
+                          {Array.from({ length: 5 - review.star }).map((_, index) => (
+                            <StarIcon key={index} className="size-4 fill-none text-primary-yellow" />
+                          ))}
                         </div>
-                        <p className="text-xs italic">{format(new Date(review.createdAt), 'HH:mm | dd/MM/yyyy')}</p>
                       </div>
-                      <p className="mt-2">{review.content}</p>
+                      <p className="text-xs italic">{format(new Date(review.createdAt), 'HH:mm | dd/MM/yyyy')}</p>
                     </div>
+                    <p className="mt-2">{review.content}</p>
                   </div>
-                  <Separator />
-                </Fragment>
-              ))
-            ) : (
-              <div className="flex flex-col items-center gap-2 py-5">
-                <ReviewsEmptyIcon />
-                <p>Chưa có đánh giá nào cho sản phẩm này</p>
-              </div>
-            )}
-          </>
-        ) : null}
-      </div>
+                </div>
+                {index !== queryReviewsFromBackend.data.payload.data.length - 1 ? <Separator /> : null}
+              </Fragment>
+            ))
+          ) : (
+            <div className="flex h-96 flex-col items-center justify-center gap-2">
+              <ReviewsEmptyIcon />
+              <p className="block sm:hidden">Chưa có đánh giá</p>
+              <p className="hidden sm:block">Chưa có đánh giá nào cho sản phẩm này</p>
+            </div>
+          )}
+        </div>
+      ) : null}
     </section>
   )
 }

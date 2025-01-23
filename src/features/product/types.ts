@@ -1,12 +1,22 @@
 import { Paginate } from '@/shared/types'
 
-import { PRODUCT_DETAIL_FIELDS, PRODUCT_SORT_OPTIONS, PRODUCTS_FIELDS } from '@/features/product/constants'
+import {
+  BEST_SELLER_PRODUCTS_FIELDS,
+  PRODUCT_DETAIL_FIELDS,
+  PRODUCT_SORT_OPTIONS,
+  PRODUCTS_FIELDS,
+  RELATED_PRODUCTS_FIELDS,
+} from '@/features/product/constants'
 
 export type FieldUnion<T extends string> = T extends `${infer U},${infer Rest}` ? U | FieldUnion<Rest> : T
 
 export type ProductsField = FieldUnion<typeof PRODUCTS_FIELDS>
 
+export type BestSellerProductsField = FieldUnion<typeof BEST_SELLER_PRODUCTS_FIELDS>
+
 export type ProductDetailField = FieldUnion<typeof PRODUCT_DETAIL_FIELDS>
+
+export type RelatedProductsField = FieldUnion<typeof RELATED_PRODUCTS_FIELDS>
 
 export type ProductSortOptionsKey = keyof typeof PRODUCT_SORT_OPTIONS
 
@@ -118,5 +128,10 @@ export type ProductsResponse<P> = {
 
 export type ProductResponse = {
   data: [Pick<Product, ProductDetailField>]
+  paginate: Paginate
+}
+
+export type RelatedProductsResponse = {
+  data: Pick<Product, RelatedProductsField>[]
   paginate: Paginate
 }

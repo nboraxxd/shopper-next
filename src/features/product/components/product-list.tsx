@@ -6,8 +6,6 @@ import { productServerApi } from '@/features/product/api/server'
 import { PRODUCTS_FIELDS } from '@/features/product/constants'
 import type { Product, ProductsField, ProductsSearchParams } from '@/features/product/types'
 
-import { ShopperIcon } from '@/shared/components/icons'
-import { Skeleton } from '@/shared/components/ui/skeleton'
 import { ProductCard } from '@/features/product/components'
 
 interface Props {
@@ -63,29 +61,4 @@ export async function ProductList({ productsSearchParams, categories }: Props) {
       </ProductCard>
     )
   })
-}
-
-export function ProductListSkeleton() {
-  return (
-    <>
-      {Array.from({ length: 30 }).map((_, index) => (
-        <ProductCard key={index}>
-          <div className="relative p-0 pt-[100%]">
-            <div className="absolute left-0 top-0 size-full">
-              <Skeleton className="size-full rounded-none rounded-t-xl" />
-              <ShopperIcon className="absolute left-1/2 top-1/2 size-20 -translate-x-1/2 -translate-y-1/2 text-foreground/15" />
-            </div>
-          </div>
-          <div className="flex flex-col gap-2 p-3 md:gap-2.5 md:p-4">
-            <div>
-              <Skeleton className="h-4 w-full" />
-              <Skeleton className="mt-2 h-4" />
-            </div>
-            <Skeleton className="h-4 w-5/6" />
-            <Skeleton className="h-6 w-1/2" />
-          </div>
-        </ProductCard>
-      ))}
-    </>
-  )
 }

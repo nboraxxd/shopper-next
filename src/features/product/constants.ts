@@ -19,8 +19,13 @@ export const PRODUCTS_SORT = [
 export const PRODUCTS_FIELDS =
   '_id,categories,configurable_products,discount_rate,id,images,name,rating_average,real_price,review_count,slug'
 
+export const BEST_SELLER_PRODUCTS_FIELDS = '_id,configurable_products,discount_rate,id,images,name,real_price,slug'
+
 export const PRODUCT_DETAIL_FIELDS =
-  '_id,configurable_products,description,discount,discount_rate,id,images,name,price,real_price,rating_average,review_count,short_description,stock_item,slug'
+  '_id,categories,configurable_products,description,discount,discount_rate,id,images,name,price,real_price,rating_average,review_count,short_description,stock_item,slug'
+
+export const RELATED_PRODUCTS_FIELDS =
+  '_id,configurable_products,discount_rate,id,images,name,rating_average,real_price,review_count,slug'
 
 export const PRODUCT_ERROR_IMAGES = [
   'https://salt.tikicdn.com/assets/img/image.svg',
@@ -29,4 +34,5 @@ export const PRODUCT_ERROR_IMAGES = [
 
 export const PRODUCT_KEY = {
   PRODUCT: 'product',
+  RELATED_PRODUCTS: 'relatedProducts',
 }
