@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import http from '@/shared/utils/http'
 import type { UserResponse } from '@/features/user/types'
 import { ACCESS_TOKEN } from '@/features/auth/constants'
+import { ForbiddenError } from '@/shared/utils/error'
 
 const USER_PREFIX = '/users'
 
@@ -14,7 +15,11 @@ const userServerApi = {
     const cookieStore = await cookies()
     const accessToken = cookieStore.get(ACCESS_TOKEN)
 
-    return http.get<UserResponse>(USER_PREFIX, { headers: { Authorization: `Bearer ${accessToken}` } })
+    if (!accessToken) {
+      throw new ForbiddenError({ message: 'Access token is required', error_code: 'MISSING_TOKEN' })
+    }
+
+    return http.get<UserResponse>(USER_PREFIX, { headers: { Authorization: `Bearer ${accessToken.value}` } })
   },
 }
 

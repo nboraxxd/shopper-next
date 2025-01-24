@@ -18,6 +18,10 @@ export default {
   },
   theme: {
     extend: {
+      backgroundImage: {
+        'account-cover':
+          "linear-gradient(180deg, rgba(26, 22, 46, 0) 0%, rgba(26, 22, 46, 1) 100%), url('/images/account/cover.png')",
+      },
       screens: {
         xs: '480px',
         '2xl': '1400px',
@@ -116,6 +120,12 @@ export default {
           DEFAULT: 'hsl(var(--breadcrumb))',
           foreground: 'hsl(var(--breadcrumb-foreground))',
           last: 'hsl(var(--breadcrumb-last))',
+        },
+
+        account: {
+          DEFAULT: 'hsl(var(--account))',
+          section: 'hsl(var(--account-section))',
+          'link-hover': 'hsl(var(--account-link-hover))',
         },
 
         highlight: 'hsl(var(--highlight))',

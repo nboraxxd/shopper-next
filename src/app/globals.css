@@ -66,6 +66,10 @@
     --breadcrumb-foreground: 245.5 5.9% 63.7%; /* #9e9da8 - secondary-2 */
     --breadcrumb-last: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
 
+    --account: 240 42.9% 98.6%; /* #fafafd - secondary-6 */
+    --account-section: 0 0% 100%; /* #fff - light-1 */
+    --account-link-hover: 0 0% 92.2%; /* #ebebeb */
+
     --highlight: 209.2 100% 43.1%; /* #0071dc - primary-blue */
   }
 
@@ -127,6 +131,10 @@
     --breadcrumb-foreground: 245.5 5.9% 63.7%; /* #9e9da8 - secondary-2 */
     --breadcrumb-last: 0 0% 100%; /* #fff - light-1 */
 
+    --account: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
+    --account-section: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+    --account-link-hover: 223.3 16.1% 22%; /* #2f3441 */
+
     --highlight: 43.1 100% 50%; /* #ffb700 - primary-yellow */
   }
 
@@ -139,6 +147,8 @@
       --product-info: 0 0% 96.5%; /* #f6f6f6 - light-2 */
 
       --breadcrumb: 0 0% 96.5%; /* #f6f6f6 - light-2 */
+
+      --account: 0 0% 96.5%; /* #f6f6f6 - light-2 */
     }
 
     .dark {
@@ -149,6 +159,8 @@
       --product-info: 222.4 27% 12.4%; /* #171c28 - dark-1 */
 
       --breadcrumb: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+
+      --account: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
     }
   }
 

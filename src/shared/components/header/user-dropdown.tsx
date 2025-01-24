@@ -28,7 +28,7 @@ import { ArrowRightIcon } from '@/shared/components/icons'
 import { AuthButtonSkeleton, ThemeDropdown } from '@/shared/components/header'
 
 const USER_LINKS = [
-  { label: 'Thông tin tài khoản', href: PATH.PROFILE },
+  { label: 'Thông tin tài khoản', href: PATH.ACCOUNT },
   { label: 'Sản phẩm yêu thích', href: PATH.WISHLIST },
   { label: 'Theo dõi đơn hàng', href: PATH.PURCHASES },
 ] as const

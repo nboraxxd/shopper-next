@@ -48,6 +48,10 @@ const nextConfig: NextConfig = {
         source: PATH.CART,
         destination: '/cart',
       },
+      {
+        source: PATH.ACCOUNT,
+        destination: '/account',
+      },
     ]
   },
 }

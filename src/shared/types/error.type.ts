@@ -9,5 +9,5 @@ export type BadRequestErrorPayload = {
 export type ForbiddenErrorPayload = {
   message: string
   error?: number
-  error_code?: 'TOKEN_EXPIRED' | 'TOKEN_INVALID'
+  error_code?: 'TOKEN_EXPIRED' | 'TOKEN_INVALID' | 'MISSING_TOKEN'
 }

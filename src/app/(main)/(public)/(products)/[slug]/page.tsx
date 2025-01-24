@@ -32,7 +32,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
   if (!product) notFound()
 
   return (
-    <main className="min-h-[calc(100vh-var(--header-height))] bg-product pt-5">
+    <main className="min-h-[calc(100vh-var(--header-height))] bg-product pt-8">
       <div className="container">
         {/* Breadcrumb */}
         <section></section>

@@ -58,6 +58,9 @@ const request = async <T>(
 
   let payload: T
 
+  // Phải dùng try catch vì res.json() có thể trả về lỗi nếu response không phải là json
+  // Như API của project này nếu không có Authorization bearer token khi gọi API cần token
+  // Thì sẽ trả về lỗi 401 Unauthorized, response trả là là Raw data `Unauthorized`
   try {
     payload = await res.json()
   } catch (error) {
@@ -99,6 +102,7 @@ const request = async <T>(
           clientLogoutRequest = null
         }
       } else if (!isClient) {
+        console.log('🔥 ~ res.status:', res.status)
         const accessToken = options?.headers?.Authorization?.split('Bearer ')[1] || ''
         redirect(`/logout?accessToken=${accessToken}`)
       }

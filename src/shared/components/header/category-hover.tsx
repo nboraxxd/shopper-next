@@ -173,6 +173,8 @@ interface Props {
 
 function CategoryItem({ icon: Icon, href, title, setIsOpen, id }: Props) {
   const pathname = usePathname()
+
+  // TODO: Refactor this, it's not a good practice to use split('/') to get the current category id
   const currentCategoryId = pathname && pathname.split('/').length === 3 ? pathname.split('/')[2] : null
 
   return (

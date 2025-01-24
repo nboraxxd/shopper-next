@@ -41,7 +41,7 @@ export default function Header() {
               </SheetHeader>
               <nav className="grid gap-6 text-lg font-medium">
                 <Link href={PATH.HOME} className="mx-auto flex items-center gap-2 p-1.5 md:mx-0 lg:gap-3.5 lg:p-2">
-                  <ShopperIcon className="size-6 text-secondary-blue lg:size-8" />
+                  <ShopperIcon className="size-6 text-secondary-blue lg:size-8" width={32} height={32} />
                   <span className="text-lg font-bold lg:text-xl">Shopper</span>
                 </Link>
               </nav>
@@ -57,7 +57,7 @@ export default function Header() {
           href={PATH.HOME}
           className="mx-auto flex h-10 items-center gap-2 px-1.5 md:mx-0 lg:h-12 lg:gap-3.5 lg:px-2"
         >
-          <ShopperIcon className="size-6 text-secondary-blue lg:size-8" />
+          <ShopperIcon className="size-6 text-secondary-blue lg:size-8" width={32} height={32} />
           <span className="sr-only text-lg font-bold xs:not-sr-only lg:text-xl">Shopper</span>
         </Link>
 
