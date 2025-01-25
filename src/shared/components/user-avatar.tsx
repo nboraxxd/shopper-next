@@ -11,10 +11,13 @@ interface UserAvatarProps {
   width: number
   height: number
   className?: string
+  fallbackClassName?: string
   variant?: 'square' | 'round'
 }
 
-export default function UserAvatar({ name, avatarUrl, className, variant, height, width }: UserAvatarProps) {
+export default function UserAvatar(props: UserAvatarProps) {
+  const { name, avatarUrl, className, fallbackClassName, variant, height, width } = props
+
   const variantOptions = cva('', {
     variants: {
       variant: {
@@ -29,14 +32,18 @@ export default function UserAvatar({ name, avatarUrl, className, variant, height
 
   return avatarUrl ? (
     <Avatar className={cn(className, variantOptions({ variant }))}>
-      <AvatarImage asChild src={avatarUrl}>
-        <Image width={width} height={height} className="size-full object-cover" src={avatarUrl} alt={name} />
+      <AvatarImage asChild src={avatarUrl} className={cn('object-cover', variantOptions({ variant }))}>
+        <Image width={width} height={height} src={avatarUrl} alt={name} />
       </AvatarImage>
-      <AvatarFallback>{name.substring(0, 2).toLocaleUpperCase()}</AvatarFallback>
+      <AvatarFallback className={cn(fallbackClassName, variantOptions({ variant }))}>
+        {name.substring(0, 2).toLocaleUpperCase()}
+      </AvatarFallback>
     </Avatar>
   ) : (
     <Avatar className={cn(className, variantOptions({ variant }))}>
-      <AvatarFallback>{name.substring(0, 2).toLocaleUpperCase()}</AvatarFallback>
+      <AvatarFallback className={cn(fallbackClassName, variantOptions({ variant }))}>
+        {name.substring(0, 2).toLocaleUpperCase()}
+      </AvatarFallback>
     </Avatar>
   )
 }

@@ -17,8 +17,8 @@ export default function SidebarNavDesktop() {
                     href={item.href}
                     className="flex h-9 items-center gap-2 rounded-md px-1 transition-colors hover:bg-account-link-hover"
                   >
-                    <Icon width={24} height={24} />
-                    <span className="text-[0.9375rem]">{item.title}</span>
+                    <Icon width={24} height={24} strokeWidth={1.5} />
+                    <span className="text-[0.9375rem] font-medium">{item.title}</span>
                   </Link>
                 </li>
               )

@@ -12,8 +12,8 @@ export default function SidebarHeader() {
     <div className="hidden flex-col items-center rounded-t-4xl bg-account-cover bg-cover bg-center bg-no-repeat p-5 pt-10 lg:flex">
       {queryUserFromBackend.isLoading ? (
         <>
-          <Skeleton className="size-[7.875rem] rounded-full bg-foreground/20" />
-          <Skeleton className="mt-2 h-[1.625rem] w-2/3 bg-foreground/20" />
+          <Skeleton className="size-[7.875rem] rounded-full bg-background/20 dark:bg-foreground/20" />
+          <Skeleton className="mt-2 h-[1.625rem] w-2/3 bg-background/20 dark:bg-foreground/20" />
         </>
       ) : null}
       {queryUserFromBackend.isSuccess ? (

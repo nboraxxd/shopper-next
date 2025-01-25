@@ -25,11 +25,11 @@ function AuthButton() {
     // để tránh việc button bị co lại trên màn hình lớn
     <Button
       size="lg"
-      className="h-10 bg-muted px-2 text-foreground hover:bg-muted/75 md:bg-primary md:px-5 md:text-primary-foreground md:hover:bg-primary/90 lg:h-12"
+      className="h-10 bg-header-button px-2 text-foreground transition-colors hover:bg-header-button/90 md:bg-primary md:px-5 md:text-primary-foreground md:hover:bg-primary/90 lg:h-12"
       asChild
     >
       <Link href={PATH.LOGIN}>
-        <ProfileIcon className="md:hidden" />
+        <ProfileIcon className="md:hidden" strokeWidth={1.6} />
         <span className="sr-only md:not-sr-only">Đăng nhập</span>
       </Link>
     </Button>

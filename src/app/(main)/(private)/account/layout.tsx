@@ -6,13 +6,13 @@ export default async function AccountLayout({
   children: React.ReactNode
 }>) {
   return (
-    <main className="bg-account">
+    <div className="bg-account">
       <div className="container py-8">
-        <div className="gap-x-7 gap-y-5 lg:grid lg:grid-cols-4">
+        <div className="gap-x-7 lg:grid lg:grid-cols-4">
           <AccountSidebar />
-          <div className="rounded-4xl bg-account-section lg:col-span-3">{children}</div>
+          <main className="mt-5 rounded-4xl bg-account-section p-4 lg:col-span-3 lg:mt-0 lg:p-7">{children}</main>
         </div>
       </div>
-    </main>
+    </div>
   )
 }

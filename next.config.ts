@@ -52,6 +52,30 @@ const nextConfig: NextConfig = {
         source: PATH.ACCOUNT,
         destination: '/account',
       },
+      {
+        source: PATH.PROFILE,
+        destination: '/account/profile',
+      },
+      {
+        source: PATH.PAYMENT,
+        destination: '/account/payment',
+      },
+      {
+        source: PATH.ADDRESS,
+        destination: '/account/address',
+      },
+      {
+        source: PATH.WISHLIST,
+        destination: '/account/wishlist',
+      },
+      {
+        source: PATH.PURCHASE,
+        destination: '/account/purchase',
+      },
+      {
+        source: PATH.SUPPORT,
+        destination: '/support',
+      },
     ]
   },
 }

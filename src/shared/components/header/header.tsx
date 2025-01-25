@@ -72,7 +72,7 @@ export default function Header() {
 
         <Button
           variant="ghost"
-          className="h-10 gap-1 rounded-lg bg-muted px-1.5 py-0 shadow transition-opacity hover:opacity-90 md:bg-popover md:px-2 lg:h-12 [&_svg]:size-6 lg:[&_svg]:size-8"
+          className="h-10 gap-1 rounded-lg bg-header-button px-1.5 py-0 shadow transition-colors hover:bg-header-button/90 md:px-2 lg:h-12 [&_svg]:size-6 lg:[&_svg]:size-8"
           asChild
         >
           <Link href={PATH.CART}>

@@ -48,6 +48,8 @@
     --focus-within-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05), 0 0 1px 2px rgb(119, 218, 230);
 
     --header: 0 0% 100%; /* #fff - light-1 */
+    --header-button: 240 4.8% 95.9%;
+
     --footer: 0 0% 100%; /* #fff - light-1 */
     --products-sidebar: 0 0% 93.3%; /* #eee - light-3 */
 
@@ -113,6 +115,8 @@
     --focus-within-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05), 0 0 1px 2px rgb(119, 218, 230);
 
     --header: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+    --header-button: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
+
     --footer: 222.4 27% 12.4%; /* #171c28 - dark-1 */
     --products-sidebar: 222.4 27% 12.4%; /* #171c28 - dark-1 */
 
@@ -141,6 +145,8 @@
   @screen md {
     :root {
       --header: 0 0% 93.3%; /* #eee - light-3 */
+      --header-button: 0 0% 100%; /* #fff - light-1 */
+
       --footer: 0 0% 93.3%; /* #eee - light-3 */
 
       --product: 0 0% 100%; /* #fff - light-1 */
@@ -153,6 +159,8 @@
 
     .dark {
       --header: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+      --header-button: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
+
       --footer: 222.4 27% 12.4%; /* #171c28 - dark-1 */
 
       --product: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */

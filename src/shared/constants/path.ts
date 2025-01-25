@@ -12,10 +12,10 @@ const PATH = {
 
   ACCOUNT,
   PROFILE: `${ACCOUNT}/ho-so`,
-  BANK: `${ACCOUNT}/ngan-hang`,
+  PAYMENT: `${ACCOUNT}/the-thanh-toan`,
   ADDRESS: `${ACCOUNT}/dia-chi`,
   WISHLIST: `${ACCOUNT}/san-pham-yeu-thich`,
-  PURCHASES: `${ACCOUNT}/don-mua`,
+  PURCHASE: `${ACCOUNT}/don-mua`,
 } as const
 
 export default PATH

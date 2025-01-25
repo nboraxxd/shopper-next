@@ -95,7 +95,10 @@ export default {
           3: '#B9BABE',
         },
 
-        header: 'hsl(var(--header))',
+        header: {
+          DEFAULT: 'hsl(var(--header))',
+          button: 'hsl(var(--header-button))',
+        },
         footer: 'hsl(var(--footer))',
         'products-sidebar': 'hsl(var(--products-sidebar))',
 

@@ -30,7 +30,7 @@ import { AuthButtonSkeleton, ThemeDropdown } from '@/shared/components/header'
 const USER_LINKS = [
   { label: 'Thông tin tài khoản', href: PATH.ACCOUNT },
   { label: 'Sản phẩm yêu thích', href: PATH.WISHLIST },
-  { label: 'Theo dõi đơn hàng', href: PATH.PURCHASES },
+  { label: 'Theo dõi đơn hàng', href: PATH.PURCHASE },
 ] as const
 
 export default function UserDropdown() {
@@ -75,7 +75,8 @@ export default function UserDropdown() {
             height={52}
             width={52}
             variant="square"
-            className="size-10"
+            className="size-10 overflow-visible"
+            fallbackClassName="bg-header-button shadow"
           />
           <span className="sr-only">Avatar của {queryUserFromBackend.data.payload.data.name}</span>
         </Link>
@@ -97,7 +98,8 @@ export default function UserDropdown() {
               height={64}
               width={64}
               variant="square"
-              className="size-10 lg:size-12"
+              className="size-10 overflow-visible lg:size-12"
+              fallbackClassName="bg-header-button shadow"
             />
             <span className="sr-only">Menu người dùng</span>
           </Button>

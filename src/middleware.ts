@@ -3,10 +3,9 @@ import PATH from '@/shared/constants/path'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-const protectedPaths = [PATH.CART, '/checkout', '/user', '/logout']
-const unauthenticatedPaths = [PATH.LOGIN, PATH.REGISTER, '/resend-email', PATH.FORGOT_PASSWORD]
+const protectedPaths = [PATH.CART, PATH.ACCOUNT, PATH.ADDRESS, PATH.BANK, PATH.PROFILE, PATH.PURCHASE, PATH.WISHLIST]
+const unauthenticatedPaths = [PATH.LOGIN, PATH.REGISTER, PATH.RESEND_VERIFY_EMAIL, PATH.FORGOT_PASSWORD]
 
-// This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
@@ -45,5 +44,13 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/dang-nhap', '/dang-ky', '/quen-mat-khau', '/gio-hang', '/resend-email', '/user/:path*', '/logout'],
+  matcher: [
+    '/dang-nhap',
+    '/dang-ky',
+    '/quen-mat-khau',
+    '/gui-lai-email-xac-thuc',
+    '/gio-hang',
+    '/tai-khoan/:path*',
+    '/dang-xuat',
+  ],
 }

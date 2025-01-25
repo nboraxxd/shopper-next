@@ -11,6 +11,13 @@ export { default as HealthBeautyIcon } from './health-beauty.svg'
 export { default as SportOutdoorIcon } from './sport-outdoor.svg'
 export { default as HomeApplianceIcon } from './home-appliance.svg'
 
+export { default as LeafIcon } from './leaf.svg'
+export { default as LeafBackground } from './leaf-bg.svg'
+export { default as PlaneIcon } from './plane.svg'
+export { default as PlaneBackground } from './plane-bg.svg'
+export { default as CreditCardIcon } from './credit-card.svg'
+export { default as PayPalIcon } from './paypal.svg'
+
 export { default as ShopperIcon } from './shopper.svg'
 export { default as SearchIcon } from './search.svg'
 export { default as AlignLeftIcon } from './align-left.svg'

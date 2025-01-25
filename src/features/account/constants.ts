@@ -20,7 +20,7 @@ export const ACCOUNT_MENU = [
       {
         icon: CreditCardIcon,
         title: 'Ngân hàng',
-        href: PATH.BANK,
+        href: PATH.PAYMENT,
       },
     ],
   },
@@ -35,7 +35,7 @@ export const ACCOUNT_MENU = [
       {
         icon: ClipboardListIcon,
         title: 'Đơn mua',
-        href: PATH.PURCHASES,
+        href: PATH.PURCHASE,
       },
     ],
   },

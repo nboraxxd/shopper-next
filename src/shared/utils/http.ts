@@ -102,9 +102,8 @@ const request = async <T>(
           clientLogoutRequest = null
         }
       } else if (!isClient) {
-        console.log('🔥 ~ res.status:', res.status)
         const accessToken = options?.headers?.Authorization?.split('Bearer ')[1] || ''
-        redirect(`/logout?accessToken=${accessToken}`)
+        redirect(`/dang-xuat?accessToken=${accessToken}`)
       }
       throw new HttpError(data)
     } else {
