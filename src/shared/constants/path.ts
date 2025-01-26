@@ -13,6 +13,7 @@ const PATH = {
   ACCOUNT,
   PROFILE: `${ACCOUNT}/ho-so`,
   PAYMENT: `${ACCOUNT}/the-thanh-toan`,
+  ADD_PAYMENT: `${ACCOUNT}/the-thanh-toan/them-moi`,
   ADDRESS: `${ACCOUNT}/dia-chi`,
   WISHLIST: `${ACCOUNT}/san-pham-yeu-thich`,
   PURCHASE: `${ACCOUNT}/don-mua`,

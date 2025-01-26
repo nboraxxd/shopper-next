@@ -30,17 +30,13 @@ export default function UserAvatar(props: UserAvatarProps) {
     },
   })
 
-  return avatarUrl ? (
+  return (
     <Avatar className={cn(className, variantOptions({ variant }))}>
-      <AvatarImage asChild src={avatarUrl} className={cn('object-cover', variantOptions({ variant }))}>
-        <Image width={width} height={height} src={avatarUrl} alt={name} />
-      </AvatarImage>
-      <AvatarFallback className={cn(fallbackClassName, variantOptions({ variant }))}>
-        {name.substring(0, 2).toLocaleUpperCase()}
-      </AvatarFallback>
-    </Avatar>
-  ) : (
-    <Avatar className={cn(className, variantOptions({ variant }))}>
+      {avatarUrl ? (
+        <AvatarImage asChild src={avatarUrl} className={cn('object-cover', variantOptions({ variant }))}>
+          <Image width={width} height={height} src={avatarUrl} alt={name} />
+        </AvatarImage>
+      ) : null}
       <AvatarFallback className={cn(fallbackClassName, variantOptions({ variant }))}>
         {name.substring(0, 2).toLocaleUpperCase()}
       </AvatarFallback>

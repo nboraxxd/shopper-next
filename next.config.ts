@@ -61,6 +61,10 @@ const nextConfig: NextConfig = {
         destination: '/account/payment',
       },
       {
+        source: PATH.ADD_PAYMENT,
+        destination: '/account/payment/add',
+      },
+      {
         source: PATH.ADDRESS,
         destination: '/account/address',
       },
