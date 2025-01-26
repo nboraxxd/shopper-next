@@ -7,8 +7,10 @@ import { PlusIcon } from '@/shared/components/icons'
 import PATH from '@/shared/constants/path'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { Skeleton } from '@/shared/components/ui/skeleton'
+import AccountSectionWrapper from '@/features/account/components/account-section-wrapper'
 
-export default async function AccountPaymentSection() {
+export async function AccountPaymentSection() {
   const cookieStore = await cookies()
   const accessToken = cookieStore.get(ACCESS_TOKEN)?.value
 
@@ -27,8 +29,7 @@ export default async function AccountPaymentSection() {
   }
 
   return payments ? (
-    <section>
-      <h2 className="text-lg font-medium">Thẻ thanh toán</h2>
+    <AccountSectionWrapper title="Thẻ thanh toán">
       <div className="mt-4 grid grid-cols-1 gap-3 xs:grid-cols-2 md:grid-cols-3 md:gap-5">
         {payments.slice(0, 3).map((payment) => (
           <PaymentCard
@@ -49,6 +50,18 @@ export default async function AccountPaymentSection() {
           <span className="text-sm font-medium">Thêm thẻ mới</span>
         </Link>
       </div>
-    </section>
+    </AccountSectionWrapper>
   ) : null
+}
+
+export function AccountPaymentSkeleton() {
+  return (
+    <AccountSectionWrapper title="Thẻ thanh toán">
+      <div className="mt-4 grid grid-cols-1 gap-3 xs:grid-cols-2 md:grid-cols-3 md:gap-5">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <Skeleton key={index} className="hidden h-44 rounded-xl first:block last:block xs:block md:last:hidden" />
+        ))}
+      </div>
+    </AccountSectionWrapper>
+  )
 }
