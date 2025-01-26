@@ -13,7 +13,7 @@ interface Props {
   categories: Category[]
 }
 
-export async function ProductList({ productsSearchParams, categories }: Props) {
+export default async function ProductList({ productsSearchParams, categories }: Props) {
   const categoryById = keyBy(categories, 'id')
 
   const productsResponse = await productServerApi.getProductsFromBackend<Pick<Product, ProductsField>>({

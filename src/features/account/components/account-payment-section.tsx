@@ -41,13 +41,12 @@ export async function AccountPaymentSection() {
             type={payment.type}
           />
         ))}
-
         <Link
           href={PATH.ADD_PAYMENT}
           className="flex min-h-44 flex-col items-center justify-center gap-3.5 rounded-xl border border-dashed border-secondary-3"
         >
           <PlusIcon width={24} height={24} strokeWidth={1.5} />
-          <span className="text-sm font-medium">Thêm thẻ mới</span>
+          <span className="text-sm font-medium">Thêm thẻ</span>
         </Link>
       </div>
     </AccountSectionWrapper>

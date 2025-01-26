@@ -65,17 +65,23 @@ export default {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))',
         },
+
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
         },
+
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
         },
+
         border: 'hsl(var(--border))',
+
         input: 'hsl(var(--input))',
+
         ring: 'hsl(var(--ring))',
+
         chart: {
           '1': 'hsl(var(--chart-1))',
           '2': 'hsl(var(--chart-2))',
@@ -83,11 +89,13 @@ export default {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
+
         light: {
           1: '#FFFFFF',
           2: '#F6F6F6',
           3: '#EEEEEE',
         },
+
         dark: {
           DEFAULT: '#000000',
           1: '#171C28',
@@ -99,6 +107,7 @@ export default {
           DEFAULT: 'hsl(var(--header))',
           button: 'hsl(var(--header-button))',
         },
+
         footer: 'hsl(var(--footer))',
         'products-sidebar': 'hsl(var(--products-sidebar))',
 
@@ -129,6 +138,8 @@ export default {
           DEFAULT: 'hsl(var(--account))',
           section: 'hsl(var(--account-section))',
           'link-hover': 'hsl(var(--account-link-hover))',
+          info: 'hsl(var(--account-info))',
+          'info-icon': 'hsl(var(--account-info-icon))',
         },
 
         highlight: 'hsl(var(--highlight))',
