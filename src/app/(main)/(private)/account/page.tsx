@@ -5,7 +5,9 @@ import {
   AccountInfoSkeleton,
   AccountPaymentSection,
   AccountPaymentSkeleton,
+  AccountPurchasesSection,
 } from '@/features/account/components'
+import AccountWishlistSection from '@/features/account/components/account-wishlist-section'
 
 export default async function AccountPage() {
   return (
@@ -15,6 +17,12 @@ export default async function AccountPage() {
       </Suspense>
       <Suspense fallback={<AccountInfoSkeleton />}>
         <AccountInfoSection />
+      </Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
+        <AccountPurchasesSection />
+      </Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
+        <AccountWishlistSection />
       </Suspense>
     </>
   )

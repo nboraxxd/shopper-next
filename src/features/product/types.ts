@@ -88,6 +88,18 @@ export type ProductsSearchParams = {
   sort?: ProductSortOptionsValue
 }
 
+export type ProductBase = {
+  _id: string
+  id: number
+  name: string
+  price: number
+  real_price: number
+  rating_average: number
+  review_count: number
+  thumbnail_url: string
+  slug: string
+}
+
 export type Product = {
   _id: string
   id: number

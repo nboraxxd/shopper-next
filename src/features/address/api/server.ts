@@ -4,7 +4,7 @@ import http from '@/shared/utils/http'
 const PREFIX = '/users/address'
 
 const addressServerApi = {
-  getAddressesFromBackend: (accessToken: string, isDefault?: boolean) =>
+  getAddressesFromBackend: ({ accessToken, isDefault = false }: { accessToken: string; isDefault?: boolean }) =>
     http.get<AddressesResponse>(PREFIX, {
       params: { default: `${isDefault}` },
       headers: { Authorization: `Bearer ${accessToken}` },

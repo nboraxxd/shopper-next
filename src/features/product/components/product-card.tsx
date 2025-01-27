@@ -4,10 +4,10 @@ import { cn, formatCurrency } from '@/shared/utils'
 import { PRODUCT_ERROR_IMAGES } from '@/features/product/constants'
 import { ConfigurableProduct, ProductImagedata } from '@/features/product/types'
 
+import { Skeleton } from '@/shared/components/ui/skeleton'
 import { ShopperIcon, StarIcon } from '@/shared/components/icons'
 import { AspectRatio } from '@/shared/components/ui/aspect-ratio'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card'
-import { Skeleton } from '@/shared/components/ui/skeleton'
 
 interface ProductCardProps {
   children: React.ReactNode

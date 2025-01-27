@@ -1,4 +1,6 @@
 export { default as AccountSidebar } from './account-sidebar/account-sidebar'
 export { default as AccountSectionWrapper } from './account-section-wrapper'
+export { default as AccountPurchasesSection } from './account-purchases-section'
+export { default as AccountWishlistSection } from './account-wishlist-section'
 export { AccountInfoSection, AccountInfoSkeleton } from './account-info-section'
 export { AccountPaymentSection, AccountPaymentSkeleton } from './account-payment-section'

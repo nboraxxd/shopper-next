@@ -21,8 +21,10 @@ export async function AccountInfoSection() {
   let address: AddressesResponse['data'] | null = null
 
   try {
-    const userResponse = await userServerApi.getUserFromBackend(accessToken)
-    const addressResponse = await addressServerApi.getAddressesFromBackend(accessToken, true)
+    const [userResponse, addressResponse] = await Promise.all([
+      userServerApi.getUserFromBackend(accessToken),
+      addressServerApi.getAddressesFromBackend({ accessToken, isDefault: true }),
+    ])
 
     user = userResponse.payload.data
     address = addressResponse.payload.data
