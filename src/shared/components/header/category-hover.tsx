@@ -19,7 +19,7 @@ import {
   HomeApplianceIcon,
   HomeLivingIcon,
   MomBabyIcon,
-  IphoneIcon,
+  PhoneIcon,
   BasketballIcon,
   TechGadgetIcon,
   VoucherIcon,
@@ -33,7 +33,7 @@ import { Skeleton } from '@/shared/components/ui/skeleton'
 export const CATEGORY_IMAGES = [
   {
     id: 1789,
-    icon: IphoneIcon,
+    icon: PhoneIcon,
   },
   {
     id: 4221,
