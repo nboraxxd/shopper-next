@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/shared/utils'
 import { Svgr } from '@/shared/components/icons'
 
-export default function SidebarNavMobile() {
+export default function AccountMobileNav() {
   const MotionLink = motion.create(Link)
 
   const pathname = usePathname()

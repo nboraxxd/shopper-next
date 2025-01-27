@@ -1,4 +1,4 @@
-import { AccountSidebar } from '@/features/account/components'
+import { AccountDesktopSidebar, AccountMobileNav } from '@/features/account/components'
 
 export default async function AccountLayout({
   children,
@@ -9,7 +9,8 @@ export default async function AccountLayout({
     <div className="bg-account">
       <div className="container py-8">
         <div className="gap-x-7 lg:grid lg:grid-cols-4">
-          <AccountSidebar />
+          <AccountMobileNav />
+          <AccountDesktopSidebar />
           <main className="mt-5 rounded-4xl bg-account-section px-4 py-7 shadow-section lg:col-span-3 lg:mt-0 lg:px-7">
             {children}
           </main>

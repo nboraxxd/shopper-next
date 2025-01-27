@@ -11,9 +11,9 @@ import wishlistServerApi from '@/features/wishlist/api/server'
 import { WishlistResponse } from '@/features/wishlist/types'
 
 import { Button } from '@/shared/components/ui/button'
+import { SmileStarIcon } from '@/shared/components/icons'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Separator } from '@/shared/components/ui/separator'
-import { ReviewsEmptyIcon } from '@/shared/components/icons'
 
 export async function AccountWishlistContent() {
   const cookieStore = await cookies()
@@ -69,7 +69,7 @@ export async function AccountWishlistContent() {
         : null}
       {wishlistResponse.length === 0 ? (
         <div className="flex h-96 flex-col items-center justify-center gap-2">
-          <ReviewsEmptyIcon />
+          <SmileStarIcon />
           <p>Bạn chưa có sản phẩm yêu thích nào</p>
         </div>
       ) : null}
