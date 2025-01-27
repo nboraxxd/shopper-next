@@ -7,7 +7,7 @@ import { useIsClient } from '@/shared/hooks'
 import { useAuthStore } from '@/features/auth/auth-store'
 
 import { Button } from '@/shared/components/ui/button'
-import { ProfileIcon } from '@/shared/components/icons'
+import { ProfileIcon, Svgr } from '@/shared/components/icons'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { UserDropdown } from '@/shared/components/header'
 
@@ -29,7 +29,7 @@ function AuthButton() {
       asChild
     >
       <Link href={PATH.LOGIN}>
-        <ProfileIcon className="md:hidden" strokeWidth={1.6} />
+        <Svgr icon={ProfileIcon} className="md:hidden" />
         <span className="sr-only md:not-sr-only">Đăng nhập</span>
       </Link>
     </Button>

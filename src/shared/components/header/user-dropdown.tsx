@@ -24,7 +24,7 @@ import {
 } from '@/shared/components/ui/dropdown-menu'
 import { UserAvatar } from '@/shared/components'
 import { Button } from '@/shared/components/ui/button'
-import { ArrowRightIcon } from '@/shared/components/icons'
+import { ArrowRightIcon, Svgr } from '@/shared/components/icons'
 import { AuthButtonSkeleton, ThemeDropdown } from '@/shared/components/header'
 
 const USER_LINKS = [
@@ -142,7 +142,7 @@ export default function UserDropdown() {
                     <span>
                       Giao diện: <span>{resolvedTheme === 'dark' ? 'Tối' : 'Sáng'}</span>
                     </span>
-                    <ArrowRightIcon className="ml-auto" />
+                    <Svgr icon={ArrowRightIcon} className="ml-auto" />
                   </button>
                 </DropdownMenuItem>
               </DropdownMenuGroup>

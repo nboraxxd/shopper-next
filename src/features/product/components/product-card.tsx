@@ -5,8 +5,8 @@ import { PRODUCT_ERROR_IMAGES } from '@/features/product/constants'
 import { ConfigurableProduct, ProductImagedata } from '@/features/product/types'
 
 import { Skeleton } from '@/shared/components/ui/skeleton'
-import { ShopperIcon, StarIcon } from '@/shared/components/icons'
 import { AspectRatio } from '@/shared/components/ui/aspect-ratio'
+import { ShopperIcon, StarIcon, Svgr } from '@/shared/components/icons'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card'
 
 interface ProductCardProps {
@@ -162,7 +162,7 @@ function ProductRating(props: { ratingAverage: number; reviewCount: number; clas
 
   return ratingAverage > 0 && reviewCount > 0 ? (
     <div className={cn('hidden items-center gap-0.5 xs:flex', className)}>
-      <StarIcon className="size-4 text-primary-yellow" />
+      <Svgr icon={StarIcon} className="size-4 text-primary-yellow" />
       <span className="mt-0.5 text-sm">{ratingAverage.toFixed(1)}</span>
     </div>
   ) : null

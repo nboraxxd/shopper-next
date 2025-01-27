@@ -1,14 +1,15 @@
 'use client'
 
 import { format } from 'date-fns'
+import { useInView } from 'framer-motion'
+import { Fragment, useEffect, useRef } from 'react'
 
 import { useQueryReviewsFromBackend } from '@/features/review/hooks'
+
 import { UserAvatar } from '@/shared/components'
-import { ReviewsEmptyIcon, StarIcon } from '@/shared/components/icons'
-import { Separator } from '@/shared/components/ui/separator'
-import { Fragment, useEffect, useRef } from 'react'
-import { useInView } from 'framer-motion'
 import { Skeleton } from '@/shared/components/ui/skeleton'
+import { Separator } from '@/shared/components/ui/separator'
+import { ReviewsEmptyIcon, StarIcon, Svgr } from '@/shared/components/icons'
 
 const REVIEW_SKELETONS = 10
 
@@ -35,34 +36,31 @@ export default function ProductReviews({ productId }: { productId: number }) {
 
   return (
     <section className="mt-8 rounded-xl bg-product-info" ref={ref}>
-      {queryReviewsFromBackend.isLoading ? (
-        <div className="mx-auto w-full p-4 md:p-10 lg:w-10/12 xl:w-8/12">
-          <h2 className="text-lg font-bold uppercase">Đánh giá sản phẩm</h2>
-          {Array.from({ length: REVIEW_SKELETONS }).map((_, index) => (
-            <Fragment key={index}>
-              <div className="flex items-start gap-3 py-5">
-                <Skeleton className="size-16 rounded-full" />
-                <div className="grow">
-                  <div className="flex flex-col items-start justify-between gap-1 md:flex-row">
-                    <div className="w-full">
-                      <Skeleton className="h-5 w-1/3" />
-                      <Skeleton className="mt-1 h-4 w-1/4" />
+      <div className="mx-auto w-full p-4 md:p-10 lg:w-10/12 xl:w-8/12">
+        <h2 className="text-lg font-bold uppercase">Đánh giá sản phẩm</h2>
+        {queryReviewsFromBackend.isLoading
+          ? Array.from({ length: REVIEW_SKELETONS }).map((_, index) => (
+              <Fragment key={index}>
+                <div className="flex items-start gap-3 py-5">
+                  <Skeleton className="size-16 rounded-full" />
+                  <div className="grow">
+                    <div className="flex flex-col items-start justify-between gap-1 md:flex-row">
+                      <div className="w-full">
+                        <Skeleton className="h-5 w-1/3" />
+                        <Skeleton className="mt-1 h-4 w-1/4" />
+                      </div>
+                      <Skeleton className="h-4 w-1/5" />
                     </div>
-                    <Skeleton className="h-4 w-1/5" />
+                    <Skeleton className="mt-2 h-4 w-full" />
+                    <Skeleton className="mt-1 h-4 w-1/2" />
                   </div>
-                  <Skeleton className="mt-2 h-4 w-full" />
-                  <Skeleton className="mt-1 h-4 w-1/2" />
                 </div>
-              </div>
-              {index !== REVIEW_SKELETONS - 1 ? <Separator /> : null}
-            </Fragment>
-          ))}
-        </div>
-      ) : null}
-      {queryReviewsFromBackend.isSuccess ? (
-        <div className="mx-auto w-full p-4 md:p-10 lg:w-10/12 xl:w-8/12">
-          <h2 className="text-lg font-bold uppercase">Đánh giá sản phẩm</h2>
-          {queryReviewsFromBackend.data.payload.data.length > 0 ? (
+                {index !== REVIEW_SKELETONS - 1 ? <Separator /> : null}
+              </Fragment>
+            ))
+          : null}
+        {queryReviewsFromBackend.isSuccess ? (
+          queryReviewsFromBackend.data.payload.data.length > 0 ? (
             queryReviewsFromBackend.data.payload.data.map((review, index) => (
               <Fragment key={review._id}>
                 <div className="flex items-start gap-3 py-5 last:pb-0">
@@ -79,10 +77,10 @@ export default function ProductReviews({ productId }: { productId: number }) {
                         <h3 className="font-medium">{review.user.name}</h3>
                         <div className="flex">
                           {Array.from({ length: review.star }).map((_, index) => (
-                            <StarIcon key={index} className="size-4 text-primary-yellow" />
+                            <Svgr icon={StarIcon} key={index} className="size-4 text-primary-yellow" />
                           ))}
                           {Array.from({ length: 5 - review.star }).map((_, index) => (
-                            <StarIcon key={index} className="size-4 fill-none text-primary-yellow" />
+                            <Svgr icon={StarIcon} key={index} className="size-4 fill-none text-primary-yellow" />
                           ))}
                         </div>
                       </div>
@@ -100,9 +98,9 @@ export default function ProductReviews({ productId }: { productId: number }) {
               <p className="block sm:hidden">Chưa có đánh giá</p>
               <p className="hidden sm:block">Chưa có đánh giá nào cho sản phẩm này</p>
             </div>
-          )}
-        </div>
-      ) : null}
+          )
+        ) : null}
+      </div>
     </section>
   )
 }

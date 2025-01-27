@@ -4,7 +4,7 @@ import { ComponentProps, useState } from 'react'
 
 import { cn } from '@/shared/utils'
 import { Button } from '@/shared/components/ui/button'
-import { MinusIcon, PlusIcon } from '@/shared/components/icons'
+import { MinusIcon, PlusIcon, Svgr } from '@/shared/components/icons'
 import { NumberInput } from '@/shared/components/quantity-input'
 
 interface Props extends Omit<ComponentProps<'input'>, 'className'> {
@@ -85,7 +85,7 @@ export default function QuantityInput(props: Props) {
         disabled={max === 0 || disabled}
         className="size-auto"
       >
-        <MinusIcon />
+        <Svgr icon={MinusIcon} />
       </Button>
       <NumberInput
         type="text"
@@ -106,7 +106,7 @@ export default function QuantityInput(props: Props) {
         disabled={max === 0 || disabled}
         className="size-auto"
       >
-        <PlusIcon />
+        <Svgr icon={PlusIcon} />
       </Button>
     </div>
   )

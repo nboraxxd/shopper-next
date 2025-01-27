@@ -4,7 +4,7 @@ import { AddressesResponse } from '@/features/address/types'
 import { ACCESS_TOKEN } from '@/features/auth/constants'
 import userServerApi from '@/features/user/api/server'
 import { UserResponse } from '@/features/user/types'
-import { MessageIcon, PlusIcon } from '@/shared/components/icons'
+import { MailIcon, PlusIcon, Svgr } from '@/shared/components/icons'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import PATH from '@/shared/constants/path'
 import { cookies } from 'next/headers'
@@ -40,7 +40,7 @@ export async function AccountInfoSection() {
         {user ? (
           <article className="flex items-center gap-2 rounded-xl bg-account-info p-2.5">
             <div className="flex size-[3.375rem] shrink-0 items-center justify-center rounded-lg bg-account-info-icon">
-              <MessageIcon className="size-6" width={24} height={24} />
+              <Svgr icon={MailIcon} className="size-6" />
             </div>
             <div>
               <h3 className="text-[0.9375rem] font-medium">Địa chỉ email</h3>
@@ -51,7 +51,7 @@ export async function AccountInfoSection() {
         {user ? (
           <article className="flex items-center gap-2 rounded-xl bg-account-info p-2.5">
             <div className="flex size-[3.375rem] shrink-0 items-center justify-center rounded-lg bg-account-info-icon">
-              <MessageIcon className="size-6" width={24} height={24} />
+              <Svgr icon={MailIcon} className="size-6" />
             </div>
             <div>
               <h3 className="text-[0.9375rem] font-medium">Số điện thoại</h3>
@@ -62,7 +62,7 @@ export async function AccountInfoSection() {
         {address && address.length === 1 ? (
           <article className="flex items-center gap-2 rounded-xl bg-account-info p-2.5">
             <div className="flex size-[3.375rem] shrink-0 items-center justify-center rounded-lg bg-account-info-icon">
-              <MessageIcon className="size-6" width={24} height={24} />
+              <Svgr icon={MailIcon} className="size-6" />
             </div>
             <div>
               <h3 className="text-[0.9375rem] font-medium">Địa chỉ</h3>
@@ -76,7 +76,7 @@ export async function AccountInfoSection() {
           href={PATH.ADD_PAYMENT}
           className="flex min-h-[4.625rem] flex-col items-center justify-center gap-2.5 rounded-xl border border-dashed border-secondary-3"
         >
-          <PlusIcon width={24} height={24} strokeWidth={1.5} />
+          <Svgr icon={PlusIcon} />
           <span className="text-sm font-medium">Thêm địa chỉ</span>
         </Link>
       </div>

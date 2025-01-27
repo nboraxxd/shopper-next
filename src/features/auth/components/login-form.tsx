@@ -18,7 +18,7 @@ import { ForbiddenError, handleClientErrorApi } from '@/shared/utils/error'
 import { TextLink } from '@/shared/components'
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
-import { MessageIcon } from '@/shared/components/icons'
+import { MailIcon, Svgr } from '@/shared/components/icons'
 import { AuthInputWrapper, PasswordInput } from '@/features/auth/components'
 import { Form, FormField, FormItem, FormMessage } from '@/shared/components/ui/form'
 
@@ -77,7 +77,7 @@ export function LoginForm() {
                     required
                     {...field}
                   />
-                  <MessageIcon className="size-6 text-secondary-3" />
+                  <Svgr icon={MailIcon} className="size-6 text-secondary-3" />
                 </AuthInputWrapper>
                 <FormMessage />
               </div>
@@ -117,7 +117,7 @@ export function LoginFormFallback() {
     <div className="mt-8 flex w-full shrink-0 flex-col">
       <AuthInputWrapper>
         <Input readOnly placeholder="Email" className={cn(CUSTOM_INPUT_CLASSNAME)} />
-        <MessageIcon className="size-6 text-secondary-3" />
+        <Svgr icon={MailIcon} className="size-6 text-secondary-3" />
       </AuthInputWrapper>
       <AuthInputWrapper className="mt-7">
         <Input readOnly placeholder="Mật khẩu" className={cn(CUSTOM_INPUT_CLASSNAME)} />

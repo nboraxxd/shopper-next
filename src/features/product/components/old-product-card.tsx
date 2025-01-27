@@ -5,10 +5,10 @@ import { cn, formatCurrency } from '@/shared/utils'
 import { PRODUCT_ERROR_IMAGES } from '@/features/product/constants'
 import type { ConfigurableProduct, ProductImagedata } from '@/features/product/types'
 
-import { ShopperIcon, StarIcon } from '@/shared/components/icons'
-import { AspectRatio } from '@/shared/components/ui/aspect-ratio'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card'
 import { Skeleton } from '@/shared/components/ui/skeleton'
+import { AspectRatio } from '@/shared/components/ui/aspect-ratio'
+import { ShopperIcon, StarIcon, Svgr } from '@/shared/components/icons'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card'
 
 interface Props {
   slug: string
@@ -99,7 +99,7 @@ function OldProductCard(props: Props) {
             {/* Rating */}
             {ratingAverage > 0 && reviewCount > 0 ? (
               <div className="hidden items-center gap-0.5 xs:flex">
-                <StarIcon className="size-4 text-primary-yellow" />
+                <Svgr icon={StarIcon} className="size-4 text-primary-yellow" />
                 <span className="mt-0.5 text-sm">{ratingAverage.toFixed(1)}</span>
               </div>
             ) : null}

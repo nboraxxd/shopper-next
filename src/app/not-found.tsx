@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import { ArrowLeftIcon } from 'lucide-react'
 
 import { Button } from '@/shared/components/ui/button'
+import { ArrowLeftIcon, Svgr } from '@/shared/components/icons'
 
 export default function NotFoundPage() {
   return (
@@ -19,7 +19,7 @@ export default function NotFoundPage() {
         <div className="text-center">
           <Button asChild>
             <Link href="/" className="group h-12">
-              <ArrowLeftIcon className="size-5 transition-transform group-hover:-translate-x-1" />
+              <Svgr icon={ArrowLeftIcon} className="transition-transform group-hover:-translate-x-1" />
               <span>Về trang chủ</span>
             </Link>
           </Button>

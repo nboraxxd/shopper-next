@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/shared/components/ui/button'
-import { CategoriesIcon } from '@/shared/components/icons'
+import { CategoriesIcon, Svgr } from '@/shared/components/icons'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/shared/components/ui/hover-card'
 import { useState } from 'react'
 import { useQueryCategoriesFromBackend } from '@/features/category/hooks'
@@ -19,8 +19,8 @@ import {
   HomeApplianceIcon,
   HomeLivingIcon,
   MomBabyIcon,
-  PhoneIcon,
-  SportOutdoorIcon,
+  IphoneIcon,
+  BasketballIcon,
   TechGadgetIcon,
   VoucherIcon,
 } from '@/shared/components/icons'
@@ -33,7 +33,7 @@ import { Skeleton } from '@/shared/components/ui/skeleton'
 export const CATEGORY_IMAGES = [
   {
     id: 1789,
-    icon: PhoneIcon,
+    icon: IphoneIcon,
   },
   {
     id: 4221,
@@ -73,7 +73,7 @@ export const CATEGORY_IMAGES = [
   },
   {
     id: 1975,
-    icon: SportOutdoorIcon,
+    icon: BasketballIcon,
   },
   {
     id: 8594,
@@ -110,14 +110,14 @@ export default function CategoryHover() {
           className="hidden size-12 transition-opacity hover:opacity-90 lg:inline-flex"
           size="icon"
         >
-          <CategoriesIcon />
+          <Svgr icon={CategoriesIcon} />
         </Button>
       </HoverCardTrigger>
       <HoverCardContent
         sideOffset={10}
         align="start"
         alignOffset={-100}
-        className="w-auto min-w-[37.5rem] rounded-3xl p-8 !shadow-popover"
+        className="w-auto min-w-[37.5rem] rounded-3xl border-transparent p-8 !shadow-popover"
       >
         <nav>
           <ul className="grid lg:grid-cols-2 lg:gap-x-3.5">
@@ -171,7 +171,7 @@ interface Props {
     | React.ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & React.RefAttributes<SVGSVGElement>>
 }
 
-function CategoryItem({ icon: Icon, href, title, setIsOpen, id }: Props) {
+function CategoryItem({ icon, href, title, setIsOpen, id }: Props) {
   const pathname = usePathname()
 
   // TODO: Refactor this, it's not a good practice to use split('/') to get the current category id
@@ -187,7 +187,7 @@ function CategoryItem({ icon: Icon, href, title, setIsOpen, id }: Props) {
         })}
         onClick={() => setIsOpen(false)}
       >
-        <Icon className="size-6" />
+        <Svgr icon={icon} className="size-6" strokeWidth={2} />
         <h3>{title}</h3>
       </Link>
     </li>

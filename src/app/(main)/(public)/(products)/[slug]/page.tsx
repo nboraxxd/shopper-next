@@ -7,7 +7,7 @@ import { formatCurrency, formatNumberToSocialStyle } from '@/shared/utils'
 
 import { Separator } from '@/shared/components/ui/separator'
 import { ProductReviews } from '@/features/review/components'
-import { ShieldIcon, StarIcon } from '@/shared/components/icons'
+import { ShieldIcon, StarIcon, Svgr } from '@/shared/components/icons'
 import { ProductAction, ProductImages, RelatedProducts } from '@/features/product/components'
 
 export default async function ProductDetail({ params }: { params: Promise<{ slug: string }> }) {
@@ -52,7 +52,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
               <div className="grow space-y-7 xl:w-1/2">
                 {product.rating_average > 0 ? (
                   <div className="flex items-center gap-2">
-                    <StarIcon className="size-6 text-primary-yellow" />
+                    <Svgr icon={StarIcon} className="size-6 text-primary-yellow" />
                     <div className="flex gap-1 text-lg font-medium">
                       <span>({product.rating_average.toFixed(1)})</span>
                       <span>
@@ -103,7 +103,10 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
         <section className="mt-8 rounded-xl bg-product-info">
           <div className="mx-auto w-full p-4 md:p-10 lg:w-10/12 xl:w-8/12">
             <h2 className="text-lg font-bold uppercase">Mô tả sản phẩm</h2>
-            <div className="mt-5 overflow-hidden" dangerouslySetInnerHTML={{ __html: product.description }} />
+            <div
+              className="mt-5 overflow-hidden [&_*]:dark:!bg-inherit [&_p]:dark:!text-light-1"
+              dangerouslySetInnerHTML={{ __html: product.description }}
+            />
           </div>
         </section>
 

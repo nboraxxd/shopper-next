@@ -10,7 +10,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
 } from '@/shared/components/ui/dropdown-menu'
-import { ArrowLeftIcon } from '@/shared/components/icons'
+import { Svgr, ArrowLeftIcon } from '@/shared/components/icons'
 
 interface Props {
   setShowThemeDropdown: Dispatch<SetStateAction<boolean>>
@@ -37,7 +37,7 @@ export default function ThemeDropdown({ setShowThemeDropdown }: Props) {
           }}
         >
           <button>
-            <ArrowLeftIcon className="size-8" />
+            <Svgr icon={ArrowLeftIcon} />
           </button>
         </DropdownMenuItem>
         <span className="font-medium">Giao diện</span>

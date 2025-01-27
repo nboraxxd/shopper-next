@@ -14,7 +14,7 @@ import {
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
 import { AuthButton, CategoryHover } from '@/shared/components/header'
-import { ArrowLeftIcon, AlignLeftIcon, SearchIcon, ShopperIcon, CartIcon } from '@/shared/components/icons'
+import { ArrowLeftIcon, AlignLeftIcon, SearchIcon, ShopperIcon, CartIcon, Svgr } from '@/shared/components/icons'
 
 export default function Header() {
   return (
@@ -23,15 +23,19 @@ export default function Header() {
         <div className="flex gap-4 lg:hidden">
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="group size-10 justify-start lg:hidden">
-                <AlignLeftIcon className="transition-transform group-hover:scale-110" />
+              <Button
+                variant="ghost"
+                size="icon"
+                className="size-10 transition-colors hover:bg-header-button/90 lg:hidden"
+              >
+                <Svgr icon={AlignLeftIcon} strokeWidth={2} />
                 <span className="sr-only">Menu điều hướng</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="p-4 pb-12 pt-0">
               <SheetHeader className="h-sheet-header-height justify-center">
                 <SheetPrimitive.Close className="flex size-11 items-center justify-center opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-                  <ArrowLeftIcon className="size-6" />
+                  <Svgr icon={ArrowLeftIcon} />
                   <span className="sr-only">Đóng menu điều hướng</span>
                 </SheetPrimitive.Close>
                 <SheetTitle className="sr-only">Menu điều hướng</SheetTitle>
@@ -50,7 +54,7 @@ export default function Header() {
         </div>
 
         <Button size="icon" variant="ghost" className="group size-10 rounded-md md:hidden lg:size-12">
-          <SearchIcon className="transition-transform group-hover:scale-110" />
+          <Svgr icon={SearchIcon} className="transition-transform group-hover:scale-110" />
         </Button>
 
         <Link
@@ -66,7 +70,7 @@ export default function Header() {
         <div className="mx-auto hidden h-10 max-w-[840px] flex-1 items-center rounded-lg border border-input bg-light-1 p-1 shadow-sm focus-within:shadow-focus-within md:flex lg:h-12">
           <Input className="h-full border-none py-0 text-secondary-1 shadow-none focus-visible:ring-0" />
           <Button size="icon" className="h-full w-11 shrink-0 lg:w-14 [&_svg]:size-4 lg:[&_svg]:size-5">
-            <SearchIcon />
+            <Svgr icon={SearchIcon} strokeWidth={2} />
           </Button>
         </div>
 
@@ -76,7 +80,7 @@ export default function Header() {
           asChild
         >
           <Link href={PATH.CART}>
-            <CartIcon />
+            <Svgr icon={CartIcon} />
             <span>01</span>
             <span className="sr-only">Giỏ hàng</span>
           </Link>

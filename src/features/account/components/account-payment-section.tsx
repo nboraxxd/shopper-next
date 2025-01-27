@@ -3,7 +3,7 @@ import { ACCESS_TOKEN } from '@/features/auth/constants'
 import paymentServerApi from '@/features/payment/api/server'
 import { PaymentCard } from '@/features/payment/component'
 import { PaymentsResponse } from '@/features/payment/types'
-import { PlusIcon } from '@/shared/components/icons'
+import { PlusIcon, Svgr } from '@/shared/components/icons'
 import PATH from '@/shared/constants/path'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
@@ -45,7 +45,7 @@ export async function AccountPaymentSection() {
           href={PATH.ADD_PAYMENT}
           className="flex min-h-44 flex-col items-center justify-center gap-3.5 rounded-xl border border-dashed border-secondary-3"
         >
-          <PlusIcon width={24} height={24} strokeWidth={1.5} />
+          <Svgr icon={PlusIcon} />
           <span className="text-sm font-medium">Thêm thẻ</span>
         </Link>
       </div>
