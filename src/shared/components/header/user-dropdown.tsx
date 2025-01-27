@@ -30,7 +30,7 @@ import { AuthButtonSkeleton, ThemeDropdown } from '@/shared/components/header'
 const USER_LINKS = [
   { label: 'Thông tin tài khoản', href: PATH.ACCOUNT },
   { label: 'Sản phẩm yêu thích', href: PATH.WISHLIST },
-  { label: 'Theo dõi đơn hàng', href: PATH.PURCHASE },
+  { label: 'Theo dõi đơn hàng', href: PATH.ORDER_HISTORY },
 ] as const
 
 export default function UserDropdown() {

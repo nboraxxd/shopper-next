@@ -3,7 +3,15 @@ import PATH from '@/shared/constants/path'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-const protectedPaths = [PATH.CART, PATH.ACCOUNT, PATH.ADDRESS, PATH.PAYMENT, PATH.PROFILE, PATH.PURCHASE, PATH.WISHLIST]
+const protectedPaths = [
+  PATH.CART,
+  PATH.ACCOUNT,
+  PATH.ADDRESS,
+  PATH.PAYMENT,
+  PATH.PROFILE,
+  PATH.ORDER_HISTORY,
+  PATH.WISHLIST,
+]
 const unauthenticatedPaths = [PATH.LOGIN, PATH.REGISTER, PATH.RESEND_VERIFY_EMAIL, PATH.FORGOT_PASSWORD]
 
 export function middleware(request: NextRequest) {

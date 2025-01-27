@@ -1,10 +1,12 @@
-type Payment = {
+export type PaymentType = 'card' | 'paypall'
+
+export type Payment = {
   _id: string
   cvv: string
   cardName: string
   cardNumber: string
   expired: string
-  type: 'card' | 'paypall'
+  type: PaymentType
   default: boolean
   user_id: string
 }

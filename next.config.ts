@@ -73,8 +73,8 @@ const nextConfig: NextConfig = {
         destination: '/account/wishlist',
       },
       {
-        source: PATH.PURCHASE,
-        destination: '/account/purchase',
+        source: PATH.ORDER_HISTORY,
+        destination: '/account/order-history',
       },
       {
         source: PATH.SUPPORT,

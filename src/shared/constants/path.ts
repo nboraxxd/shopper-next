@@ -5,9 +5,9 @@ const PATH = {
   LOGIN: '/dang-nhap',
   REGISTER: '/dang-ky',
   FORGOT_PASSWORD: '/quen-mat-khau',
+  RESEND_VERIFY_EMAIL: '/gui-lai-email-xac-thuc',
   PRODUCTS: '/san-pham',
   CART: '/gio-hang',
-  RESEND_VERIFY_EMAIL: '/gui-lai-email-xac-thuc',
   SUPPORT: '/ho-tro',
 
   ACCOUNT,
@@ -17,7 +17,7 @@ const PATH = {
   ADDRESS: `${ACCOUNT}/dia-chi`,
   ADD_ADDRESS: `${ACCOUNT}/dia-chi/them-moi`,
   WISHLIST: `${ACCOUNT}/san-pham-yeu-thich`,
-  PURCHASE: `${ACCOUNT}/don-mua`,
+  ORDER_HISTORY: `${ACCOUNT}/don-mua`,
 } as const
 
 export default PATH

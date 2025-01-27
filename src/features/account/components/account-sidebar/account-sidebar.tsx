@@ -2,10 +2,12 @@ import { SidebarHeader, SidebarNavDesktop, SidebarNavMobile } from '@/features/a
 
 export default function AccountSidebar() {
   return (
-    <aside className="overflow-x-auto rounded-4xl bg-account-section shadow-section lg:col-span-1 lg:m-0 lg:overflow-visible">
-      <SidebarHeader />
-      <SidebarNavDesktop />
+    <>
       <SidebarNavMobile />
-    </aside>
+      <aside className="sticky top-[calc(var(--header-height)+2rem)] col-span-1 h-fit rounded-4xl bg-account-section shadow-section">
+        <SidebarHeader />
+        <SidebarNavDesktop />
+      </aside>
+    </>
   )
 }

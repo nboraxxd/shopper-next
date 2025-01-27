@@ -1,6 +1,6 @@
 import plugin from 'tailwindcss/plugin'
 
-const customPlugin = plugin(function ({ addComponents }) {
+const customPlugin = plugin(function ({ addComponents, addVariant }) {
   addComponents({
     '.container': {
       maxWidth: '100%',
@@ -25,6 +25,8 @@ const customPlugin = plugin(function ({ addComponents }) {
       paddingRight: 'calc(var(--container-gutter) * 0.5)',
     },
   })
+
+  addVariant('second-last-of-type', '&:nth-last-of-type(2)')
 })
 
 export default customPlugin

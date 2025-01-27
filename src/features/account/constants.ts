@@ -35,7 +35,7 @@ export const ACCOUNT_MENU = [
       {
         icon: ClipboardListIcon,
         title: 'Đơn mua',
-        href: PATH.PURCHASE,
+        href: PATH.ORDER_HISTORY,
       },
     ],
   },
