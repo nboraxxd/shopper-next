@@ -1,9 +1,9 @@
-import { GENDERS } from '@/features/user/constants'
+import { GENDERS } from '@/features/profile/constants'
 import type { MessageResponse } from '@/shared/types'
 
 type GenderValue = (typeof GENDERS)[number]['value']
 
-export type User = {
+export type Profile = {
   _id: string
   username: string
   name: string
@@ -14,7 +14,7 @@ export type User = {
   phone: string | null
 }
 
-export type UpdateMeReqBody = {
+export type UpdateProfileReqBody = {
   name?: string
   avatar?: string | null
   fb?: string | null
@@ -23,8 +23,8 @@ export type UpdateMeReqBody = {
   phone?: string | null
 }
 
-export type UserResponse = {
-  data: User
+export type ProfileResponse = {
+  data: Profile
 }
 
 export type ChangePasswordReqBody = {

@@ -10,7 +10,7 @@ import { useRouter } from 'nextjs-toploader/app'
 import PATH from '@/shared/constants/path'
 import { useMediaQuery } from '@/shared/hooks'
 import { handleClientErrorApi } from '@/shared/utils/error'
-import { useQueryUserFromBackend } from '@/features/user/hooks'
+import { useQueryProfileFromBackend } from '@/features/profile/hooks'
 import { useLogoutToServerMutation } from '@/features/auth/hooks'
 
 import {
@@ -41,7 +41,7 @@ export default function UserDropdown() {
   const { resolvedTheme } = useTheme()
   const is768AndUp = useMediaQuery({ minWidth: 768 })
 
-  const queryUserFromBackend = useQueryUserFromBackend()
+  const queryUserFromBackend = useQueryProfileFromBackend()
   const logoutToServerMutation = useLogoutToServerMutation()
 
   useEffect(() => {

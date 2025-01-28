@@ -42,11 +42,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // Redirect to /user/profile if user navigates to /user
-  if (pathname === '/user') {
-    return NextResponse.redirect(new URL('/user/profile', request.url))
-  }
-
   return NextResponse.next()
 }
 

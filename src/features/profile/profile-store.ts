@@ -1,14 +1,14 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
-import { User } from '@/features/user/types'
+import { Profile } from '@/features/profile/types'
 
-type UserStore = {
-  profile: User | null
-  setProfile: (profile: User | null) => void
+type ProfileStore = {
+  profile: Profile | null
+  setProfile: (profile: Profile | null) => void
 }
 
-export const useUserStore = create<UserStore>()(
+export const useProfileStore = create<ProfileStore>()(
   devtools(
     (set) => ({
       profile: null,
@@ -16,7 +16,7 @@ export const useUserStore = create<UserStore>()(
     }),
     {
       enabled: process.env.NODE_ENV === 'development',
-      name: 'userStore',
+      name: 'profileStore',
     }
   )
 )

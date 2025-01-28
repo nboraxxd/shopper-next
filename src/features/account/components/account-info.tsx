@@ -5,8 +5,8 @@ import { redirect } from 'next/navigation'
 
 import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
-import { UserResponse } from '@/features/user/types'
-import userServerApi from '@/features/user/api/server'
+import { ProfileResponse } from '@/features/profile/types'
+import profileServerApi from '@/features/profile/api/server'
 import { ACCESS_TOKEN } from '@/features/auth/constants'
 import { AddressesResponse } from '@/features/address/types'
 import addressServerApi from '@/features/address/api/server'
@@ -20,16 +20,16 @@ export async function AccountInfoContent() {
 
   if (!accessToken) redirect(PATH.LOGIN)
 
-  let user: UserResponse['data'] | null = null
+  let profile: ProfileResponse['data'] | null = null
   let defaultAddress: AddressesResponse['data'] | null = null
 
   try {
-    const [userResponse, addressResponse] = await Promise.all([
-      userServerApi.getUserFromBackend(accessToken),
+    const [profileResponse, addressResponse] = await Promise.all([
+      profileServerApi.getProfileFromBackend(accessToken),
       addressServerApi.getAddressesFromBackend({ accessToken, isDefault: true }),
     ])
 
-    user = userResponse.payload.data
+    profile = profileResponse.payload.data
     defaultAddress = addressResponse.payload.data
   } catch (error: any) {
     if (error.digest?.includes('NEXT_REDIRECT')) {
@@ -39,28 +39,28 @@ export async function AccountInfoContent() {
 
   return (
     <>
-      {user?.username ? (
+      {profile?.username ? (
         <AccountInfoItem
           icon={MailIcon}
           title="Email"
-          content={user.username}
+          content={profile.username}
           contentClassName="line-clamp-1 break-all"
         />
       ) : null}
-      {user?.phone ? (
+      {profile?.phone ? (
         <AccountInfoItem
           icon={CallingIcon}
           title="Số điện thoại"
           content={
-            user.phone.length >= 10
-              ? `${user.phone.slice(0, 4)} ${user.phone.slice(4, 7)} ${user.phone.slice(7, 10)} ${user.phone.slice(10)}`
-              : user.phone
+            profile.phone.length >= 10
+              ? `${profile.phone.slice(0, 4)} ${profile.phone.slice(4, 7)} ${profile.phone.slice(7, 10)} ${profile.phone.slice(10)}`
+              : profile.phone
           }
           contentClassName="line-clamp-1"
         />
       ) : null}
       {/* If user.phone is not available, show the phone number from the default address */}
-      {!user?.phone && defaultAddress && defaultAddress.length >= 1 ? (
+      {!profile?.phone && defaultAddress && defaultAddress.length >= 1 ? (
         <AccountInfoItem
           icon={CallingIcon}
           title="Số điện thoại"

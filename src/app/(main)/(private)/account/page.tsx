@@ -15,6 +15,7 @@ import {
 export default async function AccountPage() {
   return (
     <>
+      <h1 className="sr-only">Tài khoản</h1>
       <AccountContainer title="Thẻ thanh toán">
         <div className="mt-4 grid grid-cols-1 gap-3 xs:grid-cols-2 md:grid-cols-3 md:gap-5">
           <Suspense fallback={<AccountPaymentSkeleton />}>

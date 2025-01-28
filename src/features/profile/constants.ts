@@ -4,6 +4,6 @@ export const GENDERS = [
   { label: 'Khác', value: 'other' },
 ] as const
 
-export const USER_KEY = {
-  USER: 'user',
+export const PROFILE_KEY = {
+  PROFILE: 'profile',
 } as const
