@@ -68,7 +68,7 @@ export default function UserDropdown() {
   return queryUserFromBackend.isSuccess ? (
     <>
       <Button asChild variant="ghost" size="icon" className="md:hidden">
-        <Link href={PATH.CART}>
+        <Link href={PATH.ACCOUNT}>
           <UserAvatar
             avatarUrl={queryUserFromBackend.data.payload.data.avatar}
             name={queryUserFromBackend.data.payload.data.name}
@@ -90,8 +90,11 @@ export default function UserDropdown() {
           }, 200)
         }}
       >
-        <DropdownMenuTrigger className="size-auto cursor-pointer" asChild>
-          <Button variant="ghost" size="icon" className="hidden md:inline-flex">
+        <DropdownMenuTrigger
+          className="hidden size-auto cursor-pointer rounded-lg transition-none focus-visible:shadow-focus-within focus-visible:ring-0 md:inline-flex"
+          asChild
+        >
+          <Button variant="ghost" size="icon">
             <UserAvatar
               avatarUrl={queryUserFromBackend.data.payload.data.avatar}
               name={queryUserFromBackend.data.payload.data.name}
@@ -101,7 +104,7 @@ export default function UserDropdown() {
               className="size-10 overflow-visible lg:size-12"
               fallbackClassName="bg-header-button shadow"
             />
-            <span className="sr-only">Menu người dùng</span>
+            <span className="sr-only">Menu người dùng của {queryUserFromBackend.data.payload.data.name}</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-72 rounded-3xl p-0" align="end">

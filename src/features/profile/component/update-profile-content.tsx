@@ -1,10 +1,12 @@
-import { ACCESS_TOKEN } from '@/features/auth/constants'
-import profileServerApi from '@/features/profile/api/server'
-import { UpdateProfileForm } from '@/features/profile/component'
-import { ProfileResponse } from '@/features/profile/types'
-import PATH from '@/shared/constants/path'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
+
+import PATH from '@/shared/constants/path'
+import { ACCESS_TOKEN } from '@/features/auth/constants'
+import { ProfileResponse } from '@/features/profile/types'
+import profileServerApi from '@/features/profile/api/server'
+
+import { UpdateProfileForm } from '@/features/profile/component'
 
 export default async function UpdateProfileContent() {
   const cookieStore = await cookies()

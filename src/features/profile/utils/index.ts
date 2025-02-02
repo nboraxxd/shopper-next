@@ -1,4 +1,4 @@
-import { parse, isValid, format, getDate, getMonth, getYear } from 'date-fns'
+import { parse, isValid, getDate, getMonth, getYear } from 'date-fns'
 
 import { GENDERS } from '@/features/profile/constants'
 
@@ -8,11 +8,11 @@ export function validateGenderValue(gender: string | null): (typeof GENDERS)[num
   return ['male', 'female', 'other'].includes(gender) ? (gender as (typeof GENDERS)[number]['value']) : null
 }
 
-export function convertBirthdateToDayMonthYear(birthdate: string | null) {
-  if (!birthdate) return null
+export function convertDOBToDayMonthYear(userDateOfBirth: string | null) {
+  if (!userDateOfBirth) return undefined
 
   // Kiểm tra định dạng ISO 8601 hoặc YYYY-MM-DD
-  const timestamp = Date.parse(birthdate)
+  const timestamp = Date.parse(userDateOfBirth)
 
   if (!isNaN(timestamp)) {
     const parsedDate = new Date(timestamp)
@@ -24,7 +24,7 @@ export function convertBirthdateToDayMonthYear(birthdate: string | null) {
   }
 
   // Kiểm tra định dạng dd/MM/yyyy
-  const parsedDate = parse(birthdate, 'dd/MM/yyyy', new Date())
+  const parsedDate = parse(userDateOfBirth, 'dd/MM/yyyy', new Date())
 
   if (isValid(parsedDate)) {
     const day = getDate(parsedDate) // Ngày
@@ -34,5 +34,5 @@ export function convertBirthdateToDayMonthYear(birthdate: string | null) {
     return { day, month, year }
   }
 
-  return null
+  return undefined
 }

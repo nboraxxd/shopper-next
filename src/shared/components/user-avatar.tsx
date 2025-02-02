@@ -14,10 +14,11 @@ interface UserAvatarProps extends React.ComponentProps<typeof Avatar> {
   className?: string
   fallbackClassName?: string
   variant?: 'square' | 'round'
+  imagePriority?: boolean
 }
 
 export default function UserAvatar(props: UserAvatarProps) {
-  const { name, avatarUrl, className, fallbackClassName, variant, height, width, ...rest } = props
+  const { name, avatarUrl, className, fallbackClassName, variant, height, width, imagePriority, ...rest } = props
 
   const variantOptions = cva('', {
     variants: {
@@ -34,7 +35,7 @@ export default function UserAvatar(props: UserAvatarProps) {
   return avatarUrl ? (
     <Avatar className={cn(className, variantOptions({ variant }))} {...rest}>
       <AvatarImage asChild src={avatarUrl} className={cn('object-cover', variantOptions({ variant }))}>
-        <Image width={width} height={height} src={avatarUrl} alt={name} />
+        <Image width={width} height={height} src={avatarUrl} alt={name} priority={imagePriority} />
       </AvatarImage>
       <AvatarFallback className={cn(fallbackClassName, variantOptions({ variant }))} asChild>
         <Skeleton />

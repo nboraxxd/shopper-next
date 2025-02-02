@@ -1,9 +1,11 @@
-import { UpdateProfileContent } from '@/features/profile/component'
-import { ArrowLeftIcon, Svgr } from '@/shared/components/icons'
-import { Button } from '@/shared/components/ui/button'
-import PATH from '@/shared/constants/path'
 import Link from 'next/link'
 import { Suspense } from 'react'
+
+import PATH from '@/shared/constants/path'
+
+import { Button } from '@/shared/components/ui/button'
+import { ArrowLeftIcon, Svgr } from '@/shared/components/icons'
+import { UpdateProfileContent, UpdateProfileSkeleton } from '@/features/profile/component'
 
 export default function ProfilePage() {
   return (
@@ -23,7 +25,7 @@ export default function ProfilePage() {
         </Button>
         <h2 className="text-sm font-medium sm:text-lg">Chỉnh sửa thông tin cá nhân</h2>
       </div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<UpdateProfileSkeleton />}>
         <UpdateProfileContent />
       </Suspense>
     </>
