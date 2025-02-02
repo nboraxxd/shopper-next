@@ -30,6 +30,10 @@ import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group'
 import DOBSelectGroup from './dob-select-group'
 import UpdateProfileSkeleton from './update-profile-skeleton'
 import { Skeleton } from '@/shared/components/ui/skeleton'
+import { useUpdateProfileToBackendMutation } from '@/features/profile/hooks'
+import isUndefined from 'lodash/isUndefined'
+import omitBy from 'lodash/omitBy'
+import { toast } from 'sonner'
 
 export default function UpdateProfileForm({ profile }: { profile: ProfileResponse['data'] }) {
   const [isLoadingProfile, setIsLoadingProfile] = useState(true)
@@ -49,6 +53,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
   })
 
   const uploadImageMutation = useUploadImageToBackendMutation()
+  const updateProfileMutation = useUpdateProfileToBackendMutation()
 
   useEffect(() => {
     form.reset({
@@ -88,7 +93,31 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
   }
 
   async function onSubmit(values: UpdateProfileReqBody) {
-    console.log(values)
+    const { avatar, birthday, fb, gender, name, phone } = profile
+
+    const changes = omitBy(
+      {
+        name: name === values.name ? undefined : values.name,
+        birthday: birthday === values.birthday ? undefined : values.birthday,
+        gender: gender === values.gender ? undefined : values.gender,
+        fb: fb === values.fb ? undefined : values.fb,
+        phone: phone === values.phone ? undefined : values.phone,
+        avatar: avatar === values.avatar ? undefined : values.avatar,
+      },
+      isUndefined
+    ) as UpdateProfileReqBody
+
+    if (Object.keys(changes).length === 0) {
+      toast.info('Không có thay đổi nào được thực hiện')
+      return
+    }
+
+    try {
+      await updateProfileMutation.mutateAsync(changes)
+      toast.success('Cập nhật thông tin thành công')
+    } catch (error) {
+      handleClientErrorApi({ error, setError: form.setError })
+    }
   }
 
   if (isLoadingProfile) return <UpdateProfileSkeleton />
