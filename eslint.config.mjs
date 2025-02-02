@@ -34,7 +34,7 @@ const eslintConfig = [
           caughtErrorsIgnorePattern: '^_',
         },
       ],
-      'tailwindcss/no-custom-classname': ['warn', { whitelist: ['mySwiper', 'toaster'] }],
+      'tailwindcss/no-custom-classname': ['warn', { whitelist: ['mySwiper', 'toaster', '(?!(calendar)\\-).*'] }],
       'prettier/prettier': [
         'warn',
         {

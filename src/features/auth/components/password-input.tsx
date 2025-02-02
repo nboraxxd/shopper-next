@@ -17,7 +17,6 @@ export default function PasswordInput({ field }: { field: ControllerRenderProps<
   return (
     <>
       <Input
-        id="password"
         type={isShowPassword ? 'text' : 'password'}
         autoComplete="new-password"
         placeholder="Mật khẩu"

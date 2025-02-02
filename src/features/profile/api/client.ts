@@ -1,16 +1,12 @@
 import http from '@/shared/utils/http'
 
-import type {
-  ChangePasswordReqBody,
-  ChangePasswordResponse,
-  UpdateProfileReqBody,
-  ProfileResponse,
-} from '@/features/profile/types'
+import type { ChangePasswordResponse, ProfileResponse } from '@/features/profile/types'
+import { ChangePasswordReqBody, UpdateProfileReqBody } from '@/features/profile/schemas'
 
 const PREFIX = '/users'
 
 const profileClientApi = {
-  // getUserFromBackend sẽ được gọi từ client compoent
+  // getProfileFromBackend sẽ được gọi từ client compoent
   // nên accessToken đã tự động được thêm vào headers.Authorization
   getProfileFromBackend: () => http.get<ProfileResponse>(PREFIX),
 

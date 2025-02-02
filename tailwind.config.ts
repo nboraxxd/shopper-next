@@ -78,7 +78,10 @@ export default {
 
         border: 'hsl(var(--border))',
 
-        input: 'hsl(var(--input))',
+        input: {
+          DEFAULT: 'hsl(var(--input))',
+          placeholder: 'hsl(var(--input-placeholder))',
+        },
 
         ring: 'hsl(var(--ring))',
 
@@ -120,7 +123,6 @@ export default {
           DEFAULT: 'hsl(var(--auth-content))',
           foreground: 'hsl(var(--auth-content-foreground))',
           heading: 'hsl(var(--auth-content-heading))',
-          placeholder: 'hsl(var(--auth-content-placeholder))',
         },
 
         product: {
@@ -137,7 +139,7 @@ export default {
         account: {
           DEFAULT: 'hsl(var(--account))',
           section: 'hsl(var(--account-section))',
-          'link-hover': 'hsl(var(--account-link-hover))',
+          highlight: 'hsl(var(--account-highlight))',
           info: 'hsl(var(--account-info))',
           'info-icon': 'hsl(var(--account-info-icon))',
         },

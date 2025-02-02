@@ -22,14 +22,16 @@
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
 
-    --accent: 240 4.8% 95.9%;
+    --accent: 0 0% 92.2%; /* #ebebeb */
     --accent-foreground: 240 5.9% 10%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
+    --input-placeholder: 252 5.7% 82.9%; /* #d2d1d6 - secondary-3 */
+
+    --border: 240 5.9% 90%;
 
     --ring: 240 10% 3.9%;
     --chart-1: 12 76% 61%;
@@ -59,7 +61,6 @@
     --auth-content: 0 0% 100%; /* #fff - light-1 */
     --auth-content-foreground: 245.5 5.9% 63.7%; /* #9e9da8 - secondary-2 */
     --auth-content-heading: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
-    --auth-content-placeholder: 252 5.7% 82.9%; /* #d2d1d6 - secondary-3 */
 
     --product: 240 42.9% 98.6%; /* #fafafd - secondary-6 */
     --product-info: 0 0% 100%; /* #fff - light-1 */
@@ -70,7 +71,7 @@
 
     --account: 240 27.3% 97.8%; /* #f8f8fb - secondary-5 */
     --account-section: 0 0% 100%; /* #fff - light-1 */
-    --account-link-hover: 0 0% 92.2%; /* #ebebeb */
+    --account-highlight: 0 0% 92.2%; /* #ebebeb */
     --account-info: 240 27.3% 97.8%; /* #f8f8fb - secondary-5 */
     --account-info-icon: 0 0% 100%; /* #fff - light-1 */
 
@@ -96,14 +97,16 @@
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
 
-    --accent: 240 3.7% 15.9%;
+    --accent: 223.3 16.1% 22%; /* #2f3441 */
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
+    --input-placeholder: 228 3.7% 73.5%; /* #b9babe - dark-3 */
+
+    --border: 240 3.7% 15.9%;
 
     --ring: 240 4.9% 83.9%;
     --chart-1: 220 70% 50%;
@@ -128,7 +131,6 @@
     --auth-content: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
     --auth-content-foreground: 245.5 5.9% 63.7%; /* #9e9da8 - secondary-2 */
     --auth-content-heading: 228 3.7% 73.5%; /* #b9babe - dark-3 */
-    --auth-content-placeholder: 228 3.7% 73.5%; /* #b9babe - dark-3 */
 
     --product: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
     --product-info: 222.4 27% 12.4%; /* #171c28 - dark-1 */
@@ -139,7 +141,7 @@
 
     --account: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
     --account-section: 222.4 27% 12.4%; /* #171c28 - dark-1 */
-    --account-link-hover: 223.3 16.1% 22%; /* #2f3441 */
+    --account-highlight: 223.3 16.1% 22%; /* #2f3441 */
     --account-info: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
     --account-info-icon: 222.4 27% 12.4%; /* #171c28 - dark-1 */
 

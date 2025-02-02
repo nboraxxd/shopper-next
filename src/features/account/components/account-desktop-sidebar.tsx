@@ -39,6 +39,7 @@ function SidebarHeader() {
             height={142}
             width={142}
             className="size-[7.875rem] border-[5px] border-light-1/20 text-4xl font-medium shadow"
+            fallbackClassName="bg-account-highlight text-5xl"
           />
           <h2 className="mt-2 line-clamp-1 text-lg font-bold text-light-1">
             {queryProfileFromBackend.data.payload.data.name}
@@ -63,9 +64,9 @@ function SidebarNav() {
                 <Link
                   href={item.href}
                   className={cn(
-                    'flex h-8 items-center gap-2 rounded-md px-1 transition-colors hover:bg-account-link-hover',
+                    'flex h-8 items-center gap-2 rounded-md px-1 transition-colors hover:bg-account-highlight',
                     {
-                      'text-highlight bg-account-link-hover': pathname === item.href,
+                      'text-highlight bg-account-highlight': pathname === item.href,
                     }
                   )}
                 >

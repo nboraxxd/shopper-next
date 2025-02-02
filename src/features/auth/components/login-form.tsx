@@ -11,8 +11,8 @@ import { EyeIcon, LoaderCircleIcon } from 'lucide-react'
 import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
 import { useLoginToServerMutation } from '@/features/auth/hooks'
+import { LoginReqBody, loginSchema } from '@/features/auth/schemas'
 import { CUSTOM_INPUT_CLASSNAME } from '@/shared/constants/class-name'
-import { LoginReqBody, loginReqBodySchema } from '@/features/auth/schemas'
 import { ForbiddenError, handleClientErrorApi } from '@/shared/utils/error'
 
 import { TextLink } from '@/shared/components'
@@ -30,7 +30,7 @@ export function LoginForm() {
   const next = searchParams.get('next')
 
   const form = useForm<LoginReqBody>({
-    resolver: zodResolver(loginReqBodySchema),
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       username: '',
       password: '',
@@ -69,7 +69,6 @@ export function LoginForm() {
               <div className="grid gap-2">
                 <AuthInputWrapper>
                   <Input
-                    id="email"
                     type="email"
                     autoComplete="email"
                     placeholder="Email"

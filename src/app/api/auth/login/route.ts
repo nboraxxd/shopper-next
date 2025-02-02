@@ -7,7 +7,7 @@ import { HttpError } from '@/shared/utils/error'
 import authServerApi from '@/features/auth/api/server'
 import { HTTP_STATUS_CODE } from '@/shared/constants/http-status-code'
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/features/auth/constants'
-import { LoginReqBody, loginReqBodySchema } from '@/features/auth/schemas'
+import { LoginReqBody, loginSchema } from '@/features/auth/schemas'
 
 export async function POST(req: Request) {
   const body: LoginReqBody = await req.json()
@@ -15,7 +15,7 @@ export async function POST(req: Request) {
   const cookieStore = await cookies()
 
   try {
-    const { password, username } = await loginReqBodySchema.parseAsync(body)
+    const { password, username } = await loginSchema.parseAsync(body)
 
     const { payload } = await authServerApi.loginToBackend({ password, username })
 
