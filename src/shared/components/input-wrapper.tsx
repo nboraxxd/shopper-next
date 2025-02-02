@@ -1,6 +1,6 @@
 import { cn } from '@/shared/utils'
 
-export default function AuthInputWrapper({ children, className }: { children: React.ReactNode; className?: string }) {
+export default function InputWrapper({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
     <div
       className={cn(

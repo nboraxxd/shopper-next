@@ -12,7 +12,7 @@ const profileClientApi = {
 
   updateProfileToBackend: (body: UpdateProfileReqBody) => http.patch<ProfileResponse>(PREFIX, body),
 
-  changePasswordToBackend: (body: ChangePasswordReqBody) =>
+  changePasswordToBackend: (body: Omit<ChangePasswordReqBody, 'confirmNewPassword'>) =>
     http.post<ChangePasswordResponse>(`${PREFIX}/change-password`, body),
 }
 

@@ -1,6 +1,10 @@
 'use client'
 
+import { toast } from 'sonner'
+import omitBy from 'lodash/omitBy'
 import { useForm } from 'react-hook-form'
+import isUndefined from 'lodash/isUndefined'
+import { LoaderCircleIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -9,6 +13,7 @@ import { ProfileResponse } from '@/features/profile/types'
 import { handleClientErrorApi } from '@/shared/utils/error'
 import { validateGenderValue } from '@/features/profile/utils'
 import { useUploadImageToBackendMutation } from '@/features/file/hooks'
+import { useUpdateProfileToBackendMutation } from '@/features/profile/hooks'
 import { UpdateProfileReqBody, updateProfileSchema } from '@/features/profile/schemas'
 import { CUSTOM_PROFILE_INPUT_CLASSNAME, CUSTOM_PROFILE_LABEL_CLASSNAME, GENDERS } from '@/features/profile/constants'
 
@@ -24,16 +29,12 @@ import {
 import { UserAvatar } from '@/shared/components'
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
+import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Separator } from '@/shared/components/ui/separator'
 import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group'
 
 import DOBSelectGroup from './dob-select-group'
 import UpdateProfileSkeleton from './update-profile-skeleton'
-import { Skeleton } from '@/shared/components/ui/skeleton'
-import { useUpdateProfileToBackendMutation } from '@/features/profile/hooks'
-import isUndefined from 'lodash/isUndefined'
-import omitBy from 'lodash/omitBy'
-import { toast } from 'sonner'
 
 export default function UpdateProfileForm({ profile }: { profile: ProfileResponse['data'] }) {
   const [isLoadingProfile, setIsLoadingProfile] = useState(true)
@@ -55,6 +56,8 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
   const uploadImageMutation = useUploadImageToBackendMutation()
   const updateProfileMutation = useUpdateProfileToBackendMutation()
 
+  const isFormProcessing = isLoadingProfile || uploadImageMutation.isPending || updateProfileMutation.isPending
+
   useEffect(() => {
     form.reset({
       name: profile.name,
@@ -68,6 +71,8 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
   }, [form, profile.avatar, profile.birthday, profile.fb, profile.gender, profile.name, profile.phone])
 
   async function handleChangeAvatar(ev: React.ChangeEvent<HTMLInputElement>) {
+    if (isFormProcessing) return
+
     const file = ev.target.files?.[0]
 
     if (!file) return
@@ -93,6 +98,8 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
   }
 
   async function onSubmit(values: UpdateProfileReqBody) {
+    if (isFormProcessing) return
+
     const { avatar, birthday, fb, gender, name, phone } = profile
 
     const changes = omitBy(
@@ -288,9 +295,10 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
         {/* Submit */}
         <Button
           type="submit"
-          className="mt-4 h-11 gap-1.5 rounded-full px-5 py-0"
-          disabled={uploadImageMutation.isPending}
+          className="mt-4 h-11 gap-1.5 rounded-full px-5 py-0 [&_svg]:size-5"
+          disabled={isFormProcessing}
         >
+          {isFormProcessing ? <LoaderCircleIcon className="animate-spin" /> : null}
           Cập nhật
         </Button>
       </form>

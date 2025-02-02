@@ -15,11 +15,11 @@ import { LoginReqBody, loginSchema } from '@/features/auth/schemas'
 import { CUSTOM_INPUT_CLASSNAME } from '@/shared/constants/class-name'
 import { ForbiddenError, handleClientErrorApi } from '@/shared/utils/error'
 
-import { TextLink } from '@/shared/components'
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
 import { MailIcon, Svgr } from '@/shared/components/icons'
-import { AuthInputWrapper, PasswordInput } from '@/features/auth/components'
+import { PasswordInput } from '@/features/auth/components'
+import { InputWrapper, TextLink } from '@/shared/components'
 import { Form, FormField, FormItem, FormMessage } from '@/shared/components/ui/form'
 
 export function LoginForm() {
@@ -67,7 +67,7 @@ export function LoginForm() {
           render={({ field }) => (
             <FormItem>
               <div className="grid gap-2">
-                <AuthInputWrapper>
+                <InputWrapper>
                   <Input
                     type="email"
                     autoComplete="email"
@@ -77,7 +77,7 @@ export function LoginForm() {
                     {...field}
                   />
                   <Svgr icon={MailIcon} className="size-6 text-secondary-3" />
-                </AuthInputWrapper>
+                </InputWrapper>
                 <FormMessage />
               </div>
             </FormItem>
@@ -89,9 +89,9 @@ export function LoginForm() {
           render={({ field }) => (
             <FormItem className="mt-7">
               <div className="grid gap-2">
-                <AuthInputWrapper>
+                <InputWrapper>
                   <PasswordInput field={field} />
-                </AuthInputWrapper>
+                </InputWrapper>
                 <FormMessage />
               </div>
             </FormItem>
@@ -99,10 +99,10 @@ export function LoginForm() {
         />
         <Button
           type="submit"
-          className="mt-7 h-12 w-full gap-1.5"
+          className="mt-7 h-12 w-full gap-1.5 [&_svg]:size-5"
           disabled={loginToServerMutation.isPending || isDisabled}
         >
-          {loginToServerMutation.isPending || isDisabled ? <LoaderCircleIcon className="size-4 animate-spin" /> : null}
+          {loginToServerMutation.isPending || isDisabled ? <LoaderCircleIcon className="animate-spin" /> : null}
           Đăng nhập
         </Button>
         <LoginHelpLinks />
@@ -114,14 +114,14 @@ export function LoginForm() {
 export function LoginFormFallback() {
   return (
     <div className="mt-8 flex w-full shrink-0 flex-col">
-      <AuthInputWrapper>
+      <InputWrapper>
         <Input readOnly placeholder="Email" className={cn(CUSTOM_INPUT_CLASSNAME)} />
         <Svgr icon={MailIcon} className="size-6 text-secondary-3" />
-      </AuthInputWrapper>
-      <AuthInputWrapper className="mt-7">
+      </InputWrapper>
+      <InputWrapper className="mt-7">
         <Input readOnly placeholder="Mật khẩu" className={cn(CUSTOM_INPUT_CLASSNAME)} />
         <EyeIcon className="size-6 text-secondary-3" />
-      </AuthInputWrapper>
+      </InputWrapper>
       <Button className="mt-7 h-12 w-full gap-1.5" disabled>
         Đăng nhập
       </Button>

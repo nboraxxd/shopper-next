@@ -14,7 +14,7 @@ import {
 
 export default async function AccountPage() {
   return (
-    <>
+    <div className="rounded-4xl bg-account-section px-4 py-7 shadow-section lg:px-7">
       <h1 className="sr-only">Tài khoản</h1>
       <AccountContainer title="Thẻ thanh toán">
         <div className="mt-4 grid grid-cols-1 gap-3 xs:grid-cols-2 md:grid-cols-3 md:gap-5">
@@ -44,6 +44,6 @@ export default async function AccountPage() {
           <AccountWishlistContent />
         </Suspense>
       </AccountContainer>
-    </>
+    </div>
   )
 }
