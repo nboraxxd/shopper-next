@@ -1,18 +1,19 @@
 'use client'
 
-import { ChangePasswordReqBody, changePasswordSchema } from '@/features/profile/schemas'
-import { Button } from '@/shared/components/ui/button'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-
-import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
-import { CUSTOM_PROFILE_LABEL_CLASSNAME } from '@/features/profile/constants'
-import { InputWrapper } from '@/shared/components'
-import { PasswordInput } from '@/features/auth/components'
-import { useChangePasswordToBackendMutation } from '@/features/profile/hooks'
-import { LoaderCircleIcon } from 'lucide-react'
-import { ForbiddenError, handleClientErrorApi } from '@/shared/utils/error'
 import { toast } from 'sonner'
+import { useForm } from 'react-hook-form'
+import { LoaderCircleIcon } from 'lucide-react'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+import { ForbiddenError, handleClientErrorApi } from '@/shared/utils/error'
+import { useChangePasswordToBackendMutation } from '@/features/profile/hooks'
+import { CUSTOM_PROFILE_LABEL_CLASSNAME } from '@/features/profile/constants'
+import { ChangePasswordReqBody, changePasswordSchema } from '@/features/profile/schemas'
+
+import { InputWrapper } from '@/shared/components'
+import { Button } from '@/shared/components/ui/button'
+import { PasswordInput } from '@/features/auth/components'
+import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
 
 export default function ChangePasswordForm() {
   const form = useForm<ChangePasswordReqBody>({

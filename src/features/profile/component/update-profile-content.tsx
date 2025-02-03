@@ -1,5 +1,5 @@
-import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 import PATH from '@/shared/constants/path'
 import { ACCESS_TOKEN } from '@/features/auth/constants'

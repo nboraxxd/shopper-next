@@ -7,6 +7,7 @@ import { useAuthStore } from '@/features/auth/auth-store'
 import checkAndRefreshToken from '@/shared/utils/check-and-refresh-token'
 import { usePathname } from 'next/navigation'
 import PATH from '@/shared/constants/path'
+import envVariables from '@/shared/schemas/env-variables.schema'
 
 // không check refresh token cho các path này
 const UNAUTHENTICATED_PATHS = [PATH.LOGIN, PATH.REGISTER, '/logout', '/refresh-token']
@@ -39,7 +40,7 @@ export default function RefreshToken() {
 
     // `refreshTokenCheckInterval` phải nhỏ hơn 1/3 thời gian hết hạn của access token
     // Ví dụ access token hết hạn sau 30s thì ít nhất 10s chúng ta sẽ check refresh token 1 lần
-    const refreshTokenCheckInterval = ms('3s') // 1/5 of access token expiration time
+    const refreshTokenCheckInterval = ms(envVariables.NEXT_PUBLIC_REFRESH_TOKEN_CHECK_INTERVAL) // 1/5 of access token expiration time
     interval = setInterval(
       () =>
         checkAndRefreshToken({

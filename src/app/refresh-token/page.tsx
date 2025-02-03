@@ -9,6 +9,14 @@ import { getRefreshTokenFromLocalStorage } from '@/shared/utils/local-storage'
 
 import { ShopperIcon } from '@/shared/components/icons'
 
+export default function RefreshTokenPage() {
+  return (
+    <Suspense fallback={<RefreshTokenView />}>
+      <RefreshTokenContent />
+    </Suspense>
+  )
+}
+
 function RefreshTokenContent() {
   const router = useRouter()
 
@@ -43,13 +51,5 @@ function RefreshTokenView() {
         </div>
       </div>
     </div>
-  )
-}
-
-export default function RefreshTokenPage() {
-  return (
-    <Suspense fallback={<RefreshTokenView />}>
-      <RefreshTokenContent />
-    </Suspense>
   )
 }

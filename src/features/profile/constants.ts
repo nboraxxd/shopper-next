@@ -12,3 +12,11 @@ export const CUSTOM_PROFILE_INPUT_CLASSNAME =
   'h-11 text-ellipsis rounded-xl font-medium transition-none placeholder:text-input-placeholder focus-visible:border-transparent focus-visible:shadow-focus-within focus-visible:ring-0'
 
 export const CUSTOM_PROFILE_LABEL_CLASSNAME = 'text-lg font-medium'
+
+export const PROFILE_ERROR_MESSAGES = {
+  PHONE_NUMBER_REQUIRED: 'Số điện thoại không được để trống',
+  INVALID_PHONE_NUMBER: 'Số điện thoại không đúng định dạng',
+  INVALID_FB_LINK: 'Link facebook không hợp lệ',
+  INVALID_GENDER: 'Giới tính không hợp lệ',
+  INVALID_BIRTHDAY: 'Ngày sinh không hợp lệ',
+} as const
