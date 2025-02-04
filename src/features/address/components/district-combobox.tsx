@@ -1,8 +1,9 @@
 'use client'
 
-import { RegionCombobox } from '@/features/address/components'
-import { useQueryDistrictsFromServer } from '@/features/address/hooks'
 import { Region } from '@/features/address/schemas'
+import { useQueryDistrictsFromServer } from '@/features/address/hooks'
+
+import { RegionCombobox } from '@/features/address/components'
 
 interface Props {
   value: string | undefined

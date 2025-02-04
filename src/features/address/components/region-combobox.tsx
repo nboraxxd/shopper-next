@@ -1,9 +1,13 @@
 'use client'
 
-import { CUSTOM_PROFILE_LABEL_CLASSNAME } from '@/features/profile/constants'
-import { FormControl, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
+import { useState } from 'react'
+import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react'
 
-import { Button } from '@/shared/components/ui/button'
+import { cn } from '@/shared/utils'
+import { Region } from '@/features/address/schemas'
+import { RegionCommonInfo } from '@/features/address/types'
+import { CUSTOM_PROFILE_LABEL_CLASSNAME } from '@/features/profile/constants'
+
 import {
   Command,
   CommandEmpty,
@@ -12,13 +16,10 @@ import {
   CommandItem,
   CommandList,
 } from '@/shared/components/ui/command'
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover'
+import { Button } from '@/shared/components/ui/button'
 import { ScrollArea } from '@/shared/components/ui/scroll-area'
-import { cn } from '@/shared/utils'
-import { CheckIcon, ChevronDownIcon } from 'lucide-react'
-import { useState } from 'react'
-import { Region } from '@/features/address/schemas'
-import { RegionCommonInfo } from '@/features/address/types'
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover'
+import { FormControl, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
 
 interface Props {
   label: string
@@ -29,25 +30,20 @@ interface Props {
   value?: string
 }
 
-export default function RegionCombobox({
-  disabled = false,
-  isQueryRegionSuccess = true,
-  label,
-  onSelect,
-  regions,
-  value,
-}: Props) {
+export default function RegionCombobox(props: Props) {
+  const { disabled = false, isQueryRegionSuccess = true, label, onSelect, regions, value } = props
+
   const [open, setOpen] = useState(false)
 
   return (
-    <FormItem className="flex flex-col space-y-1">
+    <FormItem className="flex flex-1 flex-col space-y-1">
       <FormLabel className={cn(CUSTOM_PROFILE_LABEL_CLASSNAME, 'first-letter:capitalize')}>{label}</FormLabel>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger
           asChild
           className={cn(
-            'h-11 justify-between rounded-xl px-3 py-1 disabled:cursor-not-allowed xl:text-sm 2xl:text-base [&_svg]:size-4',
-            'focus-visible:border-transparent focus-visible:shadow-focus-within focus-visible:ring-0',
+            'h-11 justify-between rounded-xl bg-accent px-3 py-1 xl:text-sm 2xl:text-base [&_svg]:size-4',
+            'focus-visible:border-transparent focus-visible:shadow-focus-within focus-visible:ring-0 disabled:hover:bg-background disabled:hover:text-muted-foreground',
             {
               'text-muted-foreground': !value,
             }
@@ -57,7 +53,7 @@ export default function RegionCombobox({
           <FormControl>
             <Button variant="outline" role="combobox">
               {value ?? `Chọn ${label.toLowerCase()}`}
-              <ChevronDownIcon className="opacity-50" />
+              <ChevronsUpDownIcon className="opacity-50" />
             </Button>
           </FormControl>
         </PopoverTrigger>
@@ -68,7 +64,7 @@ export default function RegionCombobox({
               <CommandEmpty>Không tìm thấy kết quả nào</CommandEmpty>
               {isQueryRegionSuccess ? (
                 <CommandGroup>
-                  <ScrollArea className="h-52">
+                  <ScrollArea className={cn(regions.length > 6 ? 'h-52' : 'h-auto')}>
                     {regions
                       .sort((a, b) => a.name.localeCompare(b.name))
                       .map((region) => (

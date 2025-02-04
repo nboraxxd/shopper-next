@@ -1,25 +1,26 @@
 'use client'
 
-import { AddNewAddressType, addNewAddressSchema, Region } from '@/features/address/schemas'
-import { ProvincesResponseFromBackend } from '@/features/address/types'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-
-import { useProfileStore } from '@/features/profile/profile-store'
-
-import { CUSTOM_PROFILE_INPUT_CLASSNAME, CUSTOM_PROFILE_LABEL_CLASSNAME } from '@/features/profile/constants'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
-import { Input } from '@/shared/components/ui/input'
 import { useEffect } from 'react'
-
-import { Button } from '@/shared/components/ui/button'
-import { DistrictCombobox, WardCombobox, RegionCombobox } from '@/features/address/components'
-import { AutosizeTextarea } from '@/shared/components/ui/autosize-textarea'
-import { cn } from '@/shared/utils'
-import { useAddNewAddressToBackendMutation } from '@/features/address/hooks'
-import { handleClientErrorApi } from '@/shared/utils/error'
+import { useForm } from 'react-hook-form'
+import lowerFirst from 'lodash/lowerFirst'
 import { useRouter } from 'next/navigation'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
+import { handleClientErrorApi } from '@/shared/utils/error'
+import { useProfileStore } from '@/features/profile/profile-store'
+import { ProvincesResponseFromBackend } from '@/features/address/types'
+import { useAddNewAddressToBackendMutation } from '@/features/address/hooks'
+import { AddNewAddressType, addNewAddressSchema, Region } from '@/features/address/schemas'
+import { CUSTOM_PROFILE_INPUT_CLASSNAME, CUSTOM_PROFILE_LABEL_CLASSNAME } from '@/features/profile/constants'
+
+import { Input } from '@/shared/components/ui/input'
+import { Button } from '@/shared/components/ui/button'
+import { AutosizeTextarea } from '@/shared/components/ui/autosize-textarea'
+import { DistrictCombobox, WardCombobox, RegionCombobox } from '@/features/address/components'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
+import { Checkbox } from '@/shared/components/ui/checkbox'
 
 export default function AddNewAddressForm({ provinces }: { provinces: ProvincesResponseFromBackend }) {
   const router = useRouter()
@@ -48,16 +49,15 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
     const { province, district, ward, address, fullName, phone, email, default: isDefault } = values
 
     try {
-      const response = await addNewAddressMutation.mutateAsync({
-        address: `${address}, ${ward.name}`,
+      await addNewAddressMutation.mutateAsync({
+        address: `${address}, ${lowerFirst(ward.name)}`,
         district: district.name,
+        province: province.name,
         email,
         fullName,
         phone,
-        province: province.name,
         default: isDefault,
       })
-      console.log('🔥 ~ onSubmit ~ response:', response.payload.data)
 
       router.push(PATH.ADDRESS)
     } catch (error) {
@@ -195,6 +195,22 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
                 />
               </FormControl>
               <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {/* Default address */}
+        <FormField
+          control={form.control}
+          name="default"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-center space-y-0">
+              <FormControl>
+                <Checkbox className="size-5" checked={field.value} onCheckedChange={field.onChange} />
+              </FormControl>
+              <div className="!mt-px ml-2 leading-none">
+                <FormLabel className={CUSTOM_PROFILE_LABEL_CLASSNAME}>Đặt làm địa chỉ mặc định</FormLabel>
+              </div>
             </FormItem>
           )}
         />
