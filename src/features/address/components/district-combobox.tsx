@@ -20,8 +20,10 @@ export default function DistrictCombobox({ value, provinceCode, onSelect }: Prop
       value={value}
       onSelect={onSelect}
       regions={queryDistrictsFromBackend.data?.payload.data ?? []}
+      isQueryRegionLoading={queryDistrictsFromBackend.isLoading}
       isQueryRegionSuccess={queryDistrictsFromBackend.isSuccess}
-      disabled={!provinceCode || !queryDistrictsFromBackend.isSuccess}
+      isChosenParentRegion={!!provinceCode}
+      messageInfo="Vui lòng chọn tỉnh/thành phố trước"
     />
   )
 }

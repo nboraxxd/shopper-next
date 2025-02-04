@@ -15,7 +15,7 @@ import { validateGenderValue } from '@/features/profile/utils'
 import { useUploadImageToBackendMutation } from '@/features/file/hooks'
 import { useUpdateProfileToBackendMutation } from '@/features/profile/hooks'
 import { UpdateProfileReqBody, updateProfileSchema } from '@/features/profile/schemas'
-import { CUSTOM_PROFILE_INPUT_CLASSNAME, CUSTOM_PROFILE_LABEL_CLASSNAME, GENDERS } from '@/features/profile/constants'
+import { CUSTOM_PROFILE_INPUT_CLASSNAME, GENDERS } from '@/features/profile/constants'
 
 import {
   Form,
@@ -198,13 +198,13 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
               control={form.control}
               render={({ field }) => (
                 <FormItem className="space-y-1">
-                  <FormLabel className={CUSTOM_PROFILE_LABEL_CLASSNAME}>Tên</FormLabel>
+                  <FormLabel>Tên</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       autoComplete="name"
                       className={CUSTOM_PROFILE_INPUT_CLASSNAME}
-                      placeholder="Bruce Wayne"
+                      placeholder="Tên của bạn"
                     />
                   </FormControl>
                   <FormMessage />
@@ -218,7 +218,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
               control={form.control}
               render={({ field }) => (
                 <FormItem className="space-y-1">
-                  <FormLabel className={CUSTOM_PROFILE_LABEL_CLASSNAME}>Số điện thoại</FormLabel>
+                  <FormLabel>Số điện thoại</FormLabel>
                   <FormControl>
                     <Input
                       className={CUSTOM_PROFILE_INPUT_CLASSNAME}
@@ -239,7 +239,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
               control={form.control}
               render={({ field }) => (
                 <FormItem className="space-y-1">
-                  <FormLabel className={CUSTOM_PROFILE_LABEL_CLASSNAME}>Ngày sinh</FormLabel>
+                  <FormLabel>Ngày sinh</FormLabel>
                   <DOBSelectGroup value={field.value} onChange={field.onChange} />
                   <FormMessage />
                 </FormItem>
@@ -252,7 +252,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
               name="gender"
               render={({ field }) => (
                 <FormItem className="space-y-1">
-                  <FormLabel className={CUSTOM_PROFILE_LABEL_CLASSNAME}>Giới tính</FormLabel>
+                  <FormLabel>Giới tính</FormLabel>
                   <RadioGroup onValueChange={field.onChange} value={field.value ?? undefined} className="flex gap-6">
                     {GENDERS.map((item) => (
                       <FormItem key={item.value} className="flex items-center space-y-0">
@@ -274,12 +274,12 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
               name="fb"
               render={({ field }) => (
                 <FormItem className="space-y-1">
-                  <FormLabel className={CUSTOM_PROFILE_LABEL_CLASSNAME}>Facebook</FormLabel>
+                  <FormLabel>Facebook</FormLabel>
                   <FormControl>
                     <Input
                       type="url"
                       className={cn(CUSTOM_PROFILE_INPUT_CLASSNAME)}
-                      placeholder="https://www.facebook.com/bruce.wayne"
+                      placeholder="Đường link facebook"
                       {...field}
                       onChange={(ev) => field.onChange(ev.target.value !== '' ? ev.target.value : null)}
                       value={field.value ?? ''}

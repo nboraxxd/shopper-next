@@ -21,7 +21,9 @@ export const addNewAddressSchema = z.object({
   province: z.object(regionSchema.shape, { message: ADDRESS_ERROR_MESSAGES.PROVINCE_REQUIRED }),
   district: z.object(regionSchema.shape, { message: ADDRESS_ERROR_MESSAGES.DISTRICT_REQUIRED }),
   ward: z.object(regionSchema.shape, { message: ADDRESS_ERROR_MESSAGES.WARD_REQUIRED }),
-  address: z.string().min(1, ADDRESS_ERROR_MESSAGES.ADDRESS_REQUIRED),
+  address: z
+    .string({ required_error: ADDRESS_ERROR_MESSAGES.ADDRESS_REQUIRED })
+    .min(1, ADDRESS_ERROR_MESSAGES.ADDRESS_REQUIRED),
   default: z.boolean().optional(),
 })
 

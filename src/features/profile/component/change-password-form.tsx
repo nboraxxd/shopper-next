@@ -7,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { ForbiddenError, handleClientErrorApi } from '@/shared/utils/error'
 import { useChangePasswordToBackendMutation } from '@/features/profile/hooks'
-import { CUSTOM_PROFILE_LABEL_CLASSNAME } from '@/features/profile/constants'
 import { ChangePasswordReqBody, changePasswordSchema } from '@/features/profile/schemas'
 
 import { InputWrapper } from '@/shared/components'
@@ -58,7 +57,7 @@ export default function ChangePasswordForm() {
           name="currentPassword"
           render={({ field }) => (
             <FormItem className="space-y-1">
-              <FormLabel className={CUSTOM_PROFILE_LABEL_CLASSNAME}>Mật khẩu hiện tại</FormLabel>
+              <FormLabel>Mật khẩu hiện tại</FormLabel>
               <InputWrapper className="h-11">
                 <PasswordInput field={field} />
               </InputWrapper>
@@ -73,7 +72,7 @@ export default function ChangePasswordForm() {
           name="newPassword"
           render={({ field }) => (
             <FormItem className="space-y-1">
-              <FormLabel className={CUSTOM_PROFILE_LABEL_CLASSNAME}>Mật khẩu mới</FormLabel>
+              <FormLabel>Mật khẩu mới</FormLabel>
               <InputWrapper className="h-11">
                 <PasswordInput field={field} />
               </InputWrapper>
@@ -88,7 +87,7 @@ export default function ChangePasswordForm() {
           name="confirmNewPassword"
           render={({ field }) => (
             <FormItem className="space-y-1">
-              <FormLabel className={CUSTOM_PROFILE_LABEL_CLASSNAME}>Nhập lại mật khẩu mới</FormLabel>
+              <FormLabel>Nhập lại mật khẩu mới</FormLabel>
               <InputWrapper className="h-11">
                 <PasswordInput field={field} />
               </InputWrapper>

@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import lowerFirst from 'lodash/lowerFirst'
 import { useRouter } from 'next/navigation'
+import { LoaderCircleIcon } from 'lucide-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { cn } from '@/shared/utils'
@@ -12,15 +13,15 @@ import { handleClientErrorApi } from '@/shared/utils/error'
 import { useProfileStore } from '@/features/profile/profile-store'
 import { ProvincesResponseFromBackend } from '@/features/address/types'
 import { useAddNewAddressToBackendMutation } from '@/features/address/hooks'
+import { CUSTOM_PROFILE_INPUT_CLASSNAME } from '@/features/profile/constants'
 import { AddNewAddressType, addNewAddressSchema, Region } from '@/features/address/schemas'
-import { CUSTOM_PROFILE_INPUT_CLASSNAME, CUSTOM_PROFILE_LABEL_CLASSNAME } from '@/features/profile/constants'
 
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
+import { Checkbox } from '@/shared/components/ui/checkbox'
 import { AutosizeTextarea } from '@/shared/components/ui/autosize-textarea'
 import { DistrictCombobox, WardCombobox, RegionCombobox } from '@/features/address/components'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
-import { Checkbox } from '@/shared/components/ui/checkbox'
 
 export default function AddNewAddressForm({ provinces }: { provinces: ProvincesResponseFromBackend }) {
   const router = useRouter()
@@ -74,13 +75,13 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
           control={form.control}
           render={({ field }) => (
             <FormItem className="space-y-1">
-              <FormLabel className={CUSTOM_PROFILE_LABEL_CLASSNAME}>Họ và tên</FormLabel>
+              <FormLabel>Họ và tên</FormLabel>
               <FormControl>
                 <Input
                   {...field}
                   autoComplete="name"
                   className={CUSTOM_PROFILE_INPUT_CLASSNAME}
-                  placeholder="Bruce Wayne"
+                  placeholder="Họ và tên"
                 />
               </FormControl>
               <FormMessage />
@@ -94,11 +95,11 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
           control={form.control}
           render={({ field }) => (
             <FormItem className="space-y-1">
-              <FormLabel className={CUSTOM_PROFILE_LABEL_CLASSNAME}>Số điện thoại</FormLabel>
+              <FormLabel>Số điện thoại</FormLabel>
               <FormControl>
                 <Input
                   className={CUSTOM_PROFILE_INPUT_CLASSNAME}
-                  placeholder="0987654321"
+                  placeholder="Số điện thoại"
                   {...field}
                   onChange={(ev) => field.onChange(ev.target.value !== '' ? ev.target.value : null)}
                   value={field.value ?? ''}
@@ -115,14 +116,9 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
           control={form.control}
           render={({ field }) => (
             <FormItem className="space-y-1">
-              <FormLabel className={CUSTOM_PROFILE_LABEL_CLASSNAME}>Email</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input
-                  {...field}
-                  autoComplete="email"
-                  className={CUSTOM_PROFILE_INPUT_CLASSNAME}
-                  placeholder="brucewayne@wayne-ent.dc"
-                />
+                <Input {...field} autoComplete="email" className={CUSTOM_PROFILE_INPUT_CLASSNAME} placeholder="Email" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -144,6 +140,7 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
                   form.resetField('district')
                   form.resetField('ward')
                 }}
+                isChosenParentRegion={true}
               />
             )}
           />
@@ -184,13 +181,13 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
           control={form.control}
           render={({ field }) => (
             <FormItem className="space-y-1">
-              <FormLabel className={CUSTOM_PROFILE_LABEL_CLASSNAME}>Địa chỉ</FormLabel>
+              <FormLabel>Địa chỉ</FormLabel>
               <FormControl>
-                {/* <Input {...field}  placeholder="42 Wallaby Way, Sydney" /> */}
                 <AutosizeTextarea
                   minHeight={48}
                   maxHeight={96}
                   className={cn(CUSTOM_PROFILE_INPUT_CLASSNAME, 'h-auto')}
+                  placeholder="Địa chỉ cụ thể"
                   {...field}
                 />
               </FormControl>
@@ -209,7 +206,7 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
                 <Checkbox className="size-5" checked={field.value} onCheckedChange={field.onChange} />
               </FormControl>
               <div className="!mt-px ml-2 leading-none">
-                <FormLabel className={CUSTOM_PROFILE_LABEL_CLASSNAME}>Đặt làm địa chỉ mặc định</FormLabel>
+                <FormLabel>Đặt làm địa chỉ mặc định</FormLabel>
               </div>
             </FormItem>
           )}
@@ -219,9 +216,9 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
         <Button
           type="submit"
           className="mt-4 h-11 gap-1.5 rounded-full px-5 py-0 [&_svg]:size-5"
-          // disabled={isFormProcessing}
+          disabled={addNewAddressMutation.isPending}
         >
-          {/* {isFormProcessing ? <LoaderCircleIcon className="animate-spin" /> : null} */}
+          {addNewAddressMutation.isPending ? <LoaderCircleIcon className="animate-spin" /> : null}
           Thêm địa chỉ
         </Button>
       </form>

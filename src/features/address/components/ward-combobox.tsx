@@ -20,8 +20,10 @@ export default function WardCombobox({ value, districtCode, onSelect }: Props) {
       value={value}
       onSelect={onSelect}
       regions={queryWardsFromBackend.data?.payload.data ?? []}
+      isQueryRegionLoading={queryWardsFromBackend.isLoading}
       isQueryRegionSuccess={queryWardsFromBackend.isSuccess}
-      disabled={!districtCode || !queryWardsFromBackend.isSuccess}
+      isChosenParentRegion={!!districtCode}
+      messageInfo="Vui lòng chọn quận/huyện trước"
     />
   )
 }
