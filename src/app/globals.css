@@ -75,6 +75,8 @@
     --account-info: 240 27.3% 97.8%; /* #f8f8fb - secondary-5 */
     --account-info-icon: 0 0% 100%; /* #fff - light-1 */
 
+    --address-item: 240 27.3% 97.8%; /* #f8f8fb - secondary-5 */
+
     --highlight: 209.2 100% 43.1%; /* #0071dc - primary-blue */
   }
 
@@ -145,6 +147,8 @@
     --account-info: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
     --account-info-icon: 222.4 27% 12.4%; /* #171c28 - dark-1 */
 
+    --address-item: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
+
     --highlight: 43.1 100% 50%; /* #ffb700 - primary-yellow */
   }
 
@@ -162,6 +166,8 @@
 
       --account: 0 0% 96.5%; /* #f6f6f6 - light-2 */
       --account-info: 0 0% 96.5%; /* #f6f6f6 - light-2 */
+
+      --address-item: 0 0% 96.5%; /* #f6f6f6 - light-2 */
     }
 
     .dark {
@@ -177,6 +183,8 @@
 
       --account: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
       --account-info: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
+
+      --address-item: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
     }
   }
 

@@ -16,6 +16,7 @@ const PATH = {
   ADD_PAYMENT: `${ACCOUNT}/the-thanh-toan/them-moi`,
   ADDRESS: `${ACCOUNT}/dia-chi`,
   ADD_ADDRESS: `${ACCOUNT}/dia-chi/them-moi`,
+  UPDATE_ADDRESS: `${ACCOUNT}/dia-chi/cap-nhat`,
   WISHLIST: `${ACCOUNT}/san-pham-yeu-thich`,
   ORDER_HISTORY: `${ACCOUNT}/don-mua`,
 } as const

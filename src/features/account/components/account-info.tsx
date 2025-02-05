@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { cookies } from 'next/headers'
 import { LucideProps } from 'lucide-react'
+import lowerFirst from 'lodash/lowerFirst'
 import { redirect } from 'next/navigation'
 
 import { cn } from '@/shared/utils'
@@ -8,7 +9,7 @@ import PATH from '@/shared/constants/path'
 import { ProfileResponse } from '@/features/profile/types'
 import profileServerApi from '@/features/profile/api/server'
 import { ACCESS_TOKEN } from '@/features/auth/constants'
-import { AddressesResponse } from '@/features/address/types'
+import { AddressListResponse } from '@/features/address/types'
 import addressServerApi from '@/features/address/api/server'
 
 import { Skeleton } from '@/shared/components/ui/skeleton'
@@ -21,7 +22,7 @@ export async function AccountInfoContent() {
   if (!accessToken) redirect(PATH.LOGIN)
 
   let profile: ProfileResponse['data'] | null = null
-  let defaultAddress: AddressesResponse['data'] | null = null
+  let defaultAddress: AddressListResponse['data'] | null = null
 
   try {
     const [profileResponse, addressResponse] = await Promise.all([
@@ -76,7 +77,7 @@ export async function AccountInfoContent() {
         <AccountInfoItem
           icon={LocationIcon}
           title="Địa chỉ"
-          content={`${defaultAddress[0].address}, ${defaultAddress[0].district}, ${defaultAddress[0].province}`}
+          content={`${defaultAddress[0].address}, ${lowerFirst(defaultAddress[0].district)}, ${lowerFirst(defaultAddress[0].province)}`}
           contentClassName="line-clamp-2"
         />
       ) : null}
@@ -108,12 +109,17 @@ function AccountInfoItem({ icon, title, content, contentClassName }: AccountInfo
       </div>
       <div>
         <h3 className="text-[0.9375rem] font-medium">{title}</h3>
-        <h4 className={cn('text-sm', contentClassName)}>{content}</h4>
+        <h4 className={cn('mt-1 text-sm', contentClassName)}>{content}</h4>
       </div>
     </div>
   )
 }
 
 export function AccountInfoSkeleton() {
-  return Array.from({ length: 4 }).map((_, index) => <Skeleton key={index} className="h-[4.625rem] rounded-xl" />)
+  return Array.from({ length: 4 }).map((_, index) => (
+    <Skeleton
+      key={index}
+      className="h-[4.625rem] rounded-xl md:last-of-type:h-[5.375rem] md:second-last-of-type:h-[5.375rem]"
+    />
+  ))
 }

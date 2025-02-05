@@ -10,13 +10,18 @@ type Address = {
   user_id: string
 }
 
-export type AddressesResponse = {
+export type AddressListResponse = {
   data: Address[]
 }
 
 export type AddNewAddressResponse = {
   data: Address
   insertCount: number
+}
+
+export type SetDefaultAddressResponse = {
+  data: Address
+  updateCount: number
 }
 
 type DivisionType =

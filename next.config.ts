@@ -73,6 +73,10 @@ const nextConfig: NextConfig = {
         destination: '/account/address/add',
       },
       {
+        source: `${PATH.UPDATE_ADDRESS}/:id`,
+        destination: '/account/address/update/:id',
+      },
+      {
         source: PATH.WISHLIST,
         destination: '/account/wishlist',
       },

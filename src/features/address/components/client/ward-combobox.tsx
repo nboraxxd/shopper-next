@@ -3,7 +3,7 @@
 import { Region } from '@/features/address/schemas'
 import { useQueryWardsFromServer } from '@/features/address/hooks'
 
-import { RegionCombobox } from '@/features/address/components'
+import { RegionCombobox } from '@/features/address/components/client'
 
 interface Props {
   value: string | undefined

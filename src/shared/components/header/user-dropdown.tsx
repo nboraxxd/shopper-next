@@ -107,7 +107,7 @@ export default function UserDropdown() {
             <span className="sr-only">Menu người dùng của {queryUserFromBackend.data.payload.data.name}</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-72 rounded-3xl p-0" align="end">
+        <DropdownMenuContent className="w-72 rounded-3xl border-none p-0 shadow-popover" align="end">
           {showThemeDropdown ? (
             <ThemeDropdown setShowThemeDropdown={setShowThemeDropdown} />
           ) : (

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import lowerFirst from 'lodash/lowerFirst'
 import { useRouter } from 'next/navigation'
@@ -20,10 +20,12 @@ import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
 import { Checkbox } from '@/shared/components/ui/checkbox'
 import { AutosizeTextarea } from '@/shared/components/ui/autosize-textarea'
-import { DistrictCombobox, WardCombobox, RegionCombobox } from '@/features/address/components'
+import { DistrictCombobox, WardCombobox, RegionCombobox } from '@/features/address/components/client'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
 
-export default function AddNewAddressForm({ provinces }: { provinces: ProvincesResponseFromBackend }) {
+export default function AddressForm({ provinces }: { provinces: ProvincesResponseFromBackend }) {
+  const [isNavigating, setIsNavigating] = useState(false)
+
   const router = useRouter()
   const profile = useProfileStore((state) => state.profile)
 
@@ -45,11 +47,13 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
   }, [form, profile?.username])
 
   async function onSubmit(values: AddNewAddressType) {
-    if (addNewAddressMutation.isPending) return
+    if (addNewAddressMutation.isPending || isNavigating) return
 
     const { province, district, ward, address, fullName, phone, email, default: isDefault } = values
 
     try {
+      setIsNavigating(true)
+
       await addNewAddressMutation.mutateAsync({
         address: `${address}, ${lowerFirst(ward.name)}`,
         district: district.name,
@@ -62,6 +66,7 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
 
       router.push(PATH.ADDRESS)
     } catch (error) {
+      setIsNavigating(false)
       handleClientErrorApi({ error, setError: form.setError })
     }
   }
@@ -216,9 +221,9 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
         <Button
           type="submit"
           className="mt-4 h-11 gap-1.5 rounded-full px-5 py-0 [&_svg]:size-5"
-          disabled={addNewAddressMutation.isPending}
+          disabled={addNewAddressMutation.isPending || isNavigating}
         >
-          {addNewAddressMutation.isPending ? <LoaderCircleIcon className="animate-spin" /> : null}
+          {addNewAddressMutation.isPending || isNavigating ? <LoaderCircleIcon className="animate-spin" /> : null}
           Thêm địa chỉ
         </Button>
       </form>

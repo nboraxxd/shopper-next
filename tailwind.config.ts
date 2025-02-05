@@ -144,6 +144,8 @@ export default {
           'info-icon': 'hsl(var(--account-info-icon))',
         },
 
+        'address-item': 'hsl(var(--address-item))',
+
         highlight: 'hsl(var(--highlight))',
       },
       borderRadius: {

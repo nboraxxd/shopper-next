@@ -3,7 +3,7 @@ import PATH from '@/shared/constants/path'
 import addressServerApi from '@/features/address/api/server'
 import { ProvincesResponseFromBackend } from '@/features/address/types'
 
-import { AddNewAddressForm } from '@/features/address/components'
+import { AddressForm } from '@/features/address/components/client'
 import { AccountHeader, AccountSectionWrapper } from '@/features/account/components'
 
 export default async function AddNewAddressPage() {
@@ -22,7 +22,7 @@ export default async function AddNewAddressPage() {
   return (
     <AccountSectionWrapper>
       <AccountHeader prevPath={PATH.ADDRESS}>Thêm địa chỉ mới</AccountHeader>
-      {provinces ? <AddNewAddressForm provinces={provinces} /> : null}
+      {provinces ? <AddressForm provinces={provinces} /> : null}
     </AccountSectionWrapper>
   )
 }

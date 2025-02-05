@@ -24,7 +24,7 @@ import { Form, FormField, FormItem, FormMessage } from '@/shared/components/ui/f
 
 export function LoginForm() {
   const router = useRouter()
-  const [isDisabled, setIsDisabled] = useState(false)
+  const [isNavigating, setIsNavigating] = useState(false)
 
   const searchParams = useSearchParams()
   const next = searchParams.get('next')
@@ -40,16 +40,16 @@ export function LoginForm() {
   const loginToServerMutation = useLoginToServerMutation()
 
   async function onValid(values: LoginReqBody) {
-    if (loginToServerMutation.isPending || isDisabled) return
+    if (loginToServerMutation.isPending || isNavigating) return
 
     try {
-      setIsDisabled(true)
+      setIsNavigating(true)
 
       await loginToServerMutation.mutateAsync(values)
 
       router.push(next || PATH.HOME)
     } catch (error: any) {
-      setIsDisabled(false)
+      setIsNavigating(false)
       if (error instanceof ForbiddenError) {
         form.setError('password', { type: z.ZodIssueCode.custom, message: error.payload.message })
       } else {
@@ -100,9 +100,9 @@ export function LoginForm() {
         <Button
           type="submit"
           className="mt-7 h-12 w-full gap-1.5 [&_svg]:size-5"
-          disabled={loginToServerMutation.isPending || isDisabled}
+          disabled={loginToServerMutation.isPending || isNavigating}
         >
-          {loginToServerMutation.isPending || isDisabled ? <LoaderCircleIcon className="animate-spin" /> : null}
+          {loginToServerMutation.isPending || isNavigating ? <LoaderCircleIcon className="animate-spin" /> : null}
           Đăng nhập
         </Button>
         <LoginHelpLinks />

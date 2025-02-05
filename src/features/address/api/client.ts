@@ -1,7 +1,13 @@
 import http from '@/shared/utils/http'
 
+import {
+  AddNewAddressResponse,
+  DistrictsResponseFromServer,
+  SetDefaultAddressResponse,
+  WardsResponseFromServer,
+} from '@/features/address/types'
+import { MessageResponse } from '@/shared/types'
 import envVariables from '@/shared/schemas/env-variables.schema'
-import { AddNewAddressResponse, DistrictsResponseFromServer, WardsResponseFromServer } from '@/features/address/types'
 import { AddNewAddressReqBody } from '@/features/address/schemas'
 
 const SERVER_PREFIX = '/api/address'
@@ -19,4 +25,9 @@ export const addressClientApi = {
     }),
 
   addNewAddressToBackend: (body: AddNewAddressReqBody) => http.post<AddNewAddressResponse>(BACKEND_PREFIX, body),
+
+  setDefaultAddressToBackend: (addressId: string) =>
+    http.patch<SetDefaultAddressResponse>(`${BACKEND_PREFIX}/${addressId}`, { default: true }),
+
+  deleteAddressFromBackend: (addressId: string) => http.delete<MessageResponse>(`${BACKEND_PREFIX}/${addressId}`),
 }

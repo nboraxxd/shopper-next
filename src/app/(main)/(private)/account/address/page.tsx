@@ -1,7 +1,11 @@
-import { AccountHeader, AccountSectionWrapper } from '@/features/account/components'
-import { PlusIcon, Svgr } from '@/shared/components/icons'
-import PATH from '@/shared/constants/path'
 import Link from 'next/link'
+import { Suspense } from 'react'
+
+import PATH from '@/shared/constants/path'
+
+import { PlusIcon, Svgr } from '@/shared/components/icons'
+import { AccountHeader, AccountSectionWrapper } from '@/features/account/components'
+import { AddressList, AddressListSkeleton } from '@/features/address/components/server'
 
 export default function AddressPage() {
   return (
@@ -14,6 +18,10 @@ export default function AddressPage() {
         <Svgr icon={PlusIcon} />
         <span className="text-sm font-medium">Thêm địa chỉ mới</span>
       </Link>
+
+      <Suspense fallback={<AddressListSkeleton />}>
+        <AddressList />
+      </Suspense>
     </AccountSectionWrapper>
   )
 }

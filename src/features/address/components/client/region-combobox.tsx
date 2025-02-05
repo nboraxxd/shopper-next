@@ -1,5 +1,6 @@
 'use client'
 
+import { toast } from 'sonner'
 import { useState } from 'react'
 import { CheckIcon, ChevronsUpDownIcon, LoaderCircleIcon } from 'lucide-react'
 
@@ -16,11 +17,10 @@ import {
   CommandList,
 } from '@/shared/components/ui/command'
 import { Button } from '@/shared/components/ui/button'
+import { Skeleton } from '@/shared/components/ui/skeleton'
 import { ScrollArea } from '@/shared/components/ui/scroll-area'
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover'
 import { FormControl, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
-import { toast } from 'sonner'
-import { Skeleton } from '@/shared/components/ui/skeleton'
 
 type Props = {
   label: string
@@ -68,7 +68,6 @@ export default function RegionCombobox(props: Props) {
               'hover:text-muted-foreground': !isChosenParentRegion,
             }
           )}
-          // disabled={isQueryRegionLoading}
         >
           <FormControl>
             <Button variant="outline" role="combobox" className="[&_svg]:size-4">

@@ -1,5 +1,6 @@
 export { default as Svgr } from './svgr'
 
+// Category icons
 export { default as CarIcon } from './car.svg'
 export { default as BookIcon } from './book.svg'
 export { default as PhoneIcon } from './phone.svg'
@@ -13,11 +14,13 @@ export { default as HealthBeautyIcon } from './health-beauty.svg'
 export { default as BasketballIcon } from './basketball.svg'
 export { default as HomeApplianceIcon } from './home-appliance.svg'
 
+// Credit card icons
 export { default as LeafIcon } from './leaf.svg'
 export { default as PlaneIcon } from './plane.svg'
 export { default as PayPalIcon } from './paypal.svg'
 export { default as CreditCardIcon } from './credit-card.svg'
 
+// Common icons
 export { default as ShopperIcon } from './shopper.svg'
 export { default as SearchIcon } from './search.svg'
 export { default as AlignLeftIcon } from './align-left.svg'
@@ -36,3 +39,4 @@ export { default as SmileStarIcon } from './smile-star.svg'
 export { default as LocationIcon } from './location.svg'
 export { default as InfoSqureIcon } from './info-squre.svg'
 export { default as CallingIcon } from './calling.svg'
+export { default as EditSquareIcon } from './edit-square.svg'
