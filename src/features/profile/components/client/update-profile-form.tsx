@@ -32,9 +32,7 @@ import { Button } from '@/shared/components/ui/button'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Separator } from '@/shared/components/ui/separator'
 import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group'
-
-import DOBSelectGroup from './dob-select-group'
-import UpdateProfileSkeleton from './update-profile-skeleton'
+import { DOBSelectGroup, UpdateProfileSkeleton } from '@/features/profile/components/client'
 
 export default function UpdateProfileForm({ profile }: { profile: ProfileResponse['data'] }) {
   const [isLoadingProfile, setIsLoadingProfile] = useState(true)

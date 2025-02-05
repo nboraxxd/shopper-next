@@ -6,7 +6,7 @@ import { ACCESS_TOKEN } from '@/features/auth/constants'
 import { ProfileResponse } from '@/features/profile/types'
 import profileServerApi from '@/features/profile/api/server'
 
-import { UpdateProfileForm } from '@/features/profile/component'
+import { UpdateProfileForm } from '@/features/profile/components/client'
 
 export default async function UpdateProfileContent() {
   const cookieStore = await cookies()

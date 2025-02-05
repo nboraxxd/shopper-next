@@ -1,7 +1,8 @@
 import { Suspense } from 'react'
 
+import { UpdateProfileContent } from '@/features/profile/components/server'
 import { AccountHeader, AccountSectionWrapper } from '@/features/account/components'
-import { ChangePasswordForm, UpdateProfileContent, UpdateProfileSkeleton } from '@/features/profile/component'
+import { ChangePasswordForm, UpdateProfileSkeleton } from '@/features/profile/components/client'
 
 export default function ProfilePage() {
   return (

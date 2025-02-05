@@ -9,7 +9,7 @@ import { PaymentsResponse } from '@/features/payment/types'
 import paymentServerApi from '@/features/payment/api/server'
 
 import { PlusIcon, Svgr } from '@/shared/components/icons'
-import { PaymentCard } from '@/features/payment/component'
+import { PaymentCard } from '@/features/payment/components'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 
 export async function AccountPaymentContent() {
