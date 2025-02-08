@@ -1,7 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
 import { Region } from '@/features/address/schemas'
 import { useQueryWardsFromServer } from '@/features/address/hooks'
 
@@ -16,27 +14,16 @@ interface Props {
 }
 
 export default function WardCombobox({ value, districtCode, initialWards, onSelect }: Props) {
-  const [localWards, setLocalWards] = useState(initialWards)
-
-  const queryWardsFromBackend = useQueryWardsFromServer(localWards ? undefined : districtCode)
-
-  useEffect(() => {
-    if (localWards) setLocalWards(undefined)
-  }, [localWards, districtCode])
+  const queryWardsFromBackend = useQueryWardsFromServer(initialWards ? undefined : districtCode)
 
   return (
     <RegionCombobox
       label="Phường/xã"
       value={value}
-      onSelect={(region) => {
-        onSelect(region)
-        if (localWards) {
-          setLocalWards(undefined)
-        }
-      }}
-      regions={queryWardsFromBackend.data?.payload.data ?? localWards ?? []}
+      onSelect={onSelect}
+      regions={queryWardsFromBackend.data?.payload.data ?? initialWards ?? []}
       isQueryRegionLoading={queryWardsFromBackend.isLoading}
-      isChosenParentRegion={!!districtCode || !!localWards}
+      isChosenParentRegion={!!districtCode || !!initialWards}
       messageInfo="Vui lòng chọn quận/huyện trước"
     />
   )

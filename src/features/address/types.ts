@@ -28,6 +28,11 @@ export type SetDefaultAddressResponse = {
   updateCount: number
 }
 
+export type UpdateAddressResponse = {
+  data: Address
+  updateCount: number
+}
+
 type DivisionType =
   | 'tỉnh'
   | 'thành phố trung ương'

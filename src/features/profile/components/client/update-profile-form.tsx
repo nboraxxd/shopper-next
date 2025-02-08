@@ -31,8 +31,8 @@ import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Separator } from '@/shared/components/ui/separator'
+import { DOBSelectGroup } from '@/features/profile/components/client'
 import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group'
-import { DOBSelectGroup, UpdateProfileSkeleton } from '@/features/profile/components/client'
 
 export default function UpdateProfileForm({ profile }: { profile: ProfileResponse['data'] }) {
   const [isLoadingProfile, setIsLoadingProfile] = useState(true)
@@ -124,8 +124,6 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
       handleClientErrorApi({ error, setError: form.setError })
     }
   }
-
-  if (isLoadingProfile) return <UpdateProfileSkeleton />
 
   return (
     <Form {...form}>
@@ -296,7 +294,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
           className="mt-4 h-11 gap-1.5 rounded-full px-5 py-0 [&_svg]:size-5"
           disabled={isFormProcessing}
         >
-          {isFormProcessing ? <LoaderCircleIcon className="animate-spin" /> : null}
+          {updateProfileMutation.isPending ? <LoaderCircleIcon className="animate-spin" /> : null}
           Cập nhật
         </Button>
       </form>

@@ -55,7 +55,7 @@ export default function RegionCombobox(props: Props) {
             'focus-visible:border-transparent focus-visible:shadow-focus-within focus-visible:ring-0',
             {
               'text-muted-foreground': !value,
-              'hover:text-muted-foreground': !isChosenParentRegion,
+              'text-muted-foreground hover:text-muted-foreground': !isChosenParentRegion,
             }
           )}
         >
@@ -69,7 +69,10 @@ export default function RegionCombobox(props: Props) {
             </Button>
           </FormControl>
         </PopoverTrigger>
-        <PopoverContent className="w-full p-0" align="start">
+        <PopoverContent
+          className="max-h-[--radix-popover-content-available-height] w-[--radix-popover-trigger-width] p-0"
+          align="start"
+        >
           <Command>
             <CommandInput placeholder={`Tìm ${label.toLowerCase()}`} className="h-9 py-1" />
             <CommandList className="max-h-full">
@@ -85,10 +88,10 @@ export default function RegionCombobox(props: Props) {
                     .sort((a, b) => a.name.localeCompare(b.name))
                     .map((region) => (
                       <CommandItem
-                        value={region.name}
+                        value={`${region.name} ${region.codename.replace(/_/g, ' ')}`}
                         key={region.code}
-                        onSelect={(value) => {
-                          onSelect({ name: value, code: region.code })
+                        onSelect={() => {
+                          onSelect({ name: region.name, code: region.code })
                           setOpen(false)
                         }}
                       >

@@ -1,13 +1,15 @@
-import addressServerApi from '@/features/address/api/server'
-import { UpdateAddressForm } from '@/features/address/components/client'
+import { notFound } from 'next/navigation'
+import upperFirst from 'lodash/upperFirst'
+
 import {
   AddressDetailResponse,
   DistrictsResponseFromBackend,
   ProvincesResponseFromBackend,
   WardsResponseFromBackend,
 } from '@/features/address/types'
-import { upperFirst } from 'lodash'
-import { notFound } from 'next/navigation'
+import addressServerApi from '@/features/address/api/server'
+
+import { UpdateAddressForm } from '@/features/address/components/client'
 
 export default async function UpdateAddressContent({ id, accessToken }: { id: string; accessToken: string }) {
   let addressDetail: AddressDetailResponse['data'] | undefined = undefined
@@ -36,7 +38,8 @@ export default async function UpdateAddressContent({ id, accessToken }: { id: st
 
   if (!addressDetail) return notFound()
 
-  const wardName = upperFirst(addressDetail.address.split(', ').at(-1))
+  const wardName =
+    addressDetail.address.split(', ').length > 1 ? upperFirst(addressDetail.address.split(', ').pop()) : undefined
 
   const { province: provinceName, district: districtName } = addressDetail
 
@@ -69,7 +72,7 @@ export default async function UpdateAddressContent({ id, accessToken }: { id: st
       provinces={provinces}
       initialDistricts={initialDistricts}
       initialWards={initialWards}
-      addressDetail={addressDetail}
+      currentAddress={addressDetail}
       currentProvince={{ code: provinceCode, name: provinceName }}
       currentDistrict={{ code: districtCode, name: districtName }}
       currentWard={{ code: wardCode, name: wardName }}

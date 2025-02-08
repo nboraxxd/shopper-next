@@ -1,8 +1,9 @@
 import addressServerApi from '@/features/address/api/server'
-import { AddressForm } from '@/features/address/components/client'
 import { ProvincesResponseFromBackend } from '@/features/address/types'
 
-export default async function AddAddressContent() {
+import { AddNewAddressForm } from '@/features/address/components/client'
+
+export default async function AddNewAddressContent() {
   let provinces: ProvincesResponseFromBackend | null = null
 
   try {
@@ -15,5 +16,5 @@ export default async function AddAddressContent() {
     }
   }
 
-  return provinces ? <AddressForm provinces={provinces} /> : null
+  return provinces ? <AddNewAddressForm provinces={provinces} /> : null
 }

@@ -1,7 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
 import { Region } from '@/features/address/schemas'
 import { useQueryDistrictsFromServer } from '@/features/address/hooks'
 
@@ -15,29 +13,17 @@ interface Props {
   onSelect: (region: Region) => void
 }
 
-export default function DistrictCombobox({ value, provinceCode, onSelect, initialDistricts }: Props) {
-  const [localDistricts, setLocalDistricts] = useState(initialDistricts)
-
-  const queryDistrictsFromBackend = useQueryDistrictsFromServer(localDistricts ? undefined : provinceCode)
-
-  useEffect(() => {
-    console.log('chay do day')
-    if (localDistricts) setLocalDistricts(undefined)
-  }, [localDistricts, provinceCode])
+export default function DistrictCombobox({ value, provinceCode, initialDistricts, onSelect }: Props) {
+  const queryDistrictsFromBackend = useQueryDistrictsFromServer(initialDistricts ? undefined : provinceCode)
 
   return (
     <RegionCombobox
       label="Quận/huyện"
       value={value}
-      onSelect={(region) => {
-        onSelect(region)
-        if (localDistricts) {
-          setLocalDistricts(undefined)
-        }
-      }}
-      regions={queryDistrictsFromBackend.data?.payload.data ?? localDistricts ?? []}
+      onSelect={onSelect}
+      regions={queryDistrictsFromBackend.data?.payload.data ?? initialDistricts ?? []}
       isQueryRegionLoading={queryDistrictsFromBackend.isLoading}
-      isChosenParentRegion={!!provinceCode || !!localDistricts}
+      isChosenParentRegion={!!provinceCode || !!initialDistricts}
       messageInfo="Vui lòng chọn tỉnh/thành phố trước"
     />
   )

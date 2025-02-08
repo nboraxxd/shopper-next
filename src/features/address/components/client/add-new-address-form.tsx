@@ -23,7 +23,7 @@ import { AutosizeTextarea } from '@/shared/components/ui/autosize-textarea'
 import { DistrictCombobox, WardCombobox, RegionCombobox } from '@/features/address/components/client'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
 
-export default function AddressForm({ provinces }: { provinces: ProvincesResponseFromBackend }) {
+export default function AddNewAddressForm({ provinces }: { provinces: ProvincesResponseFromBackend }) {
   const [isNavigating, setIsNavigating] = useState(false)
 
   const router = useRouter()
@@ -54,10 +54,12 @@ export default function AddressForm({ provinces }: { provinces: ProvincesRespons
     try {
       setIsNavigating(true)
 
+      // [region].name is guaranteed to be a string
+      // because it's validated by superRefine in schema
       await addNewAddressMutation.mutateAsync({
-        address: `${address}, ${lowerFirst(ward.name)}`,
-        district: district.name,
-        province: province.name,
+        address: `${address}, ${lowerFirst(ward.name as string)}`,
+        district: district.name as string,
+        province: province.name as string,
         email,
         fullName,
         phone,

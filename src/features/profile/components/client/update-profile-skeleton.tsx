@@ -17,7 +17,7 @@ export default function UpdateProfileSkeleton() {
         <div className="flex flex-col gap-4 md:basis-3/5">
           {Array.from({ length: 5 }).map((_, index) => (
             <div key={index} className="space-y-1">
-              <Skeleton className="h-[1.375rem] w-24" />
+              <Skeleton className="h-5 w-24 md:h-[1.375rem]" />
               <Skeleton className="h-11 w-full" />
             </div>
           ))}

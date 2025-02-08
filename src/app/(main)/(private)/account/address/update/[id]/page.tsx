@@ -7,6 +7,7 @@ import PATH from '@/shared/constants/path'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { AccountHeader, AccountSectionWrapper } from '@/features/account/components'
+import { AddressFormSkeleton } from '@/features/address/components/client'
 
 export default async function UpdateAddressPage({ params }: { params: Promise<{ id: string }> }) {
   const [{ id }, cookieStore] = await Promise.all([params, cookies()])
@@ -18,7 +19,7 @@ export default async function UpdateAddressPage({ params }: { params: Promise<{ 
   return (
     <AccountSectionWrapper>
       <AccountHeader prevPath={PATH.ADDRESS}>Cập nhật địa chỉ</AccountHeader>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<AddressFormSkeleton />}>
         <UpdateAddressContent id={id} accessToken={accessToken} />
       </Suspense>
     </AccountSectionWrapper>
