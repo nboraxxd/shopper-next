@@ -27,7 +27,7 @@ export default function PromotionSection() {
                     <div className="shrink-0">
                       <Image
                         className="size-64 rounded-lg object-cover md:size-72"
-                        src="https://tailwindui.com/plus/img/ecommerce-images/home-page-03-category-01.jpg"
+                        src="/images/promotion/promotion-1.jpg"
                         height={288}
                         width={288}
                         alt=""
@@ -37,7 +37,7 @@ export default function PromotionSection() {
                     <div className="mt-6 shrink-0 sm:mt-0">
                       <Image
                         className="size-64 rounded-lg object-cover md:size-72"
-                        src="https://tailwindui.com/plus/img/ecommerce-images/home-page-03-category-02.jpg"
+                        src="/images/promotion/promotion-2.jpg"
                         height={288}
                         width={288}
                         alt=""
@@ -48,7 +48,7 @@ export default function PromotionSection() {
                     <div className="shrink-0">
                       <Image
                         className="size-64 rounded-lg object-cover md:size-72"
-                        src="https://tailwindui.com/plus/img/ecommerce-images/home-page-03-favorite-01.jpg"
+                        src="/images/promotion/promotion-3.jpg"
                         height={288}
                         width={288}
                         alt=""
@@ -58,7 +58,7 @@ export default function PromotionSection() {
                     <div className="mt-6 shrink-0 sm:mt-0">
                       <Image
                         className="size-64 rounded-lg object-cover md:size-72"
-                        src="https://tailwindui.com/plus/img/ecommerce-images/home-page-03-favorite-02.jpg"
+                        src="/images/promotion/promotion-4.jpg"
                         height={288}
                         width={288}
                         alt=""
@@ -69,7 +69,7 @@ export default function PromotionSection() {
                     <div className="shrink-0">
                       <Image
                         className="size-64 rounded-lg object-cover md:size-72"
-                        src="https://tailwindui.com/plus/img/ecommerce-images/home-page-03-category-01.jpg"
+                        src="/images/promotion/promotion-1.jpg"
                         height={288}
                         width={288}
                         alt=""
@@ -79,7 +79,7 @@ export default function PromotionSection() {
                     <div className="mt-6 shrink-0 sm:mt-0">
                       <Image
                         className="size-64 rounded-lg object-cover md:size-72"
-                        src="https://tailwindui.com/plus/img/ecommerce-images/home-page-03-category-02.jpg"
+                        src="/images/promotion/promotion-2.jpg"
                         height={288}
                         width={288}
                         alt=""
