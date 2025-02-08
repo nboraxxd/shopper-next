@@ -34,6 +34,75 @@ const nextConfig: NextConfig = {
     ],
   },
   transpilePackages: ['lucide-react'],
+  async redirects() {
+    return [
+      {
+        source: '/login',
+        destination: PATH.LOGIN,
+        permanent: true,
+      },
+      {
+        source: '/products',
+        destination: PATH.PRODUCTS,
+        permanent: true,
+      },
+      {
+        destination: PATH.CART,
+        source: '/cart',
+        permanent: true,
+      },
+      {
+        destination: PATH.ACCOUNT,
+        source: '/account',
+        permanent: true,
+      },
+      {
+        destination: PATH.PROFILE,
+        source: '/account/profile',
+        permanent: true,
+      },
+      {
+        destination: PATH.PAYMENT,
+        source: '/account/payment',
+        permanent: true,
+      },
+      {
+        destination: PATH.ADD_PAYMENT,
+        source: '/account/payment/add',
+        permanent: true,
+      },
+      {
+        destination: PATH.ADDRESS,
+        source: '/account/address',
+        permanent: true,
+      },
+      {
+        destination: PATH.ADD_ADDRESS,
+        source: '/account/address/add',
+        permanent: true,
+      },
+      {
+        destination: `${PATH.UPDATE_ADDRESS}/:id`,
+        source: '/account/address/update/:id',
+        permanent: true,
+      },
+      {
+        destination: PATH.WISHLIST,
+        source: '/account/wishlist',
+        permanent: true,
+      },
+      {
+        destination: PATH.ORDER_HISTORY,
+        source: '/account/order-history',
+        permanent: true,
+      },
+      {
+        destination: PATH.SUPPORT,
+        source: '/support',
+        permanent: true,
+      },
+    ]
+  },
   async rewrites() {
     return [
       {

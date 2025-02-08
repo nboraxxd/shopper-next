@@ -24,10 +24,9 @@ import { FormControl, FormItem, FormLabel, FormMessage } from '@/shared/componen
 
 type Props = {
   label: string
-  onSelect: (value: Region) => void
+  onSelect: (region: Region) => void
   regions: RegionCommonInfo[]
   isQueryRegionLoading?: boolean
-  isQueryRegionSuccess?: boolean
   value?: string
 } & (
   | {
@@ -41,16 +40,7 @@ type Props = {
 )
 
 export default function RegionCombobox(props: Props) {
-  const {
-    isChosenParentRegion,
-    isQueryRegionLoading,
-    isQueryRegionSuccess = true,
-    label,
-    messageInfo,
-    onSelect,
-    regions,
-    value,
-  } = props
+  const { isChosenParentRegion, isQueryRegionLoading, label, messageInfo, onSelect, regions, value } = props
 
   const [open, setOpen] = useState(false)
 
@@ -91,23 +81,21 @@ export default function RegionCombobox(props: Props) {
                     ))
                   : null}
                 <ScrollArea className={cn(regions.length > 6 ? 'h-52' : 'h-auto')}>
-                  {isQueryRegionSuccess
-                    ? regions
-                        .sort((a, b) => a.name.localeCompare(b.name))
-                        .map((region) => (
-                          <CommandItem
-                            value={region.name}
-                            key={region.code}
-                            onSelect={(value) => {
-                              onSelect({ name: value, code: region.code })
-                              setOpen(false)
-                            }}
-                          >
-                            {region.name}
-                            <CheckIcon className={cn('ml-auto', region.name === value ? 'opacity-100' : 'opacity-0')} />
-                          </CommandItem>
-                        ))
-                    : null}
+                  {regions
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map((region) => (
+                      <CommandItem
+                        value={region.name}
+                        key={region.code}
+                        onSelect={(value) => {
+                          onSelect({ name: value, code: region.code })
+                          setOpen(false)
+                        }}
+                      >
+                        {region.name}
+                        <CheckIcon className={cn('ml-auto', region.name === value ? 'opacity-100' : 'opacity-0')} />
+                      </CommandItem>
+                    ))}
                 </ScrollArea>
               </CommandGroup>
             </CommandList>

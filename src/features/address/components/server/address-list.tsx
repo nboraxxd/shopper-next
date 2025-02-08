@@ -19,9 +19,9 @@ export async function AddressList() {
   let addressList: AddressListResponse['data'] | null = null
 
   try {
-    const addressResponse = await addressServerApi.getAddressesFromBackend({ accessToken })
+    const addressListResponse = await addressServerApi.getAddressesFromBackend({ accessToken })
 
-    addressList = addressResponse.payload.data
+    addressList = addressListResponse.payload.data
   } catch (error: any) {
     if (error.digest?.includes('NEXT_REDIRECT')) {
       throw error

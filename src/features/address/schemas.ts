@@ -33,3 +33,32 @@ export type AddNewAddressReqBody = Omit<AddNewAddressType, 'province' | 'distric
   province: string
   district: string
 }
+
+export const updateAddressSchema = addNewAddressSchema
+
+// z
+//   .object({
+//     fullName: addNewAddressSchema.shape.fullName.nullable(),
+//     email: addNewAddressSchema.shape.email.nullable(),
+//     phone: addNewAddressSchema.shape.phone.nullable(),
+//     province: addNewAddressSchema.shape.province.nullable(),
+//     district: addNewAddressSchema.shape.district.nullable(),
+//     ward: addNewAddressSchema.shape.ward.nullable(),
+//     address: addNewAddressSchema.shape.address.nullable(),
+//     default: addNewAddressSchema.shape.default.nullable(),
+//   })
+//   .superRefine(({ province, district, ward }, ctx) => {
+//     if (ward && !district) {
+//       ctx.addIssue({ code: z.ZodIssueCode.custom, message: ADDRESS_ERROR_MESSAGES.DISTRICT_REQUIRED })
+//     }
+
+//     if (ward && !province) {
+//       ctx.addIssue({ code: z.ZodIssueCode.custom, message: ADDRESS_ERROR_MESSAGES.PROVINCE_REQUIRED })
+//     }
+
+//     if (district && !province) {
+//       ctx.addIssue({ code: z.ZodIssueCode.custom, message: ADDRESS_ERROR_MESSAGES.PROVINCE_REQUIRED })
+//     }
+//   })
+
+export type UpdateAddressType = z.infer<typeof updateAddressSchema>

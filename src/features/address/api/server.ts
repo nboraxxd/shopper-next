@@ -1,6 +1,7 @@
 import ms from 'ms'
 
 import {
+  AddressDetailResponse,
   AddressListResponse,
   DistrictsResponseFromBackend,
   ProvincesResponseFromBackend,
@@ -16,6 +17,11 @@ const addressServerApi = {
   getAddressesFromBackend: ({ accessToken, isDefault = false }: { accessToken: string; isDefault?: boolean }) =>
     http.get<AddressListResponse>(PREFIX, {
       params: { default: `${isDefault}` },
+      headers: { Authorization: `Bearer ${accessToken}` },
+    }),
+
+  getAddressDetailFromBackend: ({ accessToken, id }: { accessToken: string; id: string }) =>
+    http.get<AddressDetailResponse>(`${PREFIX}/${id}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     }),
 

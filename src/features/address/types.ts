@@ -14,6 +14,10 @@ export type AddressListResponse = {
   data: Address[]
 }
 
+export type AddressDetailResponse = {
+  data: Address
+}
+
 export type AddNewAddressResponse = {
   data: Address
   insertCount: number
