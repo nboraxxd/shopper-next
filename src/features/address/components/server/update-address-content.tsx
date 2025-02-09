@@ -36,7 +36,7 @@ export default async function UpdateAddressContent({ id, accessToken }: { id: st
     }
   }
 
-  if (!addressDetail) return notFound()
+  if (!addressDetail) notFound()
 
   const wardName =
     addressDetail.address.split(', ').length > 1 ? upperFirst(addressDetail.address.split(', ').pop()) : undefined

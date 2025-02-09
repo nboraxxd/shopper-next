@@ -15,7 +15,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
 
   const productId = extractProductId(slug)
 
-  if (!productId) return notFound()
+  if (!productId) notFound()
 
   let product: ProductResponse['data'][0] | null = null
 

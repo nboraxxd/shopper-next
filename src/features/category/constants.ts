@@ -61,6 +61,8 @@ export const CATEGORY_IMAGES = [
   },
 ] as const
 
+export const CATEGORY_IDS = CATEGORY_IMAGES.map((category) => category.id)
+
 export const CATEGORY_KEY = {
   CATEGORIES: 'categories',
 } as const
