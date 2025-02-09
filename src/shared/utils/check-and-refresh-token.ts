@@ -36,8 +36,8 @@ export default async function checkAndRefreshToken(callbackOptions?: CallbackOpt
   // Còn khi dùng cú pháp `new Date().getTime()` thì nó sẽ trả về epoch time (ms) nên cần chia cho 1000
   const now = Math.floor(new Date().getTime() / 1000)
 
-  // console.log('🔥 ~ Thời gian còn lại của access token:', accessTokenDecoded.exp - now)
-  // console.log('🔥 ~ Thời gian hết hạn của access token:', accessTokenDecoded.exp - accessTokenDecoded.iat)
+  console.log('🔥 ~ Thời gian còn lại của access token:', accessTokenDecoded.exp - now)
+  console.log('🔥 ~ Thời gian hết hạn của access token:', accessTokenDecoded.exp - accessTokenDecoded.iat)
 
   // Ví dụ access token có thời gian hết hạn là 30s
   // thì chúng ta sẽ refresh token khi access token còn 1/3 thời gian, tức còn 10s

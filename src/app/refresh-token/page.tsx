@@ -8,6 +8,7 @@ import checkAndRefreshToken from '@/shared/utils/check-and-refresh-token'
 import { getRefreshTokenFromLocalStorage } from '@/shared/utils/local-storage'
 
 import { ShopperIcon } from '@/shared/components/icons'
+import { useAuthStore } from '@/features/auth/auth-store'
 
 export default function RefreshTokenPage() {
   return (
@@ -24,11 +25,17 @@ function RefreshTokenContent() {
   const nextPath = searchParams.get('next')
   const refreshTokenFromUrl = searchParams.get('refreshToken')
 
+  const authState = useAuthStore((state) => state.authState)
+  const setAuthState = useAuthStore((state) => state.setAuthState)
+
   useEffect(() => {
     if (refreshTokenFromUrl && refreshTokenFromUrl === getRefreshTokenFromLocalStorage()) {
+      setAuthState('loading')
+
       checkAndRefreshToken({
         onSuccess: () => {
           console.log('🚀 super first RefreshToken')
+          setAuthState('authenticated')
           router.push(nextPath || PATH.HOME)
         },
         onError: () => router.push(PATH.HOME),
@@ -36,7 +43,11 @@ function RefreshTokenContent() {
     } else {
       router.push(PATH.HOME)
     }
-  }, [nextPath, refreshTokenFromUrl, router])
+  }, [nextPath, refreshTokenFromUrl, router, setAuthState])
+
+  useEffect(() => {
+    console.log('🔥 ~ authState:', authState)
+  }, [authState])
 
   return <RefreshTokenView />
 }
