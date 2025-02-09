@@ -1,4 +1,4 @@
-import { ClipboardListIcon, CreditCardIcon } from 'lucide-react'
+import { ClipboardListIcon, CreditCardIcon, LayoutDashboardIcon } from 'lucide-react'
 
 import { HeartIcon, InfoSqureIcon, LocationIcon, ProfileIcon } from '@/shared/components/icons'
 import PATH from '@/shared/constants/path'
@@ -7,6 +7,11 @@ export const ACCOUNT_MENU = [
   {
     title: 'Quản lý tài khoản',
     items: [
+      {
+        icon: LayoutDashboardIcon,
+        title: 'Tổng quan',
+        href: PATH.ACCOUNT,
+      },
       {
         icon: ProfileIcon,
         title: 'Hồ sơ',

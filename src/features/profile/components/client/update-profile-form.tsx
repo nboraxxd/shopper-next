@@ -218,7 +218,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
                   <FormControl>
                     <Input
                       className={CUSTOM_PROFILE_INPUT_CLASSNAME}
-                      placeholder="0987654321"
+                      placeholder="Số điện thoại"
                       {...field}
                       onChange={(ev) => field.onChange(ev.target.value !== '' ? ev.target.value : null)}
                       value={field.value ?? ''}
