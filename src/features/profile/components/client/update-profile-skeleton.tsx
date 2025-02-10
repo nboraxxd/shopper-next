@@ -10,7 +10,7 @@ export default function UpdateProfileSkeleton() {
           <div className="mx-auto flex flex-col items-center space-y-2 md:py-7">
             <Skeleton className="size-20 rounded-full md:size-24" />
             <Skeleton className="h-9 w-[6.75rem]" />
-            <Skeleton className="h-5 w-48" />
+            <Skeleton className="h-5 w-40" />
           </div>
         </div>
 

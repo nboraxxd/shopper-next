@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
+import { useAuthStore } from '@/features/auth/auth-store'
 import { handleClientErrorApi } from '@/shared/utils/error'
 import { useProfileStore } from '@/features/profile/profile-store'
 import { ProvincesResponseFromBackend } from '@/features/address/types'
@@ -29,6 +30,8 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
   const router = useRouter()
   const profile = useProfileStore((state) => state.profile)
 
+  const authState = useAuthStore((state) => state.authState)
+
   const form = useForm<AddNewAddressType>({
     resolver: zodResolver(addNewAddressSchema),
     defaultValues: {
@@ -46,8 +49,11 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
     }
   }, [form, profile?.username])
 
+  const isFormProcessing =
+    authState === 'loading' || authState === 'refreshing' || addNewAddressMutation.isPending || isNavigating
+
   async function onSubmit(values: AddNewAddressType) {
-    if (addNewAddressMutation.isPending || isNavigating) return
+    if (isFormProcessing) return
 
     const { province, district, ward, address, fullName, phone, email, default: isDefault } = values
 
@@ -223,7 +229,7 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
         <Button
           type="submit"
           className="mt-4 h-11 gap-1.5 rounded-full px-5 py-0 [&_svg]:size-5"
-          disabled={addNewAddressMutation.isPending || isNavigating}
+          disabled={isFormProcessing}
         >
           {addNewAddressMutation.isPending || isNavigating ? <LoaderCircleIcon className="animate-spin" /> : null}
           Thêm địa chỉ

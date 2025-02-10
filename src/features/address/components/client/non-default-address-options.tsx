@@ -8,6 +8,7 @@ import { Dispatch, SetStateAction, useState } from 'react'
 
 import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
+import { useAuthStore } from '@/features/auth/auth-store'
 import { handleClientErrorApi } from '@/shared/utils/error'
 import { useDeleteAddressFromBackendMutation, useSetDefaultAddressToBackendMutation } from '@/features/address/hooks'
 
@@ -45,8 +46,12 @@ export default function NonDefaultAddressOptions({ id, isDisabled, setIsDisabled
   const setDefaultAddressMutation = useSetDefaultAddressToBackendMutation()
   const deleteAddressMutation = useDeleteAddressFromBackendMutation()
 
+  const authState = useAuthStore((state) => state.authState)
+
+  const isAuthInProgress = authState === 'loading' || authState === 'refreshing'
+
   async function handleSetDefaultAddress() {
-    if (setDefaultAddressMutation.isPending) return
+    if (isAuthInProgress || setDefaultAddressMutation.isPending) return
 
     try {
       await setDefaultAddressMutation.mutateAsync(id)
@@ -59,7 +64,7 @@ export default function NonDefaultAddressOptions({ id, isDisabled, setIsDisabled
   }
 
   async function handleDeleteAddress() {
-    if (deleteAddressMutation.isPending) return
+    if (isAuthInProgress || deleteAddressMutation.isPending) return
 
     setShowDeleteDialog(false)
     setIsDisabled(true)
@@ -88,7 +93,12 @@ export default function NonDefaultAddressOptions({ id, isDisabled, setIsDisabled
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="border-none p-0 py-2 text-sm font-medium shadow-popover">
           <>
-            <DropdownMenuItem asChild className={ACTION_ITEM_CLASSNAME} onClick={handleSetDefaultAddress}>
+            <DropdownMenuItem
+              asChild
+              className={ACTION_ITEM_CLASSNAME}
+              disabled={isAuthInProgress || setDefaultAddressMutation.isPending}
+              onClick={handleSetDefaultAddress}
+            >
               <button>Đặt làm mặc định</button>
             </DropdownMenuItem>
             <DropdownMenuSeparator className="-mx-2 my-2" />
@@ -124,6 +134,7 @@ export default function NonDefaultAddressOptions({ id, isDisabled, setIsDisabled
             <Button
               variant="destructive"
               className="h-10 w-32 px-0 py-1 uppercase focus-visible:shadow-focus-within focus-visible:ring-0"
+              disabled={isAuthInProgress || deleteAddressMutation.isPending}
               onClick={handleDeleteAddress}
             >
               Xoá

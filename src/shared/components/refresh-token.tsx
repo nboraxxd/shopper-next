@@ -22,39 +22,46 @@ export default function RefreshToken() {
     let interval: NodeJS.Timeout | null = null
 
     function clearTokenCheckInterval() {
-      if (interval) clearInterval(interval)
+      if (interval) {
+        clearInterval(interval)
+        interval = null
+      }
+    }
+
+    function startTokenCheckInterval() {
+      clearTokenCheckInterval()
+
+      // delay của setInterval phải khoảng 1/5 thời gian hết hạn của access token
+      // Ví dụ access token hết hạn sau 15s thì recommend 3s check refresh token 1 lần
+      interval = setInterval(
+        () =>
+          checkAndRefreshToken({
+            onSuccess: () => {
+              console.log('🚀 other refresh token')
+            },
+            onError: clearTokenCheckInterval,
+          }),
+        ms(envVariables.NEXT_PUBLIC_REFRESH_TOKEN_CHECK_INTERVAL)
+      )
     }
 
     // function này không cần handle error
     // vì đã có logic handle error trong file http
     function handleReconnect() {
+      setAuthState('refreshing')
+
       checkAndRefreshToken({
         onSuccess: () => {
           console.log('🚀 reconnect refresh token')
+          setAuthState('authenticated')
 
-          interval = setInterval(
-            () =>
-              checkAndRefreshToken({
-                onSuccess: () => {
-                  console.log('🚀 other refresh token')
-                },
-                onError: clearTokenCheckInterval,
-              }),
-            ms(envVariables.NEXT_PUBLIC_REFRESH_TOKEN_CHECK_INTERVAL)
-          )
+          startTokenCheckInterval()
         },
 
         onRefreshTokenNotNeeded: () => {
-          interval = setInterval(
-            () =>
-              checkAndRefreshToken({
-                onSuccess: () => {
-                  console.log('🚀 other refresh token')
-                },
-                onError: clearTokenCheckInterval,
-              }),
-            ms(envVariables.NEXT_PUBLIC_REFRESH_TOKEN_CHECK_INTERVAL)
-          )
+          setAuthState('authenticated')
+
+          startTokenCheckInterval()
         },
       })
     }
@@ -67,29 +74,22 @@ export default function RefreshToken() {
       }
     }
 
-    // Phải gọi 1 lần đầu tiên vì interval sẽ chỉ chạy sau thời gian TIMEOUT
+    // Phải gọi 1 lần đầu tiên
     checkAndRefreshToken({
       onUserNotLoggedIn: () => setAuthState('unauthenticated'),
-      onRefreshTokenNotNeeded: () => setAuthState('authenticated'),
+      onRefreshTokenNotNeeded: () => {
+        setAuthState('authenticated')
+
+        startTokenCheckInterval()
+      },
       onSuccess: () => {
         console.log('🚀 first refresh token')
         setAuthState('authenticated')
+
+        startTokenCheckInterval()
       },
       onError: clearTokenCheckInterval,
     })
-
-    // delay của setInterval phải khoảng 1/5 thời gian hết hạn của access token
-    // Ví dụ access token hết hạn sau 15s thì recommend 3s check refresh token 1 lần
-    interval = setInterval(
-      () =>
-        checkAndRefreshToken({
-          onSuccess: () => {
-            console.log('🚀 other refresh token')
-          },
-          onError: clearTokenCheckInterval,
-        }),
-      ms(envVariables.NEXT_PUBLIC_REFRESH_TOKEN_CHECK_INTERVAL)
-    )
 
     window.addEventListener('offline', clearTokenCheckInterval)
 

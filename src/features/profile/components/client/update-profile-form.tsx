@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { cn } from '@/shared/utils'
+import { useAuthStore } from '@/features/auth/auth-store'
 import { ProfileResponse } from '@/features/profile/types'
 import { handleClientErrorApi } from '@/shared/utils/error'
 import { validateGenderValue } from '@/features/profile/utils'
@@ -39,6 +40,8 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
 
   const avatarInputRef = useRef<HTMLInputElement>(null)
 
+  const authState = useAuthStore((state) => state.authState)
+
   const form = useForm<UpdateProfileReqBody>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
@@ -54,7 +57,12 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
   const uploadImageMutation = useUploadImageToBackendMutation()
   const updateProfileMutation = useUpdateProfileToBackendMutation()
 
-  const isFormProcessing = isLoadingProfile || uploadImageMutation.isPending || updateProfileMutation.isPending
+  const isFormProcessing =
+    isLoadingProfile ||
+    authState === 'loading' ||
+    authState === 'refreshing' ||
+    uploadImageMutation.isPending ||
+    updateProfileMutation.isPending
 
   useEffect(() => {
     form.reset({
@@ -163,7 +171,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
                     type="button"
                     variant="ghost"
                     className="h-9 gap-1.5 bg-account-highlight/90 px-5 py-0 text-sm transition-colors hover:bg-account-highlight"
-                    disabled={uploadImageMutation.isPending}
+                    disabled={isFormProcessing}
                     onClick={() => {
                       form.clearErrors('avatar')
                       avatarInputRef.current?.click()

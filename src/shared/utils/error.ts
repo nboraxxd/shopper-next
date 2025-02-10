@@ -68,7 +68,7 @@ export const handleClientErrorApi = <T extends FieldValues>({
     error instanceof HttpError &&
     (error.status === HTTP_STATUS_CODE.UNAUTHORIZED || error.status === HTTP_STATUS_CODE.FORBIDDEN)
   ) {
-    console.log('😰 Unauthorized', error.payload.message)
+    console.log('😰 Unauthorized:', error.payload.message)
   } else {
     toast.error(error.payload?.message || error.toString())
   }

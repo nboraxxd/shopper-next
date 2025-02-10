@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { LoaderCircleIcon } from 'lucide-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import { useAuthStore } from '@/features/auth/auth-store'
 import { ForbiddenError, handleClientErrorApi } from '@/shared/utils/error'
 import { useChangePasswordToBackendMutation } from '@/features/profile/hooks'
 import { ChangePasswordReqBody, changePasswordSchema } from '@/features/profile/schemas'
@@ -15,6 +16,8 @@ import { PasswordInput } from '@/features/auth/components'
 import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
 
 export default function ChangePasswordForm() {
+  const authState = useAuthStore((state) => state.authState)
+
   const form = useForm<ChangePasswordReqBody>({
     resolver: zodResolver(changePasswordSchema),
     defaultValues: {
@@ -26,8 +29,10 @@ export default function ChangePasswordForm() {
 
   const changePasswordMutation = useChangePasswordToBackendMutation()
 
+  const isFormProcessing = authState === 'loading' || authState === 'refreshing' || changePasswordMutation.isPending
+
   async function onSubmit(values: ChangePasswordReqBody) {
-    if (changePasswordMutation.isPending) return
+    if (isFormProcessing) return
 
     const { currentPassword, newPassword } = values
 
@@ -100,7 +105,7 @@ export default function ChangePasswordForm() {
         <Button
           type="submit"
           className="h-11 gap-1.5 rounded-full px-5 py-0 [&_svg]:size-5"
-          disabled={changePasswordMutation.isPending}
+          disabled={isFormProcessing}
         >
           {changePasswordMutation.isPending ? <LoaderCircleIcon className="animate-spin" /> : null}
           Lưu thay đổi
