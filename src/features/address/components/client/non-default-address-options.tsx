@@ -9,7 +9,6 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
 import { handleClientErrorApi } from '@/shared/utils/error'
-import { useRefreshTokenState } from '@/features/auth/auth-store'
 import { useDeleteAddressFromBackendMutation, useSetDefaultAddressToBackendMutation } from '@/features/address/hooks'
 
 import {
@@ -29,6 +28,7 @@ import {
   AlertDialogTitle,
 } from '@/shared/components/ui/alert-dialog'
 import { Button } from '@/shared/components/ui/button'
+import { ButtonWithRefreshTokenState } from '@/shared/components'
 
 interface Props {
   id: string
@@ -46,10 +46,8 @@ export default function NonDefaultAddressOptions({ id, isDisabled, setIsDisabled
   const setDefaultAddressMutation = useSetDefaultAddressToBackendMutation()
   const deleteAddressMutation = useDeleteAddressFromBackendMutation()
 
-  const isRefreshingToken = useRefreshTokenState((state) => state.isRefreshingToken)
-
   async function handleSetDefaultAddress() {
-    if (isRefreshingToken || setDefaultAddressMutation.isPending) return
+    if (setDefaultAddressMutation.isPending) return
 
     try {
       await setDefaultAddressMutation.mutateAsync(id)
@@ -62,7 +60,7 @@ export default function NonDefaultAddressOptions({ id, isDisabled, setIsDisabled
   }
 
   async function handleDeleteAddress() {
-    if (isRefreshingToken || deleteAddressMutation.isPending) return
+    if (deleteAddressMutation.isPending) return
 
     setShowDeleteDialog(false)
     setIsDisabled(true)
@@ -94,10 +92,12 @@ export default function NonDefaultAddressOptions({ id, isDisabled, setIsDisabled
             <DropdownMenuItem
               asChild
               className={ACTION_ITEM_CLASSNAME}
-              disabled={isRefreshingToken || setDefaultAddressMutation.isPending}
+              disabled={setDefaultAddressMutation.isPending}
               onClick={handleSetDefaultAddress}
             >
-              <button>Đặt làm mặc định</button>
+              <ButtonWithRefreshTokenState isPlainButton className="disabled:pointer-events-none disabled:opacity-50">
+                Đặt làm mặc định
+              </ButtonWithRefreshTokenState>
             </DropdownMenuItem>
             <DropdownMenuSeparator className="-mx-2 my-2" />
           </>
@@ -129,14 +129,14 @@ export default function NonDefaultAddressOptions({ id, isDisabled, setIsDisabled
             <AlertDialogCancel className="h-10 w-32 px-0 py-1 uppercase focus-visible:border-transparent focus-visible:shadow-focus-within focus-visible:ring-0">
               Trở lại
             </AlertDialogCancel>
-            <Button
+            <ButtonWithRefreshTokenState
               variant="destructive"
               className="h-10 w-32 px-0 py-1 uppercase focus-visible:shadow-focus-within focus-visible:ring-0"
-              disabled={isRefreshingToken || deleteAddressMutation.isPending}
+              disabled={deleteAddressMutation.isPending}
               onClick={handleDeleteAddress}
             >
               Xoá
-            </Button>
+            </ButtonWithRefreshTokenState>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

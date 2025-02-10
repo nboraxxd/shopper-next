@@ -1,16 +1,15 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import lowerFirst from 'lodash/lowerFirst'
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { LoaderCircleIcon } from 'lucide-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
 import { handleClientErrorApi } from '@/shared/utils/error'
-import { useRefreshTokenState } from '@/features/auth/auth-store'
 import { useProfileStore } from '@/features/profile/profile-store'
 import { ProvincesResponseFromBackend } from '@/features/address/types'
 import { useAddNewAddressToBackendMutation } from '@/features/address/hooks'
@@ -18,8 +17,8 @@ import { CUSTOM_PROFILE_INPUT_CLASSNAME } from '@/features/profile/constants'
 import { AddNewAddressType, addNewAddressSchema, Region } from '@/features/address/schemas'
 
 import { Input } from '@/shared/components/ui/input'
-import { Button } from '@/shared/components/ui/button'
 import { Checkbox } from '@/shared/components/ui/checkbox'
+import { ButtonWithRefreshTokenState } from '@/shared/components'
 import { AutosizeTextarea } from '@/shared/components/ui/autosize-textarea'
 import { DistrictCombobox, WardCombobox, RegionCombobox } from '@/features/address/components/client'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
@@ -29,8 +28,6 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
 
   const router = useRouter()
   const profile = useProfileStore((state) => state.profile)
-
-  const isRefreshingToken = useRefreshTokenState((state) => state.isRefreshingToken)
 
   const form = useForm<AddNewAddressType>({
     resolver: zodResolver(addNewAddressSchema),
@@ -49,7 +46,7 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
     }
   }, [form, profile?.username])
 
-  const isFormProcessing = isRefreshingToken || addNewAddressMutation.isPending || isNavigating
+  const isFormProcessing = addNewAddressMutation.isPending || isNavigating
 
   async function onSubmit(values: AddNewAddressType) {
     if (isFormProcessing) return
@@ -225,14 +222,14 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
         />
 
         {/* Submit */}
-        <Button
+        <ButtonWithRefreshTokenState
           type="submit"
           className="mt-4 h-11 gap-1.5 rounded-full px-5 py-0 [&_svg]:size-5"
           disabled={isFormProcessing}
         >
           {addNewAddressMutation.isPending || isNavigating ? <LoaderCircleIcon className="animate-spin" /> : null}
           Thêm địa chỉ
-        </Button>
+        </ButtonWithRefreshTokenState>
       </form>
     </Form>
   )

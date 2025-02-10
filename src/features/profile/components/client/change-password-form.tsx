@@ -5,19 +5,15 @@ import { useForm } from 'react-hook-form'
 import { LoaderCircleIcon } from 'lucide-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { useRefreshTokenState } from '@/features/auth/auth-store'
 import { ForbiddenError, handleClientErrorApi } from '@/shared/utils/error'
 import { useChangePasswordToBackendMutation } from '@/features/profile/hooks'
 import { ChangePasswordReqBody, changePasswordSchema } from '@/features/profile/schemas'
 
-import { InputWrapper } from '@/shared/components'
-import { Button } from '@/shared/components/ui/button'
 import { PasswordInput } from '@/features/auth/components'
+import { ButtonWithRefreshTokenState, InputWrapper } from '@/shared/components'
 import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
 
 export default function ChangePasswordForm() {
-  const isRefreshingToken = useRefreshTokenState((state) => state.isRefreshingToken)
-
   const form = useForm<ChangePasswordReqBody>({
     resolver: zodResolver(changePasswordSchema),
     defaultValues: {
@@ -29,10 +25,8 @@ export default function ChangePasswordForm() {
 
   const changePasswordMutation = useChangePasswordToBackendMutation()
 
-  const isFormProcessing = isRefreshingToken || changePasswordMutation.isPending
-
   async function onSubmit(values: ChangePasswordReqBody) {
-    if (isFormProcessing) return
+    if (changePasswordMutation.isPending) return
 
     const { currentPassword, newPassword } = values
 
@@ -102,14 +96,14 @@ export default function ChangePasswordForm() {
         />
 
         {/* Submit */}
-        <Button
+        <ButtonWithRefreshTokenState
           type="submit"
           className="h-11 gap-1.5 rounded-full px-5 py-0 [&_svg]:size-5"
-          disabled={isFormProcessing}
+          disabled={changePasswordMutation.isPending}
         >
           {changePasswordMutation.isPending ? <LoaderCircleIcon className="animate-spin" /> : null}
           Lưu thay đổi
-        </Button>
+        </ButtonWithRefreshTokenState>
       </form>
     </Form>
   )

@@ -12,7 +12,6 @@ import { cn } from '@/shared/utils'
 import { ProfileResponse } from '@/features/profile/types'
 import { handleClientErrorApi } from '@/shared/utils/error'
 import { validateGenderValue } from '@/features/profile/utils'
-import { useRefreshTokenState } from '@/features/auth/auth-store'
 import { useUploadImageToBackendMutation } from '@/features/file/hooks'
 import { useUpdateProfileToBackendMutation } from '@/features/profile/hooks'
 import { UpdateProfileReqBody, updateProfileSchema } from '@/features/profile/schemas'
@@ -27,20 +26,18 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form'
-import { UserAvatar } from '@/shared/components'
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Separator } from '@/shared/components/ui/separator'
 import { DOBSelectGroup } from '@/features/profile/components/client'
+import { ButtonWithRefreshTokenState, UserAvatar } from '@/shared/components'
 import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group'
 
 export default function UpdateProfileForm({ profile }: { profile: ProfileResponse['data'] }) {
   const [isLoadingProfile, setIsLoadingProfile] = useState(true)
 
   const avatarInputRef = useRef<HTMLInputElement>(null)
-
-  const isRefreshingToken = useRefreshTokenState((state) => state.isRefreshingToken)
 
   const form = useForm<UpdateProfileReqBody>({
     resolver: zodResolver(updateProfileSchema),
@@ -57,8 +54,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
   const uploadImageMutation = useUploadImageToBackendMutation()
   const updateProfileMutation = useUpdateProfileToBackendMutation()
 
-  const isFormProcessing =
-    isLoadingProfile || isRefreshingToken || uploadImageMutation.isPending || updateProfileMutation.isPending
+  const isFormProcessing = isLoadingProfile || uploadImageMutation.isPending || updateProfileMutation.isPending
 
   useEffect(() => {
     form.reset({
@@ -163,7 +159,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
                       />
                     </Button>
                   )}
-                  <Button
+                  <ButtonWithRefreshTokenState
                     type="button"
                     variant="ghost"
                     className="h-9 gap-1.5 bg-account-highlight/90 px-5 py-0 text-sm transition-colors hover:bg-account-highlight"
@@ -174,7 +170,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
                     }}
                   >
                     Chọn ảnh
-                  </Button>
+                  </ButtonWithRefreshTokenState>
                   <Input
                     placeholder="Chọn ảnh đại diện"
                     type="file"
@@ -293,14 +289,14 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
         </div>
 
         {/* Submit */}
-        <Button
+        <ButtonWithRefreshTokenState
           type="submit"
           className="mt-4 h-11 gap-1.5 rounded-full px-5 py-0 [&_svg]:size-5"
           disabled={isFormProcessing}
         >
           {updateProfileMutation.isPending ? <LoaderCircleIcon className="animate-spin" /> : null}
           Cập nhật
-        </Button>
+        </ButtonWithRefreshTokenState>
       </form>
     </Form>
   )

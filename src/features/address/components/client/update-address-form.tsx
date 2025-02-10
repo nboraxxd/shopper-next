@@ -13,7 +13,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
 import { handleClientErrorApi } from '@/shared/utils/error'
-import { useRefreshTokenState } from '@/features/auth/auth-store'
 import { ProvincesResponseFromBackend } from '@/features/address/types'
 import { Region, UpdateAddressReqBody } from '@/features/address/schemas'
 import { useUpdateAddressToBackendMutation } from '@/features/address/hooks'
@@ -22,8 +21,8 @@ import { updateAddressSchema, UpdateAddressType } from '@/features/address/schem
 import { AddressDetailResponse, DistrictsResponseFromBackend, WardsResponseFromBackend } from '@/features/address/types'
 
 import { Input } from '@/shared/components/ui/input'
-import { Button } from '@/shared/components/ui/button'
 import { Checkbox } from '@/shared/components/ui/checkbox'
+import { ButtonWithRefreshTokenState } from '@/shared/components'
 import { AutosizeTextarea } from '@/shared/components/ui/autosize-textarea'
 import { DistrictCombobox, RegionCombobox, WardCombobox } from '@/features/address/components/client'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
@@ -50,8 +49,6 @@ export default function UpdateAddressForm(props: Props) {
 
   const router = useRouter()
 
-  const isRefreshingToken = useRefreshTokenState((state) => state.isRefreshingToken)
-
   const form = useForm<UpdateAddressType>({
     resolver: zodResolver(updateAddressSchema),
     defaultValues: {
@@ -68,7 +65,7 @@ export default function UpdateAddressForm(props: Props) {
 
   const updateAddressMutation = useUpdateAddressToBackendMutation()
 
-  const isFormProcessing = isLoadingAddress || isRefreshingToken || updateAddressMutation.isPending
+  const isFormProcessing = isLoadingAddress || updateAddressMutation.isPending
 
   useEffect(() => {
     form.reset({
@@ -308,14 +305,14 @@ export default function UpdateAddressForm(props: Props) {
         )}
 
         {/* Submit */}
-        <Button
+        <ButtonWithRefreshTokenState
           type="submit"
           className="mt-4 h-11 gap-1.5 rounded-full px-5 py-0 [&_svg]:size-5"
           disabled={isFormProcessing || isNavigating}
         >
           {updateAddressMutation.isPending || isNavigating ? <LoaderCircleIcon className="animate-spin" /> : null}
           Cập nhật
-        </Button>
+        </ButtonWithRefreshTokenState>
       </form>
     </Form>
   )
