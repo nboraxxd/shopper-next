@@ -9,10 +9,10 @@ import { useEffect, useRef, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { cn } from '@/shared/utils'
-import { useAuthStore } from '@/features/auth/auth-store'
 import { ProfileResponse } from '@/features/profile/types'
 import { handleClientErrorApi } from '@/shared/utils/error'
 import { validateGenderValue } from '@/features/profile/utils'
+import { useRefreshTokenState } from '@/features/auth/auth-store'
 import { useUploadImageToBackendMutation } from '@/features/file/hooks'
 import { useUpdateProfileToBackendMutation } from '@/features/profile/hooks'
 import { UpdateProfileReqBody, updateProfileSchema } from '@/features/profile/schemas'
@@ -40,7 +40,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
 
   const avatarInputRef = useRef<HTMLInputElement>(null)
 
-  const authState = useAuthStore((state) => state.authState)
+  const isRefreshingToken = useRefreshTokenState((state) => state.isRefreshingToken)
 
   const form = useForm<UpdateProfileReqBody>({
     resolver: zodResolver(updateProfileSchema),
@@ -58,11 +58,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
   const updateProfileMutation = useUpdateProfileToBackendMutation()
 
   const isFormProcessing =
-    isLoadingProfile ||
-    authState === 'loading' ||
-    authState === 'refreshing' ||
-    uploadImageMutation.isPending ||
-    updateProfileMutation.isPending
+    isLoadingProfile || isRefreshingToken || uploadImageMutation.isPending || updateProfileMutation.isPending
 
   useEffect(() => {
     form.reset({

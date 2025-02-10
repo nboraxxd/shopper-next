@@ -19,3 +19,21 @@ export const useAuthStore = create<AuthStore>()(
     }
   )
 )
+
+type RefreshTokenState = {
+  isRefreshingToken: boolean
+  setIsRefreshingToken: (isRefreshingToken: boolean) => void
+}
+
+export const useRefreshTokenState = create<RefreshTokenState>()(
+  devtools(
+    (set) => ({
+      isRefreshingToken: false,
+      setIsRefreshingToken: (isRefreshingToken) => set({ isRefreshingToken }),
+    }),
+    {
+      enabled: process.env.NODE_ENV === 'development',
+      name: 'refreshTokenState',
+    }
+  )
+)

@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { LoaderCircleIcon } from 'lucide-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { useAuthStore } from '@/features/auth/auth-store'
+import { useRefreshTokenState } from '@/features/auth/auth-store'
 import { ForbiddenError, handleClientErrorApi } from '@/shared/utils/error'
 import { useChangePasswordToBackendMutation } from '@/features/profile/hooks'
 import { ChangePasswordReqBody, changePasswordSchema } from '@/features/profile/schemas'
@@ -16,7 +16,7 @@ import { PasswordInput } from '@/features/auth/components'
 import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
 
 export default function ChangePasswordForm() {
-  const authState = useAuthStore((state) => state.authState)
+  const isRefreshingToken = useRefreshTokenState((state) => state.isRefreshingToken)
 
   const form = useForm<ChangePasswordReqBody>({
     resolver: zodResolver(changePasswordSchema),
@@ -29,7 +29,7 @@ export default function ChangePasswordForm() {
 
   const changePasswordMutation = useChangePasswordToBackendMutation()
 
-  const isFormProcessing = authState === 'loading' || authState === 'refreshing' || changePasswordMutation.isPending
+  const isFormProcessing = isRefreshingToken || changePasswordMutation.isPending
 
   async function onSubmit(values: ChangePasswordReqBody) {
     if (isFormProcessing) return

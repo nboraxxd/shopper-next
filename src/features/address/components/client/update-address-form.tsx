@@ -12,8 +12,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
-import { useAuthStore } from '@/features/auth/auth-store'
 import { handleClientErrorApi } from '@/shared/utils/error'
+import { useRefreshTokenState } from '@/features/auth/auth-store'
 import { ProvincesResponseFromBackend } from '@/features/address/types'
 import { Region, UpdateAddressReqBody } from '@/features/address/schemas'
 import { useUpdateAddressToBackendMutation } from '@/features/address/hooks'
@@ -50,7 +50,7 @@ export default function UpdateAddressForm(props: Props) {
 
   const router = useRouter()
 
-  const authState = useAuthStore((state) => state.authState)
+  const isRefreshingToken = useRefreshTokenState((state) => state.isRefreshingToken)
 
   const form = useForm<UpdateAddressType>({
     resolver: zodResolver(updateAddressSchema),
@@ -68,8 +68,7 @@ export default function UpdateAddressForm(props: Props) {
 
   const updateAddressMutation = useUpdateAddressToBackendMutation()
 
-  const isFormProcessing =
-    isLoadingAddress || authState === 'loading' || authState === 'refreshing' || updateAddressMutation.isPending
+  const isFormProcessing = isLoadingAddress || isRefreshingToken || updateAddressMutation.isPending
 
   useEffect(() => {
     form.reset({

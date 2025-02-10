@@ -18,7 +18,7 @@ function AuthButton() {
 
   if (!isClient || authState === 'loading') return <AuthButtonSkeleton />
 
-  return authState === 'authenticated' || authState === 'refreshing' ? (
+  return authState === 'authenticated' ? (
     <UserDropdown />
   ) : (
     // Ở đây dùng paddingX thay vì dùng width

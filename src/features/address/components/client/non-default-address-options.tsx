@@ -8,8 +8,8 @@ import { Dispatch, SetStateAction, useState } from 'react'
 
 import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
-import { useAuthStore } from '@/features/auth/auth-store'
 import { handleClientErrorApi } from '@/shared/utils/error'
+import { useRefreshTokenState } from '@/features/auth/auth-store'
 import { useDeleteAddressFromBackendMutation, useSetDefaultAddressToBackendMutation } from '@/features/address/hooks'
 
 import {
@@ -46,12 +46,10 @@ export default function NonDefaultAddressOptions({ id, isDisabled, setIsDisabled
   const setDefaultAddressMutation = useSetDefaultAddressToBackendMutation()
   const deleteAddressMutation = useDeleteAddressFromBackendMutation()
 
-  const authState = useAuthStore((state) => state.authState)
-
-  const isAuthInProgress = authState === 'loading' || authState === 'refreshing'
+  const isRefreshingToken = useRefreshTokenState((state) => state.isRefreshingToken)
 
   async function handleSetDefaultAddress() {
-    if (isAuthInProgress || setDefaultAddressMutation.isPending) return
+    if (isRefreshingToken || setDefaultAddressMutation.isPending) return
 
     try {
       await setDefaultAddressMutation.mutateAsync(id)
@@ -64,7 +62,7 @@ export default function NonDefaultAddressOptions({ id, isDisabled, setIsDisabled
   }
 
   async function handleDeleteAddress() {
-    if (isAuthInProgress || deleteAddressMutation.isPending) return
+    if (isRefreshingToken || deleteAddressMutation.isPending) return
 
     setShowDeleteDialog(false)
     setIsDisabled(true)
@@ -96,7 +94,7 @@ export default function NonDefaultAddressOptions({ id, isDisabled, setIsDisabled
             <DropdownMenuItem
               asChild
               className={ACTION_ITEM_CLASSNAME}
-              disabled={isAuthInProgress || setDefaultAddressMutation.isPending}
+              disabled={isRefreshingToken || setDefaultAddressMutation.isPending}
               onClick={handleSetDefaultAddress}
             >
               <button>Đặt làm mặc định</button>
@@ -134,7 +132,7 @@ export default function NonDefaultAddressOptions({ id, isDisabled, setIsDisabled
             <Button
               variant="destructive"
               className="h-10 w-32 px-0 py-1 uppercase focus-visible:shadow-focus-within focus-visible:ring-0"
-              disabled={isAuthInProgress || deleteAddressMutation.isPending}
+              disabled={isRefreshingToken || deleteAddressMutation.isPending}
               onClick={handleDeleteAddress}
             >
               Xoá

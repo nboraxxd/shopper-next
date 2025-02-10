@@ -3,7 +3,7 @@
 import ms from 'ms'
 import { useEffect } from 'react'
 
-import { useAuthStore } from '@/features/auth/auth-store'
+import { useAuthStore, useRefreshTokenState } from '@/features/auth/auth-store'
 import checkAndRefreshToken from '@/shared/utils/check-and-refresh-token'
 import { usePathname } from 'next/navigation'
 import PATH from '@/shared/constants/path'
@@ -14,7 +14,9 @@ const UNAUTHENTICATED_PATHS = [PATH.LOGIN, PATH.REGISTER, '/logout', '/refresh-t
 
 export default function RefreshToken() {
   const pathname = usePathname()
+
   const setAuthState = useAuthStore((state) => state.setAuthState)
+  const setIsRefreshingToken = useRefreshTokenState((state) => state.setIsRefreshingToken)
 
   useEffect(() => {
     if (UNAUTHENTICATED_PATHS.includes(pathname)) return
@@ -48,18 +50,18 @@ export default function RefreshToken() {
     // function này không cần handle error
     // vì đã có logic handle error trong file http
     function handleReconnect() {
-      setAuthState('refreshing')
+      setIsRefreshingToken(true)
 
       checkAndRefreshToken({
         onSuccess: () => {
           console.log('🚀 reconnect refresh token')
-          setAuthState('authenticated')
+          setIsRefreshingToken(false)
 
           startTokenCheckInterval()
         },
 
         onRefreshTokenNotNeeded: () => {
-          setAuthState('authenticated')
+          setIsRefreshingToken(false)
 
           startTokenCheckInterval()
         },
@@ -103,7 +105,7 @@ export default function RefreshToken() {
       document.removeEventListener('visibilitychange', handleVisibilityChange)
       clearTokenCheckInterval()
     }
-  }, [pathname, setAuthState])
+  }, [pathname, setAuthState, setIsRefreshingToken])
 
   return null
 }

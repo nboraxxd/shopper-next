@@ -9,8 +9,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
-import { useAuthStore } from '@/features/auth/auth-store'
 import { handleClientErrorApi } from '@/shared/utils/error'
+import { useRefreshTokenState } from '@/features/auth/auth-store'
 import { useProfileStore } from '@/features/profile/profile-store'
 import { ProvincesResponseFromBackend } from '@/features/address/types'
 import { useAddNewAddressToBackendMutation } from '@/features/address/hooks'
@@ -30,7 +30,7 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
   const router = useRouter()
   const profile = useProfileStore((state) => state.profile)
 
-  const authState = useAuthStore((state) => state.authState)
+  const isRefreshingToken = useRefreshTokenState((state) => state.isRefreshingToken)
 
   const form = useForm<AddNewAddressType>({
     resolver: zodResolver(addNewAddressSchema),
@@ -49,8 +49,7 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
     }
   }, [form, profile?.username])
 
-  const isFormProcessing =
-    authState === 'loading' || authState === 'refreshing' || addNewAddressMutation.isPending || isNavigating
+  const isFormProcessing = isRefreshingToken || addNewAddressMutation.isPending || isNavigating
 
   async function onSubmit(values: AddNewAddressType) {
     if (isFormProcessing) return
