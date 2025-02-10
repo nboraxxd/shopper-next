@@ -21,9 +21,49 @@ export default function RefreshToken() {
 
     let interval: NodeJS.Timeout | null = null
 
-    const onError = () => {
-      if (interval) {
-        clearInterval(interval)
+    function clearTokenCheckInterval() {
+      if (interval) clearInterval(interval)
+    }
+
+    // function này không cần handle error
+    // vì đã có logic handle error trong file http
+    function handleReconnect() {
+      checkAndRefreshToken({
+        onSuccess: () => {
+          console.log('🚀 reconnect refresh token')
+
+          interval = setInterval(
+            () =>
+              checkAndRefreshToken({
+                onSuccess: () => {
+                  console.log('🚀 other refresh token')
+                },
+                onError: clearTokenCheckInterval,
+              }),
+            ms(envVariables.NEXT_PUBLIC_REFRESH_TOKEN_CHECK_INTERVAL)
+          )
+        },
+
+        onRefreshTokenNotNeeded: () => {
+          interval = setInterval(
+            () =>
+              checkAndRefreshToken({
+                onSuccess: () => {
+                  console.log('🚀 other refresh token')
+                },
+                onError: clearTokenCheckInterval,
+              }),
+            ms(envVariables.NEXT_PUBLIC_REFRESH_TOKEN_CHECK_INTERVAL)
+          )
+        },
+      })
+    }
+
+    function handleVisibilityChange() {
+      if (document.visibilityState === 'visible') {
+        handleReconnect()
+      } else {
+        clearTokenCheckInterval()
       }
     }
 
@@ -32,28 +72,36 @@ export default function RefreshToken() {
       onUserNotLoggedIn: () => setAuthState('unauthenticated'),
       onRefreshTokenNotNeeded: () => setAuthState('authenticated'),
       onSuccess: () => {
-        console.log('🚀 first refreshToken')
+        console.log('🚀 first refresh token')
         setAuthState('authenticated')
       },
-      onError,
+      onError: clearTokenCheckInterval,
     })
 
-    // `refreshTokenCheckInterval` phải nhỏ hơn 1/3 thời gian hết hạn của access token
-    // Ví dụ access token hết hạn sau 30s thì ít nhất 10s chúng ta sẽ check refresh token 1 lần
-    const refreshTokenCheckInterval = ms(envVariables.NEXT_PUBLIC_REFRESH_TOKEN_CHECK_INTERVAL) // 1/5 of access token expiration time
+    // delay của setInterval phải khoảng 1/5 thời gian hết hạn của access token
+    // Ví dụ access token hết hạn sau 15s thì recommend 3s check refresh token 1 lần
     interval = setInterval(
       () =>
         checkAndRefreshToken({
           onSuccess: () => {
-            console.log('🚀 other refreshToken')
+            console.log('🚀 other refresh token')
           },
-          onError,
+          onError: clearTokenCheckInterval,
         }),
-      refreshTokenCheckInterval
+      ms(envVariables.NEXT_PUBLIC_REFRESH_TOKEN_CHECK_INTERVAL)
     )
 
+    window.addEventListener('offline', clearTokenCheckInterval)
+
+    window.addEventListener('online', handleReconnect)
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
     return () => {
-      if (interval) clearInterval(interval)
+      window.removeEventListener('offline', clearTokenCheckInterval)
+      window.removeEventListener('online', handleReconnect)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+      clearTokenCheckInterval()
     }
   }, [pathname, setAuthState])
 

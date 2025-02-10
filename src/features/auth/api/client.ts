@@ -9,8 +9,6 @@ const SERVER_PREFIX = '/api/auth'
 const BACKEND_PREFIX = '/users'
 
 const authClientApi = {
-  refreshTokenToServerRequest: null as Promise<{ status: number; payload: RefreshTokenResponse }> | null,
-
   registerUserToBackend: (body: RegisterReqBody) => http.post<RegisterResponse>(`${BACKEND_PREFIX}/register`, body),
 
   resendEmailToBackend: (username: string) =>
@@ -22,21 +20,12 @@ const authClientApi = {
   logoutToServer: () =>
     http.post<MessageResponse>(`${SERVER_PREFIX}/logout`, {}, { baseUrl: envVariables.NEXT_PUBLIC_URL }),
 
-  async refreshTokenToServer() {
-    if (this.refreshTokenToServerRequest) {
-      return this.refreshTokenToServerRequest
-    }
-
-    this.refreshTokenToServerRequest = http.post<RefreshTokenResponse>(
+  refreshTokenToServer() {
+    return http.post<RefreshTokenResponse>(
       `${SERVER_PREFIX}/refresh-token`,
       {},
       { baseUrl: envVariables.NEXT_PUBLIC_URL }
     )
-
-    const response = await this.refreshTokenToServerRequest
-
-    this.refreshTokenToServerRequest = null
-    return response
   },
 }
 

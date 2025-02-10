@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useEffect } from 'react'
+import { Suspense, useEffect, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import PATH from '@/shared/constants/path'
@@ -8,7 +8,6 @@ import checkAndRefreshToken from '@/shared/utils/check-and-refresh-token'
 import { getRefreshTokenFromLocalStorage } from '@/shared/utils/local-storage'
 
 import { ShopperIcon } from '@/shared/components/icons'
-import { useAuthStore } from '@/features/auth/auth-store'
 
 export default function RefreshTokenPage() {
   return (
@@ -19,35 +18,45 @@ export default function RefreshTokenPage() {
 }
 
 function RefreshTokenContent() {
+  const checkAndRefreshTokenRef = useRef<unknown>(null)
+
   const router = useRouter()
 
   const searchParams = useSearchParams()
   const nextPath = searchParams.get('next')
   const refreshTokenFromUrl = searchParams.get('refreshToken')
 
-  const authState = useAuthStore((state) => state.authState)
-  const setAuthState = useAuthStore((state) => state.setAuthState)
-
   useEffect(() => {
+    let timeout: NodeJS.Timeout | null = null
+
+    const redirectToNextPath = () => router.push(nextPath || PATH.HOME)
+    const redirectHomepage = () => router.push(PATH.HOME)
+
+    if (checkAndRefreshTokenRef.current) return
+
     if (refreshTokenFromUrl && refreshTokenFromUrl === getRefreshTokenFromLocalStorage()) {
-      setAuthState('loading')
+      checkAndRefreshTokenRef.current = checkAndRefreshToken
 
       checkAndRefreshToken({
         onSuccess: () => {
-          console.log('🚀 super first RefreshToken')
-          setAuthState('authenticated')
-          router.push(nextPath || PATH.HOME)
+          console.log('🚀 super first refresh token')
+          redirectToNextPath()
         },
-        onError: () => router.push(PATH.HOME),
+        onRefreshTokenNotNeeded: redirectToNextPath,
+        onError: redirectHomepage,
       })
-    } else {
-      router.push(PATH.HOME)
-    }
-  }, [nextPath, refreshTokenFromUrl, router, setAuthState])
 
-  useEffect(() => {
-    console.log('🔥 ~ authState:', authState)
-  }, [authState])
+      timeout = setTimeout(() => {
+        checkAndRefreshTokenRef.current = null
+      }, 0)
+    } else {
+      redirectHomepage()
+    }
+
+    return () => {
+      if (timeout) clearTimeout(timeout)
+    }
+  }, [nextPath, refreshTokenFromUrl, router])
 
   return <RefreshTokenView />
 }
