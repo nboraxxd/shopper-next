@@ -20,25 +20,23 @@ export default async function PaymentContent({ accessToken }: { accessToken: str
   if (!cardList) return null
 
   return cardList.length > 0 ? (
-    <div className="mt-4 grid grid-cols-1 gap-3 xs:grid-cols-2 md:grid-cols-3 md:gap-5">
-      {cardList
-        .sort((a, b) => Number(b.default) - Number(a.default))
-        .map((card) => (
-          <PaymentCardProvider key={card._id}>
-            <PaymentCard
-              _id={card._id}
-              cardName={card.cardName}
-              cardNumber={card.cardNumber}
-              expired={card.expired}
-              type={card.type}
-              isDefault={card.default}
-              isHasAction={true}
-            />
-          </PaymentCardProvider>
-        ))}
-    </div>
+    cardList
+      .sort((a, b) => Number(b.default) - Number(a.default))
+      .map((card) => (
+        <PaymentCardProvider key={card._id}>
+          <PaymentCard
+            _id={card._id}
+            cardName={card.cardName}
+            cardNumber={card.cardNumber}
+            expired={card.expired}
+            type={card.type}
+            isDefault={card.default}
+            isHasAction={true}
+          />
+        </PaymentCardProvider>
+      ))
   ) : (
-    <div className="flex h-96 flex-col items-center justify-center gap-2">
+    <div className="col-span-full flex h-96 flex-col items-center justify-center gap-2">
       <SmileStarIcon />
       <p className="text-center text-sm leading-relaxed sm:text-base">
         Chưa có thẻ nào, thêm ngay <br /> để mua sắm dễ dàng hơn

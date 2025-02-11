@@ -39,7 +39,7 @@ export default function RefreshToken() {
         () =>
           checkAndRefreshToken({
             onSuccess: () => {
-              console.log('🚀 other refresh token')
+              // console.log('🚀 other refresh token')
             },
             onError: clearTokenCheckInterval,
           }),
@@ -54,7 +54,7 @@ export default function RefreshToken() {
 
       checkAndRefreshToken({
         onSuccess: () => {
-          console.log('🚀 reconnect refresh token')
+          // console.log('🚀 reconnect refresh token')
           setIsRefreshingToken(false)
 
           startTokenCheckInterval()
@@ -85,7 +85,7 @@ export default function RefreshToken() {
         startTokenCheckInterval()
       },
       onSuccess: () => {
-        console.log('🚀 first refresh token')
+        // console.log('🚀 first refresh token')
         setAuthState('authenticated')
 
         startTokenCheckInterval()

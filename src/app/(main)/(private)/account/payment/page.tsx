@@ -9,6 +9,7 @@ import { PaymentContent } from '@/features/payment/components/server'
 import { AccountHeader, AccountSectionWrapper } from '@/features/account/components'
 import Link from 'next/link'
 import { PlusIcon, Svgr } from '@/shared/components/icons'
+import { Skeleton } from '@/shared/components/ui/skeleton'
 
 export default async function PaymentPage() {
   const cookieStore = await cookies()
@@ -27,9 +28,15 @@ export default async function PaymentPage() {
         <Svgr icon={PlusIcon} />
         <span className="text-sm font-medium">Thêm thẻ mới</span>
       </Link>
-      <Suspense fallback={<div>Loading...</div>}>
-        <PaymentContent accessToken={accessToken} />
-      </Suspense>
+      <div className="mt-3 grid grid-cols-1 gap-3 xs:grid-cols-2 md:mt-5 md:grid-cols-3 md:gap-4">
+        <Suspense
+          fallback={Array.from({ length: 3 }).map((_, index) => (
+            <Skeleton key={index} className="h-44 rounded-xl" />
+          ))}
+        >
+          <PaymentContent accessToken={accessToken} />
+        </Suspense>
+      </div>
     </AccountSectionWrapper>
   )
 }

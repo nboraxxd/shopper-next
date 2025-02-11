@@ -39,7 +39,7 @@ function RefreshTokenContent() {
 
       checkAndRefreshToken({
         onSuccess: () => {
-          console.log('🚀 super first refresh token')
+          // console.log('🚀 super first refresh token')
           redirectToNextPath()
         },
         onRefreshTokenNotNeeded: redirectToNextPath,

@@ -24,7 +24,7 @@ export default function AddressItem({ id, address, email, fullName, isDefault, p
   const [isDisabled, setIsDisabled] = useState(false)
 
   return (
-    <li
+    <div
       className={cn('rounded-xl bg-address-item p-3 md:p-4', {
         'opacity-50': isDisabled,
       })}
@@ -74,6 +74,6 @@ export default function AddressItem({ id, address, email, fullName, isDefault, p
         <span className="font-medium text-muted-foreground">Email: </span>
         {email}
       </p>
-    </li>
+    </div>
   )
 }

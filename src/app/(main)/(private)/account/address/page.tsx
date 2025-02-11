@@ -7,8 +7,9 @@ import PATH from '@/shared/constants/path'
 import { ACCESS_TOKEN } from '@/features/auth/constants'
 
 import { PlusIcon, Svgr } from '@/shared/components/icons'
+import { Skeleton } from '@/shared/components/ui/skeleton'
+import { AddressContent } from '@/features/address/components/server'
 import { AccountHeader, AccountSectionWrapper } from '@/features/account/components'
-import { AddressList, AddressListSkeleton } from '@/features/address/components/server'
 
 export default async function AddressPage() {
   const cookieStore = await cookies()
@@ -27,9 +28,15 @@ export default async function AddressPage() {
         <span className="text-sm font-medium">Thêm địa chỉ mới</span>
       </Link>
 
-      <Suspense fallback={<AddressListSkeleton />}>
-        <AddressList accessToken={accessToken} />
-      </Suspense>
+      <div className="mt-3 space-y-3 md:mt-5 md:space-y-4">
+        <Suspense
+          fallback={Array.from({ length: 3 }).map((_, index) => (
+            <Skeleton key={index} className="h-[8.875rem] rounded-xl md:h-[8.125rem]" />
+          ))}
+        >
+          <AddressContent accessToken={accessToken} />
+        </Suspense>
+      </div>
     </AccountSectionWrapper>
   )
 }
