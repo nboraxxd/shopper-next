@@ -1,12 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Fragment } from 'react'
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
 
-import PATH from '@/shared/constants/path'
 import { formatCurrency } from '@/shared/utils'
-import { ACCESS_TOKEN } from '@/features/auth/constants'
 import wishlistServerApi from '@/features/wishlist/api/server'
 import { WishlistResponse } from '@/features/wishlist/types'
 
@@ -15,12 +11,7 @@ import { SmileStarIcon } from '@/shared/components/icons'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Separator } from '@/shared/components/ui/separator'
 
-export async function AccountWishlistContent() {
-  const cookieStore = await cookies()
-  const accessToken = cookieStore.get(ACCESS_TOKEN)?.value
-
-  if (!accessToken) redirect(PATH.LOGIN)
-
+export async function AccountWishlistContent({ accessToken }: { accessToken: string }) {
   let wishlistResponse: WishlistResponse['data'] | null = null
 
   try {

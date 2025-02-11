@@ -1,25 +1,17 @@
 import Link from 'next/link'
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
 import { Url } from 'next/dist/shared/lib/router/router'
 import { LucideProps, PackageCheckIcon, PackageSearchIcon, TruckIcon, WalletIcon } from 'lucide-react'
 
 import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
 import { OrderCount } from '@/features/order/types'
-import { ACCESS_TOKEN } from '@/features/auth/constants'
 import orderServerApi from '@/features/order/api/server'
 
 import { Svgr } from '@/shared/components/icons'
 
 const orderStatuses = ['pending', 'confirm', 'shipping', 'finished'] as const
 
-export async function AccountOrderCountContent() {
-  const cookieStore = await cookies()
-  const accessToken = cookieStore.get(ACCESS_TOKEN)?.value
-
-  if (!accessToken) redirect(PATH.LOGIN)
-
+export async function AccountOrderCountContent({ accessToken }: { accessToken: string }) {
   const orderCounts: Record<(typeof orderStatuses)[number], OrderCount['count'] | null> = {
     pending: null,
     confirm: null,

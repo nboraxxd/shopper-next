@@ -85,12 +85,12 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
             <Separator className="mt-5 block lg:hidden xl:block" />
             <div className="block lg:hidden xl:block">
               <h3 className="mt-5 font-medium">Quyền lợi khách hàng & bảo hành</h3>
-              <div className="flex flex-col gap-2 sm:flex-row">
-                <h4 className="flex flex-1 items-center gap-1 text-sm font-medium">
+              <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+                <h4 className="flex basis-2/6 items-center gap-1 text-sm font-medium">
                   <ShieldIcon className="inline-block size-6" />
                   <span className="p-1">7 ngày hoàn trả</span>
                 </h4>
-                <h4 className="flex flex-1 items-center gap-1 text-sm font-medium">
+                <h4 className="flex basis-4/6 items-center gap-1 text-sm font-medium">
                   <ShieldIcon className="inline-block size-6" />
                   <span className="p-1">Bảo hành theo chính sách từ nhà bán</span>
                 </h4>

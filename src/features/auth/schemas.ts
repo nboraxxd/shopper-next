@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { AUTH_ERROR_MESSAGES } from '@/features/auth/constants'
 
-export const name = z.string().trim().min(1, AUTH_ERROR_MESSAGES.NAME_IS_REQUIRED)
+export const name = z.string().trim().nonempty(AUTH_ERROR_MESSAGES.NAME_IS_REQUIRED)
 
 export const username = z.string().trim().email(AUTH_ERROR_MESSAGES.EMAIL_INVALID)
 

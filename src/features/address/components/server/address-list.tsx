@@ -1,21 +1,13 @@
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
 import lowerFirst from 'lodash/lowerFirst'
 
-import PATH from '@/shared/constants/path'
-import { ACCESS_TOKEN } from '@/features/auth/constants'
 import addressServerApi from '@/features/address/api/server'
 import { AddressListResponse } from '@/features/address/types'
 
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { AddressItem } from '@/features/address/components/client'
+import { SmileStarIcon } from '@/shared/components/icons'
 
-export async function AddressList() {
-  const cookieStore = await cookies()
-  const accessToken = cookieStore.get(ACCESS_TOKEN)?.value
-
-  if (!accessToken) redirect(PATH.LOGIN)
-
+export async function AddressList({ accessToken }: { accessToken: string }) {
   let addressList: AddressListResponse['data'] | null = null
 
   try {
@@ -28,7 +20,9 @@ export async function AddressList() {
     }
   }
 
-  return addressList && addressList.length > 0 ? (
+  if (!addressList) return null
+
+  return addressList.length > 0 ? (
     <ul className="mt-3 space-y-3 md:mt-5 md:space-y-4">
       {addressList
         .sort((a, b) => Number(b.default) - Number(a.default))
@@ -44,7 +38,14 @@ export async function AddressList() {
           />
         ))}
     </ul>
-  ) : null
+  ) : (
+    <div className="flex h-96 flex-col items-center justify-center gap-2">
+      <SmileStarIcon />
+      <p className="text-center text-sm leading-relaxed sm:text-base">
+        Chưa có địa chỉ nào, thêm ngay <br /> để mua sắm dễ dàng hơn
+      </p>
+    </div>
+  )
 }
 
 export function AddressListSkeleton() {

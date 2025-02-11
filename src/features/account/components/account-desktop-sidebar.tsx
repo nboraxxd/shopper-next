@@ -66,7 +66,10 @@ function SidebarNav() {
                   className={cn(
                     'flex h-8 items-center gap-2 rounded-md px-1 transition-colors hover:bg-account-highlight',
                     {
-                      'text-highlight bg-account-highlight': pathname === item.href,
+                      'text-highlight bg-account-highlight':
+                        item.href.split('/').length === 3
+                          ? item.href.split('/')[2] === pathname.split('/')[2]
+                          : item.href === pathname,
                     }
                   )}
                 >

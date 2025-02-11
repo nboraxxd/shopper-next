@@ -2,9 +2,8 @@
 
 import { useState } from 'react'
 
-import { QuantityInput } from '@/shared/components/quantity-input'
 import { Button } from '@/shared/components/ui/button'
-import { HeartIcon } from '@/shared/components/icons'
+import { QuantityInput } from '@/shared/components/quantity-input'
 
 export default function ProductAction({ stock }: { stock: number }) {
   const INITIAL_QUANTITY = '1'
@@ -28,20 +27,23 @@ export default function ProductAction({ stock }: { stock: number }) {
       </div>
       {stock > 0 && stock < 10 ? <p className="mt-3 text-sm font-medium">Chỉ còn {stock} sản phẩm</p> : null}
       {stock <= 0 ? <p className="mt-3 text-sm font-medium text-primary-red">Sản phẩm đã hết hàng</p> : null}
-      <div className="">
-        <Button className="mt-5 h-[46px] w-full rounded-md text-lg" disabled={stock === 0}>
-          Mua ngay
+      <div className="mt-5">
+        <Button
+          variant="ghost"
+          className="h-[46px] w-full rounded-md border border-product-action-secondary text-lg text-product-action-secondary hover:bg-accent/50 hover:text-product-action-secondary"
+          disabled={stock === 0}
+        >
+          Thêm vào giỏ
         </Button>
-        <div className="mt-5 flex items-center gap-5">
-          <Button variant="secondary" className="h-[46px] grow rounded-md text-lg" disabled={stock === 0}>
-            Thêm vào giỏ
+        <div className="mt-3 flex items-center gap-3 sm:mt-4 sm:gap-4">
+          <Button className="h-[46px] grow rounded-md sm:text-lg" disabled={stock === 0}>
+            Mua ngay
           </Button>
           <Button
-            size="icon"
-            variant="outline"
-            className="group flex size-[46px] items-center justify-center rounded-md border border-secondary-3 bg-product-info hover:bg-product-info"
+            variant="ghost"
+            className="h-[46px] grow rounded-md border border-product-action-secondary text-product-action-secondary hover:bg-accent/50 hover:text-product-action-secondary sm:text-lg"
           >
-            <HeartIcon className="transition-transform group-hover:scale-110" />
+            Yêu thích
           </Button>
         </div>
       </div>

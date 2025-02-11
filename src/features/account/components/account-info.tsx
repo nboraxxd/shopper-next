@@ -1,26 +1,18 @@
 import Link from 'next/link'
-import { cookies } from 'next/headers'
 import { LucideProps } from 'lucide-react'
 import lowerFirst from 'lodash/lowerFirst'
-import { redirect } from 'next/navigation'
 
 import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
 import { ProfileResponse } from '@/features/profile/types'
 import profileServerApi from '@/features/profile/api/server'
-import { ACCESS_TOKEN } from '@/features/auth/constants'
 import { AddressListResponse } from '@/features/address/types'
 import addressServerApi from '@/features/address/api/server'
 
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { CallingIcon, LocationIcon, MailIcon, PlusIcon, Svgr } from '@/shared/components/icons'
 
-export async function AccountInfoContent() {
-  const cookieStore = await cookies()
-  const accessToken = cookieStore.get(ACCESS_TOKEN)?.value
-
-  if (!accessToken) redirect(PATH.LOGIN)
-
+export async function AccountInfoContent({ accessToken }: { accessToken: string }) {
   let profile: ProfileResponse['data'] | null = null
   let defaultAddress: AddressListResponse['data'] | null = null
 

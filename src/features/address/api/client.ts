@@ -1,5 +1,3 @@
-import http from '@/shared/utils/http'
-
 import {
   AddNewAddressResponse,
   DistrictsResponseFromServer,
@@ -7,6 +5,7 @@ import {
   UpdateAddressResponse,
   WardsResponseFromServer,
 } from '@/features/address/types'
+import http from '@/shared/utils/http'
 import { MessageResponse } from '@/shared/types'
 import envVariables from '@/shared/schemas/env-variables.schema'
 import { AddNewAddressReqBody, UpdateAddressReqBody } from '@/features/address/schemas'

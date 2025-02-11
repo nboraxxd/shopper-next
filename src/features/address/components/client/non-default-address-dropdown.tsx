@@ -36,9 +36,9 @@ interface Props {
   setIsDisabled: Dispatch<SetStateAction<boolean>>
 }
 
-const ACTION_ITEM_CLASSNAME = 'min-h-8 rounded-none px-3 w-full'
+const ACTION_ITEM_CLASSNAME = 'min-h-8 w-full rounded-none px-3'
 
-export default function NonDefaultAddressOptions({ id, isDisabled, setIsDisabled }: Props) {
+export default function NonDefaultAddressDropdown({ id, isDisabled, setIsDisabled }: Props) {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 
   const router = useRouter()
@@ -47,7 +47,7 @@ export default function NonDefaultAddressOptions({ id, isDisabled, setIsDisabled
   const deleteAddressMutation = useDeleteAddressFromBackendMutation()
 
   async function handleSetDefaultAddress() {
-    if (setDefaultAddressMutation.isPending) return
+    if (setDefaultAddressMutation.isPending || isDisabled) return
 
     try {
       await setDefaultAddressMutation.mutateAsync(id)
@@ -60,7 +60,7 @@ export default function NonDefaultAddressOptions({ id, isDisabled, setIsDisabled
   }
 
   async function handleDeleteAddress() {
-    if (deleteAddressMutation.isPending) return
+    if (deleteAddressMutation.isPending || isDisabled) return
 
     setShowDeleteDialog(false)
     setIsDisabled(true)
@@ -92,7 +92,7 @@ export default function NonDefaultAddressOptions({ id, isDisabled, setIsDisabled
             <DropdownMenuItem
               asChild
               className={ACTION_ITEM_CLASSNAME}
-              disabled={setDefaultAddressMutation.isPending}
+              disabled={setDefaultAddressMutation.isPending || isDisabled}
               onClick={handleSetDefaultAddress}
             >
               <ButtonWithRefreshTokenState isPlainButton className="disabled:pointer-events-none disabled:opacity-50">

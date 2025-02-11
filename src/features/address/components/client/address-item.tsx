@@ -9,7 +9,7 @@ import PATH from '@/shared/constants/path'
 
 import { Button } from '@/shared/components/ui/button'
 import { EditSquareIcon, Svgr } from '@/shared/components/icons'
-import { NonDefaultAddressOptions } from '@/features/address/components/client'
+import { NonDefaultAddressDropdown } from '@/features/address/components/client'
 
 interface Props {
   id: string
@@ -49,7 +49,7 @@ export default function AddressItem({ id, address, email, fullName, isDefault, p
             </Link>
           </Button>
         ) : (
-          <NonDefaultAddressOptions id={id} isDisabled={isDisabled} setIsDisabled={setIsDisabled} />
+          <NonDefaultAddressDropdown id={id} isDisabled={isDisabled} setIsDisabled={setIsDisabled} />
         )}
       </div>
 

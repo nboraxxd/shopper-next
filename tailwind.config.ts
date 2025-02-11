@@ -112,7 +112,6 @@ export default {
         },
 
         footer: 'hsl(var(--footer))',
-        'products-sidebar': 'hsl(var(--products-sidebar))',
 
         'auth-intro': {
           DEFAULT: 'hsl(var(--auth-intro))',
@@ -125,9 +124,12 @@ export default {
           heading: 'hsl(var(--auth-content-heading))',
         },
 
+        'products-sidebar': 'hsl(var(--products-sidebar))',
+
         product: {
           DEFAULT: 'hsl(var(--product))',
           info: 'hsl(var(--product-info))',
+          'action-secondary': 'hsl(var(--product-action-secondary))',
         },
 
         breadcrumb: {

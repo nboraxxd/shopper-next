@@ -1,15 +1,23 @@
 import Link from 'next/link'
 import { Suspense } from 'react'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 import PATH from '@/shared/constants/path'
+import { ACCESS_TOKEN } from '@/features/auth/constants'
 
 import { PlusIcon, Svgr } from '@/shared/components/icons'
 import { AccountHeader, AccountSectionWrapper } from '@/features/account/components'
 import { AddressList, AddressListSkeleton } from '@/features/address/components/server'
 
-export default function AddressPage() {
+export default async function AddressPage() {
+  const cookieStore = await cookies()
+  const accessToken = cookieStore.get(ACCESS_TOKEN)?.value
+
+  if (!accessToken) redirect(PATH.LOGIN)
+
   return (
-    <AccountSectionWrapper>
+    <AccountSectionWrapper className="h-full">
       <AccountHeader>Sổ địa chỉ</AccountHeader>
       <Link
         href={PATH.ADD_ADDRESS}
@@ -20,7 +28,7 @@ export default function AddressPage() {
       </Link>
 
       <Suspense fallback={<AddressListSkeleton />}>
-        <AddressList />
+        <AddressList accessToken={accessToken} />
       </Suspense>
     </AccountSectionWrapper>
   )
