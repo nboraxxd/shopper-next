@@ -4,9 +4,14 @@ import { z } from 'zod'
 
 export const addNewPaymentCardSchema = z.object({
   cardName: name,
-  cardNumber: z.string().regex(/^\d{12,19}$/, PAYMENT_ERROR_MESSAGES.CARD_NUMBER_INVALID),
-  expiryDate: z
+  cardNumber: z
     .string()
+    .nonempty(PAYMENT_ERROR_MESSAGES.CARD_NUMBER_REQUIRED)
+    .regex(/^\d{4} \d{4} \d{4} \d{4}$/, PAYMENT_ERROR_MESSAGES.CARD_NUMBER_INVALID)
+    .transform((cardNumber) => cardNumber.replace(/\s/g, '')),
+  expired: z
+    .string()
+    .nonempty(PAYMENT_ERROR_MESSAGES.EXPIRY_DATE_REQUIRED)
     .regex(/^(0[1-9]|1[0-2])\/\d{2}$/, PAYMENT_ERROR_MESSAGES.EXPIRY_DATE_INVALID)
     .refine((date) => {
       const [month, year] = date.split('/').map(Number)
@@ -19,8 +24,13 @@ export const addNewPaymentCardSchema = z.object({
       // Kiểm tra xem tháng/năm có hợp lệ không
       return year > currentYear || (year === currentYear && month >= currentMonth)
     }, PAYMENT_ERROR_MESSAGES.EXPIRY_DATE_IN_FUTURE),
-  cvv: z.string().regex(/^\d{3,4}$/, PAYMENT_ERROR_MESSAGES.CVV_INVALID),
-  type: z.enum(['card', 'paypall'], { message: PAYMENT_ERROR_MESSAGES.TYPE_INVALID }),
+  cvv: z
+    .string()
+    .nonempty(PAYMENT_ERROR_MESSAGES.CVV_REQUIRED)
+    .regex(/^\d{3}$/, PAYMENT_ERROR_MESSAGES.CVV_INVALID),
+  type: z.enum(['card', 'paypall'], {
+    message: PAYMENT_ERROR_MESSAGES.TYPE_INVALID,
+  }),
   default: z.boolean().optional(),
 })
 

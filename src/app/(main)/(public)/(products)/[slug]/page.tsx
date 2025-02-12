@@ -104,7 +104,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
           <div className="mx-auto w-full p-4 md:p-10 lg:w-10/12 xl:w-8/12">
             <h2 className="text-lg font-bold uppercase">Mô tả sản phẩm</h2>
             <div
-              className="mt-5 overflow-hidden [&_*]:dark:!bg-inherit [&_p]:dark:!text-light-1"
+              className="mt-5 overflow-hidden [&_*]:dark:!bg-inherit [&_li]:dark:!text-light-1 [&_p]:dark:!text-light-1"
               dangerouslySetInnerHTML={{ __html: product.description }}
             />
           </div>

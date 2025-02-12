@@ -8,9 +8,6 @@ export const PROFILE_KEY = {
   PROFILE: 'profile',
 } as const
 
-export const CUSTOM_PROFILE_INPUT_CLASSNAME =
-  'h-11 text-ellipsis rounded-xl font-medium transition-none focus-visible:border-transparent focus-visible:shadow-focus-within focus-visible:ring-0'
-
 export const PROFILE_ERROR_MESSAGES = {
   PHONE_NUMBER_REQUIRED: 'Số điện thoại không được để trống',
   INVALID_PHONE_NUMBER: 'Số điện thoại không đúng định dạng',

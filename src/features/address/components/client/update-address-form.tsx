@@ -16,7 +16,7 @@ import { handleClientErrorApi } from '@/shared/utils/error'
 import { ProvincesResponseFromBackend } from '@/features/address/types'
 import { Region, UpdateAddressReqBody } from '@/features/address/schemas'
 import { useUpdateAddressToBackendMutation } from '@/features/address/hooks'
-import { CUSTOM_PROFILE_INPUT_CLASSNAME } from '@/features/profile/constants'
+import { CUSTOM_ACCOUNT_INPUT_CLASSNAME } from '@/features/account/constants'
 import { updateAddressSchema, UpdateAddressType } from '@/features/address/schemas'
 import { AddressDetailResponse, DistrictsResponseFromBackend, WardsResponseFromBackend } from '@/features/address/types'
 
@@ -116,8 +116,8 @@ export default function UpdateAddressForm(props: Props) {
           ...changes,
         },
       })
-      toast.success('Cập nhật địa chỉ thành công')
 
+      toast.success('Cập nhật địa chỉ thành công')
       router.push(PATH.ADDRESS)
     } catch (error) {
       setIsNavigating(false)
@@ -143,7 +143,7 @@ export default function UpdateAddressForm(props: Props) {
                 <Input
                   {...field}
                   autoComplete="name"
-                  className={CUSTOM_PROFILE_INPUT_CLASSNAME}
+                  className={CUSTOM_ACCOUNT_INPUT_CLASSNAME}
                   placeholder="Họ và tên"
                 />
               </FormControl>
@@ -161,7 +161,7 @@ export default function UpdateAddressForm(props: Props) {
               <FormLabel>Số điện thoại</FormLabel>
               <FormControl>
                 <Input
-                  className={CUSTOM_PROFILE_INPUT_CLASSNAME}
+                  className={CUSTOM_ACCOUNT_INPUT_CLASSNAME}
                   placeholder="Số điện thoại"
                   {...field}
                   onChange={(ev) => field.onChange(ev.target.value !== '' ? ev.target.value : null)}
@@ -181,7 +181,7 @@ export default function UpdateAddressForm(props: Props) {
             <FormItem className="space-y-1">
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input {...field} autoComplete="email" className={CUSTOM_PROFILE_INPUT_CLASSNAME} placeholder="Email" />
+                <Input {...field} autoComplete="email" className={CUSTOM_ACCOUNT_INPUT_CLASSNAME} placeholder="Email" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -266,7 +266,7 @@ export default function UpdateAddressForm(props: Props) {
                 <AutosizeTextarea
                   minHeight={48}
                   maxHeight={96}
-                  className={cn(CUSTOM_PROFILE_INPUT_CLASSNAME, 'h-auto')}
+                  className={cn(CUSTOM_ACCOUNT_INPUT_CLASSNAME, 'h-auto')}
                   placeholder="Địa chỉ cụ thể"
                   {...field}
                 />

@@ -6,16 +6,18 @@ import { useForm } from 'react-hook-form'
 import isUndefined from 'lodash/isUndefined'
 import { LoaderCircleIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { PatternFormat } from 'react-number-format'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { cn } from '@/shared/utils'
+import { GENDERS } from '@/features/profile/constants'
 import { ProfileResponse } from '@/features/profile/types'
 import { handleClientErrorApi } from '@/shared/utils/error'
 import { validateGenderValue } from '@/features/profile/utils'
 import { useUploadImageToBackendMutation } from '@/features/file/hooks'
 import { useUpdateProfileToBackendMutation } from '@/features/profile/hooks'
+import { CUSTOM_ACCOUNT_INPUT_CLASSNAME } from '@/features/account/constants'
 import { UpdateProfileReqBody, updateProfileSchema } from '@/features/profile/schemas'
-import { CUSTOM_PROFILE_INPUT_CLASSNAME, GENDERS } from '@/features/profile/constants'
 
 import {
   Form,
@@ -99,6 +101,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
     if (isFormProcessing) return
 
     const { avatar, birthday, fb, gender, name, phone } = profile
+    console.log(phone === values.phone)
 
     const changes = omitBy(
       {
@@ -199,7 +202,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
                     <Input
                       {...field}
                       autoComplete="name"
-                      className={CUSTOM_PROFILE_INPUT_CLASSNAME}
+                      className={CUSTOM_ACCOUNT_INPUT_CLASSNAME}
                       placeholder="Tên của bạn"
                     />
                   </FormControl>
@@ -216,10 +219,12 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
                 <FormItem className="space-y-1">
                   <FormLabel>Số điện thoại</FormLabel>
                   <FormControl>
-                    <Input
-                      className={CUSTOM_PROFILE_INPUT_CLASSNAME}
-                      placeholder="Số điện thoại"
+                    <PatternFormat
                       {...field}
+                      customInput={Input}
+                      format="#### ### ###"
+                      placeholder="Số điện thoại"
+                      className={CUSTOM_ACCOUNT_INPUT_CLASSNAME}
                       onChange={(ev) => field.onChange(ev.target.value !== '' ? ev.target.value : null)}
                       value={field.value ?? ''}
                     />
@@ -274,7 +279,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
                   <FormControl>
                     <Input
                       type="url"
-                      className={cn(CUSTOM_PROFILE_INPUT_CLASSNAME)}
+                      className={cn(CUSTOM_ACCOUNT_INPUT_CLASSNAME)}
                       placeholder="Đường link facebook"
                       {...field}
                       onChange={(ev) => field.onChange(ev.target.value !== '' ? ev.target.value : null)}

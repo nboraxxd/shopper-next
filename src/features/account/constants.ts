@@ -55,3 +55,6 @@ export const ACCOUNT_MENU = [
     ],
   },
 ] as const
+
+export const CUSTOM_ACCOUNT_INPUT_CLASSNAME =
+  'h-11 text-ellipsis rounded-xl font-medium transition-none focus-visible:border-transparent focus-visible:shadow-focus-within focus-visible:ring-0'

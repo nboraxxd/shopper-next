@@ -18,7 +18,11 @@ export const updateProfileSchema = z.object({
   gender: z.enum(['male', 'female', 'other'], { message: PROFILE_ERROR_MESSAGES.INVALID_GENDER }).nullable(),
   phone: z
     .string()
-    .regex(/(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/, PROFILE_ERROR_MESSAGES.INVALID_PHONE_NUMBER)
+    .regex(/^\d{4} \d{3} \d{3}$/, PROFILE_ERROR_MESSAGES.INVALID_PHONE_NUMBER)
+    .transform((phone) => phone.replace(/\s/g, ''))
+    .refine((plainPhone) => {
+      return /(?:\+84|0084|0)[235789][0-9]{1,2}[0-9]{7}(?:[^\d]+|$)/.test(plainPhone)
+    }, PROFILE_ERROR_MESSAGES.INVALID_PHONE_NUMBER)
     .nullable(),
 })
 

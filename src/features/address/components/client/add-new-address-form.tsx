@@ -13,7 +13,7 @@ import { handleClientErrorApi } from '@/shared/utils/error'
 import { useProfileStore } from '@/features/profile/profile-store'
 import { ProvincesResponseFromBackend } from '@/features/address/types'
 import { useAddNewAddressToBackendMutation } from '@/features/address/hooks'
-import { CUSTOM_PROFILE_INPUT_CLASSNAME } from '@/features/profile/constants'
+import { CUSTOM_ACCOUNT_INPUT_CLASSNAME } from '@/features/account/constants'
 import { AddNewAddressType, addNewAddressSchema, Region } from '@/features/address/schemas'
 
 import { Input } from '@/shared/components/ui/input'
@@ -89,7 +89,7 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
                 <Input
                   {...field}
                   autoComplete="name"
-                  className={CUSTOM_PROFILE_INPUT_CLASSNAME}
+                  className={CUSTOM_ACCOUNT_INPUT_CLASSNAME}
                   placeholder="Họ và tên"
                 />
               </FormControl>
@@ -107,9 +107,9 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
               <FormLabel>Số điện thoại</FormLabel>
               <FormControl>
                 <Input
-                  className={CUSTOM_PROFILE_INPUT_CLASSNAME}
-                  placeholder="Số điện thoại"
                   {...field}
+                  placeholder="Số điện thoại"
+                  className={CUSTOM_ACCOUNT_INPUT_CLASSNAME}
                   onChange={(ev) => field.onChange(ev.target.value !== '' ? ev.target.value : null)}
                   value={field.value ?? ''}
                 />
@@ -127,7 +127,7 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
             <FormItem className="space-y-1">
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input {...field} autoComplete="email" className={CUSTOM_PROFILE_INPUT_CLASSNAME} placeholder="Email" />
+                <Input {...field} autoComplete="email" className={CUSTOM_ACCOUNT_INPUT_CLASSNAME} placeholder="Email" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -195,7 +195,7 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
                 <AutosizeTextarea
                   minHeight={48}
                   maxHeight={96}
-                  className={cn(CUSTOM_PROFILE_INPUT_CLASSNAME, 'h-auto')}
+                  className={cn(CUSTOM_ACCOUNT_INPUT_CLASSNAME, 'h-auto')}
                   placeholder="Địa chỉ cụ thể"
                   {...field}
                 />
@@ -227,7 +227,7 @@ export default function AddNewAddressForm({ provinces }: { provinces: ProvincesR
           className="mt-4 h-11 gap-1.5 rounded-full px-5 py-0 [&_svg]:size-5"
           disabled={isFormProcessing}
         >
-          {addNewAddressMutation.isPending || isNavigating ? <LoaderCircleIcon className="animate-spin" /> : null}
+          {isFormProcessing ? <LoaderCircleIcon className="animate-spin" /> : null}
           Thêm địa chỉ
         </ButtonWithRefreshTokenState>
       </form>

@@ -53,7 +53,11 @@ export default function PaymentCard({
           {type === 'card' ? <PlaneIcon /> : <LeafIcon />}
           <span className="text-sm font-medium">{type === 'card' ? 'Thẻ tín dụng' : 'PayPal'}</span>
         </div>
-        {type === 'card' ? <CreditCardIcon /> : <PayPalIcon className="size-7" width={28} height={28} />}
+        {type === 'card' ? (
+          <CreditCardIcon width={42} height={28} />
+        ) : (
+          <PayPalIcon className="size-7" width={28} height={28} />
+        )}
       </div>
 
       <div className="mt-9 flex text-lg font-medium">
