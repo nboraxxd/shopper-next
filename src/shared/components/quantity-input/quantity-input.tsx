@@ -73,7 +73,7 @@ export default function QuantityInput(props: Props) {
   return (
     <div
       className={cn(
-        'flex h-11 w-fit items-center rounded-xl border border-secondary-3 px-5 shadow-sm focus-within:border-secondary-3/0 focus-within:shadow-focus-within',
+        'flex h-11 w-fit items-center rounded-xl border border-foreground px-5 shadow-sm focus-within:border-secondary-3/0 focus-within:shadow-focus-within',
         className
       )}
     >

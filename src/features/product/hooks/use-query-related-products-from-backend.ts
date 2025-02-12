@@ -1,6 +1,7 @@
-import { productClientApi } from '@/features/product/api/client'
-import { PRODUCT_KEY } from '@/features/product/constants'
 import { useQuery } from '@tanstack/react-query'
+
+import { PRODUCT_KEY } from '@/features/product/constants'
+import { productClientApi } from '@/features/product/api/client'
 
 export default function useQueryRelatedProductsFromBackend(categoryId: number, enabled = true) {
   return useQuery({

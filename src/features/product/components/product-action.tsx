@@ -30,7 +30,7 @@ export default function ProductAction({ stock }: { stock: number }) {
       <div className="mt-5">
         <Button
           variant="ghost"
-          className="h-[46px] w-full rounded-md border border-product-action-secondary text-lg text-product-action-secondary hover:bg-accent/50 hover:text-product-action-secondary"
+          className="h-[46px] w-full rounded-md border border-highlight text-lg text-highlight hover:bg-accent/50 hover:text-highlight"
           disabled={stock === 0}
         >
           Thêm vào giỏ
@@ -41,7 +41,7 @@ export default function ProductAction({ stock }: { stock: number }) {
           </Button>
           <Button
             variant="ghost"
-            className="h-[46px] grow rounded-md border border-product-action-secondary text-product-action-secondary hover:bg-accent/50 hover:text-product-action-secondary sm:text-lg"
+            className="h-[46px] grow rounded-md border border-highlight text-highlight hover:bg-accent/50 hover:text-highlight sm:text-lg"
           >
             Yêu thích
           </Button>

@@ -13,7 +13,7 @@ import {
 } from '@/shared/components/ui/sheet'
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
-import { AuthButton, CategoryHover } from '@/shared/components/header'
+import { AuthButton, CartQuantity, CategoryHover } from '@/shared/components/header'
 import { ArrowLeftIcon, AlignLeftIcon, SearchIcon, ShopperIcon, CartIcon, Svgr } from '@/shared/components/icons'
 
 export default function Header() {
@@ -81,7 +81,7 @@ export default function Header() {
         >
           <Link href={PATH.CART}>
             <Svgr icon={CartIcon} />
-            <span>01</span>
+            <CartQuantity />
             <span className="sr-only">Giỏ hàng</span>
           </Link>
         </Button>

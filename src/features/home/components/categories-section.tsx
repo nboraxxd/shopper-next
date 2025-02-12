@@ -44,7 +44,7 @@ export default async function CategoriesSection() {
       </div>
 
       <div className="mt-6 px-4 sm:hidden">
-        <Link href={PATH.PRODUCTS} className="block text-sm font-semibold text-primary hover:text-primary/90">
+        <Link href={PATH.PRODUCTS} className="block text-sm font-semibold text-highlight hover:text-highlight/90">
           Xem tất cả
           <span aria-hidden="true"> &rarr;</span>
         </Link>

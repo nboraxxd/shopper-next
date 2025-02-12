@@ -89,15 +89,15 @@ export type ProductsSearchParams = {
 }
 
 export type ProductBase = {
-  _id: string
   id: number
   name: string
   price: number
-  real_price: number
   rating_average: number
+  real_price: number
   review_count: number
-  thumbnail_url: string
   slug: string
+  thumbnail_url: string
+  _id: string
 }
 
 export type Product = {

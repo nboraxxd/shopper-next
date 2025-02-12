@@ -5,8 +5,6 @@ export const PAYMENT_CARD_TYPE = [
   { icon: PayPalIcon, label: 'PayPal', value: 'paypall' },
 ] as const
 
-export const PAYMENT_KEY = {} as const
-
 export const PAYMENT_ERROR_MESSAGES = {
   CARD_NUMBER_REQUIRED: 'Vui lòng nhập số thẻ',
   CARD_NUMBER_INVALID: 'Số thẻ không hợp lệ',
