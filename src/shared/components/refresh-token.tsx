@@ -53,14 +53,18 @@ export default function RefreshToken() {
       setIsRefreshingToken(true)
 
       checkAndRefreshToken({
-        onSuccess: () => {
-          // console.log('🚀 reconnect refresh token')
+        onUserNotLoggedIn: () => {
+          setIsRefreshingToken(false)
+        },
+
+        onRefreshTokenNotNeeded: () => {
           setIsRefreshingToken(false)
 
           startTokenCheckInterval()
         },
 
-        onRefreshTokenNotNeeded: () => {
+        onSuccess: () => {
+          // console.log('🚀 reconnect refresh token')
           setIsRefreshingToken(false)
 
           startTokenCheckInterval()

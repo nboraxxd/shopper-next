@@ -1,10 +1,10 @@
 'use client'
 
+import { LoaderCircleIcon } from 'lucide-react'
+
 import { useIsClient } from '@/shared/hooks'
 import { useAuthStore } from '@/features/auth/auth-store'
 import { useQueryCartFromBackend } from '@/features/cart/hooks'
-
-import { Skeleton } from '@/shared/components/ui/skeleton'
 
 export default function CartQuantity() {
   const isClient = useIsClient()
@@ -33,5 +33,5 @@ function CartQuantityContent() {
 }
 
 function CartQuantityLoader() {
-  return <Skeleton className="size-5 rounded-sm" />
+  return <LoaderCircleIcon className="!size-5 animate-spin" />
 }

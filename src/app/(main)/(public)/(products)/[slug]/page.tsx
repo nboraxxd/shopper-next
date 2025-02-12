@@ -79,7 +79,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                 </h2>
               </div>
               <div className="grow xl:w-1/2">
-                <ProductAction stock={product.stock_item.qty} />
+                <ProductAction productId={product.id} stock={product.stock_item.qty} />
               </div>
             </div>
             <Separator className="mt-5 block lg:hidden xl:block" />

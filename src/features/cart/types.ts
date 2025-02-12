@@ -13,3 +13,18 @@ export type GetCartResponse = {
     listItems: ItemInCart[]
   }
 }
+
+export type UpdateQtyItemInCartResponse = {
+  data: {
+    listItems: {
+      productId: number
+      quantity: number
+    }[]
+    status: string
+    totalQuantity: number
+    type: string
+    user: string
+    _id: string
+  }
+  updateCount: number
+}

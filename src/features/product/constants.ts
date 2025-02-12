@@ -36,3 +36,11 @@ export const PRODUCT_KEY = {
   PRODUCT: 'product',
   RELATED_PRODUCTS: 'relatedProducts',
 }
+
+export const PRODUCT_MESSAGE = {
+  OUT_OF_STOCK: 'Sản phẩm đã hết hàng',
+  PRODUCT_ALREADY_IN_CART: (productQuantityInCart: number) =>
+    `Giỏ hàng đã có ${productQuantityInCart} sản phẩm. Số lượng trong kho không đủ để tiếp tục.`,
+  ADDING_PRODUCT_TO_CART: 'Đang thêm sản phẩm vào giỏ hàng...',
+  ADDED_PRODUCT_TO_CART: 'Đã thêm sản phẩm vào giỏ hàng',
+}
