@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
-import { useInView } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 
 import { useQueryRelatedProductsFromBackend } from '@/features/product/hooks'
 
@@ -10,25 +10,24 @@ import { Skeleton } from '@/shared/components/ui/skeleton'
 import { ProductCard } from '@/features/product/components'
 
 export default function RelatedProducts({ categoryId, productId }: { categoryId: number; productId: number }) {
-  const ref = useRef<HTMLDivElement | null>(null)
   const queryRelatedProducts = useRef<unknown>(null)
 
-  const isInView = useInView(ref, { margin: '200px' })
+  const { ref, inView } = useInView({ rootMargin: '500px', triggerOnce: true })
 
   const queryRelatedProductsFromBackend = useQueryRelatedProductsFromBackend(categoryId, false)
 
   useEffect(() => {
-    if (!isInView || queryRelatedProducts.current) return
+    if (!inView || queryRelatedProducts.current) return
 
     queryRelatedProducts.current = queryRelatedProductsFromBackend.refetch
     queryRelatedProductsFromBackend.refetch()
 
     const timeout = setTimeout(() => {
       queryRelatedProducts.current = null
-    }, 1000)
+    }, 0)
 
     return () => clearTimeout(timeout)
-  }, [isInView, queryRelatedProductsFromBackend])
+  }, [inView, queryRelatedProductsFromBackend])
 
   return (
     <div className="mt-8" ref={ref}>

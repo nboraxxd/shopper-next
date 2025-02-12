@@ -63,7 +63,6 @@ export default function ProductAction({ productId, stock }: { productId: number;
     const productQuantityInCart = queryCartResponse.isSuccess
       ? (queryCartResponse.data.payload.data.listItems.find((item) => item.productId === productId)?.quantity ?? 0)
       : 0
-    console.log('🔥 ~ handleAddToCart ~ quantity:', quantity)
 
     // Validate the quantity input and parse it to integer
     const parsedQuantity = parseInt(quantity) ? parseInt(quantity) : 1
@@ -119,7 +118,7 @@ export default function ProductAction({ productId, stock }: { productId: number;
         <ButtonWithRefreshTokenState
           variant="ghost"
           className="h-[46px] w-full rounded-md border border-highlight text-lg text-highlight hover:bg-accent/50 hover:text-highlight"
-          disabled={stock === 0 || isRefetchQueryCart || updateQtyItemInCartMutation.isPending}
+          disabled={stock === 0}
           onClick={handleAddToCart}
         >
           {isRefetchQueryCart || updateQtyItemInCartMutation.isPending ? (

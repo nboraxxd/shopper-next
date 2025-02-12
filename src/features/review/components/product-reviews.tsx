@@ -1,8 +1,8 @@
 'use client'
 
 import { format } from 'date-fns'
-import { useInView } from 'framer-motion'
 import { useEffect, useRef } from 'react'
+import { useInView } from 'react-intersection-observer'
 
 import { useQueryReviewsFromBackend } from '@/features/review/hooks'
 
@@ -12,15 +12,14 @@ import { Separator } from '@/shared/components/ui/separator'
 import { SmileStarIcon, StarIcon, Svgr } from '@/shared/components/icons'
 
 export default function ProductReviews({ productId }: { productId: number }) {
-  const ref = useRef<HTMLDivElement | null>(null)
   const queryReviewsRef = useRef<unknown>(null)
 
-  const isInView = useInView(ref, { margin: '100px' })
+  const { ref, inView } = useInView({ rootMargin: '400px', triggerOnce: true })
 
   const queryReviewsFromBackend = useQueryReviewsFromBackend(productId, false)
 
   useEffect(() => {
-    if (!isInView || queryReviewsRef.current) return
+    if (!inView || queryReviewsRef.current) return
 
     queryReviewsRef.current = queryReviewsFromBackend.refetch
     queryReviewsFromBackend.refetch()
@@ -30,7 +29,7 @@ export default function ProductReviews({ productId }: { productId: number }) {
     }, 0)
 
     return () => clearTimeout(timeout)
-  }, [isInView, queryReviewsFromBackend])
+  }, [inView, queryReviewsFromBackend])
 
   return (
     <section className="mt-8 rounded-xl bg-product-info" ref={ref}>

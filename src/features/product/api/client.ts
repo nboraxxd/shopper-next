@@ -8,6 +8,6 @@ const PREFIX = '/product'
 export const productClientApi = {
   getRelatedProductsFromBackend: (categoryId: number) =>
     http.get<RelatedProductsResponse>(PREFIX, {
-      params: { categories: categoryId.toString(), fields: RELATED_PRODUCTS_FIELDS, limit: '18' },
+      params: { categories: categoryId.toString(), fields: RELATED_PRODUCTS_FIELDS, limit: '12' },
     }),
 }

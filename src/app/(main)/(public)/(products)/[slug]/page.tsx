@@ -9,6 +9,7 @@ import { Separator } from '@/shared/components/ui/separator'
 import { ProductReviews } from '@/features/review/components'
 import { ShieldIcon, StarIcon, Svgr } from '@/shared/components/icons'
 import { ProductAction, ProductImages, RelatedProducts } from '@/features/product/components'
+import { ProductInfoEndIndicator } from '@/features/product/components/clients'
 
 export default async function ProductDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
@@ -37,7 +38,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
         {/* Breadcrumb */}
         <section></section>
 
-        {/* Product Detail */}
+        {/* Product info */}
         <section className="items-start gap-4 rounded-xl bg-card p-4 md:mt-8 md:gap-8 md:rounded-none md:bg-transparent md:p-0 lg:flex">
           <div className="rounded-md dark:border-transparent md:flex md:flex-row-reverse md:border md:px-7 lg:w-1/2 lg:flex-col lg:border-none xl:w-5/12">
             <ProductImages
@@ -87,19 +88,20 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
               <h3 className="mt-5 font-medium">Quyền lợi khách hàng & bảo hành</h3>
               <div className="mt-2 flex flex-col gap-2 sm:flex-row">
                 <h4 className="flex basis-2/6 items-center gap-1 text-sm font-medium">
-                  <ShieldIcon className="inline-block size-6" />
+                  <Svgr icon={ShieldIcon} className="inline-block size-6" />
                   <span className="p-1">7 ngày hoàn trả</span>
                 </h4>
                 <h4 className="flex basis-4/6 items-center gap-1 text-sm font-medium">
-                  <ShieldIcon className="inline-block size-6" />
+                  <Svgr icon={ShieldIcon} className="inline-block size-6" />
                   <span className="p-1">Bảo hành theo chính sách từ nhà bán</span>
                 </h4>
               </div>
             </div>
           </div>
+          <ProductInfoEndIndicator />
         </section>
 
-        {/* Product Description */}
+        {/* Product description */}
         <section className="mt-8 rounded-xl bg-product-info">
           <div className="mx-auto w-full p-4 md:p-10 lg:w-10/12 xl:w-8/12">
             <h2 className="text-lg font-bold uppercase">Mô tả sản phẩm</h2>
@@ -110,10 +112,10 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
           </div>
         </section>
 
-        {/* Product Review */}
+        {/* Product review */}
         <ProductReviews productId={product.id} />
 
-        {/* Related Products */}
+        {/* Related products */}
         <RelatedProducts productId={product.id} categoryId={product.categories} />
       </div>
     </main>
