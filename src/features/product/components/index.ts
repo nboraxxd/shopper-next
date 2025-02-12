@@ -1,6 +1,0 @@
-export { default as ProductList } from './product-list'
-export { default as ProductSidebar } from './product-sidebar'
-export { default as ProductCard } from './product-card'
-export { default as ProductAction } from './product-action'
-export { default as ProductImages } from './product-images/product-images'
-export { default as RelatedProducts } from './related-products'

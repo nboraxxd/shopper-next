@@ -6,7 +6,7 @@ import { productServerApi } from '@/features/product/api/server'
 import { PRODUCTS_FIELDS } from '@/features/product/constants'
 import type { Product, ProductsField, ProductsSearchParams } from '@/features/product/types'
 
-import { ProductCard } from '@/features/product/components'
+import { ProductCard } from '@/features/product/components/server'
 
 interface Props {
   productsSearchParams: ProductsSearchParams

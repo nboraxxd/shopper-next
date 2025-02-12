@@ -7,7 +7,7 @@ import { useInView } from 'react-intersection-observer'
 import { useQueryRelatedProductsFromBackend } from '@/features/product/hooks'
 
 import { Skeleton } from '@/shared/components/ui/skeleton'
-import { ProductCard } from '@/features/product/components'
+import { ProductCard } from '@/features/product/components/server'
 
 export default function RelatedProducts({ categoryId, productId }: { categoryId: number; productId: number }) {
   const queryRelatedProducts = useRef<unknown>(null)

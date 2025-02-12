@@ -2,7 +2,7 @@ import type { SearchParams } from '@/shared/types'
 import { categoryServerApi } from '@/features/category/api/server'
 import { sanitizeProductsSearchParams } from '@/features/product/utils/server'
 
-import { ProductList, ProductSidebar } from '@/features/product/components'
+import { ProductList, ProductSidebar } from '@/features/product/components/server'
 
 export default async function ProductsPage(props: { searchParams: SearchParams }) {
   const searchParams = await props.searchParams

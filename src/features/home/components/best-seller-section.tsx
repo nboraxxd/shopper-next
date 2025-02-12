@@ -5,9 +5,9 @@ import { productServerApi } from '@/features/product/api/server'
 import { BEST_SELLER_PRODUCTS_FIELDS } from '@/features/product/constants'
 import type { Product, BestSellerProductsField } from '@/features/product/types'
 
-import { ProductCard } from '@/features/product/components'
-import { Skeleton } from '@/shared/components/ui/skeleton'
 import { ShopperIcon } from '@/shared/components/icons'
+import { Skeleton } from '@/shared/components/ui/skeleton'
+import { ProductCard } from '@/features/product/components/server'
 
 function BestSellerWapper({ children }: { children: React.ReactNode }) {
   return (

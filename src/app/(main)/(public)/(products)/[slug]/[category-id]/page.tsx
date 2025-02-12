@@ -5,7 +5,7 @@ import { CATEGORY_IDS } from '@/features/category/constants'
 import { categoryServerApi } from '@/features/category/api/server'
 import { sanitizeProductsSearchParams } from '@/features/product/utils/server'
 
-import { ProductList, ProductSidebar } from '@/features/product/components'
+import { ProductList, ProductSidebar } from '@/features/product/components/server'
 
 interface Props {
   params: Promise<{ slug: string; 'category-id': string }>

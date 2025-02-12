@@ -5,11 +5,15 @@ import { extractProductId } from '@/features/product/utils'
 import { productServerApi } from '@/features/product/api/server'
 import { formatCurrency, formatNumberToSocialStyle } from '@/shared/utils'
 
+import {
+  ProductImages,
+  ProductAction,
+  RelatedProducts,
+  ProductInfoEndIndicator,
+} from '@/features/product/components/client'
 import { Separator } from '@/shared/components/ui/separator'
 import { ProductReviews } from '@/features/review/components'
 import { ShieldIcon, StarIcon, Svgr } from '@/shared/components/icons'
-import { ProductAction, ProductImages, RelatedProducts } from '@/features/product/components'
-import { ProductInfoEndIndicator } from '@/features/product/components/clients'
 
 export default async function ProductDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params

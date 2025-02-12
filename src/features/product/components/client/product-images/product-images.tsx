@@ -11,7 +11,7 @@ import {
   ProductPreviewSlider,
   HorizontalProductThumb,
   VerticalProductThumb,
-} from '@/features/product/components/product-images'
+} from '@/features/product/components/client/product-images'
 
 interface Props {
   name: Product['name']

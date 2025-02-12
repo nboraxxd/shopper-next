@@ -8,7 +8,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 
 import { cn } from '@/shared/utils'
 import { ProductImageSizes } from '@/features/product/types'
-import { ThumbControlButton } from '@/features/product/components/product-images'
+import { ThumbControlButton } from '@/features/product/components/client/product-images'
 
 import 'swiper/css'
 
