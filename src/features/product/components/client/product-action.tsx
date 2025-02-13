@@ -36,7 +36,7 @@ export default function ProductAction({ productId, stock, name, image, realPrice
 
   const authState = useAuthStore((state) => state.authState)
   const isShowFixedAction = useShowStickyAction((state) => state.isShow)
-  const toastStyle: CSSProperties = { bottom: isShowFixedAction ? '2.5rem' : '0rem' }
+  const toastStyle: CSSProperties = { bottom: isShowFixedAction ? '3.5rem' : '0rem' }
 
   // Another way to responsive toast style
   // const toastStyle: CSSProperties = { bottom: 'var(--product-toast-bottom)' }
@@ -153,15 +153,15 @@ export default function ProductAction({ productId, stock, name, image, realPrice
       <AnimatePresence>
         {isShowFixedAction ? (
           <motion.div
-            className="fixed inset-x-0 bottom-0 z-10 h-14 bg-product-sticky-action shadow-section lg:hidden"
+            className="fixed inset-x-0 bottom-0 z-10 h-[4.5rem] bg-product-sticky-action shadow-section lg:hidden"
             initial={{ y: 100 }}
             animate={{ y: 0 }}
             exit={{ y: 100 }}
             transition={{ duration: 0.4 }}
           >
             <div className="container flex h-full justify-center gap-3 sm:justify-between">
-              <div className="hidden sm:flex sm:items-center sm:gap-3">
-                <Image src={image} alt={name} width={56} height={56} className="size-12 shrink-0 rounded" />
+              <div className="hidden sm:flex sm:w-1/2 sm:items-center sm:gap-3">
+                <Image src={image} alt={name} width={72} height={72} className="size-14 shrink-0 rounded" />
                 <div>
                   <h2 className="line-clamp-1 text-sm font-medium">{name}</h2>
                   <p className="text-sm font-medium">
@@ -170,14 +170,14 @@ export default function ProductAction({ productId, stock, name, image, realPrice
                   </p>
                 </div>
               </div>
-              <div className="flex shrink-0 items-center gap-3">
+              <div className="flex w-full items-center gap-3 sm:w-1/2">
                 <AddToCartButton
                   handleAddToCart={handleAddToCart}
                   disabled={stock === 0}
                   isShowLoader={isRefetchQueryCart || updateQtyItemInCartMutation.isPending}
-                  className="h-10 gap-1 text-sm [&_svg]:size-4"
+                  className="h-11 w-1/2 gap-1 text-sm [&_svg]:size-4"
                 />
-                <BuyNowButton disabled={stock === 0} className="h-10" />
+                <BuyNowButton disabled={stock === 0} className="h-11 w-1/2" />
               </div>
             </div>
           </motion.div>
