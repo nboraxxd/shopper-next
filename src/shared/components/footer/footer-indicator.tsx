@@ -5,19 +5,17 @@ import { useInView } from 'react-intersection-observer'
 
 import { useShowStickyAction } from '@/features/product/hooks'
 
-export default function ProductInfoEndIndicator() {
-  const { ref, entry } = useInView()
+export default function FooterIndicator() {
+  const { ref, inView } = useInView()
   const setIsShow = useShowStickyAction((state) => state.setIsShow)
 
   useEffect(() => {
-    if (!entry?.boundingClientRect.top) return
-
-    if (entry.boundingClientRect.top < 0) {
-      setIsShow(true)
-    } else {
+    if (inView) {
       setIsShow(false)
+    } else {
+      setIsShow(true)
     }
-  }, [entry?.boundingClientRect.top, setIsShow])
+  }, [inView, setIsShow])
 
   return <div ref={ref} className="lg:hidden" />
 }

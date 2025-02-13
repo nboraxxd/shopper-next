@@ -129,7 +129,7 @@ export default {
         product: {
           DEFAULT: 'hsl(var(--product))',
           info: 'hsl(var(--product-info))',
-          'action-secondary': 'hsl(var(--product-action-secondary))',
+          'sticky-action': 'hsl(var(--product-sticky-action))',
         },
 
         breadcrumb: {

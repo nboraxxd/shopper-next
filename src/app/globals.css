@@ -44,6 +44,7 @@
     --container-gutter: 1.875rem; /* 30px */
     --header-height: 5.125rem; /* 82px */
     --sheet-header-height: 4.5rem; /* 72px */
+    --product-toast-bottom: 2rem; /* 32px */
 
     --popover-shadow: 0px 40px 90px 20px rgb(200 200 200 / 0.4);
     --section-shadow: 0px 20px 60px 10px rgb(237 237 246 / 0.2);
@@ -65,7 +66,7 @@
 
     --product: 240 42.9% 98.6%; /* #fafafd - secondary-6 */
     --product-info: 0 0% 100%; /* #fff - light-1 */
-    --product-action-secondary: 209.2 100% 43.1%; /* #0071dc - primary-blue */
+    --product-sticky-action: 0 0% 93.3%; /* #eee - light-3 */
 
     --breadcrumb: 0 0% 100%; /* #fff - light-1 */
     --breadcrumb-foreground: 245.5 5.9% 63.7%; /* #9e9da8 - secondary-2 */
@@ -124,6 +125,7 @@
     --focus-within-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05), 0 0 1px 2px rgb(119, 218, 230);
 
     --header: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+    --product-action: 0 0% 100%; /* #fff - light-1 */
     --header-button: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
 
     --footer: 222.4 27% 12.4%; /* #171c28 - dark-1 */
@@ -139,7 +141,7 @@
 
     --product: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
     --product-info: 222.4 27% 12.4%; /* #171c28 - dark-1 */
-    --product-action-secondary: 0 0% 100%; /* #fff - light-1 */
+    --product-sticky-action: 222.4 27% 12.4%; /* #171c28 - dark-1 */
 
     --breadcrumb: 222.4 27% 12.4%; /* #171c28 - dark-1 */
     --breadcrumb-foreground: 245.5 5.9% 63.7%; /* #9e9da8 - secondary-2 */
@@ -195,6 +197,7 @@
   @screen lg {
     :root {
       --header-height: 5.625rem; /* 90px */
+      --product-toast-bottom: 0rem; /* 0px */
     }
   }
 }

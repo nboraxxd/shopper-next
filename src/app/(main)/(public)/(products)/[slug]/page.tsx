@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { ProductResponse } from '@/features/product/types'
 import { extractProductId } from '@/features/product/utils'
 import { productServerApi } from '@/features/product/api/server'
+import { PRODUCT_ERROR_IMAGES } from '@/features/product/constants'
 import { formatCurrency, formatNumberToSocialStyle } from '@/shared/utils'
 
 import {
@@ -35,6 +36,20 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
   }
 
   if (!product) notFound()
+
+  let image = product.images[0].medium_url
+
+  if (
+    PRODUCT_ERROR_IMAGES.includes(image) &&
+    product.configurable_products &&
+    product.configurable_products.length > 0
+  ) {
+    // Khi đã vào đây, tức là configurableProducts có ít nhất 1 phần tử nên chỉ cần configurableProducts[0].
+    // Dùng configurableProducts[1]?. vì có thể configurableProducts[1] không tồn tại
+    // Chỉ cần dùng images[0]. vì medium_url luôn tồn tại trong images
+    image =
+      product.configurable_products[1]?.images[0].medium_url || product.configurable_products[0].images[0].medium_url
+  }
 
   return (
     <main className="min-h-[calc(100vh-var(--header-height))] bg-product pt-8">
@@ -84,7 +99,13 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                 </h2>
               </div>
               <div className="grow xl:w-1/2">
-                <ProductAction productId={product.id} stock={product.stock_item.qty} />
+                <ProductAction
+                  productId={product.id}
+                  stock={product.stock_item.qty}
+                  name={product.name}
+                  image={image}
+                  realPrice={product.real_price}
+                />
               </div>
             </div>
             <Separator className="mt-5 block lg:hidden xl:block" />
