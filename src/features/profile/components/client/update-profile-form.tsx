@@ -65,8 +65,16 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
       birthday: profile.birthday,
       fb: profile.fb,
       gender: validateGenderValue(profile.gender),
-      phone: profile.phone,
+      phone:
+        profile.phone?.length === 10
+          ? `${profile.phone.slice(0, 4)} ${profile.phone.slice(4, 7)} ${profile.phone.slice(7)}`
+          : profile.phone,
     })
+
+    if (profile.phone && profile.phone.length !== 10) {
+      form.setError('phone', { type: 'manual', message: `Số điện thoại ${profile.phone} không hợp lệ` })
+    }
+
     setIsLoadingProfile(false)
   }, [form, profile.avatar, profile.birthday, profile.fb, profile.gender, profile.name, profile.phone])
 
@@ -101,7 +109,6 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
     if (isFormProcessing) return
 
     const { avatar, birthday, fb, gender, name, phone } = profile
-    console.log(phone === values.phone)
 
     const changes = omitBy(
       {

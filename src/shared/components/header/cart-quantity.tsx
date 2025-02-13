@@ -23,10 +23,10 @@ function CartQuantityContent() {
 
   return queryCartFromBackend.isSuccess ? (
     <span>
-      {queryCartFromBackend.data.payload.data.listItems.length > 99
+      {queryCartFromBackend.data.payload.data.totalQuantity > 99
         ? '99+'
-        : queryCartFromBackend.data.payload.data.listItems.length > 0
-          ? queryCartFromBackend.data.payload.data.listItems.length.toString().padStart(2, '0')
+        : queryCartFromBackend.data.payload.data.totalQuantity > 0
+          ? queryCartFromBackend.data.payload.data.totalQuantity.toString().padStart(2, '0')
           : '0'}
     </span>
   ) : null
