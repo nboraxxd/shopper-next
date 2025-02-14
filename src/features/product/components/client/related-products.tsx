@@ -34,7 +34,7 @@ export default function RelatedProducts({ categoryId, productId }: { categoryId:
       <h2 className="text-lg font-bold uppercase">Có thể bạn cũng thích</h2>
       <div className="mt-5 grid grid-cols-2 gap-3 pb-10 xs:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {queryRelatedProductsFromBackend.isLoading
-          ? Array.from({ length: 18 }).map((_, index) => (
+          ? Array.from({ length: 12 }).map((_, index) => (
               <ProductCard key={index}>
                 <ProductCard.ImageSkeleton />
                 <ProductCard.ContentSkeleton>

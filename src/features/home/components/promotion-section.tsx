@@ -1,4 +1,6 @@
+import PATH from '@/shared/constants/path'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function PromotionSection() {
   return (
@@ -9,15 +11,15 @@ export default function PromotionSection() {
             <div className="relative pb-16 pt-48 sm:pb-24">
               <div>
                 <h2 id="sale-heading" className="text-4xl font-bold tracking-tight text-white md:text-5xl">
-                  Final Stock.
+                  Khuyến mãi tháng {new Date().getMonth() + 1}
                   <br />
-                  Up to 50% off.
+                  Giảm giá lên đến 50%
                 </h2>
                 <div className="mt-6 text-base">
-                  <a href="#" className="font-semibold text-white">
-                    Shop the sale
+                  <Link href={PATH.PRODUCTS} className="font-semibold text-white">
+                    Mua ngay
                     <span aria-hidden="true"> &rarr;</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
 
