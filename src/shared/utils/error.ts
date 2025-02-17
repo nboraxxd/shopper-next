@@ -60,7 +60,7 @@ export const handleClientErrorApi = <T extends FieldValues>({
         toast.error(error.payload.message)
       }
     } else {
-      toast.error(error.payload.message)
+      toast.error(error.payload.message || error.payload.error)
     }
   } else if (error instanceof DOMException) {
     console.log('AbortError:', error.message)

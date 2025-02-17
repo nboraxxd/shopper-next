@@ -3,8 +3,8 @@
 import { LoaderCircleIcon } from 'lucide-react'
 
 import { useIsClient } from '@/shared/hooks'
+import { useQueryCartList } from '@/features/cart/hooks'
 import { useAuthStore } from '@/features/auth/auth-store'
-import { useQueryCartFromBackend } from '@/features/cart/hooks'
 
 export default function CartQuantity() {
   const isClient = useIsClient()
@@ -17,16 +17,16 @@ export default function CartQuantity() {
 }
 
 function CartQuantityContent() {
-  const queryCartFromBackend = useQueryCartFromBackend()
+  const queryCartList = useQueryCartList()
 
-  if (queryCartFromBackend.isLoading) return <CartQuantityLoader />
+  if (queryCartList.isLoading) return <CartQuantityLoader />
 
-  return queryCartFromBackend.isSuccess ? (
+  return queryCartList.isSuccess ? (
     <span>
-      {queryCartFromBackend.data.payload.data.totalQuantity > 99
+      {queryCartList.data.payload.data.listItems.length > 99
         ? '99+'
-        : queryCartFromBackend.data.payload.data.totalQuantity > 0
-          ? queryCartFromBackend.data.payload.data.totalQuantity.toString().padStart(2, '0')
+        : queryCartList.data.payload.data.listItems.length > 0
+          ? queryCartList.data.payload.data.listItems.length.toString().padStart(2, '0')
           : '0'}
     </span>
   ) : null

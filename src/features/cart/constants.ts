@@ -1,3 +1,3 @@
 export const CART_KEY = {
-  CART: 'cart',
+  CART_LIST: 'cartList',
 }

@@ -13,7 +13,7 @@ import { Skeleton } from '@/shared/components/ui/skeleton'
 
 export default function AccountDesktopSidebar() {
   return (
-    <aside className="sticky top-[calc(var(--header-height)+2rem)] col-span-1 h-fit rounded-4xl bg-account-section shadow-section">
+    <aside className="sticky top-[calc(var(--header-height)+2rem)] col-span-1 self-start rounded-4xl bg-account-section shadow-section">
       <SidebarHeader />
       <SidebarNav />
     </aside>

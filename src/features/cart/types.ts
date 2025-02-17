@@ -1,20 +1,20 @@
 import { ProductBase } from '@/features/product/types'
 
-type ItemInCart = {
+export type CartItem = {
   productId: number
   quantity: number
   product: ProductBase
 }
 
-export type GetCartResponse = {
+export type GetCartListResponse = {
   data: {
     subTotal: number
     totalQuantity: number
-    listItems: ItemInCart[]
+    listItems: CartItem[]
   }
 }
 
-export type UpdateQtyItemInCartResponse = {
+export type UpdateCartItemQtyResponse = {
   data: {
     listItems: {
       productId: number
@@ -27,4 +27,8 @@ export type UpdateQtyItemInCartResponse = {
     _id: string
   }
   updateCount: number
+}
+
+export type DelCartItemResponse = {
+  deleteCount: number
 }

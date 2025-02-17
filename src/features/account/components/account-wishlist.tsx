@@ -26,7 +26,7 @@ export async function AccountWishlistContent({ accessToken }: { accessToken: str
 
   return wishlistResponse ? (
     <>
-      {wishlistResponse.length > 1
+      {wishlistResponse.length > 0
         ? wishlistResponse.map((wishlistItem) => (
             <Fragment key={wishlistItem.id}>
               <div className="flex items-center gap-3 first-of-type:mt-4 md:gap-5">

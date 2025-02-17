@@ -8,10 +8,10 @@ const PREFIX = '/product'
 export const productServerApi = {
   getProductsFromBackend: <T>(params?: ProductParameters) => http.get<ProductsResponse<T>>(PREFIX, { params }),
 
-  getProductDetailFromBackend: (id: string) =>
+  getProductDetailFromBackend: (productId: string) =>
     http.get<ProductResponse>(PREFIX, {
-      params: { id, fields: PRODUCT_DETAIL_FIELDS },
+      params: { id: productId, fields: PRODUCT_DETAIL_FIELDS },
       cache: 'force-cache',
-      next: { tags: [`${PRODUCT_KEY.PRODUCT}/${id}`] },
+      next: { tags: [`${PRODUCT_KEY.PRODUCT}/${productId}`] },
     }),
 }

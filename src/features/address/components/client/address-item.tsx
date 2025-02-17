@@ -8,7 +8,7 @@ import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
 
 import { Button } from '@/shared/components/ui/button'
-import { EditSquareIcon, Svgr } from '@/shared/components/icons'
+import { PencilSquareIcon, Svgr } from '@/shared/components/icons'
 import { NonDefaultAddressDropdown } from '@/features/address/components/client'
 
 interface Props {
@@ -45,7 +45,7 @@ export default function AddressItem({ id, address, email, fullName, isDefault, p
         {isDefault ? (
           <Button variant="ghost" size="icon" className="size-[1.375rem] hover:bg-account-highlight [&_svg]:size-4">
             <Link href={`${PATH.UPDATE_ADDRESS}/${id}`}>
-              <Svgr icon={EditSquareIcon} className="size-4" />
+              <Svgr icon={PencilSquareIcon} className="size-4" />
             </Link>
           </Button>
         ) : (

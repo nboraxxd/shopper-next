@@ -4,6 +4,7 @@ import {
   BEST_SELLER_PRODUCTS_FIELDS,
   PRODUCT_DETAIL_FIELDS,
   PRODUCT_SORT_OPTIONS,
+  PRODUCT_STOCK_FIELDS,
   PRODUCTS_FIELDS,
   RELATED_PRODUCTS_FIELDS,
 } from '@/features/product/constants'
@@ -17,6 +18,8 @@ export type BestSellerProductsField = FieldUnion<typeof BEST_SELLER_PRODUCTS_FIE
 export type ProductDetailField = FieldUnion<typeof PRODUCT_DETAIL_FIELDS>
 
 export type RelatedProductsField = FieldUnion<typeof RELATED_PRODUCTS_FIELDS>
+
+export type ProductStockField = FieldUnion<typeof PRODUCT_STOCK_FIELDS>
 
 export type ProductSortOptionsKey = keyof typeof PRODUCT_SORT_OPTIONS
 
@@ -145,5 +148,10 @@ export type ProductResponse = {
 
 export type RelatedProductsResponse = {
   data: Pick<Product, RelatedProductsField>[]
+  paginate: Paginate
+}
+
+export type ProductStockResponse = {
+  data: [Pick<Product, ProductStockField>]
   paginate: Paginate
 }

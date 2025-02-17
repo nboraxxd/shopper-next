@@ -14,7 +14,7 @@ import { useAuthStore } from '@/features/auth/auth-store'
 import { COMMON_MESSAGE } from '@/shared/constants/message'
 import { PRODUCT_MESSAGE } from '@/features/product/constants'
 import { useShowStickyAction } from '@/features/product/hooks'
-import { useQueryCartFromBackend, useUpdateQtyItemInCartMutation } from '@/features/cart/hooks'
+import { useQueryCartList, useUpdateCartItemQtyMutation, useLatestCartItemId } from '@/features/cart/hooks'
 
 import { ButtonWithRefreshTokenState } from '@/shared/components'
 import { QuantityInput } from '@/shared/components/quantity-input'
@@ -35,14 +35,16 @@ export default function ProductAction({ productId, stock, name, image, realPrice
   const pathname = usePathname()
 
   const authState = useAuthStore((state) => state.authState)
+  const setProductId = useLatestCartItemId((state) => state.setProductId)
+
   const isShowFixedAction = useShowStickyAction((state) => state.isShow)
   const toastStyle: CSSProperties = { bottom: isShowFixedAction ? '3.5rem' : '0rem' }
 
   // Another way to responsive toast style
   // const toastStyle: CSSProperties = { bottom: 'var(--product-toast-bottom)' }
 
-  const updateQtyItemInCartMutation = useUpdateQtyItemInCartMutation()
-  const { refetch: refetchQueryCart, isRefetching: isRefetchQueryCart } = useQueryCartFromBackend(false)
+  const updateCartItemQtyMutation = useUpdateCartItemQtyMutation()
+  const { refetch: refetchQueryCartList, isRefetching: isRefetchQueryCartList } = useQueryCartList(false)
 
   function handleChangeQuantity(value: string) {
     setQuantity(value)
@@ -63,22 +65,22 @@ export default function ProductAction({ productId, stock, name, image, realPrice
     }
 
     // Stop the function if the query is refetching or the mutation is pending
-    if (isRefetchQueryCart || updateQtyItemInCartMutation.isPending) return
+    if (isRefetchQueryCartList || updateCartItemQtyMutation.isPending) return
 
     // Show toast if the product is out of stock
     if (stock < 1) {
       return toast.error(PRODUCT_MESSAGE.OUT_OF_STOCK, { style: toastStyle })
     }
 
-    const queryCartResponse = await refetchQueryCart()
+    const cartListResponse = await refetchQueryCartList()
 
-    if (queryCartResponse.error) {
+    if (cartListResponse.error) {
       return toast.error(COMMON_MESSAGE.SOMETHING_WENT_WRONG, { style: toastStyle })
     }
 
     // Calculate the quantity of the product in the cart
-    const productQuantityInCart = queryCartResponse.isSuccess
-      ? (queryCartResponse.data.payload.data.listItems.find((item) => item.productId === productId)?.quantity ?? 0)
+    const productQuantityInCart = cartListResponse.isSuccess
+      ? (cartListResponse.data.payload.data.listItems.find((item) => item.productId === productId)?.quantity ?? 0)
       : 0
 
     // Validate the quantity input and parse it to integer
@@ -94,14 +96,15 @@ export default function ProductAction({ productId, stock, name, image, realPrice
 
     // Proceed to update the quantity of the product in the cart
     toast.promise(
-      updateQtyItemInCartMutation.mutateAsync({
+      updateCartItemQtyMutation.mutateAsync({
         productId,
         quantity: productQuantityInCart > 0 ? productQuantityInCart + parsedQuantity : parsedQuantity,
       }),
       {
         loading: PRODUCT_MESSAGE.ADDING_PRODUCT_TO_CART,
         success: async () => {
-          await refetchQueryCart()
+          setProductId(productId)
+          await refetchQueryCartList()
 
           return PRODUCT_MESSAGE.ADDED_PRODUCT_TO_CART
         },
@@ -137,7 +140,7 @@ export default function ProductAction({ productId, stock, name, image, realPrice
         <AddToCartButton
           handleAddToCart={handleAddToCart}
           disabled={stock === 0}
-          isShowLoader={isRefetchQueryCart || updateQtyItemInCartMutation.isPending}
+          isShowLoader={isRefetchQueryCartList || updateCartItemQtyMutation.isPending}
           className="h-12 w-full"
         />
         <div className="mt-3 flex items-center gap-3 sm:mt-4 sm:gap-4">
@@ -174,7 +177,7 @@ export default function ProductAction({ productId, stock, name, image, realPrice
                 <AddToCartButton
                   handleAddToCart={handleAddToCart}
                   disabled={stock === 0}
-                  isShowLoader={isRefetchQueryCart || updateQtyItemInCartMutation.isPending}
+                  isShowLoader={isRefetchQueryCartList || updateCartItemQtyMutation.isPending}
                   className="h-11 w-1/2 gap-1 text-sm [&_svg]:size-4"
                 />
                 <BuyNowButton disabled={stock === 0} className="h-11 w-1/2" />

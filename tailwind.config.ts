@@ -148,6 +148,12 @@ export default {
 
         'address-item': 'hsl(var(--address-item))',
 
+        cart: {
+          DEFAULT: 'hsl(var(--cart))',
+          section: 'hsl(var(--cart-section))',
+          'real-price': 'hsl(var(--cart-real-price))',
+        },
+
         highlight: 'hsl(var(--highlight))',
       },
       borderRadius: {

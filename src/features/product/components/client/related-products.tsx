@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-import { useQueryRelatedProductsFromBackend } from '@/features/product/hooks'
+import { useQueryRelatedProducts } from '@/features/product/hooks'
 
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { ProductCard } from '@/features/product/components/server'
@@ -14,7 +14,7 @@ export default function RelatedProducts({ categoryId, productId }: { categoryId:
 
   const { ref, inView } = useInView({ rootMargin: '500px', triggerOnce: true })
 
-  const queryRelatedProductsFromBackend = useQueryRelatedProductsFromBackend(categoryId, false)
+  const queryRelatedProductsFromBackend = useQueryRelatedProducts(categoryId, false)
 
   useEffect(() => {
     if (!inView || queryRelatedProducts.current) return
