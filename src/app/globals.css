@@ -80,7 +80,8 @@
 
     --cart: 240 27.3% 97.8%; /* #f8f8fb - secondary-5 */
     --cart-section: 0 0% 100%; /* #fff - light-1 */
-    --cart-real-price: 245.5 5.9% 63.7%; /* #9e9da8 - secondary-2 */
+    --cart-price: 245.5 5.9% 63.7%; /* #9e9da8 - secondary-2 */
+    --cart-icon-highlight: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
 
     --address-item: 240 27.3% 97.8%; /* #f8f8fb - secondary-5 */
 
@@ -161,7 +162,8 @@
 
     --cart: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
     --cart-section: 222.4 27% 12.4%; /* #171c28 - dark-1 */
-    --cart-real-price: 228 3.7% 73.5%; /* #b9babe - dark-3 */
+    --cart-price: 228 3.7% 73.5%; /* #b9babe - dark-3 */
+    --cart-icon-highlight: 252 5.7% 82.9%; /* #d2d1d6 - secondary-3 */
 
     --highlight: 186.5 68.9% 68.4%; /* #ffb700 - primary-yellow */
   }

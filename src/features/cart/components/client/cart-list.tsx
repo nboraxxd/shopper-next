@@ -1,32 +1,15 @@
 'use client'
 
-import CartItem from '@/features/cart/components/client/cart-item'
-import { CART_KEY } from '@/features/cart/constants'
 import { useLatestCartItemId, useQueryCartList } from '@/features/cart/hooks'
+
 import { Checkbox } from '@/shared/components/ui/checkbox'
 import { Separator } from '@/shared/components/ui/separator'
-import { useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { CartItem } from '@/features/cart/components/client'
 
 export default function CartList() {
-  // const [isInitialRender, setIsInitialRender] = useState(true)
-
   const queryCartList = useQueryCartList()
 
-  // const queryClient = useQueryClient()
-
   const latestCartItemId = useLatestCartItemId((state) => state.productId)
-
-  // useEffect(() => {
-  //   if (isInitialRender) {
-  //     setIsInitialRender(false)
-  //     return
-  //   }
-
-  //   return () => {
-  //     queryClient.removeQueries({ queryKey: [CART_KEY.CART_LIST] })
-  //   }
-  // }, [isInitialRender, queryClient])
 
   if (queryCartList.isLoading) return <p>Loading...</p>
 

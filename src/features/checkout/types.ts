@@ -24,6 +24,6 @@ export type PreCheckoutResponse = {
     } | null
     totalQuantity: number
     viewCartTotal: number
-    listItems: CartItem & { price: number }[]
+    listItems: (CartItem & { price: number })[]
   }
 }

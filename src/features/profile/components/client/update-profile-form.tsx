@@ -3,6 +3,7 @@
 import { toast } from 'sonner'
 import omitBy from 'lodash/omitBy'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
 import isUndefined from 'lodash/isUndefined'
 import { LoaderCircleIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
@@ -40,6 +41,8 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
   const [isLoadingProfile, setIsLoadingProfile] = useState(true)
 
   const avatarInputRef = useRef<HTMLInputElement>(null)
+
+  const router = useRouter()
 
   const form = useForm<UpdateProfileReqBody>({
     resolver: zodResolver(updateProfileSchema),
@@ -130,6 +133,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
     try {
       await updateProfileMutation.mutateAsync(changes)
       toast.success('Cập nhật thông tin thành công')
+      router.refresh()
     } catch (error) {
       handleClientErrorApi({ error, setError: form.setError })
     }
@@ -230,6 +234,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
                       {...field}
                       customInput={Input}
                       format="#### ### ###"
+                      mask="_"
                       placeholder="Số điện thoại"
                       className={CUSTOM_ACCOUNT_INPUT_CLASSNAME}
                       onChange={(ev) => field.onChange(ev.target.value !== '' ? ev.target.value : null)}

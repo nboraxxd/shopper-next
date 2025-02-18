@@ -1,10 +1,12 @@
 'use client'
 
+import { useMutationState } from '@tanstack/react-query'
+
+import { formatCurrency } from '@/shared/utils'
 import { CHECKOUT_KEY } from '@/features/checkout/constants'
 import { PreCheckoutResponse } from '@/features/checkout/types'
+
 import { Separator } from '@/shared/components/ui/separator'
-import { formatCurrency } from '@/shared/utils'
-import { useMutationState } from '@tanstack/react-query'
 
 export default function CartSummary() {
   const data = useMutationState({

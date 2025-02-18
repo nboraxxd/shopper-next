@@ -9,5 +9,5 @@ export const cartClientApi = {
   updateCartItemQtyToBackend: ({ productId, quantity }: { productId: number; quantity: number }) =>
     http.patch<UpdateCartItemQtyResponse>(`${BACKEND_PREFIX}/${productId}`, { quantity }),
 
-  delCartItemFromBackend: (productId: number) => http.delete(`${BACKEND_PREFIX}/${productId}`),
+  removeCartItemFromBackend: (productId: number) => http.delete(`${BACKEND_PREFIX}/${productId}`),
 }

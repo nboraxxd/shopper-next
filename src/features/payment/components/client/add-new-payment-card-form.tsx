@@ -125,6 +125,7 @@ export default function AddNewPaymentCardForm() {
                   <PatternFormat
                     {...field}
                     customInput={Input}
+                    mask="_"
                     format="#### #### #### ####"
                     placeholder="Nhập số thẻ"
                     className={cn(CUSTOM_ACCOUNT_INPUT_CLASSNAME, 'pl-10')}
@@ -149,7 +150,8 @@ export default function AddNewPaymentCardForm() {
                     {...field}
                     customInput={Input}
                     type="text"
-                    format="##/##"
+                    mask="_"
+                    format={field.value.length >= 2 ? '##/##' : '####'}
                     placeholder="MM/YY"
                     className={CUSTOM_ACCOUNT_INPUT_CLASSNAME}
                   />
@@ -170,6 +172,7 @@ export default function AddNewPaymentCardForm() {
                   <PatternFormat
                     {...field}
                     customInput={Input}
+                    mask="_"
                     format="###"
                     placeholder="Nhập CVV"
                     className={CUSTOM_ACCOUNT_INPUT_CLASSNAME}

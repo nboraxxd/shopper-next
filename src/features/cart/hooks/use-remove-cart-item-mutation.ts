@@ -2,8 +2,8 @@ import { useMutation } from '@tanstack/react-query'
 
 import { cartClientApi } from '@/features/cart/api/client'
 
-export default function useDelCartItemMutation() {
+export default function useRemoveCartItemMutation() {
   return useMutation({
-    mutationFn: cartClientApi.delCartItemFromBackend,
+    mutationFn: cartClientApi.removeCartItemFromBackend,
   })
 }

@@ -13,7 +13,7 @@ interface Props extends Omit<ComponentProps<'input'>, 'className'> {
   max?: number
   onIncrease?: (value: string) => void
   onDecrease?: (value: string) => void
-  onRemoveWhenDecreased?: () => void
+  onRemoveWhenZero?: () => void
   onType?: (value: string) => void
   onFocusOut?: (value: string) => void
   inputClassName?: string
@@ -25,7 +25,7 @@ export default function QuantityInput(props: Props) {
     max,
     onIncrease,
     onDecrease,
-    onRemoveWhenDecreased,
+    onRemoveWhenZero,
     onType,
     onFocusOut,
     value = '',
@@ -63,7 +63,7 @@ export default function QuantityInput(props: Props) {
     if (max === 0) return
 
     if (Number(value || localValue) - 1 === 0) {
-      onRemoveWhenDecreased?.()
+      onRemoveWhenZero?.()
     }
 
     const newValue = Math.max(Number(value || localValue) - 1, 1)

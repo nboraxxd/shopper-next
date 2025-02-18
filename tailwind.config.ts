@@ -151,7 +151,8 @@ export default {
         cart: {
           DEFAULT: 'hsl(var(--cart))',
           section: 'hsl(var(--cart-section))',
-          'real-price': 'hsl(var(--cart-real-price))',
+          price: 'hsl(var(--cart-price))',
+          'icon-highlight': 'hsl(var(--cart-icon-highlight))',
         },
 
         highlight: 'hsl(var(--highlight))',
