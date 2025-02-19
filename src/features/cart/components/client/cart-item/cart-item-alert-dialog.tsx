@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction } from 'react'
 
 import { handleClientErrorApi } from '@/shared/utils/error'
-import { useQueryCartList, useRemoveCartItemMutation } from '@/features/cart/hooks'
+import { useRemoveItemAndRefetchCart } from '@/features/cart/hooks'
 
 import {
   AlertDialog,
@@ -23,8 +23,7 @@ interface Props {
 }
 
 export default function CartItemAlertDialog({ productId, showAlertDialog, setShowAlertDialog }: Props) {
-  const queryCartList = useQueryCartList(false)
-  const removeCartItemMutation = useRemoveCartItemMutation()
+  const removeCartItemMutation = useRemoveItemAndRefetchCart()
 
   async function handleRemoveCartItem() {
     if (removeCartItemMutation.isPending) return
@@ -33,7 +32,6 @@ export default function CartItemAlertDialog({ productId, showAlertDialog, setSho
 
     try {
       await removeCartItemMutation.mutateAsync(productId)
-      await queryCartList.refetch()
     } catch (error) {
       handleClientErrorApi({ error })
     }

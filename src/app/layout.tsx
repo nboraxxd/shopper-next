@@ -1,11 +1,10 @@
 import type { Metadata } from 'next'
-import NextTopLoader from 'nextjs-toploader'
 import { Montserrat as FontSans } from 'next/font/google'
 
 import { cn } from '@/shared/utils'
 
 import { Toaster } from '@/shared/components/ui/sonner'
-import { AuthCleanup, RefreshToken } from '@/shared/components'
+import { AuthCleanup, RefreshToken, TopLoader } from '@/shared/components'
 import { ThemeProvider, TanstackQueryProvider } from '@/shared/components/provider'
 import './globals.css'
 
@@ -34,7 +33,7 @@ export default function RootLayout({
       <body className={cn('antialiased', fontSans.className, fontSans.variable)}>
         <TanstackQueryProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <NextTopLoader showSpinner={false} color="#0071DC" shadow="0 0 10px #0071DC,0 0 5px #0071DC" />
+            <TopLoader />
             {children}
             <RefreshToken />
             <AuthCleanup />

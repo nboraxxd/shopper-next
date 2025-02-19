@@ -1,8 +1,9 @@
 import paymentServerApi from '@/features/payment/api/server'
-import { PaymentCardProvider } from '@/features/payment/components/client'
-import PaymentCard from '@/features/payment/components/server/payment-card'
 import { PaymentCardListResponse } from '@/features/payment/types'
+
 import { SmileStarIcon } from '@/shared/components/icons'
+import { PaymentCard } from '@/features/payment/components/server'
+import { PaymentCardProvider } from '@/features/payment/components/client'
 
 export default async function PaymentContent({ accessToken }: { accessToken: string }) {
   let cardList: PaymentCardListResponse['data'] | null = null

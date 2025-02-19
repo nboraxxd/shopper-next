@@ -29,6 +29,6 @@ export type UpdateCartItemQtyResponse = {
   updateCount: number
 }
 
-export type DelCartItemResponse = {
+export type RemoveCartItemResponse = {
   deleteCount: number
 }

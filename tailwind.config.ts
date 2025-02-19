@@ -171,6 +171,7 @@ export default {
         section: 'var(--section-shadow)',
         popover: 'var(--popover-shadow)',
         'focus-within': 'var(--focus-within-shadow)',
+        'cart-sticky': '0 8px 16px 0 rgba(0, 0, 0, .12), 0 -4px 8px 0 rgba(0, 0, 0, .04)',
       },
       spacing: {
         'header-height': 'var(--header-height)',

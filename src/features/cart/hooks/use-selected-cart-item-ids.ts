@@ -4,15 +4,15 @@ import { devtools } from 'zustand/middleware'
 import { PreCheckoutReqBody } from '@/features/checkout/types'
 
 type SelectedCartItemIdsStore = {
-  cartItemIds: PreCheckoutReqBody['listItems']
-  setCartItemIds: (cartItemIds: PreCheckoutReqBody['listItems']) => void
+  selectedItemId: PreCheckoutReqBody['listItems']
+  setSelectedItemId: (selectedItemId: PreCheckoutReqBody['listItems']) => void
 }
 
 const useSelectedCartItemIds = create<SelectedCartItemIdsStore>()(
   devtools(
     (set) => ({
-      cartItemIds: [],
-      setCartItemIds: (cartItemIds) => set({ cartItemIds }),
+      selectedItemId: [],
+      setSelectedItemId: (selectedItemId) => set({ selectedItemId }),
     }),
     {
       enabled: process.env.NODE_ENV === 'development',

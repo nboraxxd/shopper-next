@@ -24,6 +24,13 @@ const customPlugin = plugin(function ({ addComponents, addVariant }) {
       paddingLeft: 'calc(var(--container-gutter) * 0.5)',
       paddingRight: 'calc(var(--container-gutter) * 0.5)',
     },
+    '.container-none': {
+      maxWidth: 'none',
+      marginLeft: '0',
+      marginRight: '0',
+      paddingLeft: '0',
+      paddingRight: '0',
+    },
   })
 
   addVariant('second-last-of-type', '&:nth-last-of-type(2)')

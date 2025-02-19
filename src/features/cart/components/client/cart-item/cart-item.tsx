@@ -10,7 +10,6 @@ import { formatCurrency } from '@/shared/utils'
 import { handleClientErrorApi } from '@/shared/utils/error'
 import { useQueryProductStock } from '@/features/product/hooks'
 import { CartItem as CartItemType } from '@/features/cart/types'
-import { PreCheckoutReqBody } from '@/features/checkout/types'
 import { usePreCheckoutMutation } from '@/features/checkout/hooks'
 import { useSelectedCartItemIds, useUpdateCartItemQtyMutation } from '@/features/cart/hooks'
 
@@ -27,7 +26,7 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
 
   const [isInitialRender, setIsInitialRender] = useState(true)
 
-  const [totalPrice, setTotalPrice] = useState<number>(initialQty * product.real_price)
+  const [itemSubtotal, setItemSubtotal] = useState<number>(initialQty * product.real_price)
 
   const [quantity, setQuantity] = useState<string>(initialQty.toString())
 
@@ -36,15 +35,19 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
 
   const { refetch: refetchQueryProductStock } = useQueryProductStock(productId, false)
 
-  const setSelectedItemIds = useSelectedCartItemIds((state) => state.setCartItemIds)
-  const selectedItemIds = useSelectedCartItemIds((state) => state.cartItemIds)
+  const setSelectedItemIds = useSelectedCartItemIds((state) => state.setSelectedItemId)
+  const selectedItemIds = useSelectedCartItemIds((state) => state.selectedItemId)
   const isChecked = selectedItemIds.includes(productId)
 
   const preCheckoutMutation = usePreCheckoutMutation()
 
   const { mutateAsync: updateCartItemQtyMutateAsync } = useUpdateCartItemQtyMutation(async () => {
     if (isChecked) {
-      await executePreCheckout(selectedItemIds)
+      try {
+        await preCheckoutMutation.mutateAsync({ listItems: selectedItemIds })
+      } catch (error) {
+        handleClientErrorApi({ error })
+      }
     }
   })
 
@@ -71,7 +74,7 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
           setDebouncedQuantity(maxPurchaseQuantity.toString())
         }
 
-        setTotalPrice(Math.min(currentQuantity, maxPurchaseQuantity) * product.real_price)
+        setItemSubtotal(Math.min(currentQuantity, maxPurchaseQuantity) * product.real_price)
 
         await updateCartItemQtyMutateAsync({
           productId,
@@ -103,15 +106,8 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
 
   useEffect(() => {
     setQuantity(initialQty.toString())
-  }, [initialQty])
-
-  async function executePreCheckout(listItems: PreCheckoutReqBody['listItems']) {
-    try {
-      await preCheckoutMutation.mutateAsync({ listItems })
-    } catch (error) {
-      handleClientErrorApi({ error })
-    }
-  }
+    setItemSubtotal(initialQty * product.real_price)
+  }, [initialQty, product.real_price])
 
   async function handleCheckedChange(checked: boolean) {
     const newSelectedItemIds = !checked
@@ -120,7 +116,11 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
 
     setSelectedItemIds(newSelectedItemIds)
 
-    await executePreCheckout(newSelectedItemIds)
+    try {
+      await preCheckoutMutation.mutateAsync({ listItems: newSelectedItemIds })
+    } catch (error) {
+      handleClientErrorApi({ error })
+    }
   }
 
   function handleQuantityChange(value: string) {
@@ -185,7 +185,7 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
         </div>
 
         <p className="hidden text-lg font-bold md:block">
-          {formatCurrency(totalPrice)}
+          {formatCurrency(itemSubtotal)}
           <sup>₫</sup>
         </p>
 

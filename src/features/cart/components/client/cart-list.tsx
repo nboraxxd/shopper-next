@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 import { useLatestCartItemId, useQueryCartList } from '@/features/cart/hooks'
 
 import { Checkbox } from '@/shared/components/ui/checkbox'
@@ -14,7 +16,7 @@ export default function CartList() {
   if (queryCartList.isLoading) return <p>Loading...</p>
 
   return queryCartList.isSuccess ? (
-    queryCartList.data.payload.data.totalQuantity > 0 ? (
+    queryCartList.data.payload.data.listItems.length > 0 ? (
       <>
         <div className="flex items-center gap-2 xs:gap-3">
           <Checkbox className="size-5" />
@@ -29,7 +31,13 @@ export default function CartList() {
           ))}
       </>
     ) : (
-      <p>Giỏ hàng trống</p>
+      <div className="flex h-96 flex-col items-center justify-center gap-4">
+        <Image width={160} height={160} src="/images/cart/empty.png" alt="Giỏ hàng trống" />
+        <div className="space-y-2 text-center">
+          <p className="text-lg font-semibold">Giỏ hàng trống</p>
+          <p className="text-balance">Bạn tham khảo thêm các sản phẩm được Shopper gợi ý bên dưới nha!</p>
+        </div>
+      </div>
     )
   ) : null
 }
