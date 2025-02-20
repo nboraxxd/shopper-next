@@ -2,12 +2,12 @@
 
 import ms from 'ms'
 import { useEffect } from 'react'
-
-import { useAuthStore, useRefreshTokenState } from '@/features/auth/auth-store'
-import checkAndRefreshToken from '@/shared/utils/check-and-refresh-token'
 import { usePathname } from 'next/navigation'
+
 import PATH from '@/shared/constants/path'
 import envVariables from '@/shared/schemas/env-variables.schema'
+import checkAndRefreshToken from '@/shared/utils/check-and-refresh-token'
+import { useAuthStore, useRefreshTokenState } from '@/features/auth/auth-store'
 
 // không check refresh token cho các path này
 const UNAUTHENTICATED_PATHS = [PATH.LOGIN, PATH.REGISTER, '/logout', '/refresh-token']
@@ -39,7 +39,7 @@ export default function RefreshToken() {
         () =>
           checkAndRefreshToken({
             onSuccess: () => {
-              // console.log('🚀 other refresh token')
+              console.log('🚀 other refresh token')
             },
             onError: clearTokenCheckInterval,
           }),
@@ -64,7 +64,7 @@ export default function RefreshToken() {
         },
 
         onSuccess: () => {
-          // console.log('🚀 reconnect refresh token')
+          console.log('🚀 reconnect refresh token')
           setIsRefreshingToken(false)
 
           startTokenCheckInterval()
@@ -89,7 +89,7 @@ export default function RefreshToken() {
         startTokenCheckInterval()
       },
       onSuccess: () => {
-        // console.log('🚀 first refresh token')
+        console.log('🚀 first refresh token')
         setAuthState('authenticated')
 
         startTokenCheckInterval()

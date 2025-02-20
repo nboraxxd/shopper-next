@@ -28,7 +28,6 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns: [
-      { protocol: 'https', hostname: 'tailwindui.com', pathname: '/plus/img/**' },
       { protocol: 'https', hostname: 'salt.tikicdn.com' },
       { protocol: 'https', hostname: 'firebasestorage.googleapis.com', pathname: '/v0/b/**' },
     ],

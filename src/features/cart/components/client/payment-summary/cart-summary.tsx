@@ -1,16 +1,13 @@
 'use client'
 
+import { useState } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
 import { useMutationState } from '@tanstack/react-query'
 
 import { cn, formatCurrency } from '@/shared/utils'
+import { useQueryCartList } from '@/features/cart/hooks'
 import { CHECKOUT_KEY } from '@/features/checkout/constants'
 import { PreCheckoutResponse } from '@/features/checkout/types'
-
-import { Separator } from '@/shared/components/ui/separator'
-import { useCartSummaryState, useQueryCartList } from '@/features/cart/hooks'
-import { Svgr, VoucherIcon } from '@/shared/components/icons'
-import { Checkbox } from '@/shared/components/ui/checkbox'
-import { Button } from '@/shared/components/ui/button'
 
 import {
   Drawer,
@@ -22,8 +19,9 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/shared/components/ui/drawer'
-import { AnimatePresence, motion } from 'motion/react'
-import { useState } from 'react'
+import { Button } from '@/shared/components/ui/button'
+import { Checkbox } from '@/shared/components/ui/checkbox'
+import { Svgr, VoucherIcon } from '@/shared/components/icons'
 
 export default function CartSummary() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)

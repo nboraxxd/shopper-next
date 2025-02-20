@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useEffect, useRef } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import PATH from '@/shared/constants/path'
@@ -18,8 +18,6 @@ export default function RefreshTokenPage() {
 }
 
 function RefreshTokenContent() {
-  const checkAndRefreshTokenRef = useRef<unknown>(null)
-
   const router = useRouter()
 
   const searchParams = useSearchParams()
@@ -27,34 +25,22 @@ function RefreshTokenContent() {
   const refreshTokenFromUrl = searchParams.get('refreshToken')
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout | null = null
-
     const redirectToNextPath = () => router.push(nextPath || PATH.HOME)
     const redirectHomepage = () => router.push(PATH.HOME)
 
-    if (checkAndRefreshTokenRef.current) return
-
     if (refreshTokenFromUrl && refreshTokenFromUrl === getRefreshTokenFromLocalStorage()) {
-      checkAndRefreshTokenRef.current = checkAndRefreshToken
-
-      checkAndRefreshToken({
-        onSuccess: () => {
-          // console.log('🚀 super first refresh token')
-          redirectToNextPath()
-        },
-        onRefreshTokenNotNeeded: redirectToNextPath,
-        onError: redirectHomepage,
-      })
-
-      timeout = setTimeout(() => {
-        checkAndRefreshTokenRef.current = null
-      }, 0)
+      ;(async () => {
+        await checkAndRefreshToken({
+          onSuccess: () => {
+            console.log('🚀 super first refresh token')
+            redirectToNextPath()
+          },
+          onRefreshTokenNotNeeded: redirectToNextPath,
+          onError: redirectHomepage,
+        })
+      })()
     } else {
       redirectHomepage()
-    }
-
-    return () => {
-      if (timeout) clearTimeout(timeout)
     }
   }, [nextPath, refreshTokenFromUrl, router])
 

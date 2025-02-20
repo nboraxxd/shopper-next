@@ -1,7 +1,8 @@
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/features/auth/constants'
-import PATH from '@/shared/constants/path'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+
+import PATH from '@/shared/constants/path'
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/features/auth/constants'
 
 const protectedPaths = [
   PATH.CART,
