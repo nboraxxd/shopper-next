@@ -1,7 +1,7 @@
 'use client'
 
 import { Suspense, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import PATH from '@/shared/constants/path'
 import checkAndRefreshToken from '@/shared/utils/check-and-refresh-token'
@@ -19,30 +19,46 @@ export default function RefreshTokenPage() {
 
 function RefreshTokenContent() {
   const router = useRouter()
+  const pathname = usePathname()
 
   const searchParams = useSearchParams()
   const nextPath = searchParams.get('next')
   const refreshTokenFromUrl = searchParams.get('refreshToken')
 
   useEffect(() => {
-    const redirectToNextPath = () => router.push(nextPath || PATH.HOME)
-    const redirectHomepage = () => router.push(PATH.HOME)
+    function redirectToNextPath() {
+      const from = new URLSearchParams({ from: pathname })
+
+      router.push(nextPath ? `${nextPath}?${from}` : PATH.HOME)
+      router.refresh()
+    }
+
+    function redirectHomepage() {
+      router.push(PATH.HOME)
+      router.refresh()
+    }
 
     if (refreshTokenFromUrl && refreshTokenFromUrl === getRefreshTokenFromLocalStorage()) {
       ;(async () => {
         await checkAndRefreshToken({
           onSuccess: () => {
-            console.log('🚀 super first refresh token')
+            // console.log('🚀 super first refresh token ~ onSuccess', nextPath)
             redirectToNextPath()
           },
-          onRefreshTokenNotNeeded: redirectToNextPath,
-          onError: redirectHomepage,
+          onRefreshTokenNotNeeded: () => {
+            // console.log('🚀 super first refresh token ~ onRefreshTokenNotNeeded', nextPath)
+            redirectToNextPath()
+          },
+          onError: () => {
+            // console.log('🚀 super first refresh token ~ onError')
+            redirectHomepage()
+          },
         })
       })()
     } else {
       redirectHomepage()
     }
-  }, [nextPath, refreshTokenFromUrl, router])
+  }, [nextPath, pathname, refreshTokenFromUrl, router])
 
   return <RefreshTokenView />
 }

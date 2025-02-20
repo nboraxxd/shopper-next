@@ -127,11 +127,7 @@ export default function UpdateAddressForm(props: Props) {
 
   return (
     <Form {...form}>
-      <form
-        noValidate
-        className="mt-3 space-y-4 md:mt-5"
-        onSubmit={form.handleSubmit(onSubmit, (err) => console.log(err))}
-      >
+      <form noValidate className="mt-3 space-y-4 md:mt-5" onSubmit={form.handleSubmit(onSubmit)}>
         {/* Full name */}
         <FormField
           name="fullName"

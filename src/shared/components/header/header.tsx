@@ -85,6 +85,7 @@ export default function Header() {
             <span className="sr-only">Giỏ hàng</span>
           </Link>
         </Button>
+
         <AuthButton />
       </div>
     </header>

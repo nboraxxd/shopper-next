@@ -175,7 +175,9 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
                 inputClassName="w-10 md:w-12"
                 value={quantity}
                 onType={(value) => setQuantity(value)}
-                onFocusOut={(value) => updateCartQuantityBasedOnStock(parseInt(value))}
+                onFocusOut={async (value) => {
+                  await updateCartQuantityBasedOnStock(parseInt(value))
+                }}
                 onIncrease={handleQuantityChange}
                 onDecrease={handleQuantityChange}
                 onRemoveWhenZero={() => setShowAlertDialog(true)}

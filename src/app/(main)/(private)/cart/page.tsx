@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { CartList, CartSummary } from '@/features/cart/components/client'
 import { CartSummaryEndIndicator, CartSummaryProvider } from '@/features/cart/components/client/payment-summary'
 

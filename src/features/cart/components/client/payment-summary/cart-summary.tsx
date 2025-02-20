@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from 'motion/react'
 import { useMutationState } from '@tanstack/react-query'
 
 import { cn, formatCurrency } from '@/shared/utils'
-import { useQueryCartList } from '@/features/cart/hooks'
 import { CHECKOUT_KEY } from '@/features/checkout/constants'
 import { PreCheckoutResponse } from '@/features/checkout/types'
 
@@ -25,8 +24,6 @@ import { Svgr, VoucherIcon } from '@/shared/components/icons'
 
 export default function CartSummary() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-
-  const queryCartList = useQueryCartList()
 
   const data = useMutationState({
     filters: { mutationKey: [CHECKOUT_KEY.PRE_CHECKOUT], exact: true, status: 'success' },
@@ -89,7 +86,7 @@ export default function CartSummary() {
           <div className="flex justify-between gap-1">
             <div className="flex items-center gap-2 xs:gap-3">
               <Checkbox className="size-5" />
-              <h2>Chọn tất cả ({queryCartList.data?.payload.data.listItems.length || 0})</h2>
+              <h2>Chọn tất cả</h2>
             </div>
             <div className="flex">
               <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
