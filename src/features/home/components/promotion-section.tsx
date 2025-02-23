@@ -10,7 +10,7 @@ export default function PromotionSection() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="relative pb-16 pt-48 sm:pb-24">
               <div>
-                <h2 id="sale-heading" className="text-4xl font-bold tracking-tight text-white md:text-5xl">
+                <h2 id="sale-heading" className="text-xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
                   Khuyến mãi tháng {new Date().getMonth() + 1}
                   <br />
                   Giảm giá lên đến 50%

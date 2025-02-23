@@ -146,14 +146,19 @@ export default {
           'info-icon': 'hsl(var(--account-info-icon))',
         },
 
-        'address-item': 'hsl(var(--address-item))',
-
         cart: {
           DEFAULT: 'hsl(var(--cart))',
           section: 'hsl(var(--cart-section))',
           price: 'hsl(var(--cart-price))',
           'icon-highlight': 'hsl(var(--cart-icon-highlight))',
         },
+
+        'promotion-card': {
+          DEFAULT: 'hsl(var(--promotion-card))',
+          foreground: 'hsl(var(--promotion-card-foreground))',
+        },
+
+        'address-item': 'hsl(var(--address-item))',
 
         highlight: 'hsl(var(--highlight))',
       },

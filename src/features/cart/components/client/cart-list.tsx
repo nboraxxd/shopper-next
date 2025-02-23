@@ -4,9 +4,8 @@ import Image from 'next/image'
 
 import { useLatestCartItemId, useQueryCartList } from '@/features/cart/hooks'
 
-import { Checkbox } from '@/shared/components/ui/checkbox'
 import { Separator } from '@/shared/components/ui/separator'
-import { CartItem } from '@/features/cart/components/client'
+import { CartItem, CartSelectAll } from '@/features/cart/components/client'
 
 export default function CartList() {
   const queryCartList = useQueryCartList()
@@ -18,10 +17,7 @@ export default function CartList() {
   return queryCartList.isSuccess ? (
     queryCartList.data.payload.data.listItems.length > 0 ? (
       <>
-        <div className="flex items-center gap-2 xs:gap-3">
-          <Checkbox className="size-5" />
-          <h2 className="text-lg font-medium">Chọn tất cả ({queryCartList.data.payload.data.listItems.length})</h2>
-        </div>
+        <CartSelectAll cartList={queryCartList.data.payload.data.listItems} titleClassName="md:text-lg" />
         <Separator className="my-3 md:my-5" />
         {[...queryCartList.data.payload.data.listItems]
           .reverse()
