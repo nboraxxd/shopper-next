@@ -18,6 +18,7 @@ import {
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown-menu'
 import { Button } from '@/shared/components/ui/button'
+import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Separator } from '@/shared/components/ui/separator'
 import { Dialog, DialogTrigger } from '@/shared/components/ui/dialog'
 import { ArrowRightIcon, Svgr, VoucherIcon } from '@/shared/components/icons'
@@ -64,11 +65,17 @@ export default function CartPromotionSticky() {
           </div>
           <Separator className="h-0 w-full border-t border-dashed border-border bg-transparent" />
           <div className="flex items-center px-3 sm:px-7">
-            {queryCartList.isSuccess ? (
-              <div className="hidden md:flex lg:w-1/2">
+            <div className="hidden md:flex lg:w-1/2">
+              {queryCartList.isLoading ? (
+                <div className="flex items-center gap-3 md:gap-5">
+                  <Skeleton className="size-5 md:size-6" />
+                  <Skeleton className="h-5 w-36 md:h-6" />
+                </div>
+              ) : null}
+              {queryCartList.isSuccess ? (
                 <CartSelectAll titleClassName="text-sm" cartList={queryCartList.data.payload.data.listItems} />
-              </div>
-            ) : null}
+              ) : null}
+            </div>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

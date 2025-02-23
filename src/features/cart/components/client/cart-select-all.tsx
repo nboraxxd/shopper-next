@@ -38,7 +38,7 @@ export default function CartSelectAll({ cartList, labelClassName, titleClassName
   }
 
   return (
-    <Label className={cn('flex items-center gap-2 md:gap-3', labelClassName)}>
+    <Label className={cn('flex items-center gap-3 md:gap-5', labelClassName)}>
       <Checkbox className="size-4 md:size-5" checked={isChecked} onCheckedChange={handleCheckedChange} />
       <span className={cn('font-medium', titleClassName)}>Chọn tất cả ({cartList.length})</span>
     </Label>
