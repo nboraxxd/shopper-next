@@ -76,16 +76,16 @@ export default function CartPromotion() {
   }, [copyToClipboard, hasCopiedText])
 
   return (
-    <section className="flex flex-col gap-4 rounded-4xl bg-cart-section px-4 py-7 shadow-section">
+    <section className="hidden flex-col gap-4 rounded-4xl bg-cart-section px-4 py-7 shadow-section md:flex">
       <div className="flex flex-col gap-0.5 xs:flex-row xs:items-center xs:justify-between">
-        <h2 className="font-medium">Shopper khuyến mãi</h2>
+        <h2 className="text-sm font-medium">Shopper khuyến mãi</h2>
         <span className="text-xs font-medium text-secondary-2">(có thể chọn 1)</span>
       </div>
 
-      <div className="relative self-center">
+      <div className="relative @container">
         <PromotionBgSmIcon className="w-full fill-[#E5F2FF] text-[#017FFF] [filter:drop-shadow(0px_1px_3px_rgba(0,0,0,0.15))] dark:fill-[#1E293B] dark:text-light-2" />
         <div className="absolute inset-0 flex items-center">
-          <div className="flex h-full w-[21%] items-center justify-center p-2">
+          <div className="flex h-full w-[21.25%] items-center justify-center p-2 @[18.5rem]:p-3">
             <Image
               src="/images/shopper.png"
               alt="Voucher"
@@ -94,9 +94,9 @@ export default function CartPromotion() {
               className="size-9 rounded object-contain"
             />
           </div>
-          <div className="flex grow p-2">
+          <div className="flex grow p-2 @[18.5rem]:p-3">
             <div className="flex w-full items-center justify-between gap-1">
-              <span className="text-sm font-medium">Giảm 25%</span>
+              <span className="text-xs font-medium @[18.5rem]:text-sm">Giảm 25%</span>
               <div className="flex items-center gap-2">
                 <TooltipProvider delayDuration={300}>
                   <Tooltip>
@@ -146,7 +146,10 @@ export default function CartPromotion() {
 
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="ghost" className="group h-auto justify-start gap-1.5 p-0 text-highlight [&_svg]:size-5">
+          <Button
+            variant="ghost"
+            className="group mt-auto h-auto justify-start gap-1.5 p-0 text-highlight [&_svg]:size-5"
+          >
             <Svgr icon={VoucherIcon} />
             <span>Khuyến mãi tháng {new Date().getMonth() + 1}</span>
             <Svgr icon={ArrowRightIcon} className="transition-transform group-hover:translate-x-1" />
