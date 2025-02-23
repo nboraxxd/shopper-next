@@ -142,6 +142,7 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
             onCheckedChange={handleCheckedChange}
           />
         </label>
+
         <Link href={`/${product.slug}`} className="shrink-0 select-none self-center rounded-md border xs:self-auto">
           <Image
             src={product.thumbnail_url}
@@ -152,12 +153,12 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
           />
         </Link>
 
-        <div className="grow font-medium">
-          <Link href={`/${product.slug}`}>
-            <h3 className="line-clamp-2 text-sm md:text-base">{product.name}</h3>
-          </Link>
-          <div className="mt-2 flex flex-col items-stretch justify-between gap-2 md:mt-3 md:flex-row md:items-center md:justify-start md:gap-3">
-            <div className="flex items-baseline gap-2 md:min-w-56">
+        <div className="flex grow flex-col items-start gap-2 md:flex-row md:gap-3">
+          <div className="grow font-medium">
+            <Link href={`/${product.slug}`}>
+              <h3 className="line-clamp-2 text-sm md:text-base">{product.name}</h3>
+            </Link>
+            <div className="mt-2 flex items-baseline gap-2 md:mt-3">
               <p className="text-sm text-highlight md:text-base">
                 {formatCurrency(product.real_price)}
                 <sup>₫</sup>
@@ -169,27 +170,24 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
                 </p>
               ) : null}
             </div>
-            <div className="flex grow justify-between">
-              <QuantityInput
-                className="h-8 px-2 md:h-9 [&_svg]:!size-5 md:[&_svg]:!size-6"
-                inputClassName="w-10 md:w-12"
-                value={quantity}
-                onType={(value) => setQuantity(value)}
-                onFocusOut={async (value) => {
-                  await updateCartQuantityBasedOnStock(parseInt(value))
-                }}
-                onIncrease={handleQuantityChange}
-                onDecrease={handleQuantityChange}
-                onRemoveWhenZero={() => setShowAlertDialog(true)}
-              />
-            </div>
           </div>
+          <QuantityInput
+            className="h-8 px-2 md:h-9 [&_svg]:!size-5 md:[&_svg]:!size-6"
+            inputClassName="w-10"
+            value={quantity}
+            onType={setQuantity}
+            onFocusOut={async (value) => {
+              await updateCartQuantityBasedOnStock(parseInt(value))
+            }}
+            onIncrease={handleQuantityChange}
+            onDecrease={handleQuantityChange}
+            onRemoveWhenZero={() => setShowAlertDialog(true)}
+          />
+          <p className="hidden text-end font-bold md:block md:min-w-32">
+            {formatCurrency(itemSubtotal)}
+            <sup>₫</sup>
+          </p>
         </div>
-
-        <p className="hidden text-lg font-bold md:block">
-          {formatCurrency(itemSubtotal)}
-          <sup>₫</sup>
-        </p>
 
         <CartItemAction productId={productId} />
 

@@ -32,3 +32,12 @@ export type UpdateCartItemQtyResponse = {
 export type RemoveCartItemResponse = {
   deleteCount: number
 }
+
+export type GetPromotionDetailResponse = {
+  data: {
+    code: string
+    title: string
+    description: string
+    value: number
+  }
+}

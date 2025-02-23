@@ -1,5 +1,10 @@
 import http from '@/shared/utils/http'
-import { GetCartListResponse, RemoveCartItemResponse, UpdateCartItemQtyResponse } from '@/features/cart/types'
+import {
+  GetCartListResponse,
+  GetPromotionDetailResponse,
+  RemoveCartItemResponse,
+  UpdateCartItemQtyResponse,
+} from '@/features/cart/types'
 
 const BACKEND_PREFIX = '/cart/v2'
 
@@ -11,4 +16,7 @@ export const cartClientApi = {
 
   removeCartItemFromBackend: (productId: number) =>
     http.delete<RemoveCartItemResponse>(`${BACKEND_PREFIX}/${productId}`),
+
+  getPromotionDetailFromBackend: (promotion: string) =>
+    http.get<GetPromotionDetailResponse>(`${BACKEND_PREFIX}/promotion/${promotion}`),
 }

@@ -18,7 +18,7 @@ import { ArrowLeftIcon, AlignLeftIcon, SearchIcon, ShopperIcon, CartIcon, Svgr }
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-10 h-header-height bg-header shadow-section">
+    <header className="sticky top-0 z-40 h-header-height bg-header shadow-section">
       <div className="mx-auto flex h-full max-w-[calc(1340px+var(--container-gutter))] items-center gap-4 px-[calc(var(--container-gutter)*0.5)] lg:px-[var(--container-gutter)]">
         <div className="flex gap-4 lg:hidden">
           <Sheet>

@@ -2,7 +2,7 @@
 
 (Website is still in development)
 
-A shopping website using Next.js, React, TypeScript, Tailwind CSS, shadcn/ui, TanStack Query, external API from [Spacedev](https://spacedevs.com), Figma design from [F8](https://fullstack.edu.vn), and deployed on VPS.
+A shopping website using Next.js, React, TypeScript, Tailwind CSS, shadcn/ui, TanStack Query, external API from [Spacedev](https://spacedev.vn), Figma design from [F8](https://fullstack.edu.vn), and deployed on VPS.
 
 <img alt="Shopper" src="https://github.com/user-attachments/assets/23e79ca5-f5e1-4b58-be34-ae69012c9704" width="100%" />
 

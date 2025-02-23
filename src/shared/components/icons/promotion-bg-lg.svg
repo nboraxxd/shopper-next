@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 431 132">
+  <g stroke="currentColor" fill="inherit" fill-rule="evenodd">
+    <path fill="inherit" d="M423 0a8 8 0 0 1 8 8v116a8 8 0 0 1-8 8H140.5c0-4.419-3.582-8-8-8s-8 3.581-8 8H8a8 8 0 0 1-8-8V8a8 8 0 0 1 8-8h116.5a8 8 0 0 0 16 0H392z"/>
+    <g stroke="currentColor" stroke-dasharray="2 4" stroke-linecap="square" mask="url(#14s2l20tnb)">
+      <path d="M132.5 11v114"/>
+    </g>
+  </g>
+</svg>

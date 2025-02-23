@@ -5,5 +5,6 @@ export { default as useUnmount } from './use-unmount'
 export { default as useDebounceCallback } from './use-debounce-callback'
 export { default as useDebounceValue } from './use-debounce-value'
 export { default as useIsFirstRender } from './use-is-first-render'
+export { default as useCopyToClipboard } from './use-copy-to-clipboard'
 
 export { type DebouncedState } from './use-debounce-callback'

@@ -1,6 +1,6 @@
 import { use } from 'react'
 
-import { CartSummaryContext } from '@/features/cart/components/client/payment-summary'
+import { CartSummaryContext } from '@/features/cart/components/client/cart-summary'
 
 export default function useCartSummaryState() {
   const context = use(CartSummaryContext)
