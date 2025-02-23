@@ -15,7 +15,7 @@ import {
 } from '@/shared/components/ui/dialog'
 import { Button } from '@/shared/components/ui/button'
 import { ScrollArea } from '@/shared/components/ui/scroll-area'
-import { PromotionCard, PromotionForm } from '@/features/cart/components/client'
+import { PromotionForm, PromotionCard } from '@/features/promotion/components/client'
 
 export default function PromotionDialogContent() {
   return (

@@ -1,4 +1,4 @@
-import { Header } from '@/shared/components/header'
+import { CartHeader } from '@/features/cart/components/server'
 
 export default function CartLayout({
   children,
@@ -7,7 +7,7 @@ export default function CartLayout({
 }>) {
   return (
     <>
-      <Header />
+      <CartHeader />
       {children}
     </>
   )

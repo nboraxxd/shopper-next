@@ -1,7 +1,5 @@
 export { default as useQueryCartList } from './use-query-cart-list'
-export { default as useLatestCartItemId } from './use-latest-cart-item-id'
 export { default as useSelectedCartItemIds } from './use-selected-cart-item-ids'
-export { default as useRemoveItemAndRefetchCart } from './use-remove-item-and-refresh-cart'
+export { default as useRemoveItemAndRefetchCart } from './use-remove-cart-item'
 export { default as useUpdateCartItemQtyMutation } from './use-update-cart-item-qty-mutation'
 export { default as useCartSummaryState } from './use-cart-summary-state'
-export { default as useQueryPromotionDetail } from './use-query-promotion-detail'

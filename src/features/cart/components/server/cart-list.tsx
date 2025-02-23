@@ -6,7 +6,7 @@ import { GetCartListResponse } from '@/features/cart/types'
 
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Separator } from '@/shared/components/ui/separator'
-import { CartItem, CartSelectAll } from '@/features/cart/components/client'
+import { CartListSorted } from '@/features/cart/components/client'
 
 export async function CartList({ accessToken }: { accessToken: string }) {
   let cartList: GetCartListResponse['data']['listItems'] | null = null
@@ -23,13 +23,7 @@ export async function CartList({ accessToken }: { accessToken: string }) {
 
   return cartList ? (
     cartList.length > 0 ? (
-      <>
-        <CartSelectAll cartList={cartList} titleClassName="md:text-lg" />
-        <Separator className="my-3 md:my-5" />
-        {[...cartList].reverse().map((item) => (
-          <CartItem key={item.productId} product={item.product} productId={item.productId} quantity={item.quantity} />
-        ))}
-      </>
+      <CartListSorted cartList={cartList} />
     ) : (
       <div className="flex h-96 flex-col items-center justify-center gap-4">
         <Image width={160} height={160} src="/images/cart/empty.png" alt="Giỏ hàng trống" />

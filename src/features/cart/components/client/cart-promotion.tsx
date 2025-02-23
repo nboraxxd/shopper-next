@@ -6,7 +6,7 @@ import { lastDayOfMonth } from 'date-fns'
 import { Button } from '@/shared/components/ui/button'
 import { Dialog, DialogTrigger } from '@/shared/components/ui/dialog'
 import { ArrowRightIcon, Svgr, VoucherIcon } from '@/shared/components/icons'
-import { PromotionCard, PromotionDialogContent } from '@/features/cart/components/client'
+import { PromotionCard, PromotionDialogContent } from '@/features/promotion/components/client'
 
 export default function CartPromotion() {
   return (

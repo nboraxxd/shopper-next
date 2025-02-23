@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react'
 import upperCase from 'lodash/upperCase'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { useQueryPromotionDetail } from '@/features/cart/hooks'
+import { useQueryPromotionDetail } from '@/features/promotion/hooks'
 import { BadRequestError, handleClientErrorApi } from '@/shared/utils/error'
-import { GetPromotionReq, getPromotionSchema } from '@/features/cart/schemas'
+import { GetPromotionReq, getPromotionSchema } from '@/features/promotion/schemas'
 
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'

@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { Dispatch, SetStateAction } from 'react'
 
 import { handleClientErrorApi } from '@/shared/utils/error'
@@ -23,6 +24,8 @@ interface Props {
 }
 
 export default function CartItemAlertDialog({ productId, showAlertDialog, setShowAlertDialog }: Props) {
+  const router = useRouter()
+
   const removeCartItemMutation = useRemoveItemAndRefetchCart()
 
   async function handleRemoveCartItem() {
@@ -32,6 +35,7 @@ export default function CartItemAlertDialog({ productId, showAlertDialog, setSho
 
     try {
       await removeCartItemMutation.mutateAsync(productId)
+      router.refresh()
     } catch (error) {
       handleClientErrorApi({ error })
     }

@@ -20,9 +20,10 @@ import {
 import { Button } from '@/shared/components/ui/button'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Separator } from '@/shared/components/ui/separator'
+import { CartSelectAll } from '@/features/cart/components/client'
 import { Dialog, DialogTrigger } from '@/shared/components/ui/dialog'
 import { ArrowRightIcon, Svgr, VoucherIcon } from '@/shared/components/icons'
-import { CartSelectAll, PromotionDialogContent } from '@/features/cart/components/client'
+import { PromotionDialogContent } from '@/features/promotion/components/client'
 
 export default function CartPromotionSticky() {
   const stickyRef = useRef<HTMLDivElement>(null)
