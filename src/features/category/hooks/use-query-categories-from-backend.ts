@@ -7,5 +7,6 @@ export default function useQueryCategoriesFromBackend() {
   return useQuery({
     queryFn: categoryClientApi.getCategoriesFromBackend,
     queryKey: [CATEGORY_KEY.CATEGORIES],
+    staleTime: Infinity,
   })
 }

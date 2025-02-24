@@ -3,7 +3,7 @@ import { devtools } from 'zustand/middleware'
 
 type BuyNowProductIdStore = {
   productId: number | null
-  setProductId: (productId: number) => void
+  setProductId: (productId: number | null) => void
 }
 
 const useBuyNowProductId = create<BuyNowProductIdStore>()(

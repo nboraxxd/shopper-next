@@ -1,10 +1,9 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { Dispatch, SetStateAction } from 'react'
 
 import { handleClientErrorApi } from '@/shared/utils/error'
-import { useRemoveItemAndRefetchCart } from '@/features/cart/hooks'
+import { useCartList, useRemoveItemAndRefetchCart } from '@/features/cart/hooks'
 
 import {
   AlertDialog,
@@ -16,6 +15,7 @@ import {
   AlertDialogTitle,
 } from '@/shared/components/ui/alert-dialog'
 import { ButtonWithRefreshTokenState } from '@/shared/components'
+import { useRouter } from 'next/navigation'
 
 interface Props {
   productId: number
@@ -26,6 +26,8 @@ interface Props {
 export default function CartItemAlertDialog({ productId, showAlertDialog, setShowAlertDialog }: Props) {
   const router = useRouter()
 
+  const setCartList = useCartList((state) => state.setCartList)
+
   const removeCartItemMutation = useRemoveItemAndRefetchCart()
 
   async function handleRemoveCartItem() {
@@ -34,9 +36,11 @@ export default function CartItemAlertDialog({ productId, showAlertDialog, setSho
     setShowAlertDialog(false)
 
     try {
+      setCartList((prev) => prev.filter((item) => item.productId !== productId))
+
       await removeCartItemMutation.mutateAsync(productId)
-      router.refresh()
     } catch (error) {
+      router.refresh()
       handleClientErrorApi({ error })
     }
   }
@@ -62,6 +66,7 @@ export default function CartItemAlertDialog({ productId, showAlertDialog, setSho
             variant="destructive"
             className="h-10 w-32 px-0 py-1 uppercase focus-visible:shadow-focus-within focus-visible:ring-0"
             onClick={handleRemoveCartItem}
+            disabled={removeCartItemMutation.isPending}
           >
             Xoá
           </ButtonWithRefreshTokenState>

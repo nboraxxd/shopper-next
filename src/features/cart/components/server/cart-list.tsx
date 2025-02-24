@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { Fragment } from 'react'
 
 import cartServerApi from '@/features/cart/api/server'
@@ -6,7 +5,7 @@ import { GetCartListResponse } from '@/features/cart/types'
 
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Separator } from '@/shared/components/ui/separator'
-import { CartListSorted } from '@/features/cart/components/client'
+import { SortedCartList } from '@/features/cart/components/client'
 
 export async function CartList({ accessToken }: { accessToken: string }) {
   let cartList: GetCartListResponse['data']['listItems'] | null = null
@@ -21,19 +20,7 @@ export async function CartList({ accessToken }: { accessToken: string }) {
     }
   }
 
-  return cartList ? (
-    cartList.length > 0 ? (
-      <CartListSorted cartList={cartList} />
-    ) : (
-      <div className="flex h-96 flex-col items-center justify-center gap-4">
-        <Image width={160} height={160} src="/images/cart/empty.png" alt="Giỏ hàng trống" />
-        <div className="space-y-2 text-center">
-          <p className="text-lg font-semibold">Giỏ hàng trống</p>
-          <p className="text-balance">Bạn tham khảo thêm các sản phẩm được Shopper gợi ý bên dưới nha!</p>
-        </div>
-      </div>
-    )
-  ) : null
+  return cartList ? <SortedCartList cartListFromServer={cartList} /> : null
 }
 
 export function CartListSketeton() {

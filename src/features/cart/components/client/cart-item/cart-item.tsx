@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { toast } from 'sonner'
-import { Fragment, useCallback, useEffect, useRef, useState } from 'react'
+import { Fragment, useCallback, useEffect, useState } from 'react'
 
 import { useDebounce } from '@/shared/hooks'
 import { formatCurrency } from '@/shared/utils'
@@ -20,8 +20,6 @@ import { QuantityInput } from '@/shared/components/quantity-input'
 import { CartItemAction, CartItemAlertDialog } from '@/features/cart/components/client/cart-item'
 
 export default function CartItem({ product, productId, quantity: initialQty }: CartItemType) {
-  const updateCartQuantityRef = useRef<unknown>(null)
-
   const [showAlertDialog, setShowAlertDialog] = useState(false)
 
   const [isInitialRender, setIsInitialRender] = useState(true)
@@ -33,7 +31,8 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
   const [debouncedQuantity, setDebouncedQuantity] = useState<string>(initialQty.toString())
   const debouncedValue = useDebounce(debouncedQuantity, 500)
 
-  const { refetch: refetchQueryProductStock } = useQueryProductStock(productId, false)
+  const queryProductStock = useQueryProductStock(productId, false)
+  const { refetch: refetchQueryProductStock } = queryProductStock
 
   const setSelectedItemIds = useSelectedCartItemIds((state) => state.setSelectedItemId)
   const selectedItemIds = useSelectedCartItemIds((state) => state.selectedItemId)
@@ -93,16 +92,11 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
       return
     }
 
-    if (updateCartQuantityRef.current) return
     ;(async () => {
-      updateCartQuantityRef.current = updateCartQuantityBasedOnStock
-
       await updateCartQuantityBasedOnStock(parseInt(debouncedValue))
-
-      updateCartQuantityRef.current = null
     })()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedValue, updateCartQuantityBasedOnStock])
+  }, [debouncedValue])
 
   useEffect(() => {
     setQuantity(initialQty.toString())
@@ -155,7 +149,7 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
 
         <div className="flex grow flex-col items-start gap-2 md:flex-row md:gap-3">
           <div className="grow font-medium">
-            <Link href={`/${product.slug}`}>
+            <Link href={`/${product.slug}`} className="flex w-fit justify-start">
               <h3 className="line-clamp-2 text-sm md:text-base">{product.name}</h3>
             </Link>
             <div className="mt-2 flex items-baseline gap-2 md:mt-3">
@@ -172,7 +166,7 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
             </div>
           </div>
           <QuantityInput
-            className="h-8 px-2 md:h-9 [&_svg]:!size-5 md:[&_svg]:!size-6"
+            className="h-8 px-2 md:ml-3 md:h-9 [&_svg]:!size-5 md:[&_svg]:!size-6"
             inputClassName="w-10"
             value={quantity}
             onType={setQuantity}
@@ -182,6 +176,7 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
             onIncrease={handleQuantityChange}
             onDecrease={handleQuantityChange}
             onRemoveWhenZero={() => setShowAlertDialog(true)}
+            disabled={queryProductStock.isRefetching}
           />
           <p className="hidden text-end font-bold md:block md:min-w-32">
             {formatCurrency(itemSubtotal)}

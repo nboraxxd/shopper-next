@@ -102,6 +102,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                 <ProductAction
                   productId={product.id}
                   stock={product.stock_item.qty}
+                  maxSaleQty={product.stock_item.max_sale_qty}
                   name={product.name}
                   image={image}
                   realPrice={product.real_price}

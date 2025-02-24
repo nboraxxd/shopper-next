@@ -21,7 +21,7 @@ export default function CartSelectAll({ cartList, labelClassName, titleClassName
 
   const selectedItemIdsSet = new Set(selectedItemIds)
 
-  const isChecked = cartList.every((item) => selectedItemIdsSet.has(item.productId))
+  const isChecked = cartList.length > 0 ? cartList.every((item) => selectedItemIdsSet.has(item.productId)) : false
 
   const preCheckoutMutation = usePreCheckoutMutation()
 
@@ -37,10 +37,10 @@ export default function CartSelectAll({ cartList, labelClassName, titleClassName
     }
   }
 
-  return (
+  return cartList.length > 0 ? (
     <Label className={cn('flex items-center gap-3 md:gap-5', labelClassName)}>
       <Checkbox className="size-4 md:size-5" checked={isChecked} onCheckedChange={handleCheckedChange} />
       <span className={cn('font-medium', titleClassName)}>Chọn tất cả ({cartList.length})</span>
     </Label>
-  )
+  ) : null
 }

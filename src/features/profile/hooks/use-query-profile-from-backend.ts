@@ -11,6 +11,7 @@ export default function useQueryProfileFromBackend() {
   const queryProfileFromBackend = useQuery({
     queryFn: profileClientApi.getProfileFromBackend,
     queryKey: [PROFILE_KEY.PROFILE],
+    staleTime: Infinity,
   })
 
   useEffect(() => {

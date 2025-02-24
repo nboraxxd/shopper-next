@@ -5,7 +5,7 @@ import { ChevronUpIcon } from 'lucide-react'
 import { useMutationState } from '@tanstack/react-query'
 
 import { formatCurrency } from '@/shared/utils'
-import { useQueryCartList } from '@/features/cart/hooks'
+import { useCartList } from '@/features/cart/hooks'
 import { CHECKOUT_KEY } from '@/features/checkout/constants'
 import { PreCheckoutResponse } from '@/features/checkout/types'
 
@@ -28,7 +28,7 @@ import { PromotionDialogContent } from '@/features/promotion/components/client'
 export default function CartPromotionSticky() {
   const stickyRef = useRef<HTMLDivElement>(null)
 
-  const queryCartList = useQueryCartList()
+  const cartList = useCartList((state) => state.cartList)
 
   const dataPreCheckout = useMutationState({
     filters: { mutationKey: [CHECKOUT_KEY.PRE_CHECKOUT], exact: true, status: 'success' },
@@ -67,15 +67,14 @@ export default function CartPromotionSticky() {
           <Separator className="h-0 w-full border-t border-dashed border-border bg-transparent" />
           <div className="flex items-center px-3 sm:px-7">
             <div className="hidden md:flex lg:w-1/2">
-              {queryCartList.isLoading ? (
+              {cartList ? (
+                <CartSelectAll titleClassName="text-sm" cartList={cartList} />
+              ) : (
                 <div className="flex items-center gap-3 md:gap-5">
                   <Skeleton className="size-5 md:size-6" />
                   <Skeleton className="h-5 w-36 md:h-6" />
                 </div>
-              ) : null}
-              {queryCartList.isSuccess ? (
-                <CartSelectAll titleClassName="text-sm" cartList={queryCartList.data.payload.data.listItems} />
-              ) : null}
+              )}
             </div>
 
             <DropdownMenu>

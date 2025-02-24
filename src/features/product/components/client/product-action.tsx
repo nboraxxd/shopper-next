@@ -3,16 +3,16 @@
 import Image from 'next/image'
 import { toast } from 'sonner'
 import { CSSProperties, useState } from 'react'
-import { LoaderCircleIcon } from 'lucide-react'
-import { usePathname, useRouter } from 'next/navigation'
 import { AnimatePresence, motion } from 'motion/react'
+import { usePathname, useRouter } from 'next/navigation'
 
 import PATH from '@/shared/constants/path'
 import { cn, formatCurrency } from '@/shared/utils'
-import { BadRequestError, handleClientErrorApi } from '@/shared/utils/error'
 import { useAuthStore } from '@/features/auth/auth-store'
 import { COMMON_MESSAGE } from '@/shared/constants/message'
 import { PRODUCT_MESSAGE } from '@/features/product/constants'
+import { usePreCheckoutMutation } from '@/features/checkout/hooks'
+import { BadRequestError, handleClientErrorApi } from '@/shared/utils/error'
 import { useBuyNowProductId, useShowStickyAction } from '@/features/product/hooks'
 import { useQueryCartList, useSelectedCartItemIds, useUpdateCartItemQtyMutation } from '@/features/cart/hooks'
 
@@ -24,10 +24,13 @@ interface Props {
   name: string
   image: string
   stock: number
+  maxSaleQty: number
   realPrice: number
 }
 
-export default function ProductAction({ productId, stock, name, image, realPrice }: Props) {
+export default function ProductAction({ productId, stock, maxSaleQty, name, image, realPrice }: Props) {
+  const maxPurchaseQuantity = Math.min(maxSaleQty, stock)
+
   const INITIAL_QUANTITY = '1'
   const [quantity, setQuantity] = useState<string>(INITIAL_QUANTITY)
 
@@ -48,11 +51,13 @@ export default function ProductAction({ productId, stock, name, image, realPrice
   const updateCartItemQtyMutation = useUpdateCartItemQtyMutation()
   const { refetch: refetchQueryCartList, isRefetching: isRefetchQueryCartList } = useQueryCartList(false)
 
+  const preCheckoutMutation = usePreCheckoutMutation()
+
   function handleChangeQuantity(value: string) {
     setQuantity(value)
   }
 
-  async function handleAddToCart() {
+  async function executeProductAction(executeCartUpdate: (quantity: number) => Promise<void>) {
     // Redirect to login page with next query param if user is not authenticated
     if (authState === 'unauthenticated') {
       const next = new URLSearchParams()
@@ -74,11 +79,11 @@ export default function ProductAction({ productId, stock, name, image, realPrice
       return toast.error(PRODUCT_MESSAGE.OUT_OF_STOCK, { style: toastStyle })
     }
 
-    const cartListResponse = await refetchQueryCartList()
-
-    if (cartListResponse.error) {
-      return toast.error(COMMON_MESSAGE.SOMETHING_WENT_WRONG, { style: toastStyle })
+    if (maxSaleQty < 1) {
+      return toast.warning(PRODUCT_MESSAGE.PRODUCT_SUSPENDED_FOR_SALE, { style: toastStyle })
     }
+
+    const cartListResponse = await refetchQueryCartList()
 
     // Calculate the quantity of the product in the cart
     const productQuantityInCart = cartListResponse.isSuccess
@@ -89,87 +94,65 @@ export default function ProductAction({ productId, stock, name, image, realPrice
     const parsedQuantity = parseInt(quantity) ? parseInt(quantity) : 1
 
     // Show toast if stock is less than the quantity in the cart and the quantity input
-    if (productQuantityInCart + parsedQuantity > stock) {
-      return toast.info(PRODUCT_MESSAGE.PRODUCT_ALREADY_IN_CART(productQuantityInCart), {
+    if (productQuantityInCart > 0 && productQuantityInCart + parsedQuantity > maxPurchaseQuantity) {
+      return toast.warning(PRODUCT_MESSAGE.PRODUCT_ALREADY_IN_CART(productQuantityInCart), {
         duration: 5000,
         style: toastStyle,
       })
     }
 
-    // Proceed to update the quantity of the product in the cart
-    toast.promise(
-      updateCartItemQtyMutation.mutateAsync({
-        productId,
-        quantity: productQuantityInCart > 0 ? productQuantityInCart + parsedQuantity : parsedQuantity,
-      }),
-      {
-        loading: PRODUCT_MESSAGE.ADDING_PRODUCT_TO_CART,
-        success: async () => {
-          await refetchQueryCartList()
+    if (parsedQuantity > maxPurchaseQuantity) {
+      setQuantity(maxPurchaseQuantity.toString())
+      return toast.warning(PRODUCT_MESSAGE.MAX_PURCHASE_LIMIT(maxPurchaseQuantity), { style: toastStyle })
+    }
 
-          return PRODUCT_MESSAGE.ADDED_PRODUCT_TO_CART
-        },
-        error: (err) => {
-          if (err instanceof BadRequestError) {
-            return err.payload.message
-          } else {
-            return COMMON_MESSAGE.SOMETHING_WENT_WRONG
+    await executeCartUpdate(productQuantityInCart > 0 ? productQuantityInCart + parsedQuantity : parsedQuantity)
+  }
+
+  async function handleAddToCart() {
+    try {
+      await executeProductAction(async (quantity: number) => {
+        // Proceed to update the quantity of the product in the cart
+        toast.promise(
+          updateCartItemQtyMutation.mutateAsync({
+            productId,
+            quantity,
+          }),
+          {
+            loading: PRODUCT_MESSAGE.ADDING_PRODUCT_TO_CART,
+            success: async () => {
+              await refetchQueryCartList()
+              setBuyNowProductId(null)
+
+              return PRODUCT_MESSAGE.ADDED_PRODUCT_TO_CART
+            },
+            error: (err) => {
+              if (err instanceof BadRequestError) {
+                return err.payload.message
+              } else {
+                return COMMON_MESSAGE.SOMETHING_WENT_WRONG
+              }
+            },
+            style: toastStyle,
           }
-        },
-        style: toastStyle,
-      }
-    )
+        )
+      })
+    } catch (error) {
+      handleClientErrorApi({ error })
+    }
   }
 
   async function handleBuyNow() {
-    // Redirect to login page with next query param if user is not authenticated
-    if (authState === 'unauthenticated') {
-      const next = new URLSearchParams()
-      next.set('next', pathname)
-
-      router.push(`${PATH.LOGIN}?${next.toString()}`)
-    }
-
-    // Show toast if user is still being authenticated
-    if (authState === 'loading') {
-      return toast.info(COMMON_MESSAGE.LOADING_DATA, { style: toastStyle })
-    }
-
-    // Stop the function if the query is refetching or the mutation is pending
-    if (isRefetchQueryCartList || updateCartItemQtyMutation.isPending) return
-
-    // Show toast if the product is out of stock
-    if (stock < 1) {
-      return toast.error(PRODUCT_MESSAGE.OUT_OF_STOCK, { style: toastStyle })
-    }
-
     try {
-      const cartListResponse = await refetchQueryCartList()
+      await executeProductAction(async (quantity: number) => {
+        await updateCartItemQtyMutation.mutateAsync({ productId, quantity })
 
-      // Calculate the quantity of the product in the cart
-      const productQuantityInCart = cartListResponse.isSuccess
-        ? (cartListResponse.data.payload.data.listItems.find((item) => item.productId === productId)?.quantity ?? 0)
-        : 0
+        setBuyNowProductId(productId)
+        setSelectedCartItemId([productId])
+        router.push(PATH.CART)
 
-      // Validate the quantity input and parse it to integer
-      const parsedQuantity = parseInt(quantity) ? parseInt(quantity) : 1
-
-      // Show toast if stock is less than the quantity in the cart and the quantity input
-      if (productQuantityInCart + parsedQuantity > stock) {
-        return toast.info(PRODUCT_MESSAGE.PRODUCT_ALREADY_IN_CART(productQuantityInCart), {
-          duration: 5000,
-          style: toastStyle,
-        })
-      }
-
-      await updateCartItemQtyMutation.mutateAsync({
-        productId,
-        quantity: productQuantityInCart > 0 ? productQuantityInCart + parsedQuantity : parsedQuantity,
+        await preCheckoutMutation.mutateAsync({ listItems: [productId] })
       })
-
-      setBuyNowProductId(productId)
-      setSelectedCartItemId([productId])
-      router.push(PATH.CART)
     } catch (error) {
       handleClientErrorApi({ error })
     }
@@ -192,12 +175,7 @@ export default function ProductAction({ productId, stock, name, image, realPrice
       ) : null}
       {stock <= 0 ? <p className="mt-3 text-sm font-medium text-primary-red">Sản phẩm đã hết hàng</p> : null}
       <div className="mt-5">
-        <AddToCartButton
-          handleAddToCart={handleAddToCart}
-          disabled={stock === 0}
-          isShowLoader={isRefetchQueryCartList || updateCartItemQtyMutation.isPending}
-          className="h-12 w-full"
-        />
+        <AddToCartButton handleAddToCart={handleAddToCart} disabled={stock === 0} className="h-12 w-full" />
         <div className="mt-3 flex items-center gap-3 sm:mt-4 sm:gap-4">
           <BuyNowButton disabled={stock === 0} className="h-12 w-1/2 sm:text-lg" handleBuyNow={handleBuyNow} />
           <ButtonWithRefreshTokenState
@@ -232,7 +210,6 @@ export default function ProductAction({ productId, stock, name, image, realPrice
                 <AddToCartButton
                   handleAddToCart={handleAddToCart}
                   disabled={stock === 0}
-                  isShowLoader={isRefetchQueryCartList || updateCartItemQtyMutation.isPending}
                   className="h-11 w-1/2 gap-1 text-sm [&_svg]:size-4"
                 />
                 <BuyNowButton disabled={stock === 0} className="h-11 w-1/2" handleBuyNow={handleBuyNow} />
@@ -246,13 +223,12 @@ export default function ProductAction({ productId, stock, name, image, realPrice
 }
 
 interface AddToCartButtonProps {
-  handleAddToCart: () => Promise<string | number | undefined>
+  handleAddToCart: () => Promise<void>
   disabled?: boolean
-  isShowLoader?: boolean
   className?: string
 }
 
-function AddToCartButton({ handleAddToCart, disabled, isShowLoader, className }: AddToCartButtonProps) {
+function AddToCartButton({ handleAddToCart, disabled, className }: AddToCartButtonProps) {
   return (
     <ButtonWithRefreshTokenState
       variant="ghost"
@@ -263,14 +239,13 @@ function AddToCartButton({ handleAddToCart, disabled, isShowLoader, className }:
       disabled={disabled}
       onClick={handleAddToCart}
     >
-      {isShowLoader ? <LoaderCircleIcon className="animate-spin" /> : null}
       Thêm vào giỏ
     </ButtonWithRefreshTokenState>
   )
 }
 
 interface BuyNowButtonProps {
-  handleBuyNow: () => Promise<string | number | undefined>
+  handleBuyNow: () => Promise<void>
   disabled?: boolean
   className?: string
 }

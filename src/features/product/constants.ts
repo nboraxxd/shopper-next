@@ -46,4 +46,7 @@ export const PRODUCT_MESSAGE = {
     `Giỏ hàng đã có ${productQuantityInCart} sản phẩm. Số lượng trong kho không đủ để tiếp tục.`,
   ADDING_PRODUCT_TO_CART: 'Đang thêm sản phẩm vào giỏ hàng...',
   ADDED_PRODUCT_TO_CART: 'Đã thêm sản phẩm vào giỏ hàng',
+  MAX_PURCHASE_LIMIT: (maxAllowedPurchase: number) =>
+    `Số lượng được mua tối đa của sản phẩm này là ${maxAllowedPurchase}.`,
+  PRODUCT_SUSPENDED_FOR_SALE: 'Sản phẩm đang tạm ngừng kinh doanh.',
 }
