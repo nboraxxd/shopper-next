@@ -4,12 +4,12 @@ import keyBy from 'lodash/keyBy'
 import { Url } from 'next/dist/shared/lib/router/router'
 
 import PATH from '@/shared/constants/path'
-import { CATEGORY_IMAGES } from '@/features/category/constants'
+import { PRODUCT_CATEGORIES } from '@/features/category/constants'
 import { categoryServerApi } from '@/features/category/api/server'
 import { extractCategorySlug } from '@/features/category/utils'
 
 export default async function CategoriesSection() {
-  const categoriesImage = keyBy(CATEGORY_IMAGES, 'id')
+  const categoriesImage = keyBy(PRODUCT_CATEGORIES, 'id')
 
   const categoriesResponse = await categoryServerApi.getCategoriesFromBackend()
 

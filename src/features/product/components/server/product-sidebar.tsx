@@ -6,7 +6,7 @@ import type { ComponentProps } from 'react'
 import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
 import type { Category } from '@/features/category/types'
-import { CATEGORY_IMAGES } from '@/features/category/constants'
+import { PRODUCT_CATEGORIES } from '@/features/category/constants'
 import { extractCategorySlug } from '@/features/category/utils'
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 }
 
 export default async function ProductSidebar({ categories, categoryId }: Props) {
-  const categoriesImage = keyBy(CATEGORY_IMAGES, 'id')
+  const categoriesImage = keyBy(PRODUCT_CATEGORIES, 'id')
 
   return (
     <aside>

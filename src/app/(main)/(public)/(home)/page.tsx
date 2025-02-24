@@ -1,4 +1,10 @@
+import { Metadata } from 'next'
+
 import { BestSellerSection, CategoriesSection, HeroSection, PromotionSection } from '@/features/home/components'
+
+export const metadata: Metadata = {
+  title: 'Trang chủ',
+}
 
 export default function Homepage() {
   return (

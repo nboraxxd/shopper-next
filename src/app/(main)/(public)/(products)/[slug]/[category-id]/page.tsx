@@ -1,15 +1,52 @@
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import type { SearchParams } from '@/shared/types'
-import { CATEGORY_IDS } from '@/features/category/constants'
+import { extractCategorySlug } from '@/features/category/utils'
+import envVariables from '@/shared/schemas/env-variables.schema'
+import { baseOpenGraph } from '@/shared/constants/shared-metadata'
 import { categoryServerApi } from '@/features/category/api/server'
 import { sanitizeProductsSearchParams } from '@/features/product/utils/server'
+import { CATEGORY_IDS, PRODUCT_CATEGORIES } from '@/features/category/constants'
 
 import { ProductList, ProductSidebar } from '@/features/product/components/server'
 
 interface Props {
   params: Promise<{ slug: string; 'category-id': string }>
   searchParams: SearchParams
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { 'category-id': categoryId } = await params
+
+  const category = PRODUCT_CATEGORIES.find((category) => category.id === +categoryId)
+
+  if (!category) {
+    return {
+      title: 'Không tìm thấy danh mục sản phẩm',
+      description: 'Không tìm thấy danh mục sản phẩm',
+    }
+  }
+
+  const url = `${envVariables.NEXT_PUBLIC_URL}/${extractCategorySlug(category.slug)}/${category.id}`
+  const title = `${category.title} - hàng chính hãng, giao nhanh ${new Date().getMonth() + 1}, ${new Date().getFullYear()}`
+  const description = category.description
+  const image = envVariables.NEXT_PUBLIC_URL + category.image
+
+  return {
+    title,
+    description,
+    openGraph: {
+      ...baseOpenGraph,
+      title,
+      description,
+      url,
+      images: [{ url: image, alt: title }],
+    },
+    alternates: {
+      canonical: url,
+    },
+  }
 }
 
 export default async function CategoryPage(props: Props) {
