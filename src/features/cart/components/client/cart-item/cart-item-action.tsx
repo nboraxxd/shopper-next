@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import { Button } from '@/shared/components/ui/button'
 import { HeartIcon, Svgr, TrashIcon } from '@/shared/components/icons'
-import { CartItemAlertDialog } from '@/features/cart/components/client/cart-item'
+import { RemoveCartItemDialog } from '@/features/cart/components/client/cart-item'
 
 export default function CartItemAction({ productId }: { productId: number }) {
   const [showDelDialog, setDelDialog] = useState(false)
@@ -27,7 +27,7 @@ export default function CartItemAction({ productId }: { productId: number }) {
         <Svgr icon={TrashIcon} />
       </Button>
 
-      <CartItemAlertDialog productId={productId} showAlertDialog={showDelDialog} setShowAlertDialog={setDelDialog} />
+      <RemoveCartItemDialog productId={productId} showAlertDialog={showDelDialog} setShowAlertDialog={setDelDialog} />
     </div>
   )
 }

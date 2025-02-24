@@ -1,2 +1,2 @@
 export { default as CartItemAction } from './cart-item-action'
-export { default as CartItemAlertDialog } from './cart-item-alert-dialog'
+export { default as RemoveCartItemDialog } from './remove-cart-item-dialog'

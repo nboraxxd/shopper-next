@@ -13,11 +13,11 @@ import { CartItem as CartItemType } from '@/features/cart/types'
 import { usePreCheckoutMutation } from '@/features/checkout/hooks'
 import { useSelectedCartItemIds, useUpdateCartItemQtyMutation } from '@/features/cart/hooks'
 
-import { Checkbox } from '@/shared/components/ui/checkbox'
 import { COMMON_MESSAGE } from '@/shared/constants/message'
 import { Separator } from '@/shared/components/ui/separator'
 import { QuantityInput } from '@/shared/components/quantity-input'
-import { CartItemAction, CartItemAlertDialog } from '@/features/cart/components/client/cart-item'
+import { CheckboxWithRefreshTokenState } from '@/shared/components'
+import { CartItemAction, RemoveCartItemDialog } from '@/features/cart/components/client/cart-item'
 
 export default function CartItem({ product, productId, quantity: initialQty }: CartItemType) {
   const [showAlertDialog, setShowAlertDialog] = useState(false)
@@ -125,12 +125,8 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
   return (
     <Fragment>
       <div className="relative flex items-start gap-2 md:gap-3">
-        <label
-          htmlFor={productId.toString()}
-          className="-ml-1 flex items-center self-stretch px-1 pt-0 xs:items-stretch xs:pt-8 md:-ml-2 md:items-center md:px-2 md:pt-0"
-        >
-          <Checkbox
-            id={productId.toString()}
+        <label className="-ml-1 flex items-center self-stretch px-1 pt-0 xs:items-stretch xs:pt-8 md:-ml-2 md:items-center md:px-2 md:pt-0">
+          <CheckboxWithRefreshTokenState
             className="block size-4 md:size-5"
             checked={isChecked}
             onCheckedChange={handleCheckedChange}
@@ -177,6 +173,7 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
             onDecrease={handleQuantityChange}
             onRemoveWhenZero={() => setShowAlertDialog(true)}
             disabled={queryProductStock.isRefetching}
+            isAuthenticated
           />
           <p className="hidden text-end font-bold md:block md:min-w-32">
             {formatCurrency(itemSubtotal)}
@@ -186,7 +183,7 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
 
         <CartItemAction productId={productId} />
 
-        <CartItemAlertDialog
+        <RemoveCartItemDialog
           productId={productId}
           showAlertDialog={showAlertDialog}
           setShowAlertDialog={setShowAlertDialog}

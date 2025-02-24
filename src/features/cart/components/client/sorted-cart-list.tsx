@@ -44,7 +44,7 @@ export default function SortedCartList({ cartListFromServer }: Props) {
 
   return (
     <>
-      <CartSelectAll cartList={cartListFromServer} titleClassName="md:text-lg" />
+      <CartSelectAll cartList={cartList} titleClassName="md:text-lg" />
       <Separator className="my-3 md:my-5" />
       {buyNowProductId
         ? cartListReverse

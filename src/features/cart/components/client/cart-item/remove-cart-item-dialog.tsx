@@ -23,7 +23,7 @@ interface Props {
   setShowAlertDialog: Dispatch<SetStateAction<boolean>>
 }
 
-export default function CartItemAlertDialog({ productId, showAlertDialog, setShowAlertDialog }: Props) {
+export default function RemoveCartItemDialog({ productId, showAlertDialog, setShowAlertDialog }: Props) {
   const router = useRouter()
 
   const setCartList = useCartList((state) => state.setCartList)

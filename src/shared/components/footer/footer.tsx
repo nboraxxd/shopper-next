@@ -1,13 +1,20 @@
 import Link from 'next/link'
 
+import { cn } from '@/shared/utils'
+
 import { ModeToggle } from '@/shared/components'
 import { FooterIndicator } from '@/shared/components/footer'
 
-export default function Footer() {
+export default function Footer({ className }: { className?: string }) {
   return (
     <>
       <FooterIndicator />
-      <footer className="flex w-full flex-col items-center gap-2 bg-footer px-8 py-12 text-sm font-light sm:px-16 md:px-0">
+      <footer
+        className={cn(
+          'flex w-full flex-col items-center gap-2 bg-footer px-8 py-12 text-sm font-light sm:px-16 md:px-0',
+          className
+        )}
+      >
         <div className="container flex flex-col-reverse justify-between gap-8 md:flex-row md:items-end md:gap-2">
           <div>
             The project was inspired by <Link href="https://spacedev.vn/course/react">React course</Link> by SpaceDev

@@ -3,9 +3,11 @@
 import { ComponentProps, useState } from 'react'
 
 import { cn } from '@/shared/utils'
+import { useRefreshTokenState } from '@/features/auth/auth-store'
+
 import { Button } from '@/shared/components/ui/button'
-import { MinusIcon, PlusIcon, Svgr } from '@/shared/components/icons'
 import { NumberInput } from '@/shared/components/quantity-input'
+import { MinusIcon, PlusIcon, Svgr } from '@/shared/components/icons'
 
 interface Props extends Omit<ComponentProps<'input'>, 'className'> {
   value?: string
@@ -17,6 +19,7 @@ interface Props extends Omit<ComponentProps<'input'>, 'className'> {
   onType?: (value: string) => void
   onFocusOut?: (value: string) => void
   inputClassName?: string
+  isAuthenticated?: boolean
 }
 
 export default function QuantityInput(props: Props) {
@@ -31,10 +34,15 @@ export default function QuantityInput(props: Props) {
     value = '',
     disabled,
     inputClassName,
+    isAuthenticated = false,
     ...rest
   } = props
 
   const [localValue, setLocalValue] = useState<string>(value)
+
+  const isRefreshingToken = useRefreshTokenState((state) => state.isRefreshingToken)
+
+  const isDisabledOnTokenRefresh = isAuthenticated && isRefreshingToken
 
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = ev.target.value
@@ -95,7 +103,7 @@ export default function QuantityInput(props: Props) {
         variant="ghost"
         tabIndex={-1}
         onClick={handleDecrease}
-        disabled={max === 0 || disabled}
+        disabled={max === 0 || disabled || isDisabledOnTokenRefresh}
         className="size-auto"
       >
         <Svgr icon={MinusIcon} />
@@ -107,7 +115,7 @@ export default function QuantityInput(props: Props) {
         value={value || localValue}
         onChange={handleChange}
         onBlur={handleBlur}
-        disabled={max === 0 || disabled}
+        disabled={max === 0 || disabled || isDisabledOnTokenRefresh}
         {...rest}
       />
       <Button
@@ -115,7 +123,7 @@ export default function QuantityInput(props: Props) {
         variant="ghost"
         tabIndex={-1}
         onClick={handleIncrease}
-        disabled={max === 0 || disabled}
+        disabled={max === 0 || disabled || isDisabledOnTokenRefresh}
         className="size-auto"
       >
         <Svgr icon={PlusIcon} />

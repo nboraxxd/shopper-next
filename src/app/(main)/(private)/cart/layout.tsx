@@ -1,4 +1,4 @@
-import { Header } from '@/shared/components/header'
+import { Footer } from '@/shared/components'
 
 export default function MainLayout({
   children,
@@ -7,8 +7,8 @@ export default function MainLayout({
 }>) {
   return (
     <>
-      <Header />
       {children}
+      <Footer className="hidden xl:block" />
     </>
   )
 }

@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query'
 
+import { CART_KEY } from '@/features/cart/constants'
 import { cartClientApi } from '@/features/cart/api/client'
 import { handleClientErrorApi } from '@/shared/utils/error'
 import { usePreCheckoutMutation } from '@/features/checkout/hooks'
 import { useSelectedCartItemIds, useQueryCartList } from '@/features/cart/hooks'
-import { CART_KEY } from '@/features/cart/constants'
 
 export default function useRemoveItemAndRefetchCart() {
   const queryCartList = useQueryCartList(false)
