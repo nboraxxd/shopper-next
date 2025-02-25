@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const url = `${envVariables.NEXT_PUBLIC_URL}/${extractCategorySlug(category.slug)}/${category.id}`
-  const title = `${category.title} - hàng chính hãng, giao nhanh ${new Date().getMonth() + 1}, ${new Date().getFullYear()}`
+  const title = category.title
   const description = category.description
   const image = envVariables.NEXT_PUBLIC_URL + category.image
 
@@ -58,12 +58,17 @@ export default async function CategoryPage(props: Props) {
 
   const productsSearchParams = sanitizeProductsSearchParams({ ...searchParams, categoryId })
 
+  const category = PRODUCT_CATEGORIES.find((category) => category.id === +categoryId)
+
   return (
     <div className="container min-h-[calc(100vh-var(--header-height))] pt-8">
       <div className="lg:grid lg:grid-cols-[250px_minmax(0,1fr)] lg:gap-7">
         <ProductSidebar categories={categoriesResponse.payload.data} categoryId={+categoryId} />
-        <main className="mt-5 grid grid-cols-2 gap-3 pb-14 md:grid-cols-3 md:gap-4 lg:mt-0 lg:h-fit xl:grid-cols-4 2xl:grid-cols-5">
-          <ProductList productsSearchParams={productsSearchParams} categories={categoriesResponse.payload.data} />
+        <main className="mt-5 lg:mt-0">
+          <h1 className="text-lg font-medium md:text-2xl md:font-bold">{category?.title ?? 'Danh mục sản phẩm'}</h1>
+          <div className="mt-4 grid grid-cols-2 gap-3 pb-14 md:mt-7 md:grid-cols-3 md:gap-4 lg:h-fit xl:grid-cols-4 2xl:grid-cols-5">
+            <ProductList productsSearchParams={productsSearchParams} categories={categoriesResponse.payload.data} />
+          </div>
         </main>
       </div>
     </div>

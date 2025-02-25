@@ -70,13 +70,13 @@ function CategoryItem(props: CategoryProps) {
       <div className="overflow-hidden rounded-[35%] border border-secondary-3/30 lg:overflow-visible lg:rounded-none lg:border-none">
         <Image width={64} height={64} src={imageSrc} alt={title} className={cn('size-12 object-contain lg:size-9')} />
       </div>
-      <h3
+      <h2
         className={cn('text-balance text-center text-xs font-medium capitalize lg:text-wrap lg:text-left lg:text-sm', {
           'text-highlight': isActive,
         })}
       >
         {title}
-      </h3>
+      </h2>
     </Link>
   )
 }
