@@ -28,6 +28,8 @@ export function LoginForm() {
 
   const searchParams = useSearchParams()
   const next = searchParams.get('next')
+  const code = searchParams.get('code')
+  console.log('🔥 ~ LoginForm ~ code:', code)
 
   const form = useForm<LoginReqBody>({
     resolver: zodResolver(loginSchema),
@@ -61,12 +63,12 @@ export function LoginForm() {
   return (
     <Form {...form}>
       <form className="mt-8 flex w-full shrink-0 flex-col" noValidate onSubmit={form.handleSubmit(onValid)}>
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <div className="grid gap-2">
+        <div className="flex flex-col gap-6">
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem className="space-y-1">
                 <InputWrapper>
                   <Input
                     type="email"
@@ -79,24 +81,22 @@ export function LoginForm() {
                   <Svgr icon={MailIcon} className="size-6 text-secondary-3" />
                 </InputWrapper>
                 <FormMessage />
-              </div>
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem className="mt-7">
-              <div className="grid gap-2">
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem className="space-y-1">
                 <InputWrapper>
                   <PasswordInput field={field} />
                 </InputWrapper>
                 <FormMessage />
-              </div>
-            </FormItem>
-          )}
-        />
+              </FormItem>
+            )}
+          />
+        </div>
         <Button
           type="submit"
           className="mt-7 h-12 w-full gap-1.5 [&_svg]:size-5"
@@ -105,7 +105,7 @@ export function LoginForm() {
           {loginToServerMutation.isPending || isNavigating ? <LoaderCircleIcon className="animate-spin" /> : null}
           Đăng nhập
         </Button>
-        <LoginHelpLinks />
+        <LoginHelperLinks />
       </form>
     </Form>
   )
@@ -125,12 +125,12 @@ export function LoginFormFallback() {
       <Button className="mt-7 h-12 w-full gap-1.5" disabled>
         Đăng nhập
       </Button>
-      <LoginHelpLinks />
+      <LoginHelperLinks />
     </div>
   )
 }
 
-function LoginHelpLinks() {
+function LoginHelperLinks() {
   return (
     <div className="mt-5 flex items-center gap-1 place-self-end text-sm xs:gap-1.5 xs:text-base">
       <TextLink href={PATH.FORGOT_PASSWORD}>Quên mật khẩu</TextLink>

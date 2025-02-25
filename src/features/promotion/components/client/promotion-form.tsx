@@ -29,7 +29,7 @@ export default function PromotionForm() {
 
   useEffect(() => {
     if (error) {
-      if (error instanceof BadRequestError) {
+      if (error instanceof BadRequestError && !error.payload.detail) {
         form.setError('promotion', {
           type: z.ZodIssueCode.custom,
           message: error.payload.message.replace('giãm giá', `giảm giá ${upperCase(form.getValues('promotion'))}`),

@@ -1,9 +1,9 @@
 import http from '@/shared/utils/http'
 
 import type { MessageResponse } from '@/shared/types'
-import { LoginReqBody } from '@/features/auth/schemas'
 import envVariables from '@/shared/schemas/env-variables.schema'
-import type { AuthResponse, RefreshTokenResponse, RegisterReqBody, RegisterResponse } from '@/features/auth/types'
+import { LoginReqBody, RegisterReqBody } from '@/features/auth/schemas'
+import type { AuthResponse, RefreshTokenResponse, RegisterResponse } from '@/features/auth/types'
 
 const SERVER_PREFIX = '/api/auth'
 const BACKEND_PREFIX = '/users'
@@ -11,7 +11,7 @@ const BACKEND_PREFIX = '/users'
 const authClientApi = {
   registerUserToBackend: (body: RegisterReqBody) => http.post<RegisterResponse>(`${BACKEND_PREFIX}/register`, body),
 
-  resendEmailToBackend: (username: string) =>
+  resendEmailRegisterToBackend: (username: string) =>
     http.post<MessageResponse>(`${BACKEND_PREFIX}/resend-email`, { username }),
 
   loginToServer: (body: LoginReqBody) =>

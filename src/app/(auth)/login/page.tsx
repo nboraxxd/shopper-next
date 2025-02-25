@@ -1,28 +1,32 @@
-import { Suspense } from 'react'
+import { Metadata } from 'next'
 
 import PATH from '@/shared/constants/path'
 
-import { AuthRedirectLink, AuthRedirectLinkFallback, LoginForm, LoginFormFallback } from '@/features/auth/components'
+import { AuthContent, LoginForm, LoginFormFallback } from '@/features/auth/components'
+import { Suspense } from 'react'
+
+export const metadata: Metadata = {
+  title: 'Đăng nhập tài khoản',
+}
 
 export default function LoginPage() {
   return (
-    <>
-      <h2 className="mt-14 text-xl font-medium uppercase text-auth-content-heading sm:text-4xl">Đăng nhập</h2>
-      <p className="mt-2.5 text-balance text-center text-sm font-medium text-auth-content-foreground sm:text-base">
-        <span className="hidden sm:inline">Chào mừng bạn quay trở lại.</span> Tận hưởng trải nghiệm liền mạch cùng toàn
-        bộ thông tin đã lưu của bạn.
-      </p>
+    <AuthContent>
+      <AuthContent.Heading>Đăng nhập</AuthContent.Heading>
+      <AuthContent.Description>
+        <span className="hidden sm:inline">Chào mừng bạn quay trở lại.</span> Đăng nhập để tiếp tục mua sắm thông minh
+        và tiết kiệm chi phí nha!
+      </AuthContent.Description>
 
-      <Suspense fallback={<LoginFormFallback />}>
-        <LoginForm />
-      </Suspense>
-
-      <div className="mt-14 flex items-center justify-center gap-2.5 sm:text-lg lg:mt-24">
-        <span className="text-auth-content-foreground">Bạn chưa có tài khoản?</span>
-        <Suspense fallback={<AuthRedirectLinkFallback pathname={PATH.REGISTER}>Đăng ký</AuthRedirectLinkFallback>}>
-          <AuthRedirectLink pathname={PATH.REGISTER}>Đăng ký</AuthRedirectLink>
+      <AuthContent.Form>
+        <Suspense fallback={<LoginFormFallback />}>
+          <LoginForm />
         </Suspense>
-      </div>
-    </>
+      </AuthContent.Form>
+
+      <AuthContent.Redirect label="Bạn chưa có tài khoản?" href={PATH.REGISTER}>
+        Đăng ký
+      </AuthContent.Redirect>
+    </AuthContent>
   )
 }

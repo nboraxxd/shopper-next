@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 import { name, password } from '@/features/auth/schemas'
-import { AUTH_ERROR_MESSAGES } from '@/features/auth/constants'
+import { AUTH_MESSAGES } from '@/features/auth/constants'
 import { PROFILE_ERROR_MESSAGES } from '@/features/profile/constants'
 
 export const updateProfileSchema = z.object({
@@ -39,7 +39,7 @@ export const changePasswordSchema = z
     if (newPassword !== confirmNewPassword) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: AUTH_ERROR_MESSAGES.PASSWORD_NOT_MATCH,
+        message: AUTH_MESSAGES.PASSWORD_NOT_MATCH,
         path: ['confirmNewPassword'],
       })
     }

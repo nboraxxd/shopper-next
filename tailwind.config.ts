@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss'
 import tailwindcssAnimate from 'tailwindcss-animate'
-import containerQueries from '@tailwindcss/container-queries'
 import { fontFamily } from 'tailwindcss/defaultTheme'
+import containerQueries from '@tailwindcss/container-queries'
 
 import customPlugin from './tailwind-plugin'
 
@@ -69,6 +69,12 @@ export default {
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
+        },
+
+        success: {
+          DEFAULT: 'hsl(var(--success))',
+          secondary: 'hsl(var(--success-secondary))',
+          foreground: 'hsl(var(--success-foreground))',
         },
 
         destructive: {

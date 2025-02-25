@@ -41,6 +41,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/register',
+        destination: PATH.REGISTER,
+        permanent: true,
+      },
+      {
         source: '/products',
         destination: PATH.PRODUCTS,
         permanent: true,
@@ -111,6 +116,10 @@ const nextConfig: NextConfig = {
       {
         source: PATH.LOGIN,
         destination: '/login',
+      },
+      {
+        source: PATH.REGISTER,
+        destination: '/register',
       },
       {
         source: PATH.CART,

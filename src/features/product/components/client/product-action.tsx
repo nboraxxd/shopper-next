@@ -63,7 +63,7 @@ export default function ProductAction({ productId, stock, maxSaleQty, name, imag
       const next = new URLSearchParams()
       next.set('next', pathname)
 
-      router.push(`${PATH.LOGIN}?${next.toString()}`)
+      return router.push(`${PATH.LOGIN}?${next.toString()}`)
     }
 
     // Show toast if user is still being authenticated

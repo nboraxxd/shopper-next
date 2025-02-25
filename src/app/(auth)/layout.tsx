@@ -19,10 +19,10 @@ export default function AuthLayout({
           className="w-[min(424px,100%)]"
           priority
         />
-        <h1 className="max-w-[412px] text-center text-lg font-medium text-auth-intro-foreground">
-          <span>Giá trị thương hiệu cao cấp,</span>
+        <h1 className="max-w-md text-center text-lg font-medium text-auth-intro-foreground">
+          <span>Tiện lợi mua sắm hàng triệu mặt hàng, dịch vụ.</span>
           <br />
-          <span>sản phẩm chất lượng và dịch vụ sáng tạo</span>
+          <span>Vô vàn ưu đãi freeship, mã giảm giá.</span>
         </h1>
       </div>
 

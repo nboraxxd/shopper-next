@@ -25,6 +25,10 @@
     --accent: 0 0% 92.2%; /* #ebebeb */
     --accent-foreground: 240 5.9% 10%;
 
+    --success: 142.9 89.5% 55.3%; /* ​#27f375 */
+    --success-secondary: 122.3 47.1% 56.3%; /* #5bc45f */
+    --success-foreground: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
@@ -112,6 +116,8 @@
 
     --accent: 223.3 16.1% 22%; /* #2f3441 */
     --accent-foreground: 0 0% 98%;
+
+    --success-foreground: 0 0% 100%; /* #fff - light-1 */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -222,15 +228,6 @@
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari and Opera */
   .scrollbar-hide::-webkit-scrollbar {
@@ -243,5 +240,14 @@
   }
   svg {
     @apply shrink-0;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
