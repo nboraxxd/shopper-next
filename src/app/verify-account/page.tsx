@@ -46,8 +46,8 @@ function VerifyAccountContent() {
 
 function VerifyAccountView() {
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <p className="flex items-center gap-x-3">
+    <div className="flex h-screen items-center justify-center">
+      <p className="flex items-center gap-3">
         <LoaderCircleIcon className="size-8 animate-spin" />
         <span className="font-medium text-foreground">Đang xác thực...</span>
       </p>

@@ -1,6 +1,7 @@
 'use client'
 
 import { z } from 'zod'
+import { toast } from 'sonner'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { LoaderCircleIcon, MailCheckIcon } from 'lucide-react'
@@ -11,16 +12,15 @@ import envVariables from '@/shared/schemas/env-variables.schema'
 import { registerSchema, RegisterType } from '@/features/auth/schemas'
 import { CUSTOM_INPUT_CLASSNAME } from '@/shared/constants/class-name'
 import { BadRequestError, handleClientErrorApi } from '@/shared/utils/error'
-import { useRegisterToBackendMutation, useResendEmailRegisterMutation } from '@/features/auth/hooks'
+import { useRegisterToBackendMutation, useResendVerificationEmailMutation } from '@/features/auth/hooks'
 
+import { InputWrapper } from '@/shared/components'
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
 import { MailIcon, Svgr } from '@/shared/components/icons'
-import { PasswordInput } from '@/features/auth/components'
-import { InputWrapper, TextLink } from '@/shared/components'
+import { AuthHelperLinks, PasswordInput } from '@/features/auth/components'
 import { Alert, AlertDescription, AlertTitle } from '@/shared/components/ui/alert'
 import { Form, FormField, FormItem, FormMessage } from '@/shared/components/ui/form'
-import { toast } from 'sonner'
 
 export default function RegisterForm() {
   const form = useForm<RegisterType>({
@@ -34,7 +34,7 @@ export default function RegisterForm() {
   })
 
   const registerMutation = useRegisterToBackendMutation()
-  const resendEmailMutation = useResendEmailRegisterMutation()
+  const resendEmailMutation = useResendVerificationEmailMutation()
 
   async function onValid({ name, password, username }: RegisterType) {
     if (registerMutation.isPending || registerMutation.isSuccess) return
@@ -184,19 +184,15 @@ export default function RegisterForm() {
             </Button>
           )}
 
-          <RegisterHelperLinks />
+          <AuthHelperLinks
+            links={[
+              { href: PATH.RESEND_VERIFICATION_EMAIL, label: 'Gửi lại email xác thực' },
+              { href: PATH.SUPPORT, label: 'Bạn cần hỗ trợ?' },
+            ]}
+            className="mt-5"
+          />
         </form>
       </Form>
     </>
-  )
-}
-
-function RegisterHelperLinks() {
-  return (
-    <div className="mt-5 flex items-center gap-1 place-self-end text-sm xs:gap-1.5 xs:text-base">
-      <TextLink href={PATH.RESEND_VERIFY_EMAIL}>Gửi lại email xác thực</TextLink>
-      <span className="text-highlight">•</span>
-      <TextLink href={PATH.SUPPORT}>Bạn cần hỗ trợ?</TextLink>
-    </div>
   )
 }

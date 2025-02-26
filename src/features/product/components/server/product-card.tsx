@@ -109,7 +109,12 @@ function ProductImageSkeleton({ className }: { className?: string }) {
     <div className={cn('relative p-0 pt-[100%] [&_svg]:size-14 md:[&_svg]:size-20', className)}>
       <div className="absolute left-0 top-0 size-full">
         <Skeleton className="size-full rounded-none rounded-t-xl" />
-        <ShopperIcon className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-foreground/15 " />
+        <Svgr
+          icon={ShopperIcon}
+          width={80}
+          height={80}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-foreground/15"
+        />
       </div>
     </div>
   )

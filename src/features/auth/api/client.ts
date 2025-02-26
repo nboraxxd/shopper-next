@@ -11,7 +11,7 @@ const BACKEND_PREFIX = '/users'
 const authClientApi = {
   registerUserToBackend: (body: RegisterReqBody) => http.post<RegisterResponse>(`${BACKEND_PREFIX}/register`, body),
 
-  resendEmailRegisterToBackend: (username: string) =>
+  resendVerificationEmailToBackend: (username: string) =>
     http.post<MessageResponse>(`${BACKEND_PREFIX}/resend-email`, { username }),
 
   loginToServer: (body: LoginReqBody) =>

@@ -35,3 +35,7 @@ export const loginByCodeSchema = z
   .strict()
 
 export type LoginByCodeReqBody = z.infer<typeof loginByCodeSchema>
+
+export const resendVerificationEmailSchema = z.object({ username }).strict()
+
+export type ResendVerificationEmailReqBody = z.infer<typeof resendVerificationEmailSchema>

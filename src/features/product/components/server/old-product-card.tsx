@@ -116,7 +116,12 @@ function OldProductCardSkeleton({ className }: { className?: string }) {
       <div className="relative p-0 pt-[100%]">
         <div className="absolute left-0 top-0 size-full">
           <Skeleton className="size-full rounded-none rounded-t-xl" />
-          <ShopperIcon className="absolute left-1/2 top-1/2 size-20 -translate-x-1/2 -translate-y-1/2 text-foreground/15" />
+          <Svgr
+            icon={ShopperIcon}
+            width={80}
+            height={80}
+            className="absolute left-1/2 top-1/2 size-20 -translate-x-1/2 -translate-y-1/2 text-foreground/15"
+          />
         </div>
       </div>
       <div className="flex flex-col gap-2 p-3 md:gap-2.5 md:p-4">

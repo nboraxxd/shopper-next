@@ -15,11 +15,11 @@ import { LoginReqBody, loginSchema } from '@/features/auth/schemas'
 import { CUSTOM_INPUT_CLASSNAME } from '@/shared/constants/class-name'
 import { ForbiddenError, handleClientErrorApi } from '@/shared/utils/error'
 
+import { InputWrapper } from '@/shared/components'
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
 import { MailIcon, Svgr } from '@/shared/components/icons'
-import { PasswordInput } from '@/features/auth/components'
-import { InputWrapper, TextLink } from '@/shared/components'
+import { AuthHelperLinks, PasswordInput } from '@/features/auth/components'
 import { Form, FormField, FormItem, FormMessage } from '@/shared/components/ui/form'
 
 export function LoginForm() {
@@ -103,7 +103,13 @@ export function LoginForm() {
           {loginToServerMutation.isPending || isNavigating ? <LoaderCircleIcon className="animate-spin" /> : null}
           Đăng nhập
         </Button>
-        <LoginHelperLinks />
+        <AuthHelperLinks
+          links={[
+            { href: PATH.FORGOT_PASSWORD, label: 'Quên mật khẩu' },
+            { href: PATH.RESEND_VERIFICATION_EMAIL, label: 'Gửi lại email xác thực' },
+          ]}
+          className="mt-5"
+        />
       </form>
     </Form>
   )
@@ -123,17 +129,12 @@ export function LoginFormFallback() {
       <Button className="mt-7 h-12 w-full gap-1.5" disabled>
         Đăng nhập
       </Button>
-      <LoginHelperLinks />
-    </div>
-  )
-}
-
-function LoginHelperLinks() {
-  return (
-    <div className="mt-5 flex items-center gap-1 place-self-end text-sm xs:gap-1.5 xs:text-base">
-      <TextLink href={PATH.FORGOT_PASSWORD}>Quên mật khẩu</TextLink>
-      <span className="text-highlight">•</span>
-      <TextLink href={PATH.RESEND_VERIFY_EMAIL}>Gửi lại email xác thực</TextLink>
+      <AuthHelperLinks
+        links={[
+          { href: PATH.FORGOT_PASSWORD, label: 'Quên mật khẩu' },
+          { href: PATH.RESEND_VERIFICATION_EMAIL, label: 'Gửi lại email xác thực' },
+        ]}
+      />
     </div>
   )
 }

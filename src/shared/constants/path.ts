@@ -6,7 +6,7 @@ const PATH = {
   REGISTER: '/dang-ky',
   VERIFY_ACCOUNT: '/xac-thuc-tai-khoan',
   FORGOT_PASSWORD: '/quen-mat-khau',
-  RESEND_VERIFY_EMAIL: '/gui-lai-email-xac-thuc',
+  RESEND_VERIFICATION_EMAIL: '/gui-lai-email-xac-thuc',
   PRODUCTS: '/san-pham',
   CART: '/gio-hang',
   SUPPORT: '/ho-tro',

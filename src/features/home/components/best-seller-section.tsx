@@ -5,8 +5,8 @@ import { productServerApi } from '@/features/product/api/server'
 import { BEST_SELLER_PRODUCTS_FIELDS } from '@/features/product/constants'
 import type { Product, BestSellerProductsField } from '@/features/product/types'
 
-import { ShopperIcon } from '@/shared/components/icons'
 import { Skeleton } from '@/shared/components/ui/skeleton'
+import { ShopperIcon, Svgr } from '@/shared/components/icons'
 import { ProductCard } from '@/features/product/components/server'
 
 function BestSellerWapper({ children }: { children: React.ReactNode }) {
@@ -121,7 +121,12 @@ function ProductCardSkeletion() {
       <div className="relative p-0 pt-[100%]">
         <div className="absolute left-0 top-0 size-full">
           <Skeleton className="size-full rounded-none rounded-t-xl" />
-          <ShopperIcon className="absolute left-1/2 top-1/2 size-12 -translate-x-1/2 -translate-y-1/2 text-foreground/15 xl:size-20" />
+          <Svgr
+            icon={ShopperIcon}
+            width={80}
+            height={80}
+            className="absolute left-1/2 top-1/2 size-12 -translate-x-1/2 -translate-y-1/2 text-foreground/15 xl:size-20"
+          />
         </div>
       </div>
       <div className="flex flex-col gap-2 p-3 md:gap-2.5 md:p-4">

@@ -2,8 +2,8 @@ import { useMutation } from '@tanstack/react-query'
 
 import authClientApi from '@/features/auth/api/client'
 
-export default function useResendEmailRegisterMutation() {
+export default function useResendEmailVerificationMutation() {
   return useMutation({
-    mutationFn: authClientApi.resendEmailRegisterToBackend,
+    mutationFn: authClientApi.resendVerificationEmailToBackend,
   })
 }
