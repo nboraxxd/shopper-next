@@ -27,3 +27,11 @@ export const registerSchema = z
 export type RegisterType = z.infer<typeof registerSchema>
 
 export type RegisterReqBody = Omit<RegisterType, 'confirmPassword'> & { redirect: string }
+
+export const loginByCodeSchema = z
+  .object({
+    code: z.string({ required_error: AUTH_MESSAGES.CODE_IS_REQUIRED }).nonempty(AUTH_MESSAGES.CODE_IS_REQUIRED),
+  })
+  .strict()
+
+export type LoginByCodeReqBody = z.infer<typeof loginByCodeSchema>

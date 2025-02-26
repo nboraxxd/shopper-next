@@ -27,6 +27,14 @@ const authClientApi = {
       { baseUrl: envVariables.NEXT_PUBLIC_URL }
     )
   },
+
+  loginByCodeToServer(code: string) {
+    return http.post<AuthResponse>(
+      `${SERVER_PREFIX}/login-by-code`,
+      { code },
+      { baseUrl: envVariables.NEXT_PUBLIC_URL }
+    )
+  },
 }
 
 export default authClientApi

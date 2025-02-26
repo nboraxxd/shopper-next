@@ -13,7 +13,13 @@ const protectedPaths = [
   PATH.ORDER_HISTORY,
   PATH.WISHLIST,
 ]
-const unauthenticatedPaths = [PATH.LOGIN, PATH.REGISTER, PATH.RESEND_VERIFY_EMAIL, PATH.FORGOT_PASSWORD]
+const unauthenticatedPaths = [
+  PATH.LOGIN,
+  PATH.REGISTER,
+  PATH.VERIFY_ACCOUNT,
+  PATH.RESEND_VERIFY_EMAIL,
+  PATH.FORGOT_PASSWORD,
+]
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
@@ -34,6 +40,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url))
   }
 
+  // Redirect to home page if `code` query param is missing when accessing verify account page
+  if (pathname.startsWith(PATH.VERIFY_ACCOUNT) && !request.nextUrl.searchParams.has('code')) {
+    return NextResponse.redirect(new URL('/', request.url))
+  }
+
   // Logged in but access token has expired
   if (protectedPaths.some((item) => pathname.startsWith(item)) && refreshToken && !accessToken) {
     const url = new URL('/refresh-token', request.url)
@@ -51,6 +62,7 @@ export const config = {
   matcher: [
     '/dang-nhap',
     '/dang-ky',
+    '/xac-thuc-tai-khoan',
     '/quen-mat-khau',
     '/gui-lai-email-xac-thuc',
     '/gio-hang',

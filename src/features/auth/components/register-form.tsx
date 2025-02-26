@@ -44,7 +44,7 @@ export default function RegisterForm() {
         name,
         password,
         username,
-        redirect: `${envVariables.NEXT_PUBLIC_URL}/${PATH.LOGIN}`,
+        redirect: `${envVariables.NEXT_PUBLIC_URL}/${PATH.VERIFY_ACCOUNT}`,
       })
     } catch (error: any) {
       if (error instanceof BadRequestError && !error.payload.detail) {

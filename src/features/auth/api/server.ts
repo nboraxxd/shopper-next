@@ -7,6 +7,8 @@ const PREFIX = '/authentication/v2'
 const authServerApi = {
   loginToBackend: (body: LoginReqBody) => http.post<AuthResponse>(`${PREFIX}/login`, body),
 
+  loginByCodeToBackend: (code: string) => http.post<AuthResponse>(`${PREFIX}/login-by-code`, { code }),
+
   refreshTokenToBackend: (refreshToken: string) => http.post<AuthResponse>(`${PREFIX}/refresh-token`, { refreshToken }),
 }
 

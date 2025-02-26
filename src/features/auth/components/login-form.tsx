@@ -28,8 +28,6 @@ export function LoginForm() {
 
   const searchParams = useSearchParams()
   const next = searchParams.get('next')
-  const code = searchParams.get('code')
-  console.log('🔥 ~ LoginForm ~ code:', code)
 
   const form = useForm<LoginReqBody>({
     resolver: zodResolver(loginSchema),
@@ -119,7 +117,7 @@ export function LoginFormFallback() {
         <Svgr icon={MailIcon} className="size-6 text-secondary-3" />
       </InputWrapper>
       <InputWrapper className="mt-7">
-        <Input readOnly placeholder="Mật khẩu" className={cn(CUSTOM_INPUT_CLASSNAME)} />
+        <Input readOnly placeholder="••••••••" className={cn(CUSTOM_INPUT_CLASSNAME)} />
         <EyeIcon className="size-6 text-secondary-3" />
       </InputWrapper>
       <Button className="mt-7 h-12 w-full gap-1.5" disabled>

@@ -112,7 +112,7 @@ const request = async <T>(
   }
 
   // Interceptors response
-  if (isClient && addFirstSlashToUrl(url) === '/api/auth/login') {
+  if (isClient && ['/api/auth/login', '/api/auth/login-by-code'].includes(addFirstSlashToUrl(url))) {
     const { accessToken, refreshToken } = (payload as AuthResponse).data
 
     setAccessTokenToLocalStorage(accessToken)

@@ -7,17 +7,17 @@ import { HttpError } from '@/shared/utils/error'
 import authServerApi from '@/features/auth/api/server'
 import { HTTP_STATUS_CODE } from '@/shared/constants/http-status-code'
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/features/auth/constants'
-import { LoginReqBody, loginSchema } from '@/features/auth/schemas'
+import { LoginByCodeReqBody, loginByCodeSchema } from '@/features/auth/schemas'
 
 export async function POST(req: Request) {
-  const body: LoginReqBody = await req.json()
+  const body: LoginByCodeReqBody = await req.json()
 
   const cookieStore = await cookies()
 
   try {
-    const { password, username } = await loginSchema.parseAsync(body)
+    const { code } = await loginByCodeSchema.parseAsync(body)
 
-    const { payload } = await authServerApi.loginToBackend({ password, username })
+    const { payload } = await authServerApi.loginByCodeToBackend(code)
 
     const { accessToken, refreshToken } = payload.data
 
@@ -45,12 +45,7 @@ export async function POST(req: Request) {
     if (error instanceof z.ZodError) {
       return Response.json(
         {
-          message: 'Xảy ra lỗi xác thực ở body',
-          detail: error.errors.reduce<Record<string, string>>((acc, item) => {
-            acc[item.path[0]] = item.message
-            return acc
-          }, {}),
-          statusCode: HTTP_STATUS_CODE.BAD_REQUEST,
+          message: error.errors[0].message,
         },
         { status: HTTP_STATUS_CODE.BAD_REQUEST }
       )

@@ -66,7 +66,8 @@ export const handleClientErrorApi = <T extends FieldValues>({
     console.log('AbortError:', error.message)
   } else if (
     error instanceof HttpError &&
-    (error.status === HTTP_STATUS_CODE.UNAUTHORIZED || error.status === HTTP_STATUS_CODE.FORBIDDEN)
+    (error.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
+      (error.status === HTTP_STATUS_CODE.FORBIDDEN && error.payload.error_code))
   ) {
     console.log('😰 Unauthorized:', error.payload.message)
   } else {

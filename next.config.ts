@@ -46,6 +46,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/verify-account',
+        destination: PATH.VERIFY_ACCOUNT,
+        permanent: true,
+      },
+      {
         source: '/products',
         destination: PATH.PRODUCTS,
         permanent: true,
@@ -120,6 +125,10 @@ const nextConfig: NextConfig = {
       {
         source: PATH.REGISTER,
         destination: '/register',
+      },
+      {
+        source: PATH.VERIFY_ACCOUNT,
+        destination: '/verify-account',
       },
       {
         source: PATH.CART,

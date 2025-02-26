@@ -2,3 +2,4 @@ export { default as useLoginToServerMutation } from './use-login-to-server-mutat
 export { default as useLogoutToServerMutation } from './use-logout-to-server-mutation'
 export { default as useRegisterToBackendMutation } from './use-register-to-backend-mutation'
 export { default as useResendEmailRegisterMutation } from './use-resend-email-register-mutation'
+export { default as useLoginByCodeToServerMutation } from './use-login-by-code-to-server-mutation'

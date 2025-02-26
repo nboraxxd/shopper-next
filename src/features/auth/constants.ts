@@ -7,4 +7,5 @@ export const AUTH_MESSAGES = {
   EMAIL_INVALID: 'Email không hợp lệ',
   PASSWORD_INVALID: 'Mật khẩu phải từ 6 đến 32 ký tự',
   PASSWORD_NOT_MATCH: 'Mật khẩu không khớp',
+  CODE_IS_REQUIRED: 'Không tìm thấy mã xác thực',
 } as const
