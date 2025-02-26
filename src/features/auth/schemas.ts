@@ -39,3 +39,9 @@ export type LoginByCodeReqBody = z.infer<typeof loginByCodeSchema>
 export const resendVerificationEmailSchema = z.object({ username }).strict()
 
 export type ResendVerificationEmailReqBody = z.infer<typeof resendVerificationEmailSchema>
+
+export const forgotPasswordSchema = z.object({ username }).strict()
+
+export type ForgotPasswordType = z.infer<typeof forgotPasswordSchema>
+
+export type ForgotPasswordReqBody = ForgotPasswordType & { redirect: string }

@@ -56,6 +56,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/forgot-password',
+        destination: PATH.FORGOT_PASSWORD,
+        permanent: true,
+      },
+      {
         source: '/products',
         destination: PATH.PRODUCTS,
         permanent: true,
@@ -138,6 +143,10 @@ const nextConfig: NextConfig = {
       {
         source: PATH.RESEND_VERIFICATION_EMAIL,
         destination: '/resend-verification-email',
+      },
+      {
+        source: PATH.FORGOT_PASSWORD,
+        destination: '/forgot-password',
       },
       {
         source: PATH.CART,

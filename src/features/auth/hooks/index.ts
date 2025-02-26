@@ -1,5 +1,6 @@
 export { default as useLoginToServerMutation } from './use-login-to-server-mutation'
+export { default as useForgotPasswordMutation } from './use-forgot-password-mutation'
 export { default as useLogoutToServerMutation } from './use-logout-to-server-mutation'
 export { default as useRegisterToBackendMutation } from './use-register-to-backend-mutation'
-export { default as useResendVerificationEmailMutation } from './use-resend-verification-email-mutation'
 export { default as useLoginByCodeToServerMutation } from './use-login-by-code-to-server-mutation'
+export { default as useResendVerificationEmailMutation } from './use-resend-verification-email-mutation'
