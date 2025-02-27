@@ -6,6 +6,7 @@ import {
   setAccessTokenToLocalStorage,
   setRefreshTokenToLocalStorage,
 } from '@/shared/utils/local-storage'
+import PATH from '@/shared/constants/path'
 import { isClient, addFirstSlashToUrl } from '@/shared/utils'
 import envVariables from '@/shared/schemas/env-variables.schema'
 import { HTTP_STATUS_CODE } from '@/shared/constants/http-status-code'
@@ -102,8 +103,9 @@ const request = async <T>(
           clientLogoutRequest = null
         }
       } else if (!isClient) {
+        console.log('🔥 ~ options?.headers:', options)
         const accessToken = options?.headers?.Authorization?.split('Bearer ')[1] || ''
-        redirect(`/dang-xuat?accessToken=${accessToken}`)
+        redirect(`${PATH.LOGOUT}?accessToken=${accessToken}`)
       }
       throw new HttpError(data)
     } else {

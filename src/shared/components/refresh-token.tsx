@@ -50,12 +50,12 @@ export default function RefreshToken() {
 
     // function này không cần handle error
     // vì đã có logic handle error trong file http
-    function handleReconnect() {
+    async function handleReconnect() {
       if (intervalRef.current) return
 
       setIsRefreshingToken(true)
 
-      checkAndRefreshToken({
+      await checkAndRefreshToken({
         onUserNotLoggedIn: () => {
           setIsRefreshingToken(false)
         },
@@ -75,9 +75,9 @@ export default function RefreshToken() {
       })
     }
 
-    function handleVisibilityChange() {
+    async function handleVisibilityChange() {
       if (document.visibilityState === 'visible') {
-        handleReconnect()
+        await handleReconnect()
       } else {
         clearTokenCheckInterval()
       }

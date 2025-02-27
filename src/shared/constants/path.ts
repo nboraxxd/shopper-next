@@ -4,6 +4,8 @@ const PATH = {
   HOME: '/',
   LOGIN: '/dang-nhap',
   REGISTER: '/dang-ky',
+  REFRESH_TOKEN: '/refresh-token',
+  LOGOUT: '/dang-xuat',
   VERIFY_ACCOUNT: '/xac-thuc-tai-khoan',
   RESEND_VERIFICATION_EMAIL: '/gui-lai-email-xac-thuc',
   FORGOT_PASSWORD: '/quen-mat-khau',

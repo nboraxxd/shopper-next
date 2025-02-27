@@ -5,6 +5,7 @@ import PATH from '@/shared/constants/path'
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/features/auth/constants'
 
 const protectedPaths = [
+  PATH.LOGOUT,
   PATH.CART,
   PATH.ACCOUNT,
   PATH.ADDRESS,
@@ -13,6 +14,7 @@ const protectedPaths = [
   PATH.ORDER_HISTORY,
   PATH.WISHLIST,
 ]
+
 const unauthenticatedPaths = [
   PATH.LOGIN,
   PATH.REGISTER,
@@ -40,11 +42,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url))
   }
 
-  // Redirect to home page if `code` query param is missing when accessing verify account page
-  if (pathname.startsWith(PATH.VERIFY_ACCOUNT) && !request.nextUrl.searchParams.has('code')) {
-    return NextResponse.redirect(new URL('/', request.url))
-  }
-
   // Logged in but access token has expired
   if (protectedPaths.some((item) => pathname.startsWith(item)) && refreshToken && !accessToken) {
     const url = new URL('/refresh-token', request.url)
@@ -52,6 +49,21 @@ export function middleware(request: NextRequest) {
     url.searchParams.set('next', pathname)
 
     return NextResponse.redirect(url)
+  }
+
+  // Redirect to home page if `code` query param is missing when accessing verify account page
+  if (pathname.startsWith(PATH.VERIFY_ACCOUNT) && !request.nextUrl.searchParams.has('code')) {
+    return NextResponse.redirect(new URL('/', request.url))
+  }
+
+  // Redirect to home page if `accessToken` query param is missing when accessing logout page
+  if (pathname.startsWith(PATH.LOGOUT) && !request.nextUrl.searchParams.has('accessToken')) {
+    return NextResponse.redirect(new URL('/', request.url))
+  }
+
+  // Redirect to home page if `refreshToken` query param is missing when accessing refresh token page
+  if (pathname.startsWith(PATH.REFRESH_TOKEN) && !request.nextUrl.searchParams.has('refreshToken')) {
+    return NextResponse.redirect(new URL('/', request.url))
   }
 
   return NextResponse.next()
@@ -65,8 +77,9 @@ export const config = {
     '/xac-thuc-tai-khoan',
     '/quen-mat-khau',
     '/gui-lai-email-xac-thuc',
+    '/refresh-token',
+    '/dang-xuat',
     '/gio-hang',
     '/tai-khoan/:path*',
-    '/dang-xuat',
   ],
 }

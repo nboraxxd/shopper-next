@@ -62,6 +62,7 @@ export default async function checkAndRefreshToken(callbackOptions?: CallbackOpt
   if (shouldRefreshToken) {
     try {
       const response = await authClientApi.refreshTokenToServer()
+
       const { accessToken } = response.payload.data
 
       setAccessTokenToLocalStorage(accessToken)

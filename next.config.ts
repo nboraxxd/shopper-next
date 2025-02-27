@@ -41,6 +41,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/logout',
+        destination: PATH.LOGOUT,
+        permanent: true,
+      },
+      {
         source: '/register',
         destination: PATH.REGISTER,
         permanent: true,
@@ -58,6 +63,11 @@ const nextConfig: NextConfig = {
       {
         source: '/forgot-password',
         destination: PATH.FORGOT_PASSWORD,
+        permanent: true,
+      },
+      {
+        source: '/reset-password',
+        destination: PATH.RESET_PASSWORD,
         permanent: true,
       },
       {
@@ -133,6 +143,10 @@ const nextConfig: NextConfig = {
         destination: '/login',
       },
       {
+        source: PATH.LOGOUT,
+        destination: '/logout',
+      },
+      {
         source: PATH.REGISTER,
         destination: '/register',
       },
@@ -147,6 +161,10 @@ const nextConfig: NextConfig = {
       {
         source: PATH.FORGOT_PASSWORD,
         destination: '/forgot-password',
+      },
+      {
+        source: PATH.RESET_PASSWORD,
+        destination: '/reset-password',
       },
       {
         source: PATH.CART,

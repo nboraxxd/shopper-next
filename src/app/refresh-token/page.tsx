@@ -7,6 +7,7 @@ import PATH from '@/shared/constants/path'
 import checkAndRefreshToken from '@/shared/utils/check-and-refresh-token'
 import { getRefreshTokenFromLocalStorage } from '@/shared/utils/local-storage'
 
+import { LoadingScreen } from '@/features/auth/components'
 import { ShopperIcon, Svgr } from '@/shared/components/icons'
 
 export default function RefreshTokenPage() {
@@ -65,11 +66,9 @@ function RefreshTokenContent() {
 
 function RefreshTokenView() {
   return (
-    <section className="relative h-screen items-center justify-center">
-      <div className="flex items-center gap-2 lg:gap-3.5">
-        <Svgr icon={ShopperIcon} width={48} height={48} className="size-8 text-secondary-blue lg:size-12" />
-        <span className="text-xl font-bold lg:text-3xl">Shopper</span>
-      </div>
-    </section>
+    <LoadingScreen innerClassName="gap-2 lg:gap-3.5">
+      <Svgr icon={ShopperIcon} width={48} height={48} className=" size-10 text-secondary-blue sm:size-12" />
+      <span className="text-2xl font-bold sm:text-3xl">Shopper</span>
+    </LoadingScreen>
   )
 }

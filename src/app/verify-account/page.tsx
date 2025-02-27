@@ -8,6 +8,8 @@ import PATH from '@/shared/constants/path'
 import { handleClientErrorApi } from '@/shared/utils/error'
 import { useLoginByCodeToServerMutation } from '@/features/auth/hooks'
 
+import { LoadingScreen } from '@/features/auth/components'
+
 export default function VerifyAccountPage() {
   return (
     <Suspense fallback={<VerifyAccountView />}>
@@ -46,11 +48,9 @@ function VerifyAccountContent() {
 
 function VerifyAccountView() {
   return (
-    <div className="flex h-screen items-center justify-center">
-      <p className="flex items-center gap-3">
-        <LoaderCircleIcon className="size-8 animate-spin" />
-        <span className="font-medium text-foreground">Đang xác thực...</span>
-      </p>
-    </div>
+    <LoadingScreen>
+      <LoaderCircleIcon className="size-8 animate-spin" />
+      <span className="font-medium text-foreground">Đang xác thực...</span>
+    </LoadingScreen>
   )
 }
