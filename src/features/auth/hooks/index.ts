@@ -1,3 +1,4 @@
+export { default as useResetPasswordMutation } from './use-reset-password-mutation'
 export { default as useLoginToServerMutation } from './use-login-to-server-mutation'
 export { default as useForgotPasswordMutation } from './use-forgot-password-mutation'
 export { default as useLogoutToServerMutation } from './use-logout-to-server-mutation'

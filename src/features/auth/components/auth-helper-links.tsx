@@ -2,7 +2,7 @@ import { TextLink } from '@/shared/components'
 import { cn } from '@/shared/utils'
 import { Url } from 'next/dist/shared/lib/router/router'
 
-type LinkItem = { href: Url; label: string }
+export type LinkItem = { href: Url; label: string }
 
 interface Props {
   links: LinkItem | [LinkItem, LinkItem]

@@ -21,6 +21,7 @@ const unauthenticatedPaths = [
   PATH.VERIFY_ACCOUNT,
   PATH.RESEND_VERIFICATION_EMAIL,
   PATH.FORGOT_PASSWORD,
+  PATH.RESET_PASSWORD,
 ]
 
 export function middleware(request: NextRequest) {
@@ -61,6 +62,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url))
   }
 
+  // Redirect to home page if `code` query param is missing when accessing reset password page
+  if (pathname.startsWith(PATH.RESET_PASSWORD) && !request.nextUrl.searchParams.has('code')) {
+    return NextResponse.redirect(new URL('/', request.url))
+  }
+
   // Redirect to home page if `refreshToken` query param is missing when accessing refresh token page
   if (pathname.startsWith(PATH.REFRESH_TOKEN) && !request.nextUrl.searchParams.has('refreshToken')) {
     return NextResponse.redirect(new URL('/', request.url))
@@ -76,6 +82,7 @@ export const config = {
     '/dang-ky',
     '/xac-thuc-tai-khoan',
     '/quen-mat-khau',
+    '/dat-lai-mat-khau',
     '/gui-lai-email-xac-thuc',
     '/refresh-token',
     '/dang-xuat',

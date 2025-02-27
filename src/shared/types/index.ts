@@ -1,4 +1,6 @@
-export type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+import { SearchParams } from 'next/dist/server/request/search-params'
+
+export type SearchParamsPromise = Promise<SearchParams>
 
 export type TokenPayload = {
   _id: string

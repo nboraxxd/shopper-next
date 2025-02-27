@@ -7,7 +7,6 @@ import { LoaderCircleIcon } from 'lucide-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { cn } from '@/shared/utils'
-import PATH from '@/shared/constants/path'
 import { CUSTOM_INPUT_CLASSNAME } from '@/shared/constants/class-name'
 import { useResendVerificationEmailMutation } from '@/features/auth/hooks'
 import { BadRequestError, handleClientErrorApi } from '@/shared/utils/error'
@@ -17,7 +16,6 @@ import { InputWrapper } from '@/shared/components'
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
 import { MailIcon, Svgr } from '@/shared/components/icons'
-import AuthHelperLinks from '@/features/auth/components/auth-helper-links'
 import { Form, FormField, FormItem, FormMessage } from '@/shared/components/ui/form'
 
 export default function ResendVerificationEmailForm() {
@@ -74,13 +72,6 @@ export default function ResendVerificationEmailForm() {
           {resendEmailMutation.isPending ? <LoaderCircleIcon className="animate-spin" /> : null}
           Gửi
         </Button>
-
-        <AuthHelperLinks
-          links={[
-            { href: PATH.LOGIN, label: 'Đăng nhập' },
-            { href: PATH.REGISTER, label: 'Đăng ký' },
-          ]}
-        />
       </form>
     </Form>
   )

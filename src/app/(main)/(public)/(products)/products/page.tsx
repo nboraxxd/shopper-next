@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import type { SearchParams } from '@/shared/types'
+import type { SearchParamsPromise } from '@/shared/types'
 import { categoryServerApi } from '@/features/category/api/server'
 import { sanitizeProductsSearchParams } from '@/features/product/utils/server'
 
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     'Lựa chọn nhiều mặt hàng Giày - Dép nữ, Điện Gia Dụng, Điện Thoại - Máy Tính Bảng... từ Shopper, mua online ship tận nhà và nhiều ưu đãi khác',
 }
 
-export default async function ProductsPage(props: { searchParams: SearchParams }) {
+export default async function ProductsPage(props: { searchParams: SearchParamsPromise }) {
   const searchParams = await props.searchParams
 
   const categoriesResponse = await categoryServerApi.getCategoriesFromBackend()

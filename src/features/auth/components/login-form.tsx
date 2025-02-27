@@ -19,8 +19,13 @@ import { InputWrapper } from '@/shared/components'
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
 import { MailIcon, Svgr } from '@/shared/components/icons'
-import { AuthHelperLinks, PasswordInput } from '@/features/auth/components'
 import { Form, FormField, FormItem, FormMessage } from '@/shared/components/ui/form'
+import { AuthHelperLinks, LinkItem, PasswordInput } from '@/features/auth/components'
+
+const HELPER_LINKS: [LinkItem, LinkItem] = [
+  { href: PATH.RESEND_VERIFICATION_EMAIL, label: 'Gửi lại email xác thực' },
+  { href: PATH.FORGOT_PASSWORD, label: 'Quên mật khẩu' },
+]
 
 export function LoginForm() {
   const router = useRouter()
@@ -103,13 +108,7 @@ export function LoginForm() {
           {loginToServerMutation.isPending || isNavigating ? <LoaderCircleIcon className="animate-spin" /> : null}
           Đăng nhập
         </Button>
-        <AuthHelperLinks
-          links={[
-            { href: PATH.FORGOT_PASSWORD, label: 'Quên mật khẩu' },
-            { href: PATH.RESEND_VERIFICATION_EMAIL, label: 'Gửi lại email xác thực' },
-          ]}
-          className="mt-5"
-        />
+        <AuthHelperLinks links={HELPER_LINKS} className="mt-5" />
       </form>
     </Form>
   )
@@ -129,12 +128,7 @@ export function LoginFormFallback() {
       <Button className="mt-7 h-12 w-full gap-1.5" disabled>
         Đăng nhập
       </Button>
-      <AuthHelperLinks
-        links={[
-          { href: PATH.FORGOT_PASSWORD, label: 'Quên mật khẩu' },
-          { href: PATH.RESEND_VERIFICATION_EMAIL, label: 'Gửi lại email xác thực' },
-        ]}
-      />
+      <AuthHelperLinks links={HELPER_LINKS} />
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import type { SearchParams } from '@/shared/types'
+import type { SearchParamsPromise } from '@/shared/types'
 import { extractCategorySlug } from '@/features/category/utils'
 import envVariables from '@/shared/schemas/env-variables.schema'
 import { baseOpenGraph } from '@/shared/constants/shared-metadata'
@@ -13,7 +13,7 @@ import { ProductList, ProductSidebar } from '@/features/product/components/serve
 
 interface Props {
   params: Promise<{ slug: string; 'category-id': string }>
-  searchParams: SearchParams
+  searchParams: SearchParamsPromise
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

@@ -16,7 +16,7 @@ import { InputWrapper } from '@/shared/components'
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
 import { MailIcon, Svgr } from '@/shared/components/icons'
-import { AuthHelperLinks, CountdownButton } from '@/features/auth/components'
+import { CountdownButton } from '@/features/auth/components'
 import { Alert, AlertDescription, AlertTitle } from '@/shared/components/ui/alert'
 import { Form, FormField, FormItem, FormMessage } from '@/shared/components/ui/form'
 import envVariables from '@/shared/schemas/env-variables.schema'
@@ -110,13 +110,6 @@ export default function ForgotPasswordForm() {
               Gửi lại email
             </CountdownButton>
           )}
-
-          <AuthHelperLinks
-            links={[
-              { href: PATH.LOGIN, label: 'Đăng nhập' },
-              { href: PATH.REGISTER, label: 'Đăng ký' },
-            ]}
-          />
         </form>
       </Form>
     </>

@@ -1,11 +1,11 @@
 import omitBy from 'lodash/omitBy'
 import isUndefined from 'lodash/isUndefined'
 
-import type { SearchParams } from '@/shared/types'
+import type { SearchParamsPromise } from '@/shared/types'
 import { PRODUCT_SORT_OPTIONS } from '@/features/product/constants'
 import type { ProductSortOptionsValue, ProductsSearchParams } from '@/features/product/types'
 
-type ProductFilterOptions = Awaited<SearchParams> & { categoryId?: string }
+type ProductFilterOptions = Awaited<SearchParamsPromise> & { categoryId?: string }
 
 export function sanitizeProductsSearchParams(productFilterOptions: ProductFilterOptions): ProductsSearchParams {
   const { name, page, minPrice, maxPrice, filterRating, sort, categoryId } = productFilterOptions
