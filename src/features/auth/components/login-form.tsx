@@ -53,6 +53,7 @@ export function LoginForm() {
       await loginToServerMutation.mutateAsync(values)
 
       router.push(next || PATH.HOME)
+      router.refresh()
     } catch (error: any) {
       setIsNavigating(false)
       if (error instanceof ForbiddenError) {

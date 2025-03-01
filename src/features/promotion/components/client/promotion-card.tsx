@@ -9,7 +9,7 @@ import { CopyCheckIcon, CopyIcon, InfoIcon } from 'lucide-react'
 import { cn } from '@/shared/utils'
 import { useCopyToClipboard } from '@/shared/hooks'
 
-import { Button } from '@/shared/components/ui/button'
+import { Button, ButtonProps } from '@/shared/components/ui/button'
 import { PromotionBgSmIcon } from '@/shared/components/icons'
 import {
   Tooltip,
@@ -18,6 +18,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/shared/components/ui/tooltip'
+import { Skeleton } from '@/shared/components/ui/skeleton'
 
 interface PromotionCardProps {
   children: React.ReactNode
@@ -44,7 +45,7 @@ interface PromotionCardProps {
  * </PromotionCard>
  * ```
  */
-export default function PromotionCard({ children, wrapperClassname, bgClassName, cardClassName }: PromotionCardProps) {
+export function PromotionCard({ children, wrapperClassname, bgClassName, cardClassName }: PromotionCardProps) {
   return (
     <div className={cn('relative', wrapperClassname)}>
       <PromotionBgSmIcon
@@ -62,15 +63,27 @@ interface PromotionImageProps extends React.ComponentProps<typeof Image> {
   wrapperClassname?: string
 }
 
-function PromotionImage({ wrapperClassname, className, alt, ...props }: PromotionImageProps) {
+export function PromotionImage({ wrapperClassname, className, alt, ...props }: PromotionImageProps) {
   return (
     <div className={cn('flex h-full w-[21.25%] shrink-0 items-center justify-center p-2 xs:p-3', wrapperClassname)}>
-      <Image {...props} alt={alt} className={cn('size-9 rounded object-contain xs:size-12', className)} />
+      <Image
+        {...props}
+        alt={alt}
+        className={cn('size-9 rounded object-contain drop-shadow-xl xs:size-12', className)}
+      />
     </div>
   )
 }
 
-function PromotionContent({ children, classname }: { children: React.ReactNode; classname?: string }) {
+export function PromotionImageSkeleton() {
+  return (
+    <div className="flex h-full w-[21.25%] shrink-0 items-center justify-center p-2 xs:p-3">
+      <Skeleton className="size-12 xs:size-16" />
+    </div>
+  )
+}
+
+export function PromotionContent({ children, classname }: { children: React.ReactNode; classname?: string }) {
   return <div className={cn('flex size-full justify-between gap-1 p-2 xs:p-3', classname)}>{children}</div>
 }
 
@@ -89,7 +102,7 @@ interface PromotionTooltipProps {
 const ITEM_TOOLTIP_CLASSNAME = 'flex items-center gap-x-8 px-4 py-2 text-sm'
 const ITEM_TITLE_TOOLTIP_CLASSNAME = 'inline-block min-w-20 text-secondary-2'
 
-function PromotionTooltip(props: PromotionTooltipProps) {
+export function PromotionTooltip(props: PromotionTooltipProps) {
   const { children, className, delayDuration = 100, triggerClassname, isPortal = true, ...rest } = props
 
   return (
@@ -98,21 +111,21 @@ function PromotionTooltip(props: PromotionTooltipProps) {
         <TooltipTrigger asChild>
           <Button
             variant="ghost"
-            className={cn('hidden size-auto p-0.5 lg:inline-flex [&_svg]:size-4', triggerClassname)}
+            className={cn('relative hidden size-auto p-0.5 lg:inline-flex [&_svg]:size-4', triggerClassname)}
           >
             <InfoIcon className="text-secondary-2" />
           </Button>
         </TooltipTrigger>
         {isPortal ? (
           <TooltipContent
-            className={cn('max-w-sm rounded-lg bg-cart-section px-0 py-4 text-foreground shadow-popover', className)}
+            className={cn('max-w-sm rounded-lg bg-cart-section p-3 text-foreground shadow-popover', className)}
             {...rest}
           >
             {children}
           </TooltipContent>
         ) : (
           <TooltipContentWithoutPortal
-            className={cn('max-w-sm rounded-lg bg-cart-section px-0 py-4 text-foreground shadow-popover', className)}
+            className={cn('max-w-sm rounded-lg bg-cart-section p-3 text-foreground shadow-popover', className)}
             {...rest}
           >
             {children}
@@ -123,7 +136,7 @@ function PromotionTooltip(props: PromotionTooltipProps) {
   )
 }
 
-function PromotionTooltipCode({ code }: { code: string }) {
+export function PromotionTooltipCode({ code }: { code: string }) {
   const [copiedText, copyToClipboard] = useCopyToClipboard()
   const hasCopiedText = Boolean(copiedText)
 
@@ -142,7 +155,7 @@ function PromotionTooltipCode({ code }: { code: string }) {
   }
 
   return (
-    <div className={cn(ITEM_TOOLTIP_CLASSNAME, 'bg-cart')}>
+    <div className={cn(ITEM_TOOLTIP_CLASSNAME, 'rounded-lg bg-cart')}>
       <span className={cn(ITEM_TITLE_TOOLTIP_CLASSNAME)}>Mã</span>
       <div className="flex items-center gap-2">
         <span className="font-medium">{code}</span>
@@ -158,7 +171,7 @@ function PromotionTooltipCode({ code }: { code: string }) {
   )
 }
 
-function PromotionTooltipExpirationDate({ expirationDate }: { expirationDate: Date }) {
+export function PromotionTooltipExpirationDate({ expirationDate }: { expirationDate: Date }) {
   return (
     <div className={cn(ITEM_TOOLTIP_CLASSNAME)}>
       <span className={cn(ITEM_TITLE_TOOLTIP_CLASSNAME)}>HSD</span>
@@ -167,9 +180,9 @@ function PromotionTooltipExpirationDate({ expirationDate }: { expirationDate: Da
   )
 }
 
-function PromotionTooltipConditions({ conditions }: { conditions: string[] }) {
+export function PromotionTooltipConditions({ conditions }: { conditions: string[] }) {
   return (
-    <div className={cn(ITEM_TOOLTIP_CLASSNAME, 'flex-col items-start gap-1 bg-cart')}>
+    <div className={cn(ITEM_TOOLTIP_CLASSNAME, 'flex-col items-start gap-1 rounded-lg bg-cart')}>
       <span className={cn(ITEM_TITLE_TOOLTIP_CLASSNAME)}>Điều kiện</span>
       <ul className="space-y-1 pl-6">
         {conditions.map((condition, index) => (
@@ -182,14 +195,13 @@ function PromotionTooltipConditions({ conditions }: { conditions: string[] }) {
   )
 }
 
-function PromotionButton({ children }: { children: React.ReactNode }) {
-  return <Button className="h-5 px-1.5 py-0 text-[0.625rem] font-medium sm:h-7 sm:px-2 sm:text-xs">{children}</Button>
+export function PromotionButton({ children, className, ...rest }: ButtonProps) {
+  return (
+    <Button
+      className={cn('h-5 px-1.5 py-0 text-[0.625rem] font-medium sm:h-7 sm:px-2 sm:text-xs', className)}
+      {...rest}
+    >
+      {children}
+    </Button>
+  )
 }
-
-PromotionCard.Image = PromotionImage
-PromotionCard.Content = PromotionContent
-PromotionCard.Tooltip = PromotionTooltip
-PromotionCard.TooltipCode = PromotionTooltipCode
-PromotionCard.TooltipExpirationDate = PromotionTooltipExpirationDate
-PromotionCard.TooltipConditions = PromotionTooltipConditions
-PromotionCard.Button = PromotionButton

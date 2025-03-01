@@ -128,17 +128,6 @@ function ProductContentSkeleton({ children, className }: { children: React.React
   return <CardContent className={cn('flex flex-col gap-2 p-3 md:gap-2.5 md:p-4', className)}>{children}</CardContent>
 }
 
-{
-  /* <div className="flex flex-col gap-2 p-3 md:gap-2.5 md:p-4">
-        <div>
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="mt-2 h-4" />
-        </div>
-        <Skeleton className="h-4 w-5/6" />
-        <Skeleton className="h-6 w-1/2" />
-      </div> */
-}
-
 function ProductTitle({ name, className }: { name: string; className?: string }) {
   return <CardTitle className={cn('line-clamp-2 text-sm font-medium', className)}>{name}</CardTitle>
 }

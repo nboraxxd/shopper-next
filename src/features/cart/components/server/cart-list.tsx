@@ -31,7 +31,7 @@ export function CartListSketeton() {
         <Skeleton className="h-5 w-36 md:h-6" />
       </div>
       <Separator className="my-3 md:my-5" />
-      {[...Array(12)].map((_, index) => (
+      {Array.from({ length: 12 }).map((_, index) => (
         <Fragment key={index}>
           <div className="flex items-center gap-2 md:gap-3">
             <Skeleton className="size-5 md:size-6" />

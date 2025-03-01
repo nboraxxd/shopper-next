@@ -1,13 +1,13 @@
 'use client'
 
-import { useRef } from 'react'
-import { ChevronUpIcon } from 'lucide-react'
 import { useMutationState } from '@tanstack/react-query'
+import { ChevronUpIcon } from 'lucide-react'
+import { useRef } from 'react'
 
-import { formatCurrency } from '@/shared/utils'
 import { useCartList } from '@/features/cart/hooks'
 import { CHECKOUT_KEY } from '@/features/checkout/constants'
 import { PreCheckoutResponse } from '@/features/checkout/types'
+import { formatCurrency } from '@/shared/utils'
 
 import {
   DropdownMenu,
@@ -20,10 +20,9 @@ import {
 import { Button } from '@/shared/components/ui/button'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Separator } from '@/shared/components/ui/separator'
-import { CartSelectAll } from '@/features/cart/components/client'
-import { Dialog, DialogTrigger } from '@/shared/components/ui/dialog'
+import { DialogTrigger } from '@/shared/components/ui/dialog'
 import { ArrowRightIcon, Svgr, VoucherIcon } from '@/shared/components/icons'
-import { PromotionDialogContent } from '@/features/promotion/components/client'
+import { CartPromoDialog, CartSelectAll } from '@/features/cart/components/client'
 
 export default function CartPromotionSticky() {
   const stickyRef = useRef<HTMLDivElement>(null)
@@ -50,7 +49,7 @@ export default function CartPromotionSticky() {
                 <Svgr icon={VoucherIcon} className="size-5" />
                 <span className="hidden sm:inline-block">Shopper khuyến mãi</span>
               </h2>
-              <Dialog>
+              <CartPromoDialog>
                 <DialogTrigger asChild>
                   <Button
                     variant="ghost"
@@ -60,8 +59,7 @@ export default function CartPromotionSticky() {
                     <Svgr icon={ArrowRightIcon} className="transition-transform group-hover:translate-x-0.5" />
                   </Button>
                 </DialogTrigger>
-                <PromotionDialogContent />
-              </Dialog>
+              </CartPromoDialog>
             </div>
           </div>
           <Separator className="h-0 w-full border-t border-dashed border-border bg-transparent" />

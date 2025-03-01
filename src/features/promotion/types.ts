@@ -5,8 +5,14 @@ export type PromotionServerItem = {
   type: 'discount' | 'shipping'
   conditions: string[]
   status: 'active' | 'inactive' | 'expired' | 'upcoming'
+  image: string
   iat: string
   exp: string
+}
+
+export type PromotionsParameters = {
+  limit?: string
+  type?: 'discount' | 'shipping'
 }
 
 export type PromotionsResponseFromServer = {
