@@ -4,14 +4,14 @@ import { devtools } from 'zustand/middleware'
 import { PreCheckoutReqBody } from '@/features/checkout/types'
 
 type SelectedCartItemIdsStore = {
-  selectedItemId: PreCheckoutReqBody['listItems']
+  selectedItemId: PreCheckoutReqBody['listItems'] | null
   setSelectedItemId: (selectedItemId: PreCheckoutReqBody['listItems']) => void
 }
 
 const useSelectedCartItemIds = create<SelectedCartItemIdsStore>()(
   devtools(
     (set) => ({
-      selectedItemId: [],
+      selectedItemId: null,
       setSelectedItemId: (selectedItemId) => set({ selectedItemId }),
     }),
     {

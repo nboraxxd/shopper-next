@@ -14,6 +14,11 @@ export type GetCartListResponse = {
   }
 }
 
+export type UpdateCartItemQtyReq = {
+  productId: number
+  quantity: number
+}
+
 export type UpdateCartItemQtyResponse = {
   data: {
     listItems: {

@@ -1,10 +1,14 @@
 'use client'
 
+import { useEffect } from 'react'
 import { useMutationState } from '@tanstack/react-query'
 
 import { cn, formatCurrency } from '@/shared/utils'
+import { handleClientErrorApi } from '@/shared/utils/error'
 import { CHECKOUT_KEY } from '@/features/checkout/constants'
 import { PreCheckoutResponse } from '@/features/checkout/types'
+import { usePreCheckoutMutation } from '@/features/checkout/hooks'
+import { useCurrentPromotion, useSelectedCartItemIds } from '@/features/cart/hooks'
 
 import { Button } from '@/shared/components/ui/button'
 import { Separator } from '@/shared/components/ui/separator'
@@ -25,12 +29,45 @@ const CART_SUMMARY_DATA = [
 ] as const
 
 export default function CartSummary() {
-  const data = useMutationState({
+  const selectedItemIds = useSelectedCartItemIds((state) => state.selectedItemId)
+  const currentPromotion = useCurrentPromotion((state) => state.currentPromotion)
+  const promotionCode = currentPromotion?.code
+
+  const { mutateAsync: preCheckoutMutateAsync } = usePreCheckoutMutation()
+
+  // const updateCartItemQty = useMutationState({
+  //   filters: { mutationKey: [CART_KEY.UPDATE_CART_ITEM_QTY], exact: true, status: 'success' },
+  //   select: (mutation) => {
+  //     const status = mutation.state.status
+  //     const variables = mutation.state.variables as UpdateCartItemQtyReq
+
+  //     return { status, variables } as { status: MutationStatus; variables: UpdateCartItemQtyReq } | undefined
+  //   },
+  // })
+
+  // const latestUpdateCartItemQty = updateCartItemQty[updateCartItemQty.length - 1]
+
+  const preCheckoutData = useMutationState({
     filters: { mutationKey: [CHECKOUT_KEY.PRE_CHECKOUT], exact: true, status: 'success' },
     select: (mutation) => mutation.state.data as { payload: PreCheckoutResponse } | undefined,
   })
 
-  const latest = data[data.length - 1]
+  const latestPreCheckoutData = preCheckoutData[preCheckoutData.length - 1]
+
+  useEffect(() => {
+    if (selectedItemIds) {
+      ;(async () => {
+        try {
+          await preCheckoutMutateAsync({
+            listItems: selectedItemIds,
+            promotionCode: promotionCode ? [promotionCode] : undefined,
+          })
+        } catch (error) {
+          handleClientErrorApi({ error })
+        }
+      })()
+    }
+  }, [preCheckoutMutateAsync, promotionCode, selectedItemIds])
 
   return (
     <section className="flex flex-col gap-2.5 rounded-4xl bg-cart-section px-4 py-7 shadow-section md:gap-3">
@@ -40,10 +77,10 @@ export default function CartSummary() {
           title={item.title}
           value={
             item.value === 'discount'
-              ? latest?.payload.data.promotion?.discount
-                ? -latest.payload.data.promotion.discount
+              ? latestPreCheckoutData?.payload.data.promotion?.discount
+                ? -latestPreCheckoutData.payload.data.promotion.discount
                 : -0
-              : latest?.payload.data[item.value] || 0
+              : latestPreCheckoutData?.payload.data[item.value] || 0
           }
           valueClassName={cn({ 'text-highlight': item.value === 'discount' })}
         />
@@ -52,12 +89,12 @@ export default function CartSummary() {
       <Separator />
       <CartSummaryItem
         title="Tổng tiền"
-        value={latest?.payload.data.viewCartTotal || 0}
+        value={latestPreCheckoutData?.payload.data.viewCartTotal || 0}
         valueClassName="font-bold text-primary-red"
       />
 
       <Button className="mt-2 h-11 rounded-full font-medium">
-        Mua hàng ({latest?.payload.data.listItems.length || 0})
+        Mua hàng ({latestPreCheckoutData?.payload.data.listItems.length || 0})
       </Button>
     </section>
   )

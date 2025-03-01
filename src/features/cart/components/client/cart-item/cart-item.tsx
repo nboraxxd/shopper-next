@@ -36,12 +36,10 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
 
   const setSelectedItemIds = useSelectedCartItemIds((state) => state.setSelectedItemId)
   const selectedItemIds = useSelectedCartItemIds((state) => state.selectedItemId)
-  const isChecked = selectedItemIds.includes(productId)
-
+  const isChecked = selectedItemIds ? selectedItemIds.includes(productId) : false
   const preCheckoutMutation = usePreCheckoutMutation()
-
   const { mutateAsync: updateCartItemQtyMutateAsync } = useUpdateCartItemQtyMutation(async () => {
-    if (isChecked) {
+    if (isChecked && selectedItemIds) {
       try {
         await preCheckoutMutation.mutateAsync({ listItems: selectedItemIds })
       } catch (error) {
@@ -103,18 +101,12 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
     setItemSubtotal(initialQty * product.real_price)
   }, [initialQty, product.real_price])
 
-  async function handleCheckedChange(checked: boolean) {
-    const newSelectedItemIds = !checked
-      ? selectedItemIds.filter((id) => id !== productId)
-      : [...selectedItemIds, productId]
+  async function handleCheckedChange() {
+    const newSelectedItemIds = isChecked
+      ? (selectedItemIds || []).filter((id) => id !== productId)
+      : [...(selectedItemIds || []), productId]
 
     setSelectedItemIds(newSelectedItemIds)
-
-    try {
-      await preCheckoutMutation.mutateAsync({ listItems: newSelectedItemIds })
-    } catch (error) {
-      handleClientErrorApi({ error })
-    }
   }
 
   function handleQuantityChange(value: string) {
