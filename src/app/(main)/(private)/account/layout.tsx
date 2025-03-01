@@ -1,9 +1,6 @@
 import { Suspense } from 'react'
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
 
-import PATH from '@/shared/constants/path'
-import { ACCESS_TOKEN } from '@/features/auth/constants'
+import { getAccessTokenInServer } from '@/shared/utils/server'
 
 import { Footer } from '@/shared/components'
 import { Skeleton } from '@/shared/components/ui/skeleton'
@@ -16,10 +13,7 @@ export default async function AccountLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const cookieStore = await cookies()
-  const accessToken = cookieStore.get(ACCESS_TOKEN)?.value
-
-  if (!accessToken) redirect(PATH.LOGIN)
+  const accessToken = await getAccessTokenInServer()
 
   return (
     <>

@@ -1,9 +1,6 @@
 import { Suspense } from 'react'
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
 
-import PATH from '@/shared/constants/path'
-import { ACCESS_TOKEN } from '@/features/auth/constants'
+import { getAccessTokenInServer } from '@/shared/utils/server'
 
 import { Button } from '@/shared/components/ui/button'
 import { DialogTrigger } from '@/shared/components/ui/dialog'
@@ -13,10 +10,7 @@ import { CartList, CartListSketeton } from '@/features/cart/components/server'
 import { CartPromoDialog, CartPromotionSticky, CartSummary } from '@/features/cart/components/client'
 
 export default async function CartPage() {
-  const cookieStore = await cookies()
-  const accessToken = cookieStore.get(ACCESS_TOKEN)?.value
-
-  if (!accessToken) redirect(PATH.LOGIN)
+  const accessToken = await getAccessTokenInServer()
 
   return (
     <div className="bg-cart">

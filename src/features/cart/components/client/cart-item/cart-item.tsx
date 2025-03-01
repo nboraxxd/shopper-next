@@ -11,7 +11,7 @@ import { handleClientErrorApi } from '@/shared/utils/error'
 import { useQueryProductStock } from '@/features/product/hooks'
 import { CartItem as CartItemType } from '@/features/cart/types'
 import { usePreCheckoutMutation } from '@/features/checkout/hooks'
-import { useSelectedCartItemIds, useUpdateCartItemQtyMutation } from '@/features/cart/hooks'
+import { useCurrentPromotion, useSelectedCartItemIds, useUpdateCartItemQtyMutation } from '@/features/cart/hooks'
 
 import { COMMON_MESSAGE } from '@/shared/constants/message'
 import { Separator } from '@/shared/components/ui/separator'
@@ -37,11 +37,19 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
   const setSelectedItemIds = useSelectedCartItemIds((state) => state.setSelectedItemId)
   const selectedItemIds = useSelectedCartItemIds((state) => state.selectedItemId)
   const isChecked = selectedItemIds ? selectedItemIds.includes(productId) : false
+
+  const currentPromo = useCurrentPromotion((state) => state.currentPromotion)
+  const promoCode = currentPromo?.code
+
   const preCheckoutMutation = usePreCheckoutMutation()
+
   const { mutateAsync: updateCartItemQtyMutateAsync } = useUpdateCartItemQtyMutation(async () => {
     if (isChecked && selectedItemIds) {
       try {
-        await preCheckoutMutation.mutateAsync({ listItems: selectedItemIds })
+        await preCheckoutMutation.mutateAsync({
+          listItems: selectedItemIds,
+          promotionCode: promoCode ? [promoCode] : undefined,
+        })
       } catch (error) {
         handleClientErrorApi({ error })
       }

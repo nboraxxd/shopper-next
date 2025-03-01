@@ -1,22 +1,16 @@
+import Link from 'next/link'
 import { Suspense } from 'react'
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
 
 import PATH from '@/shared/constants/path'
+import { getAccessTokenInServer } from '@/shared/utils/server'
 
-import { ACCESS_TOKEN } from '@/features/auth/constants'
-import { PaymentContent } from '@/features/payment/components/server'
-import { AccountHeader, AccountSectionWrapper } from '@/features/account/components'
-import Link from 'next/link'
 import { PlusIcon, Svgr } from '@/shared/components/icons'
 import { Skeleton } from '@/shared/components/ui/skeleton'
+import { PaymentContent } from '@/features/payment/components/server'
+import { AccountHeader, AccountSectionWrapper } from '@/features/account/components'
 
 export default async function PaymentPage() {
-  const cookieStore = await cookies()
-
-  const accessToken = cookieStore.get(ACCESS_TOKEN)?.value
-
-  if (!accessToken) redirect(PATH.LOGIN)
+  const accessToken = await getAccessTokenInServer()
 
   return (
     <AccountSectionWrapper className="h-full">
