@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'nextjs-toploader/app'
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { EyeIcon, LoaderCircleIcon } from 'lucide-react'
 
@@ -28,8 +28,10 @@ const HELPER_LINKS: [LinkItem, LinkItem] = [
 ]
 
 export function LoginForm() {
-  const router = useRouter()
   const [isNavigating, setIsNavigating] = useState(false)
+
+  const router = useRouter()
+  const pathname = usePathname()
 
   const searchParams = useSearchParams()
   const next = searchParams.get('next')
@@ -52,7 +54,9 @@ export function LoginForm() {
 
       await loginToServerMutation.mutateAsync(values)
 
-      router.push(next || PATH.HOME)
+      const from = new URLSearchParams({ from: pathname })
+
+      router.push(next ? `${next}?${from}` : PATH.HOME)
       router.refresh()
     } catch (error: any) {
       setIsNavigating(false)

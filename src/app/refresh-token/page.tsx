@@ -23,14 +23,14 @@ function RefreshTokenContent() {
   const pathname = usePathname()
 
   const searchParams = useSearchParams()
-  const nextPath = searchParams.get('next')
+  const next = searchParams.get('next')
   const refreshTokenFromUrl = searchParams.get('refreshToken')
 
   useEffect(() => {
     function redirectToNextPath() {
       const from = new URLSearchParams({ from: pathname })
 
-      router.push(nextPath ? `${nextPath}?${from}` : PATH.HOME)
+      router.push(next ? `${next}?${from}` : PATH.HOME)
       router.refresh()
     }
 
@@ -59,7 +59,7 @@ function RefreshTokenContent() {
     } else {
       redirectHomepage()
     }
-  }, [nextPath, pathname, refreshTokenFromUrl, router])
+  }, [next, pathname, refreshTokenFromUrl, router])
 
   return <RefreshTokenView />
 }
