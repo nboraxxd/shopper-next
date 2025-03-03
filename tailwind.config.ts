@@ -185,8 +185,9 @@ export default {
         'cart-sticky': '0 8px 16px 0 rgba(0, 0, 0, .12), 0 -4px 8px 0 rgba(0, 0, 0, .04)',
       },
       spacing: {
-        'header-height': 'var(--header-height)',
-        'sheet-header-height': 'var(--sheet-header-height)',
+        header: 'var(--header-height)',
+        'sheet-header': 'var(--sheet-header-height)',
+        'sheet-footer': 'var(--sheet-footer-height)',
       },
       fontSize: {
         /** 12px size / 1rem height */

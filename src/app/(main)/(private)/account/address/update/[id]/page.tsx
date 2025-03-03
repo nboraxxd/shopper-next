@@ -1,13 +1,18 @@
+import { Metadata } from 'next'
 import { Suspense } from 'react'
-
-import { UpdateAddressContent } from '@/features/address/components/server'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 import { ACCESS_TOKEN } from '@/features/auth/constants'
 import PATH from '@/shared/constants/path'
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
-import { AccountHeader, AccountSectionWrapper } from '@/features/account/components'
+
 import { AddressFormSkeleton } from '@/features/address/components/client'
+import { UpdateAddressContent } from '@/features/address/components/server'
+import { AccountHeader, AccountSectionWrapper } from '@/features/account/components'
+
+export const metadata: Metadata = {
+  title: 'Cập nhật địa chỉ',
+}
 
 export default async function UpdateAddressPage({ params }: { params: Promise<{ id: string }> }) {
   const [{ id }, cookieStore] = await Promise.all([params, cookies()])

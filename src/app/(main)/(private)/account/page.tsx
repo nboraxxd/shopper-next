@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { Suspense } from 'react'
 
 import { getAccessTokenInServer } from '@/shared/utils/server'
@@ -14,6 +15,10 @@ import {
   AccountWishlistSkeleton,
   AccountSectionWrapper,
 } from '@/features/account/components'
+
+export const metadata: Metadata = {
+  title: 'Tài khoản',
+}
 
 export default async function AccountPage() {
   const accessToken = await getAccessTokenInServer()

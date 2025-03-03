@@ -5,7 +5,7 @@ import authClientApi from '@/features/auth/api/client'
 import { useProfileStore } from '@/features/profile/profile-store'
 import { useAuthStore } from '@/features/auth/auth-store'
 
-export default function useLogoutToServerMutation() {
+export default function useLogoutMutation() {
   const queryClient = useQueryClient()
 
   const setAuthState = useAuthStore((state) => state.setAuthState)

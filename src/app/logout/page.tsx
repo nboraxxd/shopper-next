@@ -7,7 +7,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import PATH from '@/shared/constants/path'
 import { handleClientErrorApi } from '@/shared/utils/error'
-import { useLogoutToServerMutation } from '@/features/auth/hooks'
+import { useLogoutMutation } from '@/features/auth/hooks'
 import { getAccessTokenFromLocalStorage } from '@/shared/utils/local-storage'
 
 import { LoadingScreen } from '@/features/auth/components'
@@ -22,7 +22,7 @@ function LogoutPageContent() {
   const searchParams = useSearchParams()
   const accessTokenFromUrl = searchParams.get('accessToken')
 
-  const { mutateAsync } = useLogoutToServerMutation()
+  const { mutateAsync } = useLogoutMutation()
 
   useEffect(() => {
     let timeout: NodeJS.Timeout | null = null

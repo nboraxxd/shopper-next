@@ -11,7 +11,7 @@ import PATH from '@/shared/constants/path'
 import { useMediaQuery } from '@/shared/hooks'
 import { handleClientErrorApi } from '@/shared/utils/error'
 import { useQueryProfileFromBackend } from '@/features/profile/hooks'
-import { useLogoutToServerMutation } from '@/features/auth/hooks'
+import { useLogoutMutation } from '@/features/auth/hooks'
 
 import {
   DropdownMenu,
@@ -41,8 +41,8 @@ export default function UserDropdown() {
   const { resolvedTheme } = useTheme()
   const is768AndUp = useMediaQuery({ minWidth: 768 })
 
+  const logoutMutation = useLogoutMutation()
   const queryUserFromBackend = useQueryProfileFromBackend()
-  const logoutToServerMutation = useLogoutToServerMutation()
 
   useEffect(() => {
     if (!is768AndUp) {
@@ -51,10 +51,10 @@ export default function UserDropdown() {
   }, [is768AndUp])
 
   async function handleLogout() {
-    if (logoutToServerMutation.isPending) return
+    if (logoutMutation.isPending) return
 
     try {
-      const response = await logoutToServerMutation.mutateAsync()
+      const response = await logoutMutation.mutateAsync()
 
       router.refresh()
       toast.success(response.payload.message)

@@ -1,8 +1,13 @@
+import { Metadata } from 'next'
 import { Suspense } from 'react'
 
 import { UpdateProfileContent } from '@/features/profile/components/server'
 import { AccountHeader, AccountSectionWrapper } from '@/features/account/components'
 import { ChangePasswordForm, UpdateProfileSkeleton } from '@/features/profile/components/client'
+
+export const metadata: Metadata = {
+  title: 'Thông tin cá nhân',
+}
 
 export default function ProfilePage() {
   return (

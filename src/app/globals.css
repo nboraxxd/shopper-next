@@ -47,7 +47,8 @@
     --radius: 0.5rem; /* 8px */
     --container-gutter: 1.875rem; /* 30px */
     --header-height: 5.125rem; /* 82px */
-    --sheet-header-height: 4.5rem; /* 72px */
+    --sheet-header-height: 8.5625rem; /* 137px */
+    --sheet-footer-height: 6.75rem; /* 108px */
     --product-toast-bottom: 2rem; /* 32px */
 
     --popover-shadow: 0px 40px 90px 20px rgb(200 200 200 / 0.4);

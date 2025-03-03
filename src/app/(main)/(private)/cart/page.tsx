@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { Suspense } from 'react'
 
 import { getAccessTokenInServer } from '@/shared/utils/server'
@@ -8,6 +9,10 @@ import { CurrentPromotion } from '@/features/promotion/components/client'
 import { ArrowRightIcon, Svgr, VoucherIcon } from '@/shared/components/icons'
 import { CartList, CartListSketeton } from '@/features/cart/components/server'
 import { CartPromoDialog, CartPromotionSticky, CartSummary } from '@/features/cart/components/client'
+
+export const metadata: Metadata = {
+  title: 'Giỏ hàng',
+}
 
 export default async function CartPage() {
   const accessToken = await getAccessTokenInServer()
@@ -22,6 +27,7 @@ export default async function CartPage() {
               <CartList accessToken={accessToken} />
             </Suspense>
           </main>
+
           <aside className="grid gap-4 self-start md:grid-cols-2 xl:sticky xl:top-[calc(var(--header-height)+2rem)] xl:grid-cols-1 xl:gap-7">
             <section className="hidden flex-col gap-4 rounded-4xl bg-cart-section px-4 py-7 shadow-section md:flex">
               <div className="flex flex-col gap-0.5 xs:flex-row xs:items-center xs:justify-between">

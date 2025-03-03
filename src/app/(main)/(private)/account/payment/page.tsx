@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Metadata } from 'next'
 import { Suspense } from 'react'
 
 import PATH from '@/shared/constants/path'
@@ -8,6 +9,10 @@ import { PlusIcon, Svgr } from '@/shared/components/icons'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { PaymentContent } from '@/features/payment/components/server'
 import { AccountHeader, AccountSectionWrapper } from '@/features/account/components'
+
+export const metadata: Metadata = {
+  title: 'Thông tin thanh toán',
+}
 
 export default async function PaymentPage() {
   const accessToken = await getAccessTokenInServer()

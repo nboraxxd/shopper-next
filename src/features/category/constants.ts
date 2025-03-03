@@ -1,3 +1,19 @@
+import { CameraIcon, EarthIcon, LaptopIcon, WashingMachineIcon } from 'lucide-react'
+
+import {
+  BookIcon,
+  CarIcon,
+  DailyFoodIcon,
+  HealthBeautyIcon,
+  HomeApplianceIcon,
+  HomeLivingIcon,
+  MomBabyIcon,
+  PhoneIcon,
+  BasketballIcon,
+  TechGadgetIcon,
+  VoucherIcon,
+} from '@/shared/components/icons'
+
 export const PRODUCT_CATEGORIES = [
   {
     id: 1789,
@@ -122,6 +138,69 @@ export const PRODUCT_CATEGORIES = [
 ] as const
 
 export const CATEGORY_IDS = PRODUCT_CATEGORIES.map((category) => category.id)
+
+export const CATEGORY_IMAGES = [
+  {
+    id: 1789,
+    icon: PhoneIcon,
+  },
+  {
+    id: 4221,
+    icon: WashingMachineIcon,
+  },
+  {
+    id: 1815,
+    icon: TechGadgetIcon,
+  },
+  {
+    id: 1846,
+    icon: LaptopIcon,
+  },
+  {
+    id: 1801,
+    icon: CameraIcon,
+  },
+  {
+    id: 1882,
+    icon: HomeApplianceIcon,
+  },
+  {
+    id: 1883,
+    icon: HomeLivingIcon,
+  },
+  {
+    id: 4384,
+    icon: DailyFoodIcon,
+  },
+  {
+    id: 2549,
+    icon: MomBabyIcon,
+  },
+  {
+    id: 1520,
+    icon: HealthBeautyIcon,
+  },
+  {
+    id: 1975,
+    icon: BasketballIcon,
+  },
+  {
+    id: 8594,
+    icon: CarIcon,
+  },
+  {
+    id: 17166,
+    icon: EarthIcon,
+  },
+  {
+    id: 8322,
+    icon: BookIcon,
+  },
+  {
+    id: 11312,
+    icon: VoucherIcon,
+  },
+] as const
 
 export const CATEGORY_KEY = {
   CATEGORIES: 'categories',

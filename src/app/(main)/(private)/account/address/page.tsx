@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Metadata } from 'next'
 import { Suspense } from 'react'
 
 import PATH from '@/shared/constants/path'
@@ -8,6 +9,10 @@ import { PlusIcon, Svgr } from '@/shared/components/icons'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { AddressContent } from '@/features/address/components/server'
 import { AccountHeader, AccountSectionWrapper } from '@/features/account/components'
+
+export const metadata: Metadata = {
+  title: 'Sổ địa chỉ',
+}
 
 export default async function AddressPage() {
   const accessToken = await getAccessTokenInServer()

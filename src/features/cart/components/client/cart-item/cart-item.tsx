@@ -76,7 +76,6 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
 
         if (currentQuantity > stockItem.qty || currentQuantity > stockItem.max_sale_qty) {
           setQuantity(maxPurchaseQuantity.toString())
-          setDebouncedQuantity(maxPurchaseQuantity.toString())
         }
 
         setItemSubtotal(Math.min(currentQuantity, maxPurchaseQuantity) * product.real_price)

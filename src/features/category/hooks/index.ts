@@ -1,1 +1,1 @@
-export { default as useQueryCategoriesFromBackend } from './use-query-categories-from-backend'
+export { default as useQueryCategories } from './use-query-categories'

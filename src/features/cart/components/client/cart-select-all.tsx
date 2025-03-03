@@ -7,7 +7,7 @@ import { useSelectedCartItemIds } from '@/features/cart/hooks'
 import { usePreCheckoutMutation } from '@/features/checkout/hooks'
 
 import { Label } from '@/shared/components/ui/label'
-import { Checkbox } from '@/shared/components/ui/checkbox'
+import { CheckboxWithRefreshTokenState } from '@/shared/components'
 
 type Props = {
   cartList: CartItem[]
@@ -39,7 +39,11 @@ export default function CartSelectAll({ cartList, labelClassName, titleClassName
 
   return cartList.length > 0 ? (
     <Label className={cn('flex items-center gap-3 md:gap-5', labelClassName)}>
-      <Checkbox className="size-4 md:size-5" checked={isChecked} onCheckedChange={handleCheckedChange} />
+      <CheckboxWithRefreshTokenState
+        className="size-4 md:size-5"
+        checked={isChecked}
+        onCheckedChange={handleCheckedChange}
+      />
       <span className={cn('font-medium', titleClassName)}>Chọn tất cả ({cartList.length})</span>
     </Label>
   ) : null

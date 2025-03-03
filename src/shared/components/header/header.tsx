@@ -1,24 +1,16 @@
 import Link from 'next/link'
-import * as SheetPrimitive from '@radix-ui/react-dialog'
 
 import PATH from '@/shared/constants/path'
 
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/shared/components/ui/sheet'
 import { Input } from '@/shared/components/ui/input'
 import { Button } from '@/shared/components/ui/button'
-import { AuthButton, CartQuantity, CategoryHover } from '@/shared/components/header'
-import { ArrowLeftIcon, AlignLeftIcon, SearchIcon, ShopperIcon, CartIcon, Svgr } from '@/shared/components/icons'
+import { Sheet, SheetTrigger } from '@/shared/components/ui/sheet'
+import { AlignLeftIcon, CartIcon, SearchIcon, ShopperIcon, Svgr } from '@/shared/components/icons'
+import { AuthButton, CartQuantity, CategoryHover, HeaderSheetContent } from '@/shared/components/header'
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-40 h-header-height bg-header shadow-section">
+    <header className="sticky top-0 z-40 h-header bg-header shadow-section">
       <div className="mx-auto flex h-full max-w-[calc(1340px+var(--container-gutter))] items-center gap-4 px-[calc(var(--container-gutter)*0.5)] lg:px-[var(--container-gutter)]">
         <div className="flex gap-4 lg:hidden">
           <Sheet>
@@ -32,24 +24,7 @@ export default function Header() {
                 <span className="sr-only">Menu điều hướng</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="p-4 pb-12 pt-0">
-              <SheetHeader className="h-sheet-header-height justify-center">
-                <SheetPrimitive.Close className="flex size-11 items-center justify-center opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-                  <Svgr icon={ArrowLeftIcon} />
-                  <span className="sr-only">Đóng menu điều hướng</span>
-                </SheetPrimitive.Close>
-                <SheetTitle className="sr-only">Menu điều hướng</SheetTitle>
-                <SheetDescription className="sr-only">
-                  Menu điều hướng của trang web, bao gồm các liên kết đến các trang khác
-                </SheetDescription>
-              </SheetHeader>
-              <nav className="grid gap-6 text-lg font-medium">
-                <Link href={PATH.HOME} className="mx-auto flex items-center gap-2 p-1.5 md:mx-0 lg:gap-3.5 lg:p-2">
-                  <Svgr icon={ShopperIcon} width={32} height={32} className="size-6 text-secondary-blue lg:size-8" />
-                  <span className="text-lg font-bold lg:text-xl">Shopper</span>
-                </Link>
-              </nav>
-            </SheetContent>
+            <HeaderSheetContent />
           </Sheet>
         </div>
 

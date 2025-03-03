@@ -20,10 +20,8 @@ export default function Footer({ className }: { className?: string }) {
             <TextLink href="https://fullstack.edu.vn/landing/htmlcss">HTML & CSS course</TextLink> by{' '}
             <TextLink href="https://fullstack.edu.vn">F8</TextLink>.
           </p>
-          <div className="ml-auto flex items-center gap-2">
-            <div className="flex items-center rounded-full border bg-popover p-1">
-              <ModeToggle />
-            </div>
+          <div className="ml-auto flex items-center">
+            <ModeToggle />
           </div>
         </div>
       </footer>
