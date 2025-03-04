@@ -68,6 +68,8 @@
     --auth-content-heading: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
 
     --products-sidebar: 0 0% 93.3%; /* #eee - light-3 */
+    --products-sort: 0 0% 100%; /* #fff - light-1 */
+    --products-sort-foreground: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
 
     --product: 240 42.9% 98.6%; /* #fafafd - secondary-6 */
     --product-info: 0 0% 100%; /* #fff - light-1 */
@@ -153,6 +155,8 @@
     --auth-content-heading: 228 3.7% 73.5%; /* #b9babe - dark-3 */
 
     --products-sidebar: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+    --products-sort: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+    --products-sort-foreground: 252 5.7% 82.9%; /* #d2d1d6 - secondary-3 */
 
     --product: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
     --product-info: 222.4 27% 12.4%; /* #171c28 - dark-1 */

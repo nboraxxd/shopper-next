@@ -130,7 +130,11 @@ export default {
           heading: 'hsl(var(--auth-content-heading))',
         },
 
-        'products-sidebar': 'hsl(var(--products-sidebar))',
+        products: {
+          sidebar: 'hsl(var(--products-sidebar))',
+          sort: 'hsl(var(--products-sort))',
+          'sort-foreground': 'hsl(var(--products-sort-foreground))',
+        },
 
         product: {
           DEFAULT: 'hsl(var(--product))',

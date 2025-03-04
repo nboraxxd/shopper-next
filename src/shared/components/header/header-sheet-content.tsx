@@ -73,7 +73,7 @@ export default function HeaderSheetContent() {
             <SheetButton asChild className="justify-center text-foreground/80 hover:text-foreground [&_span]:mt-0.5">
               <Link href={PATH.REGISTER}>
                 <UserRoundPlusIcon strokeWidth={2} />
-                <span data-slot="title">Đăng ký</span>
+                <span>Đăng ký</span>
               </Link>
             </SheetButton>
           </>

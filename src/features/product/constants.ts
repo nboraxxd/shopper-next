@@ -7,7 +7,7 @@ export const PRODUCT_SORT_OPTIONS = {
   NEWEST: 'newest',
 } as const
 
-export const PRODUCTS_SORT = [
+export const PRODUCT_LIST_SORT = [
   { name: 'Mới nhất', value: PRODUCT_SORT_OPTIONS.NEWEST },
   { name: 'Bán chạy', value: PRODUCT_SORT_OPTIONS.TOP_SELL },
   { name: 'Đánh giá tốt', value: PRODUCT_SORT_OPTIONS.RATING_DESC },

@@ -103,7 +103,6 @@ const request = async <T>(
           clientLogoutRequest = null
         }
       } else if (!isClient) {
-        console.log('🔥 ~ options?.headers:', options)
         const accessToken = options?.headers?.Authorization?.split('Bearer ')[1] || ''
         redirect(`${PATH.LOGOUT}?accessToken=${accessToken}`)
       }
