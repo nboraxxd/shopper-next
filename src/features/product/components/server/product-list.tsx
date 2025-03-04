@@ -6,6 +6,7 @@ import { productServerApi } from '@/features/product/api/server'
 import { PRODUCTS_FIELDS } from '@/features/product/constants'
 import type { Product, ProductsField, ProductsSearchParams } from '@/features/product/types'
 
+import { Skeleton } from '@/shared/components/ui/skeleton'
 import { ProductCard } from '@/features/product/components/server'
 
 interface Props {
@@ -13,7 +14,7 @@ interface Props {
   categories: Category[]
 }
 
-export default async function ProductList({ productsSearchParams, categories }: Props) {
+export async function ProductList({ productsSearchParams, categories }: Props) {
   const categoryById = keyBy(categories, 'id')
 
   const productsResponse = await productServerApi.getProductsFromBackend<Pick<Product, ProductsField>>({
@@ -61,4 +62,20 @@ export default async function ProductList({ productsSearchParams, categories }: 
       </ProductCard>
     )
   })
+}
+
+export function ProductListSkeleton() {
+  return Array.from({ length: 30 }).map((_, index) => (
+    <ProductCard key={index}>
+      <ProductCard.ImageSkeleton />
+      <ProductCard.ContentSkeleton>
+        <div>
+          <Skeleton className="h-[1.125rem] w-full" />
+          <Skeleton className="mt-1 h-[1.125rem] w-2/3" />
+        </div>
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-5 w-1/2 md:h-6" />
+      </ProductCard.ContentSkeleton>
+    </ProductCard>
+  ))
 }

@@ -11,7 +11,6 @@ import { cn, formatCurrency } from '@/shared/utils'
 import { useAuthStore } from '@/features/auth/auth-store'
 import { COMMON_MESSAGE } from '@/shared/constants/message'
 import { PRODUCT_MESSAGE } from '@/features/product/constants'
-import { usePreCheckoutMutation } from '@/features/checkout/hooks'
 import { BadRequestError, handleClientErrorApi } from '@/shared/utils/error'
 import { useBuyNowProductId, useShowStickyAction } from '@/features/product/hooks'
 import { useQueryCartList, useSelectedCartItemIds, useUpdateCartItemQtyMutation } from '@/features/cart/hooks'
@@ -50,8 +49,6 @@ export default function ProductAction({ productId, stock, maxSaleQty, name, imag
 
   const updateCartItemQtyMutation = useUpdateCartItemQtyMutation()
   const { refetch: refetchQueryCartList, isRefetching: isRefetchQueryCartList } = useQueryCartList(false)
-
-  const preCheckoutMutation = usePreCheckoutMutation()
 
   function handleChangeQuantity(value: string) {
     setQuantity(value)
@@ -151,7 +148,7 @@ export default function ProductAction({ productId, stock, maxSaleQty, name, imag
         setSelectedCartItemId([productId])
         router.push(PATH.CART)
 
-        await preCheckoutMutation.mutateAsync({ listItems: [productId] })
+        await refetchQueryCartList()
       })
     } catch (error) {
       handleClientErrorApi({ error })

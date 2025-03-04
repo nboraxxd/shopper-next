@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useMutationState } from '@tanstack/react-query'
 
 import { cn, formatCurrency } from '@/shared/utils'
@@ -29,23 +29,13 @@ const CART_SUMMARY_DATA = [
 ] as const
 
 export default function CartSummary() {
+  const preCheckoutRef = useRef<unknown>(null)
+
   const selectedItemIds = useSelectedCartItemIds((state) => state.selectedItemId)
   const currentPromotion = useCurrentPromotion((state) => state.currentPromotion)
   const promotionCode = currentPromotion?.code
 
   const { mutateAsync: preCheckoutMutateAsync } = usePreCheckoutMutation()
-
-  // const updateCartItemQty = useMutationState({
-  //   filters: { mutationKey: [CART_KEY.UPDATE_CART_ITEM_QTY], exact: true, status: 'success' },
-  //   select: (mutation) => {
-  //     const status = mutation.state.status
-  //     const variables = mutation.state.variables as UpdateCartItemQtyReq
-
-  //     return { status, variables } as { status: MutationStatus; variables: UpdateCartItemQtyReq } | undefined
-  //   },
-  // })
-
-  // const latestUpdateCartItemQty = updateCartItemQty[updateCartItemQty.length - 1]
 
   const preCheckoutData = useMutationState({
     filters: { mutationKey: [CHECKOUT_KEY.PRE_CHECKOUT], exact: true, status: 'success' },
@@ -55,17 +45,29 @@ export default function CartSummary() {
   const latestPreCheckoutData = preCheckoutData[preCheckoutData.length - 1]
 
   useEffect(() => {
-    if (selectedItemIds) {
+    let timeout: NodeJS.Timeout | null = null
+
+    if (selectedItemIds && !preCheckoutRef.current) {
       ;(async () => {
+        preCheckoutRef.current = preCheckoutMutateAsync
+
         try {
           await preCheckoutMutateAsync({
             listItems: selectedItemIds,
             promotionCode: promotionCode ? [promotionCode] : undefined,
           })
+
+          timeout = setTimeout(() => {
+            preCheckoutRef.current = null
+          }, 0)
         } catch (error) {
           handleClientErrorApi({ error })
         }
       })()
+    }
+
+    return () => {
+      if (timeout) clearTimeout(timeout)
     }
   }, [preCheckoutMutateAsync, promotionCode, selectedItemIds])
 

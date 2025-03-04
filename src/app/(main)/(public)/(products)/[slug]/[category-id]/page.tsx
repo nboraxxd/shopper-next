@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 
 import type { SearchParamsPromise } from '@/shared/types'
@@ -9,7 +10,7 @@ import { categoryServerApi } from '@/features/category/api/server'
 import { sanitizeProductsSearchParams } from '@/features/product/utils/server'
 import { CATEGORY_IDS, PRODUCT_CATEGORIES } from '@/features/category/constants'
 
-import { ProductList, ProductSidebar } from '@/features/product/components/server'
+import { ProductList, ProductListSkeleton, ProductSidebar } from '@/features/product/components/server'
 
 interface Props {
   params: Promise<{ slug: string; 'category-id': string }>
@@ -67,7 +68,9 @@ export default async function CategoryPage(props: Props) {
         <main className="mt-5 lg:mt-0">
           <h1 className="text-lg font-medium md:text-2xl md:font-bold">{category?.title ?? 'Danh mục sản phẩm'}</h1>
           <div className="mt-4 grid grid-cols-2 gap-3 pb-14 md:mt-7 md:grid-cols-3 md:gap-4 lg:h-fit xl:grid-cols-4 2xl:grid-cols-5">
-            <ProductList productsSearchParams={productsSearchParams} categories={categoriesResponse.payload.data} />
+            <Suspense fallback={<ProductListSkeleton />}>
+              <ProductList productsSearchParams={productsSearchParams} categories={categoriesResponse.payload.data} />
+            </Suspense>
           </div>
         </main>
       </div>

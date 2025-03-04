@@ -1,8 +1,8 @@
 'use client'
 
 import { useIsClient } from '@/shared/hooks'
+import { useQueryCartList } from '@/features/cart/hooks'
 import { useAuthStore } from '@/features/auth/auth-store'
-import { useQueryCartQuantity } from '@/features/cart/hooks'
 
 export default function CartQuantity() {
   const isClient = useIsClient()
@@ -15,9 +15,17 @@ export default function CartQuantity() {
 }
 
 function CartQuantityContent() {
-  const { isLoading, isSuccess, quantity } = useQueryCartQuantity()
+  const queryCartList = useQueryCartList()
 
-  if (isLoading) return <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  if (queryCartList.isLoading) return <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
 
-  return isSuccess ? <span>{quantity}</span> : null
+  return queryCartList.isSuccess ? (
+    <span>
+      {queryCartList.data.payload.data.listItems.length > 99
+        ? '99+'
+        : queryCartList.data.payload.data.listItems.length > 0
+          ? queryCartList.data.payload.data.listItems.length.toString().padStart(2, '0')
+          : '0'}
+    </span>
+  ) : null
 }
