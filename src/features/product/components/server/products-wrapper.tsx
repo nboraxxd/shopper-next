@@ -26,11 +26,9 @@ export default function ProductsWrapper({ categories, children, suspenseKey, cat
               <ProductListSort />
             </div>
           </div>
-          <div className="mt-4 grid grid-cols-2 gap-3 pb-14 md:mt-7 md:grid-cols-3 md:gap-4 lg:h-fit xl:grid-cols-4 2xl:grid-cols-5">
-            <Suspense key={suspenseKey} fallback={<ProductListSkeleton />}>
-              {children}
-            </Suspense>
-          </div>
+          <Suspense key={suspenseKey} fallback={<ProductListSkeleton />}>
+            {children}
+          </Suspense>
         </main>
       </div>
     </div>

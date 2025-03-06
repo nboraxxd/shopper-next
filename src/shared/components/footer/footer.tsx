@@ -15,10 +15,7 @@ export default function Footer({ className }: { className?: string }) {
       >
         <div className="container flex w-full flex-col justify-between gap-4">
           <p className="mx-auto text-balance text-center font-medium">
-            The project was inspired by <TextLink href="https://spacedev.vn/course/react">React course</TextLink> by{' '}
-            <TextLink href="https://spacedev.vn">Spacedev</TextLink> and{' '}
-            <TextLink href="https://fullstack.edu.vn/landing/htmlcss">HTML & CSS course</TextLink> by{' '}
-            <TextLink href="https://fullstack.edu.vn">F8</TextLink>.
+            The project was inspired by the React course by <TextLink href="https://spacedev.vn">Spacedev</TextLink>.
           </p>
           <div className="ml-auto flex items-center">
             <ModeToggle />

@@ -64,7 +64,7 @@ export default function ProductFilterForm(props: Props) {
     })
 
     setIsOpen(false)
-    router.push(`${pathname}?${newSearchParams}`)
+    router.push(`${pathname}?${newSearchParams}`, { scroll: false })
   }
 
   function onReset() {
@@ -78,7 +78,7 @@ export default function ProductFilterForm(props: Props) {
     newSearchParams.delete('filterRating')
 
     setIsOpen(false)
-    router.push(`${pathname}?${newSearchParams}`)
+    router.push(`${pathname}?${newSearchParams}`, { scroll: false })
   }
 
   return (
