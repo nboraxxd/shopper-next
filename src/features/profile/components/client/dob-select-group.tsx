@@ -1,12 +1,13 @@
 'use client'
 
 import range from 'lodash/range'
-
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/components/ui/select'
 import { useEffect, useState } from 'react'
-import { ScrollArea } from '@/shared/components/ui/scroll-area'
-import { convertDOBToDayMonthYear } from '@/features/profile/utils'
+
 import { cn } from '@/shared/utils'
+import { convertDOBToDayMonthYear } from '@/features/profile/utils'
+
+import { ScrollArea } from '@/shared/components/ui/scroll-area'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/components/ui/select'
 
 interface DOBSelectGroupProps {
   value: string | null

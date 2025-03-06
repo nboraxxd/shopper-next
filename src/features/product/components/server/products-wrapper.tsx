@@ -2,8 +2,8 @@ import { Suspense } from 'react'
 
 import { Category } from '@/features/category/types'
 
-import { ProductListSort } from '@/features/product/components/client'
 import { ProductListSkeleton, ProductSidebar } from '@/features/product/components/server'
+import { ProductListSort, ProductListFilter } from '@/features/product/components/client/filter-sort-control'
 
 interface Props {
   categories: Category[]
@@ -21,7 +21,8 @@ export default function ProductsWrapper({ categories, children, suspenseKey, cat
         <main className="mt-5 lg:mt-0">
           <div className="flex flex-col items-start gap-3">
             <h1 className="text-lg font-medium xs:text-2xl md:font-bold">{title ?? 'Tất cả sản phẩm'}</h1>
-            <div className="ml-auto">
+            <div className="ml-auto flex items-center gap-4">
+              <ProductListFilter />
               <ProductListSort />
             </div>
           </div>

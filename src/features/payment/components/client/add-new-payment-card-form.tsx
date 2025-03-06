@@ -66,27 +66,23 @@ export default function AddNewPaymentCardForm() {
           name="type"
           control={form.control}
           render={({ field }) => (
-            <FormItem className="space-y-1">
-              <div className="flex items-center gap-4">
-                <FormLabel>Loại thẻ</FormLabel>
-                <RadioGroup onValueChange={field.onChange} value={field.value ?? undefined} className="flex gap-4">
-                  {PAYMENT_CARD_TYPE.map(({ icon: Icon, label, value }) => (
-                    <FormItem key={value} className="flex items-center space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value={value} className="hidden" />
-                      </FormControl>
-                      <FormLabel
-                        className={cn('cursor-pointer rounded-md border p-1.5', {
-                          'border-highlight': field.value === value,
-                        })}
-                      >
-                        <Svgr icon={Icon} width={30} height={20} />
-                        <span className="sr-only">{label}</span>
-                      </FormLabel>
+            <FormItem className="flex items-center gap-4 space-y-0">
+              <FormLabel>Loại thẻ</FormLabel>
+              <RadioGroup onValueChange={field.onChange} value={field.value ?? undefined} className="flex gap-4">
+                {PAYMENT_CARD_TYPE.map(({ icon: Icon, label, value }) => (
+                  <FormLabel
+                    key={value}
+                    className="cursor-pointer rounded-md border p-1.5 data-[state=checked]:border-highlight"
+                    data-state={field.value === value ? 'checked' : 'unchecked'}
+                  >
+                    <FormItem className="flex items-center space-y-0">
+                      <RadioGroupItem value={value} className="sr-only" />
+                      <Svgr icon={Icon} width={30} height={20} />
+                      <span className="sr-only">{label}</span>
                     </FormItem>
-                  ))}
-                </RadioGroup>
-              </div>
+                  </FormLabel>
+                ))}
+              </RadioGroup>
               <FormMessage />
             </FormItem>
           )}

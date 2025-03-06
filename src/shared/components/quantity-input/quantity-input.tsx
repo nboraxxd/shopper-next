@@ -8,6 +8,7 @@ import { useRefreshTokenState } from '@/features/auth/auth-store'
 import { Button } from '@/shared/components/ui/button'
 import { NumberInput } from '@/shared/components/quantity-input'
 import { MinusIcon, PlusIcon, Svgr } from '@/shared/components/icons'
+import { CUSTOM_INPUT_CLASSNAME } from '@/shared/constants/class-name'
 
 interface Props extends Omit<ComponentProps<'input'>, 'className'> {
   value?: string
@@ -111,7 +112,7 @@ export default function QuantityInput(props: Props) {
       <NumberInput
         type="text"
         inputMode="numeric"
-        className={cn('w-12 p-1 text-center', inputClassName)}
+        className={cn(CUSTOM_INPUT_CLASSNAME, 'w-12 p-1 text-center', inputClassName)}
         value={value || localValue}
         onChange={handleChange}
         onBlur={handleBlur}

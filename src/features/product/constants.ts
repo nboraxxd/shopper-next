@@ -49,4 +49,7 @@ export const PRODUCT_MESSAGE = {
   MAX_PURCHASE_LIMIT: (maxAllowedPurchase: number) =>
     `Số lượng được mua tối đa của sản phẩm này là ${maxAllowedPurchase}.`,
   PRODUCT_SUSPENDED_FOR_SALE: 'Sản phẩm đang tạm ngừng kinh doanh.',
+
+  PRICE_MUST_BE_POSITIVE_NUMBER: 'Giá phải là số dương',
+  PRICE_RANGE_INVALID: 'Khoảng giá không hợp lệ',
 }

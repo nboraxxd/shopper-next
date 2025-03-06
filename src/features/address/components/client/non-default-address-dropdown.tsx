@@ -78,7 +78,7 @@ export default function NonDefaultAddressDropdown({ id, isDisabled, setIsDisable
 
   return (
     <>
-      <DropdownMenu>
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger
           asChild
           disabled={setDefaultAddressMutation.isPending || deleteAddressMutation.isPending || isDisabled}

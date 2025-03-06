@@ -155,6 +155,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
                     <Skeleton className="size-20 rounded-full md:size-24" />
                   ) : (
                     <Button
+                      type="button"
                       variant="ghost"
                       className="size-fit p-0"
                       onClick={() => {
@@ -207,7 +208,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
               name="name"
               control={form.control}
               render={({ field }) => (
-                <FormItem className="space-y-1">
+                <FormItem className="flex flex-col space-y-1">
                   <FormLabel>Tên</FormLabel>
                   <FormControl>
                     <Input
@@ -227,7 +228,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
               name="phone"
               control={form.control}
               render={({ field }) => (
-                <FormItem className="space-y-1">
+                <FormItem className="flex flex-col space-y-1">
                   <FormLabel>Số điện thoại</FormLabel>
                   <FormControl>
                     <PatternFormat
@@ -251,7 +252,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
               name="birthday"
               control={form.control}
               render={({ field }) => (
-                <FormItem className="space-y-1">
+                <FormItem className="flex flex-col space-y-1">
                   <FormLabel>Ngày sinh</FormLabel>
                   <DOBSelectGroup value={field.value} onChange={field.onChange} />
                   <FormMessage />
@@ -286,7 +287,7 @@ export default function UpdateProfileForm({ profile }: { profile: ProfileRespons
               control={form.control}
               name="fb"
               render={({ field }) => (
-                <FormItem className="space-y-1">
+                <FormItem className="flex flex-col space-y-1">
                   <FormLabel>Facebook</FormLabel>
                   <FormControl>
                     <Input
