@@ -90,6 +90,10 @@
     --cart-price: 245.5 5.9% 63.7%; /* #9e9da8 - secondary-2 */
     --cart-icon-highlight: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
 
+    --checkout: 240 27.3% 97.8%; /* #f8f8fb - secondary-5 */
+    --checkout-section: 0 0% 100%; /* #fff - light-1 */
+    --checkout-highlight: 0 0% 92.2%; /* #ebebeb */
+
     --promotion-card: 210 100% 94.9%; /* #e5f2ff */
     --promotion-card-foreground: 210.2 100% 50.2%; /* #017fff */
 
@@ -177,6 +181,10 @@
     --cart-price: 228 3.7% 73.5%; /* #b9babe - dark-3 */
     --cart-icon-highlight: 252 5.7% 82.9%; /* #d2d1d6 - secondary-3 */
 
+    --checkout: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
+    --checkout-section: 222.4 27% 12.4%; /* #171c28 - dark-1 */
+    --checkout-highlight: 223.3 16.1% 22%; /* #2f3441 */
+
     --promotion-card: 217.2 32.6% 17.5%; /* #1e293b */
     --promotion-card-foreground: 0 0% 96.5%; /* #f6f6f6 - light-2 */
 
@@ -202,6 +210,8 @@
 
       --cart: 0 0% 96.5%; /* #f6f6f6 - light-2 */
 
+      --checkout: 0 0% 96.5%; /* #f6f6f6 - light-2 */
+
       --address-item: 0 0% 96.5%; /* #f6f6f6 - light-2 */
     }
 
@@ -220,6 +230,8 @@
       --account-info: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
 
       --cart: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
+
+      --checkout: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
 
       --address-item: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
     }

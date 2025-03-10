@@ -1,0 +1,6 @@
+export { default as AddressList } from './address-list'
+export { default as UpdateAddress } from './update-address'
+export { default as AddressDialog } from './address-dialog'
+export { default as AddNewAddress } from './add-new-address'
+export { default as DeliveryAddress } from './delivery-address'
+export { default as AddNewAddressDialog } from './add-new-address-dialog'

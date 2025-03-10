@@ -163,6 +163,12 @@ export default {
           'icon-highlight': 'hsl(var(--cart-icon-highlight))',
         },
 
+        checkout: {
+          DEFAULT: 'hsl(var(--checkout))',
+          section: 'hsl(var(--checkout-section))',
+          highlight: 'hsl(var(--checkout-highlight))',
+        },
+
         'promotion-card': {
           DEFAULT: 'hsl(var(--promotion-card))',
           foreground: 'hsl(var(--promotion-card-foreground))',
@@ -187,6 +193,8 @@ export default {
         popover: 'var(--popover-shadow)',
         'focus-within': 'var(--focus-within-shadow)',
         'cart-sticky': '0 8px 16px 0 rgba(0, 0, 0, .12), 0 -4px 8px 0 rgba(0, 0, 0, .04)',
+        'custom-up': '0 -2px 4px -2px rgb(0 0 0 / 0.1)',
+        'custom-down': '0 2px 4px -2px rgb(0 0 0 / 0.1)',
       },
       spacing: {
         header: 'var(--header-height)',

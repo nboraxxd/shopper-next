@@ -2,28 +2,28 @@ import Link from 'next/link'
 import { LucideProps } from 'lucide-react'
 import lowerFirst from 'lodash/lowerFirst'
 
-import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
+import { cn, formatPhoneNumber } from '@/shared/utils'
 import { ProfileResponse } from '@/features/profile/types'
 import profileServerApi from '@/features/profile/api/server'
-import { AddressListResponse } from '@/features/address/types'
 import addressServerApi from '@/features/address/api/server'
+import { DefaultAddressResponse } from '@/features/address/types'
 
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { CallingIcon, LocationIcon, MailIcon, PlusIcon, Svgr } from '@/shared/components/icons'
 
 export async function AccountInfoContent({ accessToken }: { accessToken: string }) {
   let profile: ProfileResponse['data'] | null = null
-  let defaultAddress: AddressListResponse['data'] | null = null
+  let defaultAddress: DefaultAddressResponse['data'] | null = null
 
   try {
-    const [profileResponse, addressResponse] = await Promise.all([
+    const [profileResponse, defaultAddressResponse] = await Promise.all([
       profileServerApi.getProfileFromBackend(accessToken),
-      addressServerApi.getAddressesFromBackend({ accessToken, isDefault: true }),
+      addressServerApi.getDefaultAddressFromBackend({ accessToken }),
     ])
 
     profile = profileResponse.payload.data
-    defaultAddress = addressResponse.payload.data
+    defaultAddress = defaultAddressResponse.payload.data
   } catch (error: any) {
     if (error.digest?.includes('NEXT_REDIRECT')) {
       throw error
@@ -44,28 +44,20 @@ export async function AccountInfoContent({ accessToken }: { accessToken: string 
         <AccountInfoItem
           icon={CallingIcon}
           title="Số điện thoại"
-          content={
-            profile.phone.length >= 10
-              ? `${profile.phone.slice(0, 4)} ${profile.phone.slice(4, 7)} ${profile.phone.slice(7, 10)} ${profile.phone.slice(10)}`
-              : profile.phone
-          }
+          content={formatPhoneNumber(profile.phone)}
           contentClassName="line-clamp-1"
         />
       ) : null}
       {/* If user.phone is not available, show the phone number from the default address */}
-      {!profile?.phone && defaultAddress && defaultAddress.length >= 1 ? (
+      {!profile?.phone && defaultAddress?.[0] ? (
         <AccountInfoItem
           icon={CallingIcon}
           title="Số điện thoại"
-          content={
-            defaultAddress[0].phone.length >= 10
-              ? `${defaultAddress[0].phone.slice(0, 4)} ${defaultAddress[0].phone.slice(4, 7)} ${defaultAddress[0].phone.slice(7, 10)} ${defaultAddress[0].phone.slice(10)}`
-              : defaultAddress[0].phone
-          }
+          content={formatPhoneNumber(defaultAddress[0].phone)}
           contentClassName="line-clamp-1"
         />
       ) : null}
-      {defaultAddress && defaultAddress.length >= 1 ? (
+      {defaultAddress?.[0] ? (
         <AccountInfoItem
           icon={LocationIcon}
           title="Địa chỉ"

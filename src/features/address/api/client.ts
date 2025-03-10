@@ -1,6 +1,8 @@
 import {
   AddNewAddressResponse,
+  AddressListResponse,
   DistrictsResponseFromServer,
+  ProvincesResponseFromServer,
   SetDefaultAddressResponse,
   UpdateAddressResponse,
   WardsResponseFromServer,
@@ -14,6 +16,11 @@ const SERVER_PREFIX = '/api/address'
 const BACKEND_PREFIX = '/users/address'
 
 export const addressClientApi = {
+  getAddressListFromBackend: () => http.get<AddressListResponse>(BACKEND_PREFIX),
+
+  getPronvincesFromServer: () =>
+    http.get<ProvincesResponseFromServer>(`${SERVER_PREFIX}/provinces`, { baseUrl: envVariables.NEXT_PUBLIC_URL }),
+
   getDistrictsFromServer: (provinceCode: number) =>
     http.get<DistrictsResponseFromServer>(`${SERVER_PREFIX}/districts/${provinceCode}`, {
       baseUrl: envVariables.NEXT_PUBLIC_URL,

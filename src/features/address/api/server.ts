@@ -3,6 +3,7 @@ import ms from 'ms'
 import {
   AddressDetailResponse,
   AddressListResponse,
+  DefaultAddressResponse,
   DistrictsResponseFromBackend,
   ProvincesResponseFromBackend,
   WardsResponseFromBackend,
@@ -20,6 +21,12 @@ const addressServerApi = {
       headers: { Authorization: `Bearer ${accessToken}` },
     }),
 
+  getDefaultAddressFromBackend: ({ accessToken }: { accessToken: string }) =>
+    http.get<DefaultAddressResponse>(PREFIX, {
+      params: { default: 'true' },
+      headers: { Authorization: `Bearer ${accessToken}` },
+    }),
+
   getAddressDetailFromBackend: ({ accessToken, id }: { accessToken: string; id: string }) =>
     http.get<AddressDetailResponse>(`${PREFIX}/${id}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
@@ -29,14 +36,14 @@ const addressServerApi = {
     http.get<ProvincesResponseFromBackend>('/p', {
       baseUrl: envVariables.NEXT_PUBLIC_VIETNAM_PROVINCES_API_ENDPOINT,
       cache: 'force-cache',
-      next: { revalidate: ms('7d'), tags: [ADDRESS_KEY.PROVINCES] },
+      next: { revalidate: ms('1d'), tags: [ADDRESS_KEY.PROVINCES] },
     }),
 
   getDistrictsFromVietnamProvinces: (provinceCode: number) =>
     http.get<DistrictsResponseFromBackend>(`/p/${provinceCode}`, {
       baseUrl: envVariables.NEXT_PUBLIC_VIETNAM_PROVINCES_API_ENDPOINT,
       cache: 'force-cache',
-      next: { revalidate: ms('7d'), tags: [ADDRESS_KEY.DISTRICTS] },
+      next: { revalidate: ms('1d'), tags: [ADDRESS_KEY.DISTRICTS] },
       params: { depth: '2' },
     }),
 
@@ -44,7 +51,7 @@ const addressServerApi = {
     http.get<WardsResponseFromBackend>(`/d/${districtCode}`, {
       baseUrl: envVariables.NEXT_PUBLIC_VIETNAM_PROVINCES_API_ENDPOINT,
       cache: 'force-cache',
-      next: { revalidate: ms('7d'), tags: [ADDRESS_KEY.WARDS] },
+      next: { revalidate: ms('1d'), tags: [ADDRESS_KEY.WARDS] },
       params: { depth: '2' },
     }),
 }

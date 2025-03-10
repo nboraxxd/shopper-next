@@ -1,4 +1,4 @@
-type Address = {
+export type Address = {
   _id: string
   phone: string
   email: string
@@ -12,6 +12,10 @@ type Address = {
 
 export type AddressListResponse = {
   data: Address[]
+}
+
+export type DefaultAddressResponse = {
+  data: [Address] | []
 }
 
 export type AddressDetailResponse = {
@@ -54,6 +58,8 @@ export type RegionCommonInfo = {
 export type Province = RegionCommonInfo & { phone_code: number }
 
 export type ProvincesResponseFromBackend = Province[]
+
+export type ProvincesResponseFromServer = { data: Province[] }
 
 export type District = RegionCommonInfo & { province_code: number }
 

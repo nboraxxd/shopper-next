@@ -2,6 +2,7 @@ export const ADDRESS_KEY = {
   PROVINCES: 'provinces',
   DISTRICTS: 'districts',
   WARDS: 'wards',
+  ADDRESS_LIST: 'addressList',
 } as const
 
 export const ADDRESS_ERROR_MESSAGES = {

@@ -14,15 +14,15 @@ interface Props {
 }
 
 export default function DistrictCombobox({ value, provinceCode, initialDistricts, onSelect }: Props) {
-  const queryDistrictsFromBackend = useQueryDistrictsFromServer(initialDistricts ? undefined : provinceCode)
+  const queryDistricts = useQueryDistrictsFromServer(initialDistricts ? undefined : provinceCode)
 
   return (
     <RegionCombobox
       label="Quận/huyện"
       value={value}
       onSelect={onSelect}
-      regions={queryDistrictsFromBackend.data?.payload.data ?? initialDistricts ?? []}
-      isQueryRegionLoading={queryDistrictsFromBackend.isLoading}
+      regions={queryDistricts.data?.payload.data ?? initialDistricts ?? []}
+      isQueryRegionLoading={queryDistricts.isLoading}
       isChosenParentRegion={!!provinceCode || !!initialDistricts}
       messageInfo="Vui lòng chọn tỉnh/thành phố trước"
     />

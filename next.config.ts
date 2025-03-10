@@ -81,6 +81,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        destination: PATH.CHECKOUT,
+        source: '/checkout',
+        permanent: true,
+      },
+      {
         destination: PATH.ACCOUNT,
         source: '/account',
         permanent: true,
@@ -169,6 +174,10 @@ const nextConfig: NextConfig = {
       {
         source: PATH.CART,
         destination: '/cart',
+      },
+      {
+        source: PATH.CHECKOUT,
+        destination: '/checkout',
       },
       {
         source: PATH.ACCOUNT,

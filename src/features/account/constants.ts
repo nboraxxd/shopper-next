@@ -1,7 +1,7 @@
 import { ClipboardListIcon, CreditCardIcon, LayoutDashboardIcon } from 'lucide-react'
 
-import { HeartIcon, InfoSquareIcon, LocationIcon, ProfileIcon } from '@/shared/components/icons'
 import PATH from '@/shared/constants/path'
+import { HeartIcon, InfoSquareIcon, LocationIcon, ProfileIcon } from '@/shared/components/icons'
 
 export const ACCOUNT_MENU = [
   {

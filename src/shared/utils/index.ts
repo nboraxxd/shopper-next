@@ -27,3 +27,7 @@ export const formatCurrency = (number: number) => {
 export function formatNumberToSocialStyle(value: number) {
   return new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(value).toLowerCase()
 }
+
+export function formatPhoneNumber(phoneNumber: string) {
+  return phoneNumber.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3')
+}

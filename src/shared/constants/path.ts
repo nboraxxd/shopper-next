@@ -12,6 +12,7 @@ const PATH = {
   RESET_PASSWORD: '/dat-lai-mat-khau',
   PRODUCTS: '/san-pham',
   CART: '/gio-hang',
+  CHECKOUT: '/thanh-toan',
   SUPPORT: '/ho-tro',
 
   ACCOUNT,

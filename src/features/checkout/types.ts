@@ -1,6 +1,8 @@
 import { CartItem } from '@/features/cart/types'
 import { ShippingMethodValue } from '@/features/shipping/types'
 
+export type DialogMode = 'list' | 'update' | 'create'
+
 export type PreCheckoutReqBody = {
   listItems: Array<number>
   shippingMethod?: string

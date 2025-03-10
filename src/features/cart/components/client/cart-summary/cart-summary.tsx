@@ -1,8 +1,10 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 import { useMutationState } from '@tanstack/react-query'
 
+import PATH from '@/shared/constants/path'
 import { cn, formatCurrency } from '@/shared/utils'
 import { handleClientErrorApi } from '@/shared/utils/error'
 import { CHECKOUT_KEY } from '@/features/checkout/constants'
@@ -30,6 +32,8 @@ const CART_SUMMARY_DATA = [
 
 export default function CartSummary() {
   const preCheckoutRef = useRef<unknown>(null)
+
+  const router = useRouter()
 
   const selectedItemIds = useSelectedCartItemIds((state) => state.selectedItemId)
   const currentPromotion = useCurrentPromotion((state) => state.currentPromotion)
@@ -71,6 +75,12 @@ export default function CartSummary() {
     }
   }, [preCheckoutMutateAsync, promotionCode, selectedItemIds])
 
+  function handleBuyProduct() {
+    if (!selectedItemIds || selectedItemIds.length === 0) return
+
+    router.push(PATH.CHECKOUT)
+  }
+
   return (
     <section className="flex flex-col gap-2.5 rounded-4xl bg-cart-section px-4 py-7 shadow-section md:gap-3">
       {CART_SUMMARY_DATA.map((item) => (
@@ -95,7 +105,7 @@ export default function CartSummary() {
         valueClassName="font-bold text-primary-red"
       />
 
-      <Button className="mt-2 h-11 rounded-full font-medium">
+      <Button className="mt-2 h-11 rounded-full font-medium" onClick={handleBuyProduct}>
         Mua hàng ({latestPreCheckoutData?.payload.data.listItems.length || 0})
       </Button>
     </section>

@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { CheckCircle2Icon } from 'lucide-react'
 
-import { cn } from '@/shared/utils'
 import PATH from '@/shared/constants/path'
+import { cn, formatPhoneNumber } from '@/shared/utils'
 
 import { Button } from '@/shared/components/ui/button'
 import { PencilSquareIcon, Svgr } from '@/shared/components/icons'
@@ -25,18 +25,18 @@ export default function AddressItem({ id, address, email, fullName, isDefault, p
 
   return (
     <div
-      className={cn('rounded-xl bg-address-item p-3 md:p-4', {
+      className={cn('space-y-1.5 rounded-xl bg-address-item p-3 md:p-4', {
         'opacity-50': isDisabled,
       })}
     >
       <div className="flex items-start justify-between">
         {/*  Name and default address */}
         <div className="flex flex-col-reverse gap-1 sm:flex-row sm:items-center sm:gap-4">
-          <p className="line-clamp-1 text-[0.9375rem] font-medium">{fullName}</p>
+          <p className="text-[0.9375rem] font-medium">{fullName}</p>
           {isDefault ? (
             <div className="flex shrink-0 items-center gap-1 text-highlight">
               <CheckCircle2Icon className="size-4" />
-              <span className="text-xs font-medium">Địa chỉ mặc định</span>
+              <span className="mt-0.5 text-xs font-medium">Địa chỉ mặc định</span>
             </div>
           ) : null}
         </div>
@@ -54,23 +54,19 @@ export default function AddressItem({ id, address, email, fullName, isDefault, p
       </div>
 
       {/* Address */}
-      <p className="mt-2 line-clamp-2 text-sm">
+      <p className="text-sm">
         <span className="font-medium text-muted-foreground">Địa chỉ: </span>
         {address}
       </p>
 
       {/* Phone */}
-      <p className="mt-1 text-sm">
+      <p className="text-sm">
         <span className="font-medium text-muted-foreground">Điện thoại: </span>
-        <span>
-          {phone.length >= 10
-            ? `${phone.slice(0, 4)} ${phone.slice(4, 7)} ${phone.slice(7, 10)} ${phone.slice(10)}`
-            : phone}
-        </span>
+        <span>{formatPhoneNumber(phone)}</span>
       </p>
 
       {/* Email */}
-      <p className="mt-1 line-clamp-1 break-all text-sm">
+      <p className="line-clamp-1 break-all text-sm">
         <span className="font-medium text-muted-foreground">Email: </span>
         {email}
       </p>

@@ -109,7 +109,7 @@ export const MOCK_PROMOTIONS: PromotionServerItem[] = [
       'Không áp dụng với các chương trình khuyến mãi khác.',
     ],
     status: 'inactive',
-    image: '/images/promotion/promo-other.png',
+    image: '/images/promotion/free-ship-2.png',
     iat: formatISO(startOfMonth(new Date())),
     exp: formatISO(lastDayOfMonth(new Date())),
   },

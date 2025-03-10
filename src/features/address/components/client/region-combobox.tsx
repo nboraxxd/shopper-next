@@ -19,7 +19,7 @@ import {
 import { Button } from '@/shared/components/ui/button'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { ScrollArea } from '@/shared/components/ui/scroll-area'
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover'
+import { Popover, PopoverContent, PopoverContentBase, PopoverTrigger } from '@/shared/components/ui/popover'
 import { FormControl, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
 
 type Props = {
@@ -46,7 +46,7 @@ export default function RegionCombobox(props: Props) {
 
   return (
     <FormItem className="flex flex-1 flex-col md:space-y-1">
-      <FormLabel className="first-letter:capitalize">{label}</FormLabel>
+      <FormLabel className="w-fit first-letter:capitalize">{label}</FormLabel>
       <Popover open={open} onOpenChange={(open) => (isChosenParentRegion ? setOpen(open) : toast.info(messageInfo))}>
         <PopoverTrigger
           asChild
@@ -59,17 +59,15 @@ export default function RegionCombobox(props: Props) {
             }
           )}
         >
-          <FormControl>
-            <Button variant="outline" role="combobox" className="[&_svg]:size-4">
-              <span className="flex items-center gap-1.5">
-                {value ?? `Chọn ${label.toLowerCase()}`}
-                {isQueryRegionLoading ? <LoaderCircleIcon className="animate-spin" /> : null}
-              </span>
-              <ChevronsUpDownIcon className="opacity-50" />
-            </Button>
-          </FormControl>
+          <Button variant="outline" role="combobox" className="[&_svg]:size-4">
+            <span className="flex items-center gap-1.5">
+              {value ?? `Chọn ${label.toLowerCase()}`}
+              {isQueryRegionLoading ? <LoaderCircleIcon className="animate-spin" /> : null}
+            </span>
+            <ChevronsUpDownIcon className="opacity-50" />
+          </Button>
         </PopoverTrigger>
-        <PopoverContent
+        <PopoverContentBase
           className="max-h-[--radix-popover-content-available-height] w-[--radix-popover-trigger-width] p-0"
           align="start"
         >
@@ -103,7 +101,7 @@ export default function RegionCombobox(props: Props) {
               </CommandGroup>
             </CommandList>
           </Command>
-        </PopoverContent>
+        </PopoverContentBase>
       </Popover>
       <FormMessage />
     </FormItem>
