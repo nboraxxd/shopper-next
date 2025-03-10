@@ -37,7 +37,7 @@ export default function AddressDialog({ inititalDeliveryAddress, setInititalDeli
         setIsOpen(open)
         setTimeout(() => {
           setMode('list')
-        }, 0)
+        }, 200)
       }}
     >
       <DialogTrigger asChild>

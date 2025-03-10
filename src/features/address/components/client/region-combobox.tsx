@@ -19,8 +19,8 @@ import {
 import { Button } from '@/shared/components/ui/button'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { ScrollArea } from '@/shared/components/ui/scroll-area'
-import { Popover, PopoverContent, PopoverContentBase, PopoverTrigger } from '@/shared/components/ui/popover'
-import { FormControl, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
+import { FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
+import { Popover, PopoverContentBase, PopoverTrigger } from '@/shared/components/ui/popover'
 
 type Props = {
   label: string

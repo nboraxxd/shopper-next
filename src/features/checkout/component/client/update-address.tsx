@@ -124,7 +124,7 @@ export default function UpdateAddress({ addressToUpdate, setMode }: Props) {
 
   return (
     <>
-      <ScrollArea className="h-[500px]">
+      <ScrollArea className="h-[38rem]">
         <div className="px-3 sm:px-6">
           <Form {...form}>
             <form
