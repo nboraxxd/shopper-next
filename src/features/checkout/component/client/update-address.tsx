@@ -209,6 +209,7 @@ export default function UpdateAddress({ addressToUpdate, setMode }: Props) {
                         form.setValue('ward', { code: undefined, name: undefined })
                       }}
                       isChosenParentRegion={true}
+                      enablePopoverPortal={false}
                     />
                   )}
                 />
@@ -225,6 +226,7 @@ export default function UpdateAddress({ addressToUpdate, setMode }: Props) {
                         form.clearErrors('district')
                         form.setValue('ward', { code: undefined, name: undefined })
                       }}
+                      enablePopoverPortal={false}
                     />
                   )}
                 />
@@ -240,6 +242,7 @@ export default function UpdateAddress({ addressToUpdate, setMode }: Props) {
                         form.setValue('ward', value)
                         form.clearErrors('ward')
                       }}
+                      enablePopoverPortal={false}
                     />
                   )}
                 />

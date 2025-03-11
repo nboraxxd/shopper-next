@@ -10,10 +10,13 @@ interface Props {
   value?: string
   provinceCode?: number
   initialDistricts?: DistrictsResponseFromBackend['districts']
+  enablePopoverPortal?: boolean
   onSelect: (region: Region) => void
 }
 
-export default function DistrictCombobox({ value, provinceCode, initialDistricts, onSelect }: Props) {
+export default function DistrictCombobox(props: Props) {
+  const { value, provinceCode, initialDistricts, enablePopoverPortal, onSelect } = props
+
   const queryDistricts = useQueryDistrictsFromServer(initialDistricts ? undefined : provinceCode)
 
   return (
@@ -25,6 +28,7 @@ export default function DistrictCombobox({ value, provinceCode, initialDistricts
       isQueryRegionLoading={queryDistricts.isLoading}
       isChosenParentRegion={!!provinceCode || !!initialDistricts}
       messageInfo="Vui lòng chọn tỉnh/thành phố trước"
+      enablePopoverPortal={enablePopoverPortal}
     />
   )
 }

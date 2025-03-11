@@ -10,10 +10,11 @@ interface Props {
   value?: string
   districtCode?: number
   initialWards?: WardsResponseFromBackend['wards']
+  enablePopoverPortal?: boolean
   onSelect: (region: Region) => void
 }
 
-export default function WardCombobox({ value, districtCode, initialWards, onSelect }: Props) {
+export default function WardCombobox({ value, districtCode, initialWards, enablePopoverPortal, onSelect }: Props) {
   const queryWardsFromBackend = useQueryWardsFromServer(initialWards ? undefined : districtCode)
 
   return (
@@ -25,6 +26,7 @@ export default function WardCombobox({ value, districtCode, initialWards, onSele
       isQueryRegionLoading={queryWardsFromBackend.isLoading}
       isChosenParentRegion={!!districtCode || !!initialWards}
       messageInfo="Vui lòng chọn quận/huyện trước"
+      enablePopoverPortal={enablePopoverPortal}
     />
   )
 }

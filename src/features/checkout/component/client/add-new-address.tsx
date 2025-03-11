@@ -148,6 +148,7 @@ export default function AddNewAddress({ onSubmitNavigate, isDefaultCheckboxVisib
                         form.resetField('ward')
                       }}
                       isChosenParentRegion={true}
+                      enablePopoverPortal={false}
                     />
                   )}
                 />
@@ -163,6 +164,7 @@ export default function AddNewAddress({ onSubmitNavigate, isDefaultCheckboxVisib
                         form.setValue('district', value)
                         form.resetField('ward')
                       }}
+                      enablePopoverPortal={false}
                     />
                   )}
                 />
@@ -175,6 +177,7 @@ export default function AddNewAddress({ onSubmitNavigate, isDefaultCheckboxVisib
                       districtCode={(form.watch('district') as Region | undefined)?.code}
                       value={(field.value as Region | undefined)?.name}
                       onSelect={(value: Region) => form.setValue('ward', value)}
+                      enablePopoverPortal={false}
                     />
                   )}
                 />
