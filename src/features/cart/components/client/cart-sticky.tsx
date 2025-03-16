@@ -1,13 +1,13 @@
 'use client'
 
-import { useMutationState } from '@tanstack/react-query'
-import { ChevronUpIcon } from 'lucide-react'
 import { useRef } from 'react'
+import { ChevronUpIcon } from 'lucide-react'
+import { useMutationState } from '@tanstack/react-query'
 
+import { formatCurrency } from '@/shared/utils'
 import { useCartList } from '@/features/cart/hooks'
 import { CHECKOUT_KEY } from '@/features/checkout/constants'
 import { PreCheckoutResponse } from '@/features/checkout/types'
-import { formatCurrency } from '@/shared/utils'
 
 import {
   DropdownMenu,
@@ -20,11 +20,10 @@ import {
 import { Button } from '@/shared/components/ui/button'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Separator } from '@/shared/components/ui/separator'
-import { DialogTrigger } from '@/shared/components/ui/dialog'
-import { ArrowRightIcon, Svgr, VoucherIcon } from '@/shared/components/icons'
-import { CartPromoDialog, CartSelectAll } from '@/features/cart/components/client'
+import { CartSelectAll } from '@/features/cart/components/client'
+import { PromoTrigger } from '@/features/promotion/components/client'
 
-export default function CartPromotionSticky() {
+export default function CartSticky() {
   const stickyRef = useRef<HTMLDivElement>(null)
 
   const cartList = useCartList((state) => state.cartList)
@@ -43,25 +42,7 @@ export default function CartPromotionSticky() {
           ref={stickyRef}
           className="flex h-full flex-col gap-2 border-t border-dashed border-border bg-cart-section py-3 shadow-[0px_-25px_32px_-23px_rgba(0,0,0,0.2)] dark:shadow-[0px_-25px_32px_-23px_rgba(150,150,150,0.08)]"
         >
-          <div className="grid grid-cols-2 px-3 sm:px-7">
-            <div className="col-span-2 col-start-1 flex items-center justify-between gap-2 lg:col-start-2">
-              <h2 className="flex items-center gap-1 text-sm font-medium">
-                <Svgr icon={VoucherIcon} className="size-5" />
-                <span className="hidden sm:inline-block">Shopper khuyến mãi</span>
-              </h2>
-              <CartPromoDialog>
-                <DialogTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="group h-auto justify-start gap-0.5 p-0 text-sm text-highlight [&_svg]:size-4"
-                  >
-                    <span>Nhập hoặc chọn mã</span>
-                    <Svgr icon={ArrowRightIcon} className="transition-transform group-hover:translate-x-0.5" />
-                  </Button>
-                </DialogTrigger>
-              </CartPromoDialog>
-            </div>
-          </div>
+          <PromoTrigger className="px-3 sm:px-7" />
           <Separator className="h-0 w-full border-t border-dashed border-border bg-transparent" />
           <div className="flex items-center px-3 sm:px-7">
             <div className="hidden md:flex lg:w-1/2">

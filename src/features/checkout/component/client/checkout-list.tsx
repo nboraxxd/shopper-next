@@ -29,10 +29,10 @@ export default function CheckOutList() {
 
   return (
     <div className="flex flex-col gap-4">
-      {preCheckoutMutation.isPending
-        ? Array.from({ length: 3 }).map((_, index) => (
+      {preCheckoutMutation.isIdle || preCheckoutMutation.isPending
+        ? Array.from({ length: 2 }).map((_, index) => (
             <div key={index} className="flex items-center gap-2 md:gap-3">
-              <Skeleton className="size-16 md:size-20" />
+              <Skeleton className="size-16 xs:size-20" />
               <div className="h-full">
                 <Skeleton className="h-5 w-36 md:w-60" />
                 <Skeleton className="mt-1 h-5 w-24 md:w-36" />

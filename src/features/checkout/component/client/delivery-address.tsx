@@ -28,9 +28,9 @@ export default function DeliveryAddress() {
         <Skeleton className="h-[1.125rem] w-1/4 md:hidden" />
         <Skeleton className="h-[1.375rem] w-1/2 sm:w-48" />
         <div>
-          <Skeleton className="h-[1.125rem] w-full xl:h-5" />
-          <Skeleton className="mt-1 h-[1.125rem] w-full md:w-1/2 xl:hidden" />
-          <Skeleton className="mt-1 h-[1.125rem] w-1/2 md:hidden" />
+          <Skeleton className="h-[1.125rem] w-full lg:h-5" />
+          <Skeleton className="mt-1 h-[1.125rem] w-full xs:w-1/2 lg:hidden" />
+          <Skeleton className="mt-1 h-[1.125rem] w-1/2 xs:hidden" />
         </div>
         <Skeleton className="h-5 w-1/3 lg:w-96" />
         <Skeleton className="h-5 w-1/3 lg:hidden" />

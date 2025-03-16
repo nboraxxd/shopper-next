@@ -5,10 +5,10 @@ import { getAccessTokenInServer } from '@/shared/utils/server'
 
 import { Button } from '@/shared/components/ui/button'
 import { DialogTrigger } from '@/shared/components/ui/dialog'
-import { CurrentPromotion } from '@/features/promotion/components/client'
+import { CartSticky, CartSummary } from '@/features/cart/components/client'
 import { ArrowRightIcon, Svgr, VoucherIcon } from '@/shared/components/icons'
 import { CartList, CartListSketeton } from '@/features/cart/components/server'
-import { CartPromoDialog, CartPromotionSticky, CartSummary } from '@/features/cart/components/client'
+import { CurrentPromotion, PromoDialog } from '@/features/promotion/components/client'
 
 export const metadata: Metadata = {
   title: 'Giỏ hàng',
@@ -35,7 +35,7 @@ export default async function CartPage() {
                 <span className="text-xs font-medium text-secondary-2">(có thể chọn 1)</span>
               </div>
               <CurrentPromotion />
-              <CartPromoDialog>
+              <PromoDialog>
                 <DialogTrigger asChild>
                   <Button
                     variant="ghost"
@@ -46,14 +46,14 @@ export default async function CartPage() {
                     <Svgr icon={ArrowRightIcon} className="transition-transform group-hover:translate-x-1" />
                   </Button>
                 </DialogTrigger>
-              </CartPromoDialog>
+              </PromoDialog>
             </section>
 
             <CartSummary />
           </aside>
         </div>
       </div>
-      <CartPromotionSticky />
+      <CartSticky />
     </div>
   )
 }

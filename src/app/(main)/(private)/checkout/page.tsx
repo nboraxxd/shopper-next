@@ -1,8 +1,10 @@
 import { PackageIcon } from 'lucide-react'
 
 import { LocationIcon } from '@/shared/components/icons'
+import { PromoTrigger } from '@/features/promotion/components/client'
 import { CheckoutSectionTitle } from '@/features/checkout/component/server'
 import { CheckoutList, DeliveryAddress } from '@/features/checkout/component/client'
+import { Separator } from '@/shared/components/ui/separator'
 
 export default async function CheckoutPage() {
   return (
@@ -18,18 +20,25 @@ export default async function CheckoutPage() {
           </div>
         </section>
 
-        <section className="mt-4 rounded-4xl bg-checkout-section px-3 py-7 shadow-section xs:px-4 md:mt-7 lg:px-7">
-          <div className="mb-4 flex items-center gap-4">
-            <CheckoutSectionTitle
-              icon={PackageIcon}
-              title="Chi tiết đơn hàng"
-              className="w-full lg:w-[calc(70%_+_110px)]"
-            />
-            <span className="hidden w-[10%] text-end font-medium lg:block">Số lượng</span>
-            <span className="hidden w-1/5 text-end font-medium lg:block">Thành tiền</span>
+        <section className="mt-4 rounded-4xl bg-checkout-section py-7 shadow-section md:mt-7">
+          <div className="px-3 xs:px-4 lg:px-7">
+            <div className="mb-4 flex items-center gap-4">
+              <CheckoutSectionTitle
+                icon={PackageIcon}
+                title="Chi tiết đơn hàng"
+                className="w-full lg:w-[calc(70%_+_110px)]"
+              />
+              <span className="hidden w-[10%] text-end font-medium lg:block">Số lượng</span>
+              <span className="hidden w-1/5 text-end font-medium lg:block">Thành tiền</span>
+            </div>
+            <CheckoutList />
           </div>
 
-          <CheckoutList />
+          <Separator className="my-7" />
+
+          <PromoTrigger className="px-3 xs:px-4 lg:px-7" />
+
+          <Separator className="my-7 h-0 border-t border-dashed border-border bg-transparent" />
         </section>
       </main>
     </div>

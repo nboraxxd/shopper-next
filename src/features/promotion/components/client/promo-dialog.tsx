@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { Dialog } from '@/shared/components/ui/dialog'
 import { PromoDialogContent } from '@/features/promotion/components/client'
 
-export default function CartPromoDialog({ children }: { children: React.ReactNode }) {
+export default function PromoDialog({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
