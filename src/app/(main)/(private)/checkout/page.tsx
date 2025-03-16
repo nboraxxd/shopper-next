@@ -1,15 +1,10 @@
-import { Suspense } from 'react'
 import { PackageIcon } from 'lucide-react'
 
-import { getAccessTokenInServer } from '@/shared/utils/server'
-
 import { LocationIcon } from '@/shared/components/icons'
-import { CheckoutList } from '@/features/checkout/component/client'
-import { AddressContent, AddressContentSkeleton, CheckoutSectionTitle } from '@/features/checkout/component/server'
+import { CheckoutSectionTitle } from '@/features/checkout/component/server'
+import { CheckoutList, DeliveryAddress } from '@/features/checkout/component/client'
 
 export default async function CheckoutPage() {
-  const accessToken = await getAccessTokenInServer()
-
   return (
     <div className="bg-checkout">
       <main className="container pt-8 xl:pb-8">
@@ -19,9 +14,7 @@ export default async function CheckoutPage() {
             <div className="mb-4 flex items-center justify-between gap-1">
               <CheckoutSectionTitle icon={LocationIcon} title="Địa chỉ nhận hàng" />
             </div>
-            <Suspense fallback={<AddressContentSkeleton />}>
-              <AddressContent accessToken={accessToken} />
-            </Suspense>
+            <DeliveryAddress />
           </div>
         </section>
 

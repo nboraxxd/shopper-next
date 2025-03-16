@@ -1,5 +1,6 @@
 import { cn } from '@/shared/utils'
 import { Icon } from '@/shared/types'
+import { Svgr } from '@/shared/components/icons'
 
 interface Props {
   title: string
@@ -7,7 +8,7 @@ interface Props {
   className?: string
 }
 
-export default function CheckoutSectionTitle({ title, icon: Icon, className }: Props) {
+export default function CheckoutSectionTitle({ title, icon, className }: Props) {
   return (
     <h2
       className={cn(
@@ -15,7 +16,7 @@ export default function CheckoutSectionTitle({ title, icon: Icon, className }: P
         className
       )}
     >
-      <Icon className="size-4 xs:size-5 sm:size-6" strokeWidth={1.5} />
+      <Svgr icon={icon} className="size-4 xs:size-5 sm:size-6" strokeWidth={1.5} />
       <span className="mt-0.5">{title}</span>
     </h2>
   )

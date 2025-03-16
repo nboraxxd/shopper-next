@@ -1,6 +1,7 @@
 import {
   AddNewAddressResponse,
   AddressListResponse,
+  DefaultAddressResponse,
   DistrictsResponseFromServer,
   ProvincesResponseFromServer,
   SetDefaultAddressResponse,
@@ -17,6 +18,8 @@ const BACKEND_PREFIX = '/users/address'
 
 export const addressClientApi = {
   getAddressListFromBackend: () => http.get<AddressListResponse>(BACKEND_PREFIX),
+
+  getDefaultAddressFromBackend: () => http.get<DefaultAddressResponse>(BACKEND_PREFIX, { params: { default: 'true' } }),
 
   getPronvincesFromServer: () =>
     http.get<ProvincesResponseFromServer>(`${SERVER_PREFIX}/provinces`, { baseUrl: envVariables.NEXT_PUBLIC_URL }),

@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { cn } from '@/shared/utils'
-import { useRouter } from 'next/navigation'
+
+import { useCheckoutAddress } from '@/features/checkout/hooks'
 
 import {
   Dialog,
@@ -17,7 +18,8 @@ import { AddNewAddress } from '@/features/checkout/component/client'
 
 export default function AddNewAddressDialog() {
   const [isOpen, setIsOpen] = useState(true)
-  const router = useRouter()
+
+  const setCheckoutAddress = useCheckoutAddress((state) => state.setCheckoutAddress)
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -42,9 +44,11 @@ export default function AddNewAddressDialog() {
 
         <AddNewAddress
           isDefaultCheckboxVisible={false}
-          onSubmitNavigate={() => {
+          addNewAddressCallback={(address) => {
+            if (address) {
+              setCheckoutAddress(address)
+            }
             setIsOpen(false)
-            router.refresh()
           }}
         />
       </DialogContent>

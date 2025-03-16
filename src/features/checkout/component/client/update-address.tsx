@@ -17,7 +17,9 @@ import {
 } from '@/features/address/hooks'
 import { cn } from '@/shared/utils'
 import { Address } from '@/features/address/types'
+import { DialogMode } from '@/features/checkout/types'
 import { handleClientErrorApi } from '@/shared/utils/error'
+import { useCheckoutAddress } from '@/features/checkout/hooks'
 import { CUSTOM_ACCOUNT_INPUT_CLASSNAME } from '@/features/account/constants'
 import { Region, UpdateAddressReqBody, updateAddressSchema, UpdateAddressType } from '@/features/address/schemas'
 
@@ -28,7 +30,6 @@ import { ButtonWithRefreshTokenState } from '@/shared/components'
 import { AutosizeTextarea } from '@/shared/components/ui/autosize-textarea'
 import { DistrictCombobox, RegionCombobox, WardCombobox } from '@/features/address/components/client'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
-import { DialogMode } from '@/features/checkout/types'
 
 interface Props {
   addressToUpdate: Address
@@ -45,6 +46,8 @@ export default function UpdateAddress({ addressToUpdate, setMode }: Props) {
       address: addressToUpdate.address.split(', ').slice(0, -1).join(', ') || addressToUpdate.address,
     },
   })
+
+  const { checkoutAddress, setCheckoutAddress } = useCheckoutAddress()
 
   const queryProvinces = useQueryProvincesFromServer()
 
@@ -116,6 +119,14 @@ export default function UpdateAddress({ addressToUpdate, setMode }: Props) {
       })
 
       toast.success('Cập nhật địa chỉ thành công')
+
+      if (checkoutAddress?._id === addressToUpdate._id) {
+        setCheckoutAddress({
+          ...checkoutAddress,
+          ...changes,
+        })
+      }
+
       setMode('list')
     } catch (error) {
       handleClientErrorApi({ error, setError: form.setError })

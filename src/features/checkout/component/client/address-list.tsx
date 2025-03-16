@@ -1,11 +1,12 @@
 'use client'
 
 import { CheckCircle2Icon, PlusIcon } from 'lucide-react'
-import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, Fragment, SetStateAction, useState } from 'react'
 
 import { formatPhoneNumber } from '@/shared/utils'
 import { Address } from '@/features/address/types'
 import { DialogMode } from '@/features/checkout/types'
+import { useCheckoutAddress } from '@/features/checkout/hooks'
 import { useQueryAddressList } from '@/features/address/hooks'
 
 import { Label } from '@/shared/components/ui/label'
@@ -18,27 +19,20 @@ import { DialogClose, DialogFooter } from '@/shared/components/ui/dialog'
 import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group'
 
 interface Props {
-  inititalDeliveryAddress: Address
-  setInititalDeliveryAddress: Dispatch<SetStateAction<Address>>
   setMode: Dispatch<SetStateAction<DialogMode>>
   setAddressToUpdate: Dispatch<SetStateAction<Address | undefined>>
 }
 
 export default function AddressList(props: Props) {
-  const { inititalDeliveryAddress, setInititalDeliveryAddress, setMode, setAddressToUpdate } = props
+  const { setMode, setAddressToUpdate } = props
 
-  const [deliveryAddress, setDeliveryAddress] = useState(inititalDeliveryAddress)
+  const { checkoutAddress, setCheckoutAddress } = useCheckoutAddress()
+
+  // checkoutAddress is guaranteed to be non-null
+  // because if it's null, delivery-address.tsx willn't render this component
+  const [selectedAddress, setSelectedAddress] = useState(checkoutAddress!)
 
   const queryAddressList = useQueryAddressList()
-
-  useEffect(() => {
-    if (queryAddressList.isSuccess) {
-      const selectedAddress = queryAddressList.data.payload.data.find((address) => address._id === deliveryAddress._id)
-      if (selectedAddress && selectedAddress.default !== deliveryAddress.default) {
-        setDeliveryAddress(selectedAddress)
-      }
-    }
-  }, [deliveryAddress._id, deliveryAddress.default, queryAddressList.data?.payload.data, queryAddressList.isSuccess])
 
   return (
     <>
@@ -63,11 +57,11 @@ export default function AddressList(props: Props) {
           {queryAddressList.isSuccess ? (
             <>
               <RadioGroup
-                value={deliveryAddress._id}
+                value={selectedAddress._id}
                 onValueChange={(value) => {
                   const selectedAddress = queryAddressList.data.payload.data.find((address) => address._id === value)
                   if (selectedAddress) {
-                    setDeliveryAddress(selectedAddress)
+                    setSelectedAddress(selectedAddress)
                   }
                 }}
                 className="gap-0"
@@ -151,7 +145,7 @@ export default function AddressList(props: Props) {
             size="sm"
             className="h-9 min-w-24"
             onClick={() => {
-              setInititalDeliveryAddress(deliveryAddress)
+              setCheckoutAddress(selectedAddress)
             }}
           >
             Xác nhận

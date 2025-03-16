@@ -19,12 +19,7 @@ import { ArrowLeftIcon, Svgr } from '@/shared/components/icons'
 import { ButtonWithRefreshTokenState } from '@/shared/components'
 import { UpdateAddress, AddNewAddress } from '@/features/checkout/component/client'
 
-interface Props {
-  inititalDeliveryAddress: Address
-  setInititalDeliveryAddress: Dispatch<SetStateAction<Address>>
-}
-
-export default function AddressDialog({ inititalDeliveryAddress, setInititalDeliveryAddress }: Props) {
+export default function AddressDialog() {
   const [isOpen, setIsOpen] = useState(false)
   const [mode, setMode] = useState<DialogMode>('list')
 
@@ -83,20 +78,13 @@ export default function AddressDialog({ inititalDeliveryAddress, setInititalDeli
           <DialogDescription className="sr-only">Chọn, cập nhật hoặc thêm mới địa chỉ nhận hàng</DialogDescription>
         </DialogHeader>
 
-        {mode === 'list' ? (
-          <AddressList
-            inititalDeliveryAddress={inititalDeliveryAddress}
-            setInititalDeliveryAddress={setInititalDeliveryAddress}
-            setAddressToUpdate={setAddressToUpdate}
-            setMode={setMode}
-          />
-        ) : null}
+        {mode === 'list' ? <AddressList setAddressToUpdate={setAddressToUpdate} setMode={setMode} /> : null}
 
         {mode === 'update' && addressToUpdate ? (
           <UpdateAddress addressToUpdate={addressToUpdate} setMode={setMode} />
         ) : null}
 
-        {mode === 'create' ? <AddNewAddress onSubmitNavigate={() => setMode('list')} /> : null}
+        {mode === 'create' ? <AddNewAddress addNewAddressCallback={() => setMode('list')} /> : null}
       </DialogContent>
     </Dialog>
   )

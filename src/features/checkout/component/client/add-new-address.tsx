@@ -7,6 +7,7 @@ import { LoaderCircleIcon } from 'lucide-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { cn } from '@/shared/utils'
+import { Address } from '@/features/address/types'
 import { handleClientErrorApi } from '@/shared/utils/error'
 import { useProfileStore } from '@/features/profile/profile-store'
 import { CUSTOM_ACCOUNT_INPUT_CLASSNAME } from '@/features/account/constants'
@@ -23,11 +24,11 @@ import { DistrictCombobox, RegionCombobox, WardCombobox } from '@/features/addre
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
 
 interface Props {
-  onSubmitNavigate: () => void
+  addNewAddressCallback: (address?: Address) => void
   isDefaultCheckboxVisible?: boolean
 }
 
-export default function AddNewAddress({ onSubmitNavigate, isDefaultCheckboxVisible = true }: Props) {
+export default function AddNewAddress({ addNewAddressCallback, isDefaultCheckboxVisible = true }: Props) {
   const profile = useProfileStore((state) => state.profile)
 
   const queryProvinces = useQueryProvincesFromServer()
@@ -51,7 +52,7 @@ export default function AddNewAddress({ onSubmitNavigate, isDefaultCheckboxVisib
     try {
       // [region].name is guaranteed to be a string
       // because it's validated by superRefine in schema
-      await addNewAddressMutation.mutateAsync({
+      const response = await addNewAddressMutation.mutateAsync({
         address: `${address}, ${lowerFirst(ward.name as string)}`,
         district: district.name as string,
         province: province.name as string,
@@ -62,7 +63,7 @@ export default function AddNewAddress({ onSubmitNavigate, isDefaultCheckboxVisib
       })
 
       toast.success('Thêm địa chỉ thành công')
-      onSubmitNavigate()
+      addNewAddressCallback(response.payload.data)
     } catch (error) {
       handleClientErrorApi({ error, setError: form.setError })
     }
@@ -225,7 +226,12 @@ export default function AddNewAddress({ onSubmitNavigate, isDefaultCheckboxVisib
       </ScrollArea>
 
       <DialogFooter className="flex-row justify-end gap-1 border-t border-t-border px-3 pt-4 shadow-custom-up sm:px-6">
-        <ButtonWithRefreshTokenState size="sm" variant="outline" className="h-9 min-w-24" onClick={onSubmitNavigate}>
+        <ButtonWithRefreshTokenState
+          size="sm"
+          variant="outline"
+          className="h-9 min-w-24"
+          onClick={() => addNewAddressCallback()}
+        >
           Trở lại
         </ButtonWithRefreshTokenState>
 

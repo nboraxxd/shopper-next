@@ -1,4 +1,5 @@
 export { default as useQueryAddressList } from './use-query-address-list'
+export { default as useQueryDefaultAddress } from './use-query-default-address'
 export { default as useQueryWardsFromServer } from './use-query-wards-from-server'
 export { default as useQueryDistrictsFromServer } from './use-query-districts-from-server'
 export { default as useQueryProvincesFromServer } from './use-query-provinces-from-server'

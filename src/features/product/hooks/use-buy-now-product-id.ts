@@ -13,6 +13,7 @@ const useBuyNowProductId = create<BuyNowProductIdStore>()(
       setProductId: (productId) => set({ productId }),
     }),
     {
+      enabled: process.env.NODE_ENV === 'development',
       name: 'buyNowProductIdStore',
     }
   )

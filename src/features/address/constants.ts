@@ -3,6 +3,7 @@ export const ADDRESS_KEY = {
   DISTRICTS: 'districts',
   WARDS: 'wards',
   ADDRESS_LIST: 'addressList',
+  DEFAULT_ADDRESS: 'defaultAddress',
 } as const
 
 export const ADDRESS_ERROR_MESSAGES = {
