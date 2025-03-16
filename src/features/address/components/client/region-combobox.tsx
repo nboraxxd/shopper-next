@@ -111,6 +111,7 @@ export default function RegionCombobox(props: RegionComboboxProps) {
         <Drawer
           open={drawerOpen}
           onOpenChange={(open) => (isChosenParentRegion ? setDrawerOpen(open) : toast.info(messageInfo))}
+          autoFocus
         >
           <DrawerTrigger asChild>
             <TriggerButton

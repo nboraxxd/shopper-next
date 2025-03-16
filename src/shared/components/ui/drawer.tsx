@@ -5,8 +5,12 @@ import { Drawer as DrawerPrimitive } from 'vaul'
 
 import { cn } from '@/shared/utils'
 
-const Drawer = ({ shouldScaleBackground = true, ...props }: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
-  <DrawerPrimitive.Root shouldScaleBackground={shouldScaleBackground} {...props} />
+const Drawer = ({
+  shouldScaleBackground = true,
+  autoFocus = true,
+  ...props
+}: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
+  <DrawerPrimitive.Root shouldScaleBackground={shouldScaleBackground} autoFocus={autoFocus} {...props} />
 )
 Drawer.displayName = 'Drawer'
 
@@ -42,7 +46,7 @@ const DrawerContent = React.forwardRef<
       )}
       {...props}
     >
-      <div className="mx-auto mt-4 h-2 w-20 rounded-full bg-zinc-300 dark:bg-zinc-500" />
+      <div className="mx-auto mt-4 h-2 w-20 rounded-full bg-zinc-300 dark:bg-zinc-500" tabIndex={0} />
       {children}
     </DrawerPrimitive.Content>
   </DrawerPortal>

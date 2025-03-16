@@ -78,7 +78,7 @@ export default function AddressList(props: Props) {
                     <Fragment key={address._id}>
                       <Label className="flex gap-2 py-4">
                         <RadioGroupItem value={address._id} className="mt-0.5 hidden xs:block" />
-                        <div className="space-y-1">
+                        <div className="w-full space-y-1">
                           <div className="flex items-center justify-between gap-3">
                             <div className="flex items-center gap-2">
                               <RadioGroupItem value={address._id} className="xs:hidden" />
@@ -151,13 +151,7 @@ export default function AddressList(props: Props) {
             size="sm"
             className="h-9 min-w-24"
             onClick={() => {
-              if (
-                deliveryAddress._id !== inititalDeliveryAddress._id ||
-                (deliveryAddress._id === inititalDeliveryAddress._id &&
-                  deliveryAddress.default !== inititalDeliveryAddress.default)
-              ) {
-                setInititalDeliveryAddress(deliveryAddress)
-              }
+              setInititalDeliveryAddress(deliveryAddress)
             }}
           >
             Xác nhận

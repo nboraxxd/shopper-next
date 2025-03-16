@@ -1,7 +1,11 @@
 import { Suspense } from 'react'
+import { PackageIcon } from 'lucide-react'
+
 import { getAccessTokenInServer } from '@/shared/utils/server'
-import { LocationIcon, Svgr } from '@/shared/components/icons'
-import { AddressContent, AddressContentSkeleton } from '@/features/checkout/component/server'
+
+import { LocationIcon } from '@/shared/components/icons'
+import { CheckoutList } from '@/features/checkout/component/client'
+import { AddressContent, AddressContentSkeleton, CheckoutSectionTitle } from '@/features/checkout/component/server'
 
 export default async function CheckoutPage() {
   const accessToken = await getAccessTokenInServer()
@@ -12,16 +16,27 @@ export default async function CheckoutPage() {
         <h1 className="sr-only">Thanh toán các sản phẩm đã chọn</h1>
         <section className="rounded-4xl bg-checkout-section px-3 py-7 shadow-section xs:px-4 lg:px-7">
           <div className="relative">
-            <div className="mb-3 flex items-center justify-between gap-1">
-              <h2 className="flex items-center gap-1 text-sm font-bold xs:gap-1.5 xs:text-base sm:gap-2 sm:text-lg">
-                <Svgr icon={LocationIcon} className="size-4 xs:size-5 sm:size-6" />
-                <span className="mt-0.5 sm:mt-1">Địa chỉ nhận hàng</span>
-              </h2>
+            <div className="mb-4 flex items-center justify-between gap-1">
+              <CheckoutSectionTitle icon={LocationIcon} title="Địa chỉ nhận hàng" />
             </div>
             <Suspense fallback={<AddressContentSkeleton />}>
               <AddressContent accessToken={accessToken} />
             </Suspense>
           </div>
+        </section>
+
+        <section className="mt-4 rounded-4xl bg-checkout-section px-3 py-7 shadow-section xs:px-4 md:mt-7 lg:px-7">
+          <div className="mb-4 flex items-center gap-4">
+            <CheckoutSectionTitle
+              icon={PackageIcon}
+              title="Chi tiết đơn hàng"
+              className="w-full lg:w-[calc(70%_+_110px)]"
+            />
+            <span className="hidden w-[10%] text-end font-medium lg:block">Số lượng</span>
+            <span className="hidden w-1/5 text-end font-medium lg:block">Thành tiền</span>
+          </div>
+
+          <CheckoutList />
         </section>
       </main>
     </div>

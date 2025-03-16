@@ -1,4 +1,5 @@
 export { default as AddressList } from './address-list'
+export { default as CheckoutList } from './checkout-list'
 export { default as UpdateAddress } from './update-address'
 export { default as AddressDialog } from './address-dialog'
 export { default as AddNewAddress } from './add-new-address'

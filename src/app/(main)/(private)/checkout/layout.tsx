@@ -1,6 +1,6 @@
 import { Footer } from '@/shared/components'
 
-export default function CartLayout({
+export default function CheckoutLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
@@ -8,7 +8,7 @@ export default function CartLayout({
   return (
     <>
       {children}
-      <Footer className="hidden xl:block" />
+      <Footer />
     </>
   )
 }

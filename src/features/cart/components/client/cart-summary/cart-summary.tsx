@@ -9,7 +9,7 @@ import { cn, formatCurrency } from '@/shared/utils'
 import { handleClientErrorApi } from '@/shared/utils/error'
 import { CHECKOUT_KEY } from '@/features/checkout/constants'
 import { PreCheckoutResponse } from '@/features/checkout/types'
-import { usePreCheckoutMutation } from '@/features/checkout/hooks'
+import { usePreCheckoutMutation, useCheckoutStore } from '@/features/checkout/hooks'
 import { useCurrentPromotion, useSelectedCartItemIds } from '@/features/cart/hooks'
 
 import { Button } from '@/shared/components/ui/button'
@@ -38,6 +38,8 @@ export default function CartSummary() {
   const selectedItemIds = useSelectedCartItemIds((state) => state.selectedItemId)
   const currentPromotion = useCurrentPromotion((state) => state.currentPromotion)
   const promotionCode = currentPromotion?.code
+
+  const setCheckout = useCheckoutStore((state) => state.setCheckout)
 
   const { mutateAsync: preCheckoutMutateAsync } = usePreCheckoutMutation()
 
@@ -77,6 +79,11 @@ export default function CartSummary() {
 
   function handleBuyProduct() {
     if (!selectedItemIds || selectedItemIds.length === 0) return
+
+    setCheckout({
+      listItems: selectedItemIds,
+      promotionCode: promotionCode ? [promotionCode] : undefined,
+    })
 
     router.push(PATH.CHECKOUT)
   }
