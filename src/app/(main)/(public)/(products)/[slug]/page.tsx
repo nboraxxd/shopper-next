@@ -15,6 +15,59 @@ import {
 import { Separator } from '@/shared/components/ui/separator'
 import { ProductReviews } from '@/features/review/components'
 import { ShieldIcon, StarIcon, Svgr } from '@/shared/components/icons'
+import { Metadata } from 'next'
+import envVariables from '@/shared/schemas/env-variables.schema'
+import { baseOpenGraph } from '@/shared/constants/shared-metadata'
+import { cache } from 'react'
+
+const getProduct = cache(productServerApi.getProductDetailFromBackend)
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+
+  const productId = extractProductId(slug)
+
+  if (!productId) notFound()
+
+  let product: ProductResponse['data'][0] | null = null
+
+  try {
+    const productResponse = await getProduct(productId)
+
+    product = productResponse.payload.data[0]
+  } catch (error: any) {
+    if (error.digest?.includes('NEXT_REDIRECT')) {
+      throw error
+    }
+  }
+
+  if (!product) {
+    return {
+      title: 'Không tìm thấy sản phẩm',
+      description: 'Không tìm thấy sản phẩm',
+    }
+  }
+
+  const url = `${envVariables.NEXT_PUBLIC_URL}/${slug}`
+  const title = product.name
+  const description = product.short_description
+  const image = product.images[0].medium_url
+
+  return {
+    title: { absolute: title },
+    description,
+    openGraph: {
+      ...baseOpenGraph,
+      title,
+      description,
+      url,
+      images: [{ url: image, alt: title }],
+    },
+    alternates: {
+      canonical: url,
+    },
+  }
+}
 
 export default async function ProductDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
@@ -26,7 +79,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
   let product: ProductResponse['data'][0] | null = null
 
   try {
-    const productResponse = await productServerApi.getProductDetailFromBackend(productId)
+    const productResponse = await getProduct(productId)
 
     product = productResponse.payload.data[0]
   } catch (error: any) {

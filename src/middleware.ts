@@ -13,6 +13,7 @@ const protectedPaths = [
   PATH.PROFILE,
   PATH.ORDER_HISTORY,
   PATH.WISHLIST,
+  PATH.CHECKOUT,
 ]
 
 const unauthenticatedPaths = [
@@ -88,5 +89,6 @@ export const config = {
     '/dang-xuat',
     '/gio-hang',
     '/tai-khoan/:path*',
+    '/thanh-toan',
   ],
 }
