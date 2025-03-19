@@ -1,13 +1,14 @@
-import { Address } from '@/features/address/types'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
+
+import { Address } from '@/features/address/types'
 
 type CheckoutAddressStore = {
   checkoutAddress: Address | null
   setCheckoutAddress: (checkoutAddress: Address) => void
 }
 
-const useCheckoutAddress = create<CheckoutAddressStore>()(
+const useCheckoutAddressStore = create<CheckoutAddressStore>()(
   devtools(
     (set) => ({
       checkoutAddress: null,
@@ -20,4 +21,4 @@ const useCheckoutAddress = create<CheckoutAddressStore>()(
   )
 )
 
-export default useCheckoutAddress
+export default useCheckoutAddressStore

@@ -6,8 +6,8 @@ import { Dispatch, Fragment, SetStateAction, useState } from 'react'
 import { formatPhoneNumber } from '@/shared/utils'
 import { Address } from '@/features/address/types'
 import { DialogMode } from '@/features/checkout/types'
-import { useCheckoutAddress } from '@/features/checkout/hooks'
 import { useQueryAddressList } from '@/features/address/hooks'
+import { useCheckoutAddressStore } from '@/features/checkout/hooks'
 
 import { Label } from '@/shared/components/ui/label'
 import { Button } from '@/shared/components/ui/button'
@@ -26,7 +26,7 @@ interface Props {
 export default function AddressList(props: Props) {
   const { setMode, setAddressToUpdate } = props
 
-  const { checkoutAddress, setCheckoutAddress } = useCheckoutAddress()
+  const { checkoutAddress, setCheckoutAddress } = useCheckoutAddressStore()
 
   // checkoutAddress is guaranteed to be non-null
   // because if it's null, delivery-address.tsx willn't render this component

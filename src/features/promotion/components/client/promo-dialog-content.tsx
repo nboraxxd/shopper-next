@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { format } from 'date-fns'
 import { InfoIcon, XIcon } from 'lucide-react'
-import * as DialogPrimitive from '@radix-ui/react-dialog'
 
 import { cn } from '@/shared/utils'
 import { useCurrentPromotion } from '@/features/cart/hooks'
@@ -11,6 +10,7 @@ import { useQueryPromotions } from '@/features/promotion/hooks'
 import { PromotionsResponseFromServer } from '@/features/promotion/types'
 
 import {
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -50,10 +50,10 @@ export default function PromoDialogContent({ isOpen }: { isOpen: boolean }) {
       <DialogHeader className="space-y-4 px-3 sm:space-y-6 sm:px-6">
         <div className="flex items-center justify-between">
           <DialogTitle className="text-base font-medium">Shopper khuyến mãi</DialogTitle>
-          <DialogPrimitive.Close className="rounded-sm opacity-75 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-highlight focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+          <DialogClose className="rounded-sm opacity-75 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-highlight focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
             <XIcon className="size-5" />
             <span className="sr-only">Close</span>
-          </DialogPrimitive.Close>
+          </DialogClose>
         </div>
         <DialogDescription className="sr-only">Nhập hoặc chọn mã giảm giá để nhận ưu đãi từ Shopper</DialogDescription>
         <PromotionForm />
@@ -83,9 +83,9 @@ export default function PromoDialogContent({ isOpen }: { isOpen: boolean }) {
         </div>
       </ScrollArea>
       <DialogFooter className="mt-4 px-2 sm:mt-6 sm:px-6">
-        <DialogPrimitive.Close asChild>
+        <DialogClose asChild>
           <Button className="h-9 w-full sm:h-11">Xong</Button>
-        </DialogPrimitive.Close>
+        </DialogClose>
       </DialogFooter>
     </DialogContent>
   )

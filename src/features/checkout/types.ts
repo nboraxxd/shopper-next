@@ -5,7 +5,7 @@ export type DialogMode = 'list' | 'update' | 'create'
 
 export type PreCheckoutReqBody = {
   listItems: Array<number>
-  shippingMethod?: string
+  shippingMethod?: ShippingMethodValue
   promotionCode?: [string]
 }
 

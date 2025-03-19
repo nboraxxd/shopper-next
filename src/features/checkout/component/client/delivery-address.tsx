@@ -5,8 +5,8 @@ import lowerFirst from 'lodash/lowerFirst'
 import { CheckCircle2Icon } from 'lucide-react'
 
 import { formatPhoneNumber } from '@/shared/utils'
-import { useCheckoutAddress } from '@/features/checkout/hooks'
 import { useQueryDefaultAddress } from '@/features/address/hooks'
+import { useCheckoutAddressStore } from '@/features/checkout/hooks'
 
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { AddNewAddressDialog, AddressDialog } from '@/features/checkout/component/client'
@@ -14,7 +14,7 @@ import { AddNewAddressDialog, AddressDialog } from '@/features/checkout/componen
 export default function DeliveryAddress() {
   const queryDefaultAddress = useQueryDefaultAddress()
 
-  const { checkoutAddress, setCheckoutAddress } = useCheckoutAddress()
+  const { checkoutAddress, setCheckoutAddress } = useCheckoutAddressStore()
 
   useEffect(() => {
     if (queryDefaultAddress.isSuccess && queryDefaultAddress.data.payload.data[0]) {
@@ -42,7 +42,7 @@ export default function DeliveryAddress() {
       <>
         <AddressDialog />
         <div className="space-y-1.5">
-          <div className="flex flex-col-reverse gap-1.5 md:flex-row md:items-center md:gap-3">
+          <div className="flex flex-col gap-1 md:flex-row md:items-center md:gap-3">
             <p className="text-[0.9375rem] font-semibold">{checkoutAddress.fullName}</p>
             {checkoutAddress.default ? (
               <div className="flex shrink-0 items-center gap-0.5 text-highlight">

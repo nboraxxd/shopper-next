@@ -19,7 +19,7 @@ import { cn } from '@/shared/utils'
 import { Address } from '@/features/address/types'
 import { DialogMode } from '@/features/checkout/types'
 import { handleClientErrorApi } from '@/shared/utils/error'
-import { useCheckoutAddress } from '@/features/checkout/hooks'
+import { useCheckoutAddressStore } from '@/features/checkout/hooks'
 import { CUSTOM_ACCOUNT_INPUT_CLASSNAME } from '@/features/account/constants'
 import { Region, UpdateAddressReqBody, updateAddressSchema, UpdateAddressType } from '@/features/address/schemas'
 
@@ -47,7 +47,7 @@ export default function UpdateAddress({ addressToUpdate, setMode }: Props) {
     },
   })
 
-  const { checkoutAddress, setCheckoutAddress } = useCheckoutAddress()
+  const { checkoutAddress, setCheckoutAddress } = useCheckoutAddressStore()
 
   const queryProvinces = useQueryProvincesFromServer()
 

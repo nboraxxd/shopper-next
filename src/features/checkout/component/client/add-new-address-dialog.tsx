@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { cn } from '@/shared/utils'
 
-import { useCheckoutAddress } from '@/features/checkout/hooks'
+import { useCheckoutAddressStore } from '@/features/checkout/hooks'
 
 import {
   Dialog,
@@ -19,7 +19,7 @@ import { AddNewAddress } from '@/features/checkout/component/client'
 export default function AddNewAddressDialog() {
   const [isOpen, setIsOpen] = useState(true)
 
-  const setCheckoutAddress = useCheckoutAddress((state) => state.setCheckoutAddress)
+  const setCheckoutAddress = useCheckoutAddressStore((state) => state.setCheckoutAddress)
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

@@ -31,12 +31,12 @@ export default function CheckOutList() {
     <div className="flex flex-col gap-4">
       {preCheckoutMutation.isIdle || preCheckoutMutation.isPending
         ? Array.from({ length: 2 }).map((_, index) => (
-            <div key={index} className="flex items-center gap-2 md:gap-3">
-              <Skeleton className="size-16 xs:size-20" />
+            <div key={index} className="flex items-start gap-2 md:gap-3">
+              <Skeleton className="size-16" />
               <div className="h-full">
-                <Skeleton className="h-5 w-36 md:w-60" />
-                <Skeleton className="mt-1 h-5 w-24 md:w-36" />
-                <Skeleton className="mt-2 h-5 w-16 md:mt-3 md:w-24" />
+                <Skeleton className="h-[1.375rem] w-36 md:w-60" />
+                <Skeleton className="mt-1 h-[1.375rem] w-24 md:w-36" />
+                <Skeleton className="mt-2 h-6 w-16 md:w-24" />
               </div>
             </div>
           ))
@@ -44,7 +44,7 @@ export default function CheckOutList() {
       {preCheckoutMutation.isSuccess
         ? preCheckoutMutation.data.payload.data.listItems.map((item) => (
             <div key={item.productId} className="flex items-start gap-3">
-              <div className="flex w-full gap-3 font-medium md:w-4/5 lg:w-3/4">
+              <div className="flex w-full items-start gap-3 font-medium md:w-4/5 lg:w-3/4">
                 <div className="shrink-0 select-none rounded-md border">
                   <Image
                     src={item.product.thumbnail_url}
