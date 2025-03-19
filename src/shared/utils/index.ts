@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from 'clsx'
+import { DateArg, format } from 'date-fns'
 import { twMerge } from 'tailwind-merge'
 
 export function cn(...inputs: ClassValue[]) {
@@ -20,7 +21,7 @@ export function formatSecondsToMMSS(seconds: number): string {
   return `${formattedMinutes}:${formattedSeconds}`
 }
 
-export const formatCurrency = (number: number) => {
+export function formatCurrency(number: number) {
   return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(number).replace('₫', '').trim()
 }
 
@@ -30,4 +31,8 @@ export function formatNumberToSocialStyle(value: number) {
 
 export function formatPhoneNumber(phoneNumber: string) {
   return phoneNumber.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3')
+}
+
+export function formatVietnameseDate(date: DateArg<Date> & {}) {
+  return `${format(date, 'dd')} tháng ${format(date, 'MM')}`
 }

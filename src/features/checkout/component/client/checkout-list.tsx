@@ -44,19 +44,19 @@ export default function CheckOutList() {
       {preCheckoutMutation.isSuccess
         ? preCheckoutMutation.data.payload.data.listItems.map((item) => (
             <div key={item.productId} className="flex items-start gap-3">
-              <div className="shrink-0 select-none self-center rounded-md border xs:self-auto">
-                <Image
-                  src={item.product.thumbnail_url}
-                  alt={item.product.name}
-                  width={96}
-                  height={96}
-                  className="size-16 rounded-md object-contain xs:size-20"
-                />
-              </div>
-              <div className="flex grow gap-4">
-                <div className="w-full font-medium md:w-[70%]">
+              <div className="flex w-full gap-3 font-medium md:w-4/5 lg:w-3/4">
+                <div className="shrink-0 select-none rounded-md border">
+                  <Image
+                    src={item.product.thumbnail_url}
+                    alt={item.product.name}
+                    width={72}
+                    height={72}
+                    className="size-16 rounded-md object-contain"
+                  />
+                </div>
+                <div className="grow">
                   <h3 className="line-clamp-2 text-sm md:text-base">{item.product.name}</h3>
-                  <div className="mt-2 flex items-baseline justify-between gap-2 md:mt-3 md:justify-start">
+                  <div className="mt-2 flex items-baseline justify-between gap-2 md:justify-start">
                     <div className="flex items-baseline gap-2">
                       <span className="text-sm text-highlight md:text-base">
                         {formatCurrency(item.product.real_price)}
@@ -72,14 +72,14 @@ export default function CheckOutList() {
                     <span className="text-sm lg:hidden">x {item.quantity}</span>
                   </div>
                 </div>
-
-                <span className="hidden w-[10%] text-end font-medium lg:block">{item.quantity}</span>
-
-                <span className="hidden w-[30%] text-end font-bold md:block lg:w-1/5">
-                  {formatCurrency(item.price)}
-                  <sup>₫</sup>
-                </span>
               </div>
+
+              <span className="hidden w-[10%] text-end font-medium lg:block">{item.quantity}</span>
+
+              <span className="hidden text-end font-bold md:block md:w-1/5 lg:w-[15%]">
+                {formatCurrency(item.price)}
+                <sup>₫</sup>
+              </span>
             </div>
           ))
         : null}
