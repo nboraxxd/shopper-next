@@ -5,8 +5,8 @@ import { CheckIcon } from 'lucide-react'
 import { cn } from '@/shared/utils'
 import { useCurrentPromotion } from '@/features/cart/hooks'
 
-import { Button } from '@/shared/components/ui/button'
 import { DialogTrigger } from '@/shared/components/ui/dialog'
+import { ButtonWithRefreshTokenState } from '@/shared/components'
 import PromoDialog from '@/features/promotion/components/client/promo-dialog'
 import { ArrowRightIcon, Svgr, VoucherIcon } from '@/shared/components/icons'
 
@@ -37,13 +37,13 @@ export default function PromoTrigger({ className }: { className?: string }) {
         </h2>
         <PromoDialog>
           <DialogTrigger asChild>
-            <Button
+            <ButtonWithRefreshTokenState
               variant="ghost"
               className="group h-auto justify-start gap-0.5 p-0 text-sm text-highlight [&_svg]:size-4"
             >
               <span>Nhập hoặc chọn mã</span>
               <Svgr icon={ArrowRightIcon} className="transition-transform group-hover:translate-x-0.5" />
-            </Button>
+            </ButtonWithRefreshTokenState>
           </DialogTrigger>
         </PromoDialog>
       </div>

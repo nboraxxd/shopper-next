@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { PackageIcon } from 'lucide-react'
 
 import {
@@ -7,10 +8,14 @@ import {
   PaymentSummary,
   ShippingMethod,
 } from '@/features/checkout/component/client'
-import { CheckoutSectionTitle } from '@/features/checkout/component/server'
-import { PromoTrigger } from '@/features/promotion/components/client'
 import { LocationIcon } from '@/shared/components/icons'
 import { Separator } from '@/shared/components/ui/separator'
+import { PromoTrigger } from '@/features/promotion/components/client'
+import { CheckoutSectionTitle } from '@/features/checkout/component/server'
+
+export const metadata: Metadata = {
+  title: 'Thanh toán',
+}
 
 export default async function CheckoutPage() {
   return (

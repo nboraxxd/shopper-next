@@ -1,13 +1,13 @@
 'use client'
 
 import { useRef } from 'react'
-import { ChevronUpIcon } from 'lucide-react'
 import { useMutationState } from '@tanstack/react-query'
+import { ChevronUpIcon, LoaderCircleIcon } from 'lucide-react'
 
 import { formatCurrency } from '@/shared/utils'
-import { useCartList } from '@/features/cart/hooks'
 import { CHECKOUT_KEY } from '@/features/checkout/constants'
 import { PreCheckoutResponse } from '@/features/checkout/types'
+import { useBuyProducts, useCartList } from '@/features/cart/hooks'
 
 import {
   DropdownMenu,
@@ -17,16 +17,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown-menu'
-import { Button } from '@/shared/components/ui/button'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Separator } from '@/shared/components/ui/separator'
 import { CartSelectAll } from '@/features/cart/components/client'
+import { ButtonWithRefreshTokenState } from '@/shared/components'
 import { PromoTrigger } from '@/features/promotion/components/client'
 
 export default function CartSticky() {
   const stickyRef = useRef<HTMLDivElement>(null)
 
   const cartList = useCartList((state) => state.cartList)
+
+  const { handleBuyProduct, isNavigatingToCheckout } = useBuyProducts()
 
   const dataPreCheckout = useMutationState({
     filters: { mutationKey: [CHECKOUT_KEY.PRE_CHECKOUT], exact: true, status: 'success' },
@@ -94,9 +96,14 @@ export default function CartSticky() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button className="ml-auto h-9 rounded-md text-sm font-medium md:ml-4">
+            <ButtonWithRefreshTokenState
+              className="ml-auto h-9 gap-1 rounded-md text-sm font-medium md:ml-4 [&_svg]:size-4"
+              onClick={handleBuyProduct}
+              disabled={isNavigatingToCheckout}
+            >
+              {isNavigatingToCheckout ? <LoaderCircleIcon className="animate-spin" /> : null}
               Mua hàng ({latestPreCheckout?.payload.data.listItems.length || 0})
-            </Button>
+            </ButtonWithRefreshTokenState>
           </div>
         </div>
       </div>

@@ -43,11 +43,11 @@ function RefreshTokenContent() {
       ;(async () => {
         await checkAndRefreshToken({
           onSuccess: () => {
-            // console.log('🚀 super first refresh token ~ onSuccess', nextPath)
+            // console.log('🚀 super first refresh token ~ onSuccess', next)
             redirectToNextPath()
           },
           onRefreshTokenNotNeeded: () => {
-            // console.log('🚀 super first refresh token ~ onRefreshTokenNotNeeded', nextPath)
+            // console.log('🚀 super first refresh token ~ onRefreshTokenNotNeeded', next)
             redirectToNextPath()
           },
           onError: () => {

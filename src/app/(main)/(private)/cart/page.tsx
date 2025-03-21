@@ -3,8 +3,8 @@ import { Suspense } from 'react'
 
 import { getAccessTokenInServer } from '@/shared/utils/server'
 
-import { Button } from '@/shared/components/ui/button'
 import { DialogTrigger } from '@/shared/components/ui/dialog'
+import { ButtonWithRefreshTokenState } from '@/shared/components'
 import { CartSticky, CartSummary } from '@/features/cart/components/client'
 import { ArrowRightIcon, Svgr, VoucherIcon } from '@/shared/components/icons'
 import { CartList, CartListSketeton } from '@/features/cart/components/server'
@@ -37,14 +37,14 @@ export default async function CartPage() {
               <CurrentPromotion />
               <PromoDialog>
                 <DialogTrigger asChild>
-                  <Button
+                  <ButtonWithRefreshTokenState
                     variant="ghost"
                     className="group mt-auto h-auto justify-start gap-1.5 p-0 text-highlight [&_svg]:size-5"
                   >
                     <Svgr icon={VoucherIcon} />
                     <span>Nhập hoặc chọn mã</span>
                     <Svgr icon={ArrowRightIcon} className="transition-transform group-hover:translate-x-1" />
-                  </Button>
+                  </ButtonWithRefreshTokenState>
                 </DialogTrigger>
               </PromoDialog>
             </section>

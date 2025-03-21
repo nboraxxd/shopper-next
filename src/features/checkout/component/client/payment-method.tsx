@@ -1,23 +1,24 @@
 'use client'
 
+import { useState } from 'react'
 import { CheckIcon } from 'lucide-react'
 
 import { cn } from '@/shared/utils'
+import { PaymentCard } from '@/features/payment/types'
+import { isCardExpired } from '@/features/payment/utils'
 import { useQueryPayments } from '@/features/payment/hooks'
 import { CheckoutPaymentMethod } from '@/features/checkout/types'
 import { CHECKOUT_PAYMENT_METHOD } from '@/features/checkout/constants'
 import { useCheckoutPaymentMethodStore } from '@/features/checkout/hooks'
 
-import { CheckoutSectionTitle } from '@/features/checkout/component/server'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs'
-import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group'
-import { useState } from 'react'
-import { PaymentCard } from '@/features/payment/types'
 import { Label } from '@/shared/components/ui/label'
-import { Separator } from '@/shared/components/ui/separator'
-import { CreditCardIcon, PayPalIcon, Svgr } from '@/shared/components/icons'
-import { isCardExpired } from '@/features/payment/utils'
 import { Skeleton } from '@/shared/components/ui/skeleton'
+import { Separator } from '@/shared/components/ui/separator'
+import { ButtonWithRefreshTokenState } from '@/shared/components'
+import { CheckoutSectionTitle } from '@/features/checkout/component/server'
+import { CreditCardIcon, PayPalIcon, Svgr } from '@/shared/components/icons'
+import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs'
 
 export default function PaymentMethod() {
   const { checkoutPaymentMethod, setCheckoutPaymentMethod } = useCheckoutPaymentMethodStore()
@@ -47,18 +48,21 @@ export default function PaymentMethod() {
                 'relative h-8 rounded border border-border md:h-10',
                 'data-[state=active]:border-highlight data-[state=active]:text-highlight'
               )}
+              asChild
             >
-              {item.label}
-              <span
-                className={cn(
-                  "absolute bottom-0 right-0 size-4 overflow-hidden before:absolute before:-right-4 before:bottom-0 before:border-[16px] before:border-transparent before:transition-colors before:content-['']",
-                  {
-                    'before:border-b-highlight': checkoutPaymentMethod === item.value,
-                  }
-                )}
-              >
-                <CheckIcon className="absolute bottom-0 right-0 size-2 text-checkout-section" />
-              </span>
+              <ButtonWithRefreshTokenState isPlainButton>
+                {item.label}
+                <span
+                  className={cn(
+                    "absolute bottom-0 right-0 size-4 overflow-hidden before:absolute before:-right-4 before:bottom-0 before:border-[16px] before:border-transparent before:transition-colors before:content-['']",
+                    {
+                      'before:border-b-highlight': checkoutPaymentMethod === item.value,
+                    }
+                  )}
+                >
+                  <CheckIcon className="absolute bottom-0 right-0 size-2 text-checkout-section" />
+                </span>
+              </ButtonWithRefreshTokenState>
             </TabsTrigger>
           ))}
         </div>

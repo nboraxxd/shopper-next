@@ -1,16 +1,15 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { useRouter } from 'next/navigation'
+import { LoaderCircleIcon } from 'lucide-react'
 
-import PATH from '@/shared/constants/path'
 import { cn, formatCurrency } from '@/shared/utils'
 import { handleClientErrorApi } from '@/shared/utils/error'
-import { useCurrentPromotion, useSelectedCartItemIds } from '@/features/cart/hooks'
-import { usePreCheckoutMutation, useCheckoutStore, useLatestPreCheckoutData } from '@/features/checkout/hooks'
+import { usePreCheckoutMutation, useLatestPreCheckoutData } from '@/features/checkout/hooks'
+import { useBuyProducts, useCurrentPromotion, useSelectedCartItemIds } from '@/features/cart/hooks'
 
-import { Button } from '@/shared/components/ui/button'
 import { Separator } from '@/shared/components/ui/separator'
+import { ButtonWithRefreshTokenState } from '@/shared/components'
 
 const CART_SUMMARY_DATA = [
   {
@@ -30,17 +29,15 @@ const CART_SUMMARY_DATA = [
 export default function CartSummary() {
   const preCheckoutRef = useRef<unknown>(null)
 
-  const router = useRouter()
-
   const selectedItemIds = useSelectedCartItemIds((state) => state.selectedItemId)
   const currentPromotion = useCurrentPromotion((state) => state.currentPromotion)
   const promotionCode = currentPromotion?.code
 
-  const setCheckout = useCheckoutStore((state) => state.setCheckout)
-
   const { mutateAsync: preCheckoutMutateAsync } = usePreCheckoutMutation()
 
   const latestPreCheckoutData = useLatestPreCheckoutData()
+
+  const { handleBuyProduct, isNavigatingToCheckout } = useBuyProducts()
 
   useEffect(() => {
     let timeout: NodeJS.Timeout | null = null
@@ -69,17 +66,6 @@ export default function CartSummary() {
     }
   }, [preCheckoutMutateAsync, promotionCode, selectedItemIds])
 
-  function handleBuyProduct() {
-    if (!selectedItemIds || selectedItemIds.length === 0) return
-
-    setCheckout({
-      listItems: selectedItemIds,
-      promotionCode: promotionCode ? [promotionCode] : undefined,
-    })
-
-    router.push(PATH.CHECKOUT)
-  }
-
   return (
     <section className="flex flex-col gap-2.5 rounded-4xl bg-cart-section px-4 py-7 shadow-section md:gap-3">
       {CART_SUMMARY_DATA.map((item) => (
@@ -104,9 +90,14 @@ export default function CartSummary() {
         valueClassName="font-bold text-primary-red"
       />
 
-      <Button className="mt-2 h-11 rounded-full font-medium" onClick={handleBuyProduct}>
+      <ButtonWithRefreshTokenState
+        className="mt-2 h-11 rounded-full font-medium"
+        onClick={handleBuyProduct}
+        disabled={isNavigatingToCheckout}
+      >
+        {isNavigatingToCheckout ? <LoaderCircleIcon className="animate-spin" /> : null}
         Mua hàng ({latestPreCheckoutData?.payload.data.listItems.length || 0})
-      </Button>
+      </ButtonWithRefreshTokenState>
     </section>
   )
 }
