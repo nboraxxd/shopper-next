@@ -10,6 +10,7 @@ import { useProfileStore } from '@/features/profile/profile-store'
 import { REMOVE_TOKENS_EVENT } from '@/features/auth/constants'
 import { localStorageEventTarget } from '@/shared/utils/local-storage'
 import { PROFILE_KEY } from '@/features/profile/constants'
+import { useCheckoutStore } from '@/features/checkout/hooks'
 
 export default function AuthCleanup() {
   const router = useRouter()
@@ -18,11 +19,13 @@ export default function AuthCleanup() {
 
   const setAuthState = useAuthStore((state) => state.setAuthState)
   const setProfile = useProfileStore((state) => state.setProfile)
+  const setCheckout = useCheckoutStore((state) => state.setCheckout)
 
   useEffect(() => {
     const handleRemoveAuth = () => {
       setAuthState('unauthenticated')
       setProfile(null)
+      setCheckout(null)
       queryClient.removeQueries({ queryKey: [PROFILE_KEY.PROFILE] })
       router.refresh()
       toast.info('Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại. (force)')
@@ -33,7 +36,7 @@ export default function AuthCleanup() {
     return () => {
       localStorageEventTarget.removeEventListener(REMOVE_TOKENS_EVENT, handleRemoveAuth)
     }
-  }, [queryClient, router, setAuthState, setProfile])
+  }, [queryClient, router, setAuthState, setCheckout, setProfile])
 
   return null
 }

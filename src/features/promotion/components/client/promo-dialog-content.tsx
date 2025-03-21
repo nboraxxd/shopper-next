@@ -1,13 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { format } from 'date-fns'
 import { InfoIcon, XIcon } from 'lucide-react'
 
 import { cn } from '@/shared/utils'
 import { useCurrentPromotion } from '@/features/cart/hooks'
 import { useQueryPromotions } from '@/features/promotion/hooks'
-import { PromotionsResponseFromServer } from '@/features/promotion/types'
+import { PromotionServerItem, PromotionsResponseFromServer } from '@/features/promotion/types'
 
 import {
   DialogClose,
@@ -37,6 +37,11 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/shared/co
 
 export default function PromoDialogContent({ isOpen }: { isOpen: boolean }) {
   const queryPromotions = useQueryPromotions({ enabled: isOpen })
+
+  const currentPromotion = useCurrentPromotion((state) => state.currentPromotion)
+  const setCurrentPromotion = useCurrentPromotion((state) => state.setCurrentPromotion)
+
+  const [selectedPromo, setSelectedPromo] = useState<PromotionServerItem | null>(currentPromotion)
 
   return (
     <DialogContent
@@ -72,10 +77,14 @@ export default function PromoDialogContent({ isOpen }: { isOpen: boolean }) {
               <PromoList
                 title="Mã giảm giá"
                 promotions={queryPromotions.data.payload.data.filter((promo) => promo.type === 'discount')}
+                selectedPromo={selectedPromo}
+                setSelectedPromo={setSelectedPromo}
               />
               <PromoList
                 title="Mã vận chuyển"
                 promotions={queryPromotions.data.payload.data.filter((promo) => promo.type === 'shipping')}
+                selectedPromo={selectedPromo}
+                setSelectedPromo={setSelectedPromo}
                 wrapperClassName="mt-3"
               />
             </>
@@ -84,7 +93,14 @@ export default function PromoDialogContent({ isOpen }: { isOpen: boolean }) {
       </ScrollArea>
       <DialogFooter className="mt-4 px-2 sm:mt-6 sm:px-6">
         <DialogClose asChild>
-          <Button className="h-9 w-full sm:h-11">Xong</Button>
+          <Button
+            className="h-9 w-full sm:h-11"
+            onClick={() => {
+              setCurrentPromotion(selectedPromo)
+            }}
+          >
+            Xong
+          </Button>
         </DialogClose>
       </DialogFooter>
     </DialogContent>
@@ -94,10 +110,12 @@ export default function PromoDialogContent({ isOpen }: { isOpen: boolean }) {
 interface PromoListProps {
   title: string
   promotions: PromotionsResponseFromServer['data']
+  selectedPromo: PromotionServerItem | null
+  setSelectedPromo: Dispatch<SetStateAction<PromotionServerItem | null>>
   wrapperClassName?: string
 }
 
-function PromoList({ title, promotions, wrapperClassName }: PromoListProps) {
+function PromoList({ title, promotions, selectedPromo, setSelectedPromo, wrapperClassName }: PromoListProps) {
   const STARTING_VISIBLE_PROMOTIONS = 2
 
   const [isExpanded, setIsExpanded] = useState(false)
@@ -107,12 +125,17 @@ function PromoList({ title, promotions, wrapperClassName }: PromoListProps) {
       <p className="mb-2 font-medium text-secondary-2">{title}</p>
       <Collapsible className="space-y-2" open={isExpanded} onOpenChange={setIsExpanded}>
         {promotions.slice(0, STARTING_VISIBLE_PROMOTIONS).map((promo) => (
-          <PromoItem key={promo._id} promo={promo} />
+          <PromoItem key={promo._id} promo={promo} selectedPromo={selectedPromo} setSelectedPromo={setSelectedPromo} />
         ))}
 
         <CollapsibleContent className="space-y-2">
           {promotions.slice(STARTING_VISIBLE_PROMOTIONS).map((promo) => (
-            <PromoItem key={promo._id} promo={promo} />
+            <PromoItem
+              key={promo._id}
+              promo={promo}
+              selectedPromo={selectedPromo}
+              setSelectedPromo={setSelectedPromo}
+            />
           ))}
         </CollapsibleContent>
 
@@ -130,17 +153,16 @@ function PromoList({ title, promotions, wrapperClassName }: PromoListProps) {
   )
 }
 
-function PromoItem({ promo }: { promo: PromotionsResponseFromServer['data'][number] }) {
-  const currentPromotion = useCurrentPromotion((state) => state.currentPromotion)
-  const setCurrentPromotion = useCurrentPromotion((state) => state.setCurrentPromotion)
+function PromoItem(props: { promo: PromotionServerItem } & Pick<PromoListProps, 'selectedPromo' | 'setSelectedPromo'>) {
+  const { promo, selectedPromo, setSelectedPromo } = props
 
   function toggleCurrentPromotion() {
     if (promo.status !== 'active') return
 
-    if (currentPromotion?._id === promo._id) {
-      setCurrentPromotion(null)
+    if (selectedPromo?._id === promo._id) {
+      setSelectedPromo(null)
     } else {
-      setCurrentPromotion(promo)
+      setSelectedPromo(promo)
     }
   }
 
@@ -172,7 +194,7 @@ function PromoItem({ promo }: { promo: PromotionsResponseFromServer['data'][numb
             <PromotionTooltipConditions conditions={promo.conditions} />
           </PromotionTooltip>
           <PromotionButton disabled={promo.status !== 'active'} onClick={toggleCurrentPromotion}>
-            {currentPromotion?._id === promo._id ? 'Bỏ chọn' : 'Áp dụng'}
+            {selectedPromo?._id === promo._id ? 'Bỏ chọn' : 'Áp dụng'}
           </PromotionButton>
         </div>
       </PromotionContent>

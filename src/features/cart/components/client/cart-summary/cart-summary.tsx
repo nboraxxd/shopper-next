@@ -2,15 +2,12 @@
 
 import { useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { useMutationState } from '@tanstack/react-query'
 
 import PATH from '@/shared/constants/path'
 import { cn, formatCurrency } from '@/shared/utils'
 import { handleClientErrorApi } from '@/shared/utils/error'
-import { CHECKOUT_KEY } from '@/features/checkout/constants'
-import { PreCheckoutResponse } from '@/features/checkout/types'
-import { usePreCheckoutMutation, useCheckoutStore } from '@/features/checkout/hooks'
 import { useCurrentPromotion, useSelectedCartItemIds } from '@/features/cart/hooks'
+import { usePreCheckoutMutation, useCheckoutStore, useLatestPreCheckoutData } from '@/features/checkout/hooks'
 
 import { Button } from '@/shared/components/ui/button'
 import { Separator } from '@/shared/components/ui/separator'
@@ -43,12 +40,7 @@ export default function CartSummary() {
 
   const { mutateAsync: preCheckoutMutateAsync } = usePreCheckoutMutation()
 
-  const preCheckoutData = useMutationState({
-    filters: { mutationKey: [CHECKOUT_KEY.PRE_CHECKOUT], exact: true, status: 'success' },
-    select: (mutation) => mutation.state.data as { payload: PreCheckoutResponse } | undefined,
-  })
-
-  const latestPreCheckoutData = preCheckoutData[preCheckoutData.length - 1]
+  const latestPreCheckoutData = useLatestPreCheckoutData()
 
   useEffect(() => {
     let timeout: NodeJS.Timeout | null = null

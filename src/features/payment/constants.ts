@@ -18,3 +18,7 @@ export const PAYMENT_ERROR_MESSAGES = {
 
   TYPE_INVALID: 'Vui lòng chọn loại thẻ',
 } as const
+
+export const PAYMENT_KEY = {
+  PAYMENTS: 'payments',
+} as const

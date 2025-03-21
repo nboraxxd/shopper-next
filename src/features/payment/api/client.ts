@@ -1,17 +1,21 @@
+import {
+  AddPaymentCardResponse,
+  PaymentCardListResponse,
+  SetDefaultPaymentCardResponse,
+} from '@/features/payment/types'
 import http from '@/shared/utils/http'
 import { MessageResponse } from '@/shared/types'
 import { AddNewPaymentCardReqBody } from '@/features/payment/schemas'
-import { AddPaymentCardResponse, SetDefaultPaymentCardResponse } from '@/features/payment/types'
 
-const BACKEND_PREFIX = '/users/payment'
+const PREFIX = '/users/payment'
 
 export const paymentClientApi = {
-  addNewPaymentCardToBackend: (body: AddNewPaymentCardReqBody) =>
-    http.post<AddPaymentCardResponse>(BACKEND_PREFIX, body),
+  addNewPaymentCardToBackend: (body: AddNewPaymentCardReqBody) => http.post<AddPaymentCardResponse>(PREFIX, body),
 
   setDefaultPaymentCardToBackend: (paymentCardId: string) =>
-    http.patch<SetDefaultPaymentCardResponse>(`${BACKEND_PREFIX}/${paymentCardId}`, { default: true }),
+    http.patch<SetDefaultPaymentCardResponse>(`${PREFIX}/${paymentCardId}`, { default: true }),
 
-  deletePaymentCardFromBackend: (paymentCardId: string) =>
-    http.delete<MessageResponse>(`${BACKEND_PREFIX}/${paymentCardId}`),
+  deletePaymentCardFromBackend: (paymentCardId: string) => http.delete<MessageResponse>(`${PREFIX}/${paymentCardId}`),
+
+  getPaymentsFromBackend: () => http.get<PaymentCardListResponse>(PREFIX),
 }

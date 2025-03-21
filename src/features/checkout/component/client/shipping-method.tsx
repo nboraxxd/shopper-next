@@ -15,7 +15,7 @@ export default function ShippingMethod() {
   const [from, to] = extractShippingDays(checkoutShippingMethod.description)
 
   return (
-    <div className="grid py-7 lg:grid-cols-5">
+    <div className="grid py-4 md:py-7 lg:grid-cols-5">
       <div className="px-3 font-medium xs:px-4 lg:order-2 lg:col-span-3 lg:px-7">
         <p className="text-sm xs:text-base">Phương thức vận chuyển:</p>
         <div className="mt-1 flex items-center justify-between gap-3 text-sm xs:grid xs:grid-cols-4">

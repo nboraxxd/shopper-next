@@ -1,4 +1,6 @@
 export { default as useCheckoutStore } from './use-checkout-store'
 export { default as usePreCheckoutMutation } from './use-pre-checkout-mutation'
 export { default as useCheckoutAddressStore } from './use-checkout-address-store'
+export { default as useLatestPreCheckoutData } from './use-latest-pre-checkout-data'
+export { default as useCheckoutPaymentMethodStore } from './use-checkout-payment-method-store'
 export { default as useCheckoutShippingMethodStore } from './use-checkout-shipping-method-store'
