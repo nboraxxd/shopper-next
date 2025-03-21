@@ -1,6 +1,7 @@
 export const CHECKOUT_KEY = {
   PRE_CHECKOUT: 'preCheckout',
-}
+  CHECKOUT: 'checkout',
+} as const
 
 export const CHECKOUT_PAYMENT_METHOD = [
   {

@@ -6,12 +6,12 @@ import { useEffect } from 'react'
 import { formatCurrency } from '@/shared/utils'
 import { handleClientErrorApi } from '@/shared/utils/error'
 import { useCurrentPromotion } from '@/features/cart/hooks'
-import { useCheckoutShippingMethodStore, useCheckoutStore, usePreCheckoutMutation } from '@/features/checkout/hooks'
+import { useCheckoutShippingMethodStore, useCheckoutListStore, usePreCheckoutMutation } from '@/features/checkout/hooks'
 
 import { Skeleton } from '@/shared/components/ui/skeleton'
 
 export default function CheckOutList() {
-  const checkout = useCheckoutStore((state) => state.checkout)
+  const checkoutList = useCheckoutListStore((state) => state.checkoutList)
 
   const preCheckoutMutation = usePreCheckoutMutation()
 
@@ -21,11 +21,11 @@ export default function CheckOutList() {
   const checkoutShippingMethod = useCheckoutShippingMethodStore((state) => state.checkoutShippingMethod)
 
   useEffect(() => {
-    if (!checkout) return
+    if (!checkoutList) return
     ;(async () => {
       try {
         await preCheckoutMutateAsync({
-          ...checkout,
+          listItems: checkoutList,
           promotionCode: currentPromotion?.code ? [currentPromotion.code] : undefined,
           shippingMethod: checkoutShippingMethod.code,
         })
@@ -33,7 +33,7 @@ export default function CheckOutList() {
         handleClientErrorApi({ error })
       }
     })()
-  }, [checkout, checkoutShippingMethod.code, currentPromotion?.code, preCheckoutMutateAsync])
+  }, [checkoutList, checkoutShippingMethod.code, currentPromotion?.code, preCheckoutMutateAsync])
 
   return (
     <div className="flex flex-col gap-4">

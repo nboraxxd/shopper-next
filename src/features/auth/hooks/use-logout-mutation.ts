@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import authClientApi from '@/features/auth/api/client'
 import { useAuthStore } from '@/features/auth/auth-store'
 import { PROFILE_KEY } from '@/features/profile/constants'
-import { useCheckoutStore } from '@/features/checkout/hooks'
+import { useCheckoutListStore } from '@/features/checkout/hooks'
 import { useProfileStore } from '@/features/profile/profile-store'
 
 export default function useLogoutMutation() {
@@ -11,14 +11,14 @@ export default function useLogoutMutation() {
 
   const setAuthState = useAuthStore((state) => state.setAuthState)
   const setProfile = useProfileStore((state) => state.setProfile)
-  const setCheckout = useCheckoutStore((state) => state.setCheckout)
+  const setCheckoutList = useCheckoutListStore((state) => state.setCheckoutList)
 
   return useMutation({
     mutationFn: authClientApi.logoutToServer,
     onSuccess: () => {
       setAuthState('unauthenticated')
       setProfile(null)
-      setCheckout(null)
+      setCheckoutList(null)
       queryClient.removeQueries({ queryKey: [PROFILE_KEY.PROFILE] })
     },
   })

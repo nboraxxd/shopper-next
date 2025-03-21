@@ -3,6 +3,7 @@ import { PackageIcon } from 'lucide-react'
 
 import {
   CheckoutList,
+  ConfirmCheckout,
   DeliveryAddress,
   PaymentMethod,
   PaymentSummary,
@@ -58,6 +59,8 @@ export default async function CheckoutPage() {
           <Separator />
 
           <PaymentSummary />
+
+          <ConfirmCheckout />
         </section>
       </main>
     </div>

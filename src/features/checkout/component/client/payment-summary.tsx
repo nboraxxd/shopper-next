@@ -36,7 +36,7 @@ function PaymentSummaryItem(props: { title: string; value: number; valueClassNam
 
   return (
     <>
-      <span className="col-span-2 flex items-center text-sm font-medium xs:col-span-1 xs:col-start-2">{title}</span>
+      <span className="col-span-2 flex items-center text-sm font-medium md:col-span-1 md:col-start-2">{title}</span>
       <span className={cn('col-start-3 flex h-10 items-center justify-end text-sm font-medium', valueClassName)}>
         {formatCurrency(value)}
         <sup>₫</sup>

@@ -1,3 +1,4 @@
+import { Address } from '@/features/address/types'
 import { CartItem } from '@/features/cart/types'
 import { CHECKOUT_PAYMENT_METHOD } from '@/features/checkout/constants'
 import { ShippingMethodValue } from '@/features/shipping/types'
@@ -31,4 +32,15 @@ export type PreCheckoutResponse = {
     viewCartTotal: number
     listItems: (CartItem & { price: number })[]
   }
+}
+
+export type CheckoutReqBody = {
+  listItems: Array<number>
+  payment: {
+    paymentMethod: CheckoutPaymentMethod
+  }
+  shippingMethod: ShippingMethodValue
+  shipping: Omit<Address, 'user_id' | '_id' | 'default'>
+  promotionCode?: [string]
+  note?: string
 }
