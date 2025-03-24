@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { CheckIcon } from 'lucide-react'
+import { CheckIcon, PlusIcon } from 'lucide-react'
 
 import { cn } from '@/shared/utils'
 import { PaymentCard } from '@/features/payment/types'
@@ -12,6 +12,7 @@ import { CHECKOUT_PAYMENT_METHOD } from '@/features/checkout/constants'
 import { useCheckoutPaymentMethodStore } from '@/features/checkout/hooks'
 
 import { Label } from '@/shared/components/ui/label'
+import { Button } from '@/shared/components/ui/button'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Separator } from '@/shared/components/ui/separator'
 import { ButtonWithRefreshTokenState } from '@/shared/components'
@@ -73,43 +74,52 @@ export default function PaymentMethod() {
         className="mt-0 flex flex-col gap-2 data-[state=active]:px-3 data-[state=active]:py-4 data-[state=active]:xs:px-4 md:flex-row data-[state=active]:md:py-7 data-[state=active]:lg:px-7"
       >
         <h3 className="min-w-60 text-sm font-bold xs:text-base sm:text-lg md:mt-3">Chọn thẻ</h3>
-        {queryPayments.isLoading ? (
-          <div className="space-y-3">
-            {Array.from({ length: 3 }).map((_, index) => (
-              <Skeleton key={index} className="h-11 w-36" />
-            ))}
-          </div>
-        ) : null}
-        {queryPayments.isSuccess ? (
-          <RadioGroup
-            className="gap-3"
-            value={selectedCard?._id}
-            onValueChange={(value) => {
-              const selectedCard = queryPayments.data.payload.data.find((item) => item._id === value)
+        <div>
+          {queryPayments.isLoading ? (
+            <div className="space-y-3">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <Skeleton key={index} className="h-11 w-36" />
+              ))}
+            </div>
+          ) : null}
+          {queryPayments.isSuccess ? (
+            <RadioGroup
+              className="gap-3"
+              value={selectedCard?._id}
+              onValueChange={(value) => {
+                const selectedCard = queryPayments.data.payload.data.find((item) => item._id === value)
 
-              if (selectedCard) {
-                setSelectedCard(selectedCard)
-              }
-            }}
+                if (selectedCard) {
+                  setSelectedCard(selectedCard)
+                }
+              }}
+            >
+              {queryPayments.data.payload.data.map((item) => {
+                const Icon = item.type === 'card' ? CreditCardIcon : PayPalIcon
+                const disabled = isCardExpired(item.expired)
+
+                return (
+                  <Label key={item._id} className="flex cursor-pointer items-center gap-2 text-sm">
+                    <RadioGroupItem value={item._id} className={cn({ 'opacity-50': disabled })} disabled={disabled} />
+                    <div className="rounded border border-border px-3 py-1">
+                      <Svgr icon={Icon} className={cn('size-8', { 'opacity-50': disabled })} />
+                      <span className="sr-only">{item.type === 'card' ? 'Thẻ tín dụng' : 'PayPal'}</span>
+                    </div>
+                    <span className={cn({ 'opacity-50': disabled })}>**** {item.cardNumber.slice(-4)}</span>
+                    {disabled ? <span className="ml-3 text-primary-red">Hết hạn</span> : null}
+                  </Label>
+                )
+              })}
+            </RadioGroup>
+          ) : null}
+          <Button
+            variant="outline"
+            className="mt-3 h-[2.625rem] gap-2 bg-transparent px-3 py-0 hover:bg-accent/30 [&_svg]:size-4"
           >
-            {queryPayments.data.payload.data.map((item) => {
-              const Icon = item.type === 'card' ? CreditCardIcon : PayPalIcon
-              const disabled = isCardExpired(item.expired)
-
-              return (
-                <Label key={item._id} className="flex cursor-pointer items-center gap-2 text-sm">
-                  <RadioGroupItem value={item._id} className={cn({ 'opacity-50': disabled })} disabled={disabled} />
-                  <div className="rounded border border-border px-3 py-1">
-                    <Svgr icon={Icon} className={cn('size-8', { 'opacity-50': disabled })} />
-                    <span className="sr-only">{item.type === 'card' ? 'Thẻ tín dụng' : 'PayPal'}</span>
-                  </div>
-                  <span className={cn({ 'opacity-50': disabled })}>**** {item.cardNumber.slice(-4)}</span>
-                  {disabled ? <span className="ml-3 text-primary-red">Hết hạn</span> : null}
-                </Label>
-              )
-            })}
-          </RadioGroup>
-        ) : null}
+            <PlusIcon />
+            Thêm thẻ
+          </Button>
+        </div>
       </TabsContent>
       <TabsContent
         value="money"

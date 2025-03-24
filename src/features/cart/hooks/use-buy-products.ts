@@ -1,3 +1,4 @@
+import { toast } from 'sonner'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -15,7 +16,10 @@ export default function useBuyProducts() {
   const setCheckoutList = useCheckoutListStore((state) => state.setCheckoutList)
 
   function handleBuyProduct() {
-    if (!selectedItemIds || selectedItemIds.length === 0) return
+    if (!selectedItemIds || selectedItemIds.length === 0) {
+      toast.error('Vui lòng chọn sản phẩm để mua')
+      return
+    }
 
     setIsNavigatingToCheckout(true)
 

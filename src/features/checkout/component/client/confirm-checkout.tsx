@@ -16,7 +16,8 @@ import {
 import PATH from '@/shared/constants/path'
 import { CheckoutReqBody } from '@/features/checkout/types'
 import { handleClientErrorApi } from '@/shared/utils/error'
-import { useCurrentPromotion, useQueryCartList } from '@/features/cart/hooks'
+import { SHIPPING_METHODS_DATA } from '@/features/shipping/constants'
+import { useCurrentPromotion, useQueryCartList, useSelectedCartItemIds } from '@/features/cart/hooks'
 
 import { ButtonWithRefreshTokenState } from '@/shared/components'
 
@@ -25,12 +26,13 @@ export default function ConfirmCheckout() {
 
   const router = useRouter()
 
-  const note = useNoteStore((state) => state.note)
-  const checkoutList = useCheckoutListStore((state) => state.checkoutList)
-  const currentPromotion = useCurrentPromotion((state) => state.currentPromotion)
+  const { note, setNote } = useNoteStore()
+  const { checkoutList, setCheckoutList } = useCheckoutListStore()
+  const { currentPromotion, setCurrentPromotion } = useCurrentPromotion()
   const checkoutAddress = useCheckoutAddressStore((state) => state.checkoutAddress)
-  const checkoutPaymentMethod = useCheckoutPaymentMethodStore((state) => state.checkoutPaymentMethod)
-  const checkoutShippingMethod = useCheckoutShippingMethodStore((state) => state.checkoutShippingMethod)
+  const { checkoutPaymentMethod, setCheckoutPaymentMethod } = useCheckoutPaymentMethodStore()
+  const { checkoutShippingMethod, setCheckoutShippingMethod } = useCheckoutShippingMethodStore()
+  const setSelectedItemId = useSelectedCartItemIds((state) => state.setSelectedItemId)
 
   const queryCartList = useQueryCartList(false)
   const checkoutMutation = useCheckoutMutation()
@@ -56,6 +58,13 @@ export default function ConfirmCheckout() {
 
       await checkoutMutation.mutateAsync(body)
       await queryCartList.refetch()
+
+      setNote(null)
+      setCheckoutList(null)
+      setCurrentPromotion(null)
+      setCheckoutPaymentMethod('money')
+      setCheckoutShippingMethod(SHIPPING_METHODS_DATA.payload.data.find((item) => item.code === 'mien-phi')!)
+      setSelectedItemId([])
 
       router.push(`${PATH.ORDER_HISTORY}?status=pending`)
       router.refresh()
