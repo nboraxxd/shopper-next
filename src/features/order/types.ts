@@ -1,6 +1,9 @@
 import { ProductBase } from '@/features/product/types'
+import { ORDER_STATUS } from '@/features/order/constants'
+import { ShippingMethodValue } from '@/features/shipping/types'
+import { CheckoutPaymentMethod } from '@/features/checkout/types'
 
-// TODO: Điều chỉnh lại `shippingMethod` từ 'giao-hang-nhanh' | 'tieu-chuan' | 'mien-phi' thành constant
+// This type only used in internal Order type
 type Shipping = {
   fullName: string
   phone: string
@@ -8,7 +11,7 @@ type Shipping = {
   province: string
   district: string
   address: string
-  shippingMethod: 'giao-hang-nhanh' | 'tieu-chuan' | 'mien-phi'
+  shippingMethod: ShippingMethodValue
   shippingPrice: number
 }
 
@@ -21,12 +24,12 @@ type ListItem = {
 }
 
 type Payment = {
-  paymentMethod: 'money' | 'card'
+  paymentMethod: CheckoutPaymentMethod
 }
 
-export type OrderStatus = 'pending' | 'shipping' | 'confirm' | 'finished' | 'cancel'
+export type OrderStatus = (typeof ORDER_STATUS)[keyof typeof ORDER_STATUS]
 
-export type OrderCount = {
+export type OrderCountResponse = {
   count: number
 }
 

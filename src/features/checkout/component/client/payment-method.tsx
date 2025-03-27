@@ -8,7 +8,7 @@ import { PaymentCard } from '@/features/payment/types'
 import { isCardExpired } from '@/features/payment/utils'
 import { useQueryPayments } from '@/features/payment/hooks'
 import { CheckoutPaymentMethod } from '@/features/checkout/types'
-import { CHECKOUT_PAYMENT_METHOD } from '@/features/checkout/constants'
+import { CHECKOUT_PAYMENT_TABS } from '@/features/checkout/constants'
 import { useCheckoutPaymentMethodStore } from '@/features/checkout/hooks'
 
 import { Label } from '@/shared/components/ui/label'
@@ -40,7 +40,7 @@ export default function PaymentMethod() {
       >
         <CheckoutSectionTitle title="Phương thức thanh toán" className="md:min-w-60" />
         <div className="flex w-full flex-1 flex-col gap-2 xs:w-auto xs:flex-row xs:items-center">
-          {CHECKOUT_PAYMENT_METHOD.map((item) => (
+          {CHECKOUT_PAYMENT_TABS.map((item) => (
             <TabsTrigger
               key={item.value}
               value={item.value}

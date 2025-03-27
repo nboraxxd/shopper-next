@@ -1,11 +1,11 @@
-import { Address } from '@/features/address/types'
 import { CartItem } from '@/features/cart/types'
-import { CHECKOUT_PAYMENT_METHOD } from '@/features/checkout/constants'
+import { Address } from '@/features/address/types'
 import { ShippingMethodValue } from '@/features/shipping/types'
+import { CHECKOUT_PAYMENT_METHOD } from '@/features/checkout/constants'
 
 export type DialogMode = 'list' | 'update' | 'create'
 
-export type CheckoutPaymentMethod = (typeof CHECKOUT_PAYMENT_METHOD)[number]['value']
+export type CheckoutPaymentMethod = (typeof CHECKOUT_PAYMENT_METHOD)[keyof typeof CHECKOUT_PAYMENT_METHOD]
 
 export type PreCheckoutReqBody = {
   listItems: Array<number>

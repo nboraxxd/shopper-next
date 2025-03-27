@@ -3,13 +3,18 @@ export const CHECKOUT_KEY = {
   CHECKOUT: 'checkout',
 } as const
 
-export const CHECKOUT_PAYMENT_METHOD = [
+export const CHECKOUT_PAYMENT_METHOD = {
+  MONEY: 'money',
+  CARD: 'card',
+} as const
+
+export const CHECKOUT_PAYMENT_TABS = [
   {
-    value: 'money',
+    value: CHECKOUT_PAYMENT_METHOD.MONEY,
     label: 'Thanh toán khi nhận hàng',
   },
   {
-    value: 'card',
+    value: CHECKOUT_PAYMENT_METHOD.CARD,
     label: 'Thẻ tín dụng/ghi nợ',
   },
 ] as const
