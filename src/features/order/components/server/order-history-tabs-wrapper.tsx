@@ -1,7 +1,7 @@
 import orderServerApi from '@/features/order/api/server'
-import { OrderHistoryTabs } from '@/features/order/components/client'
 import { ORDER_STATUS } from '@/features/order/constants'
 import { OrderCountResponse } from '@/features/order/types'
+import { OrderHistoryTabs } from '@/features/order/components/client'
 
 const ORDER_STATUSES = [ORDER_STATUS.PENDING, ORDER_STATUS.CONFIRM, ORDER_STATUS.SHIPPING] as const
 

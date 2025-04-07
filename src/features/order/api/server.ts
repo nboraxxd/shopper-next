@@ -9,6 +9,12 @@ const orderServerApi = {
       params: status ? { status } : undefined,
       headers: { Authorization: `Bearer ${accessToken}` },
     }),
+
+  getOrdersFromBackend: (accessToken: string, status?: OrderStatus) =>
+    http.get<OrderCountResponse>(`${PREFIX}`, {
+      params: status ? { status } : undefined,
+      headers: { Authorization: `Bearer ${accessToken}` },
+    }),
 }
 
 export default orderServerApi

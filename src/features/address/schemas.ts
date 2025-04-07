@@ -18,7 +18,7 @@ export const addNewAddressSchema = z
     phone: z
       .string()
       .min(1, PROFILE_ERROR_MESSAGES.PHONE_NUMBER_REQUIRED)
-      .regex(/(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/, PROFILE_ERROR_MESSAGES.INVALID_PHONE_NUMBER),
+      .regex(/(?:\+84|0084|0)[235789][0-9]{1,2}[0-9]{7}(?:[^\d]+|$)/, PROFILE_ERROR_MESSAGES.INVALID_PHONE_NUMBER),
     province: z.object(regionSchema.shape, { message: ADDRESS_ERROR_MESSAGES.PROVINCE_REQUIRED }),
     district: z.object(regionSchema.shape, { message: ADDRESS_ERROR_MESSAGES.DISTRICT_REQUIRED }),
     ward: z.object(regionSchema.shape, { message: ADDRESS_ERROR_MESSAGES.WARD_REQUIRED }),

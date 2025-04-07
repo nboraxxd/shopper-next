@@ -2,6 +2,7 @@ import { ProductBase } from '@/features/product/types'
 import { ORDER_STATUS } from '@/features/order/constants'
 import { ShippingMethodValue } from '@/features/shipping/types'
 import { CheckoutPaymentMethod } from '@/features/checkout/types'
+import { GetPromotionDetailResponse } from '@/features/promotion/types'
 
 // This type only used in internal Order type
 type Shipping = {
@@ -38,7 +39,7 @@ export type Order = {
   total: number
   subTotal: number
   tax: number
-  promotion: string | null
+  promotion: GetPromotionDetailResponse['data'] | null
   shipping: Shipping
   totalQuantity: number
   viewCartTotal: number

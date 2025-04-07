@@ -1,7 +1,6 @@
 import PATH from '@/shared/constants/path'
 
 export const ORDER_STATUS = {
-  ALL: 'all',
   PENDING: 'pending',
   CONFIRM: 'confirm',
   SHIPPING: 'shipping',
@@ -19,7 +18,7 @@ export const ORDER_STATUS_LABEL = {
 } as const
 
 export const ORDER_STATUS_TABS = [
-  { label: ORDER_STATUS_LABEL.ALL, href: PATH.ORDER_HISTORY, status: ORDER_STATUS.ALL },
+  { label: ORDER_STATUS_LABEL.ALL, href: PATH.ORDER_HISTORY, status: 'all' },
   {
     label: ORDER_STATUS_LABEL.PENDING,
     href: `${PATH.ORDER_HISTORY}?status=${ORDER_STATUS.PENDING}`,
