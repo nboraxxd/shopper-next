@@ -1,1 +1,1 @@
-export { default as OrderHistoryTabsWrapper } from './order-history-tabs-wrapper'
+export { default as OrderTabsWrapper } from './order-tabs-wrapper'

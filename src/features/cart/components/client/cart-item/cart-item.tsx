@@ -132,7 +132,7 @@ export default function CartItem({ product, productId, quantity: initialQty }: C
           />
         </label>
 
-        <Link href={`/${product.slug}`} className="shrink-0 select-none self-center rounded-md border xs:self-auto">
+        <Link href={`/${product.slug}`} className="shrink-0 select-none self-center rounded-md border xs:self-start">
           <Image
             src={product.thumbnail_url}
             alt={product.name}

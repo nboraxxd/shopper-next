@@ -3,8 +3,8 @@ import { Suspense } from 'react'
 
 import { getAccessTokenInServer } from '@/shared/utils/server'
 
-import { OrderHistoryTabs } from '@/features/order/components/client'
-import { OrderHistoryTabsWrapper } from '@/features/order/components/server'
+import { OrderItem, OrderTabs } from '@/features/order/components/client'
+import { OrderTabsWrapper } from '@/features/order/components/server'
 import { AccountHeader, AccountSectionWrapper } from '@/features/account/components'
 
 export const metadata: Metadata = {
@@ -19,9 +19,13 @@ export default async function OrderHistoryPage() {
       <AccountHeader>Đơn mua</AccountHeader>
 
       <div className="mt-1 md:mt-3">
-        <Suspense fallback={<OrderHistoryTabs />}>
-          <OrderHistoryTabsWrapper accessToken={accessToken} />
+        <Suspense fallback={<OrderTabs />}>
+          <OrderTabsWrapper accessToken={accessToken} />
         </Suspense>
+      </div>
+
+      <div className="mt-3 md:mt-5">
+        <OrderItem />
       </div>
     </AccountSectionWrapper>
   )

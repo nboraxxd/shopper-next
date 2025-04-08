@@ -22,8 +22,8 @@ export type PromotionsResponseFromServer = {
 export type GetPromotionDetailResponse = {
   data: {
     code: string
-    title: string
+    discount: number
     description: string
-    value: number
+    title: string
   }
 }

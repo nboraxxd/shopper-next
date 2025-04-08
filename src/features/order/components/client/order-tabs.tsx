@@ -13,7 +13,7 @@ interface Props {
   orderCounts?: Record<Exclude<OrderStatus, 'finished' | 'cancel'>, number | null>
 }
 
-export default function OrderHistoryTabs({ orderCounts }: Props) {
+export default function OrderTabs({ orderCounts }: Props) {
   const searchParams = useSearchParams()
   const currentStatus = searchParams.get('status') || 'all'
 
@@ -42,7 +42,7 @@ export default function OrderHistoryTabs({ orderCounts }: Props) {
             {orderCounts && status in orderCounts && orderCounts[status as keyof typeof orderCounts] ? (
               <OrderCountBadge
                 count={orderCounts[status as keyof typeof orderCounts]!}
-                className="-right-1 -top-1 size-5 bg-primary-blue/60 text-[0.625rem]"
+                className="-right-1 -top-1 size-5 bg-primary-blue/75 text-[0.625rem]"
               />
             ) : null}
           </Link>
