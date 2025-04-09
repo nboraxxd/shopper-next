@@ -1,13 +1,12 @@
 import http from '@/shared/utils/http'
-import { OrderCountResponse, OrderStatus } from '@/features/order/types'
+import { OrdersResponse, OrderStatus } from '@/features/order/types'
+import { isUndefined, omitBy } from 'lodash'
 
 const PREFIX = '/order/v2'
 
 const orderClientApi = {
-  getOrdersFromBackend: (status?: OrderStatus) =>
-    http.get<OrderCountResponse>(`${PREFIX}`, {
-      params: status ? { status } : undefined,
-    }),
+  getOrdersFromBackend: (params: { status?: OrderStatus; page?: string }) =>
+    http.get<OrdersResponse>(`${PREFIX}`, { params: omitBy(params, isUndefined) }),
 }
 
 export default orderClientApi

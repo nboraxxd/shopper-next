@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 
 import { getAccessTokenInServer } from '@/shared/utils/server'
 
-import { OrderItem, OrderTabs } from '@/features/order/components/client'
+import { Orders, OrderTabs } from '@/features/order/components/client'
 import { OrderTabsWrapper } from '@/features/order/components/server'
 import { AccountHeader, AccountSectionWrapper } from '@/features/account/components'
 
@@ -24,9 +24,7 @@ export default async function OrderHistoryPage() {
         </Suspense>
       </div>
 
-      <div className="mt-3 md:mt-5">
-        <OrderItem />
-      </div>
+      <Orders />
     </AccountSectionWrapper>
   )
 }
