@@ -1,8 +1,8 @@
 'use client'
 
-import { Dispatch, SetStateAction, useState } from 'react'
 import { format } from 'date-fns'
 import { InfoIcon, XIcon } from 'lucide-react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 import { cn } from '@/shared/utils'
 import { useCurrentPromotion } from '@/features/cart/hooks'

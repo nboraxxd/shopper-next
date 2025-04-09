@@ -9,8 +9,6 @@ import { CopyCheckIcon, CopyIcon, InfoIcon } from 'lucide-react'
 import { cn } from '@/shared/utils'
 import { useCopyToClipboard } from '@/shared/hooks'
 
-import { Button, ButtonProps } from '@/shared/components/ui/button'
-import { PromotionBgSmIcon } from '@/shared/components/icons'
 import {
   Tooltip,
   TooltipContent,
@@ -19,6 +17,8 @@ import {
   TooltipTrigger,
 } from '@/shared/components/ui/tooltip'
 import { Skeleton } from '@/shared/components/ui/skeleton'
+import { PromotionBgSmIcon } from '@/shared/components/icons'
+import { Button, ButtonProps } from '@/shared/components/ui/button'
 
 interface PromotionCardProps {
   children: React.ReactNode
