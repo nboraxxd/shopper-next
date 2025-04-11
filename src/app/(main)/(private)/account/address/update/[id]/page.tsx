@@ -23,7 +23,9 @@ export default async function UpdateAddressPage({ params }: { params: Promise<{ 
 
   return (
     <AccountSectionWrapper>
-      <AccountHeader prevPath={PATH.ADDRESS}>Cập nhật địa chỉ</AccountHeader>
+      <AccountHeader prevPath={PATH.ADDRESS} returnLabel="Quay lại trang sổ địa chỉ">
+        Cập nhật địa chỉ
+      </AccountHeader>
       <Suspense fallback={<AddressFormSkeleton />}>
         <UpdateAddressContent id={id} accessToken={accessToken} />
       </Suspense>

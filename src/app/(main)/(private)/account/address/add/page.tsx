@@ -14,7 +14,9 @@ export const metadata: Metadata = {
 export default async function AddNewAddressPage() {
   return (
     <AccountSectionWrapper>
-      <AccountHeader prevPath={PATH.ADDRESS}>Thêm địa chỉ mới</AccountHeader>
+      <AccountHeader prevPath={PATH.ADDRESS} returnLabel="Quay lại trang sổ địa chỉ">
+        Thêm địa chỉ mới
+      </AccountHeader>
       <Suspense fallback={<AddressFormSkeleton />}>
         <AddNewAddressContent />
       </Suspense>

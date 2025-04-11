@@ -10,9 +10,10 @@ import { ArrowLeftIcon, Svgr } from '@/shared/components/icons'
 interface Props extends React.ComponentProps<'h1'> {
   asChild?: boolean
   prevPath?: Url
+  returnLabel?: string
 }
 
-export default function AccountHeader({ asChild, prevPath = PATH.ACCOUNT, ...rest }: Props) {
+export default function AccountHeader({ asChild, prevPath = PATH.ACCOUNT, returnLabel, ...rest }: Props) {
   const Comp = asChild ? Slot : 'h1'
 
   return (
@@ -25,7 +26,7 @@ export default function AccountHeader({ asChild, prevPath = PATH.ACCOUNT, ...res
       >
         <Link href={prevPath}>
           <Svgr icon={ArrowLeftIcon} />
-          <span className="sr-only">Quay lại trang tài khoản</span>
+          <span className="sr-only">{returnLabel ?? 'Quay lại trang tài khoản'}</span>
         </Link>
       </Button>
       <Comp className="text-sm font-medium sm:text-lg" {...rest} />

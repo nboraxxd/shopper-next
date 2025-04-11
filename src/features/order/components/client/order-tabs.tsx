@@ -7,7 +7,8 @@ import { useSearchParams } from 'next/navigation'
 import { cn } from '@/shared/utils'
 import { OrderStatus } from '@/features/order/types'
 import { ORDER_STATUS_TABS } from '@/features/order/constants'
-import OrderCountBadge from '@/features/order/components/server/order-count-badge'
+
+import { OrderCountBadge } from '@/features/order/components/server'
 
 interface Props {
   orderCounts?: Record<Exclude<OrderStatus, 'finished' | 'cancel'>, number | null>
@@ -33,7 +34,7 @@ export default function OrderTabs({ orderCounts }: Props) {
             {label}
             {currentStatus === status ? (
               <motion.span
-                layoutId="order-history-indicator"
+                layoutId="order-indicator"
                 className="absolute inset-x-0 bottom-0.5 h-0.5 bg-highlight"
                 transition={{ duration: 0.3 }}
               />

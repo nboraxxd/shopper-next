@@ -1,9 +1,11 @@
 'use client'
 
+import Link from 'next/link'
 import Image from 'next/image'
 import React, { Fragment, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 
+import PATH from '@/shared/constants/path'
 import { formatCurrency } from '@/shared/utils'
 import { useQueryOrders } from '@/features/order/hooks'
 import { Order as OrderType } from '@/features/order/types'
@@ -27,38 +29,19 @@ export default function Orders() {
   return (
     <>
       <div className="mt-3 flex flex-col gap-3 md:mt-5 md:gap-5">
-        {queryOrders.isLoading
-          ? Array.from({ length: 3 }).map((_, index) => (
-              <div key={index} className="flex flex-col rounded-md border p-3 md:p-4">
-                <div className="border-b border-dashed pb-3">
-                  <Skeleton className="h-5 w-1/2 xs:w-1/3 md:w-1/4" />
-                </div>
-                <div className="flex flex-col gap-3 py-3 md:gap-4 md:py-4">
-                  {Array.from({ length: 2 }).map((_, index) => (
-                    <div key={index} className="flex gap-2 md:gap-3">
-                      <Skeleton className="size-16 rounded md:size-20" />
-                      <div className="flex grow flex-col gap-2">
-                        <Skeleton className="h-4 w-full xs:w-3/4 md:h-5 md:w-1/2" />
-                        <Skeleton className="h-4 w-20 md:h-5" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex flex-col gap-2 border-t border-dashed pt-3 md:gap-3">
-                  <div className="flex">
-                    <Skeleton className="ml-auto h-5 w-44 md:h-6" />
-                  </div>
-                  <Skeleton className="h-8 w-32 self-end rounded-md md:h-9" />
-                </div>
-              </div>
-            ))
-          : null}
+        {queryOrders.isLoading ? Array.from({ length: 3 }).map((_, index) => <OrderSkeleton key={index} />) : null}
         {queryOrders.isSuccess ? (
           queryOrders.data.pages.length > 0 && queryOrders.data.pages[0].payload.data.length > 0 ? (
             queryOrders.data.pages.map((page, index) => (
               <Fragment key={index}>
                 {page.payload.data.map((item) => (
-                  <Order key={item._id} status={item.status} products={item.listItems} total={item.total} />
+                  <Order
+                    key={item._id}
+                    id={item._id}
+                    status={item.status}
+                    products={item.listItems}
+                    total={item.total}
+                  />
                 ))}
               </Fragment>
             ))
@@ -68,7 +51,7 @@ export default function Orders() {
                 width={200}
                 height={200}
                 src="/images/order/empty-order.png"
-                alt="empty order"
+                alt="Empty order"
                 className="size-48"
               />
               <p>Chưa có đơn hàng</p>
@@ -87,13 +70,41 @@ export default function Orders() {
   )
 }
 
+function OrderSkeleton() {
+  return (
+    <div className="flex flex-col rounded-md border p-3 md:p-4">
+      <div className="border-b border-dashed pb-3">
+        <Skeleton className="h-5 w-1/2 xs:w-1/3 md:w-1/4" />
+      </div>
+      <div className="flex flex-col gap-3 py-3 md:gap-4 md:py-4">
+        {Array.from({ length: 2 }).map((_, index) => (
+          <div key={index} className="flex gap-2 md:gap-3">
+            <Skeleton className="size-16 rounded md:size-20" />
+            <div className="flex grow flex-col gap-2">
+              <Skeleton className="h-4 w-full xs:w-3/4 md:h-5 md:w-1/2" />
+              <Skeleton className="h-4 w-20 md:h-5" />
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="flex flex-col gap-2 border-t border-dashed pt-3 md:gap-3">
+        <div className="flex">
+          <Skeleton className="ml-auto h-5 w-44 md:h-6" />
+        </div>
+        <Skeleton className="h-8 w-32 self-end rounded-md md:h-9" />
+      </div>
+    </div>
+  )
+}
+
 interface OrderProps {
+  id: OrderType['_id']
   status: OrderType['status']
   products: OrderType['listItems']
   total: OrderType['total']
 }
 
-function Order({ products, status, total }: OrderProps) {
+function Order({ id, products, status, total }: OrderProps) {
   const { icon: OrderIcon, label: orderStatus } = ORDER_ITEM_STATUS[status]
 
   const [isExpanded, setIsExpanded] = useState(false)
@@ -105,7 +116,7 @@ function Order({ products, status, total }: OrderProps) {
         <span className="mt-px">{orderStatus}</span>
       </div>
       <Collapsible open={isExpanded} onOpenChange={setIsExpanded}>
-        <div className="space-y-3 py-3 md:space-y-4 md:py-4">
+        <Link href={`${PATH.ORDER_HISTORY}/${id}`} className="block space-y-3 py-3 md:space-y-4 md:py-4">
           {products.slice(0, 2).map((item) => (
             <ProductItem
               key={item.productId}
@@ -121,14 +132,14 @@ function Order({ products, status, total }: OrderProps) {
               <ProductItem
                 key={item.productId}
                 name={item.product.name}
-                price={item.product.price}
+                price={item.price}
                 realPrice={item.product.real_price}
                 quantity={item.quantity}
                 thumbnail={item.product.thumbnail_url}
               />
             ))}
           </CollapsibleContent>
-        </div>
+        </Link>
         <div className="flex flex-col gap-2 border-t border-dashed pt-3 md:gap-3">
           <div className="flex flex-col gap-2 xs:items-start md:flex-row md:items-center">
             {products.length > 2 ? (
@@ -148,11 +159,12 @@ function Order({ products, status, total }: OrderProps) {
             </div>
           </div>
           <Button
+            asChild
             variant="ghost"
             size="sm"
             className="self-end border border-highlight text-highlight md:h-9 md:text-base"
           >
-            Xem chi tiết
+            <Link href={`${PATH.ORDER_HISTORY}/${id}`}>Xem chi tiết</Link>
           </Button>
         </div>
       </Collapsible>

@@ -12,7 +12,9 @@ export const metadata: Metadata = {
 export default function AddNewPaymentCard() {
   return (
     <AccountSectionWrapper>
-      <AccountHeader prevPath={PATH.PAYMENT}>Thêm thẻ mới</AccountHeader>
+      <AccountHeader prevPath={PATH.PAYMENT} returnLabel="Quay lại trang thông tin thanh toán">
+        Thêm thẻ mới
+      </AccountHeader>
       <AddNewPaymentCardForm />
     </AccountSectionWrapper>
   )

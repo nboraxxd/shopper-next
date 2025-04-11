@@ -51,12 +51,16 @@ export type Order = {
   type: string
   status: OrderStatus
   createdAt: number
-  shippingDate?: number
   confirmDate?: number
+  shippingDate?: number
   finishedDate?: number
 }
 
 export type OrdersResponse = {
   data: Order[]
   paginate: Paginate
+}
+
+export type OrderDetailResponse = {
+  data: Order
 }

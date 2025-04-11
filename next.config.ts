@@ -131,6 +131,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        destination: `${PATH.ORDER_HISTORY}/:id`,
+        source: '/account/order-history/:id',
+        permanent: true,
+      },
+      {
         destination: PATH.SUPPORT,
         source: '/support',
         permanent: true,
@@ -214,6 +219,10 @@ const nextConfig: NextConfig = {
       {
         source: PATH.ORDER_HISTORY,
         destination: '/account/order-history',
+      },
+      {
+        source: `${PATH.ORDER_HISTORY}/:id`,
+        destination: '/account/order-history/:id',
       },
       {
         source: PATH.SUPPORT,

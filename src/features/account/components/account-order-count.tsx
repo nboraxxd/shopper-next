@@ -7,8 +7,8 @@ import { OrderCountResponse } from '@/features/order/types'
 import orderServerApi from '@/features/order/api/server'
 
 import { Svgr } from '@/shared/components/icons'
+import { OrderCountBadge } from '@/features/order/components/server'
 import { ORDER_STATUS, ORDER_STATUS_LABEL } from '@/features/order/constants'
-import OrderCountBadge from '@/features/order/components/server/order-count-badge'
 
 const ACCOUNT_ORDERS = [
   {
