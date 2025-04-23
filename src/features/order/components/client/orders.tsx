@@ -14,7 +14,6 @@ import { ORDER_ITEM_STATUS, ORDER_STATUS } from '@/features/order/constants'
 import { Button } from '@/shared/components/ui/button'
 import { LoadMoreIndicator } from '@/shared/components'
 import { Skeleton } from '@/shared/components/ui/skeleton'
-import { ProductItem, ProductItemSkeleton } from '@/features/order/components/server'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/shared/components/ui/collapsible'
 
 export default function Orders() {
@@ -79,7 +78,13 @@ function OrderSkeleton() {
       </div>
       <div className="flex flex-col gap-3 py-3 md:gap-4 md:py-4">
         {Array.from({ length: 2 }).map((_, index) => (
-          <ProductItemSkeleton key={index} />
+          <div key={index} className="flex gap-2 md:gap-3">
+            <Skeleton className="size-16 rounded md:size-20" />
+            <div className="flex grow flex-col gap-2">
+              <Skeleton className="h-4 w-full xs:w-3/4 md:h-5 md:w-1/2" />
+              <Skeleton className="h-4 w-20 md:h-5" />
+            </div>
+          </div>
         ))}
       </div>
       <div className="flex flex-col gap-2 border-t border-dashed pt-3 md:gap-3">
@@ -116,8 +121,8 @@ function Order({ id, products, status, total }: OrderProps) {
             <ProductItem
               key={item.productId}
               name={item.product.name}
+              price={item.product.price}
               realPrice={item.product.real_price}
-              total={item.price}
               quantity={item.quantity}
               thumbnail={item.product.thumbnail_url}
             />
@@ -127,8 +132,8 @@ function Order({ id, products, status, total }: OrderProps) {
               <ProductItem
                 key={item.productId}
                 name={item.product.name}
+                price={item.price}
                 realPrice={item.product.real_price}
-                total={item.price}
                 quantity={item.quantity}
                 thumbnail={item.product.thumbnail_url}
               />
@@ -163,6 +168,46 @@ function Order({ id, products, status, total }: OrderProps) {
           </Button>
         </div>
       </Collapsible>
+    </div>
+  )
+}
+
+interface ProductItemProps {
+  thumbnail: string
+  name: string
+  quantity: number
+  price: number
+  realPrice: number
+}
+
+function ProductItem({ name, quantity, thumbnail, price, realPrice }: ProductItemProps) {
+  return (
+    <div className="flex justify-between gap-2 md:gap-3">
+      <div className="flex gap-2 md:gap-3">
+        <div className="relative shrink-0 select-none rounded-md border">
+          <Image
+            className="size-16 rounded object-contain md:size-20"
+            src={thumbnail}
+            alt={name}
+            width={96}
+            height={96}
+          />
+          <span className="absolute bottom-0 right-0 flex h-6 min-w-6 items-center justify-center rounded-tl-lg bg-secondary-3 text-[11px] text-secondary-1">
+            x{quantity}
+          </span>
+        </div>
+        <div className="flex flex-col gap-2">
+          <p className="line-clamp-2 text-xs md:text-sm">{name}</p>
+          <p className="text-xs text-secondary-2 md:text-sm">
+            {formatCurrency(realPrice)}
+            <sup>₫</sup>
+          </p>
+        </div>
+      </div>
+      <span className="hidden shrink-0 text-xs xs:inline md:text-sm">
+        {formatCurrency(price)}
+        <sup>₫</sup>
+      </span>
     </div>
   )
 }

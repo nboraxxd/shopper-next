@@ -6,13 +6,13 @@ import {
   ConfirmCheckout,
   DeliveryAddress,
   PaymentMethod,
-  CheckoutSummary,
+  PaymentSummary,
   ShippingMethod,
 } from '@/features/checkout/component/client'
-import { SectionTitle } from '@/shared/components'
 import { LocationIcon } from '@/shared/components/icons'
 import { Separator } from '@/shared/components/ui/separator'
 import { PromoTrigger } from '@/features/promotion/components/client'
+import { CheckoutSectionTitle } from '@/features/checkout/component/server'
 
 export const metadata: Metadata = {
   title: 'Thanh toán',
@@ -26,7 +26,7 @@ export default async function CheckoutPage() {
         <section className="rounded-4xl bg-checkout-section px-3 py-4 shadow-section xs:px-4 md:py-7 lg:px-7">
           <div className="relative">
             <div className="mb-4 flex items-center justify-between gap-1">
-              <SectionTitle icon={LocationIcon} title="Địa chỉ nhận hàng" />
+              <CheckoutSectionTitle icon={LocationIcon} title="Địa chỉ nhận hàng" />
             </div>
             <DeliveryAddress />
           </div>
@@ -35,7 +35,7 @@ export default async function CheckoutPage() {
         <section className="mt-4 rounded-4xl bg-checkout-section shadow-section md:mt-7">
           <div className="px-3 py-4 xs:px-4 md:py-7 lg:px-7">
             <div className="mb-4 flex items-center gap-3">
-              <SectionTitle icon={PackageIcon} title="Chi tiết đơn hàng" className="w-full lg:w-3/4" />
+              <CheckoutSectionTitle icon={PackageIcon} title="Chi tiết đơn hàng" className="w-full lg:w-3/4" />
               <span className="hidden w-[10%] text-end font-medium lg:block">Số lượng</span>
               <span className="hidden w-[15%] text-end font-medium lg:block">Thành tiền</span>
             </div>
@@ -58,7 +58,7 @@ export default async function CheckoutPage() {
 
           <Separator />
 
-          <CheckoutSummary />
+          <PaymentSummary />
 
           <ConfirmCheckout />
         </section>

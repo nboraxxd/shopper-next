@@ -8,7 +8,7 @@ interface Props {
   className?: string
 }
 
-export default function SectionTitle({ title, icon, className }: Props) {
+export default function CheckoutSectionTitle({ title, icon, className }: Props) {
   return (
     <h2
       className={cn('flex items-center gap-1 text-sm font-bold xs:gap-1.5 xs:text-base sm:gap-2 sm:text-lg', className)}
