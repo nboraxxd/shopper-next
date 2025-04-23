@@ -176,6 +176,13 @@ export default {
 
         'address-item': 'hsl(var(--address-item))',
 
+        order: {
+          info: 'hsl(var(--order-info))',
+          'step-icon': 'hsl(var(--order-step-icon))',
+          'step-icon-active': 'hsl(var(--order-step-icon-active))',
+          'step-icon-completed': 'hsl(var(--order-step-icon-completed))',
+        },
+
         highlight: 'hsl(var(--highlight))',
       },
       borderRadius: {
