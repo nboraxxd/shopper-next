@@ -15,9 +15,8 @@ import { Label } from '@/shared/components/ui/label'
 import { Button } from '@/shared/components/ui/button'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Separator } from '@/shared/components/ui/separator'
-import { ButtonWithRefreshTokenState } from '@/shared/components'
-import { CheckoutSectionTitle } from '@/features/checkout/component/server'
 import { CreditCardIcon, PayPalIcon, Svgr } from '@/shared/components/icons'
+import { ButtonWithRefreshTokenState, SectionTitle } from '@/shared/components'
 import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs'
 
@@ -38,7 +37,7 @@ export default function PaymentMethod() {
           'px-3 py-4 xs:px-4 md:py-7 lg:px-7'
         )}
       >
-        <CheckoutSectionTitle title="Phương thức thanh toán" className="md:min-w-60" />
+        <SectionTitle title="Phương thức thanh toán" className="md:min-w-60" />
         <div className="flex w-full flex-1 flex-col gap-2 xs:w-auto xs:flex-row xs:items-center">
           {CHECKOUT_PAYMENT_TABS.map((item) => (
             <TabsTrigger

@@ -99,6 +99,11 @@
 
     --address-item: 240 27.3% 97.8%; /* #f8f8fb - secondary-5 */
 
+    --order-info: 240 27.3% 97.8%; /* #f8f8fb - secondary-5 */
+    --order-step-icon: 245.5 5.9% 63.7%; /* #9e9da8 - secondary-2 */
+    --order-step-icon-active: 0 0% 100%; /* #fff - light-1 */
+    --order-step-icon-completed: 209.2 100% 43.1%; /* #0071dc - primary-blue */
+
     --highlight: 209.2 100% 43.1%; /* #0071dc - primary-blue */
   }
 
@@ -189,6 +194,12 @@
     --promotion-card-foreground: 0 0% 96.5%; /* #f6f6f6 - light-2 */
 
     --address-item: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
+
+    --order-info: 221.3 16.3% 19.2%; /* #292e39 - dark-2 */
+    --order-label: 245.5 5.9% 63.7%; /* #9e9da8 - secondary-2 */
+    --order-step-icon: 245.5 5.9% 63.7%; /* #9e9da8 - secondary-2 */
+    --order-step-icon-active: 250 35.3% 13.3%; /* #1a162e - secondary-1 */
+    --order-step-icon-completed: 186.5 68.9% 68.4%; /* #ffb700 - primary-yellow */
 
     --highlight: 186.5 68.9% 68.4%; /* #ffb700 - primary-yellow */
   }
